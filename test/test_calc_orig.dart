@@ -94,6 +94,6 @@ calcTest() {
   print('countDown:\t${location.durations.countDown}');
   print('countUp:\t${location.durations.countUp}');
   print('percentage:\t${location.durations.percentage}');
-  print(location.current); // TODO
+  print(location.current); // TODO: current date vs current time
   print(location.dayOfYear);
 }

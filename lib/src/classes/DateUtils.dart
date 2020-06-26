@@ -9,8 +9,6 @@ dateByAddingMinutes(date, minutes) {
 }
 
 dateByAddingSeconds(DateTime date, int seconds) {
-  // TODO??? 1000*
-  // return new Date(date.getTime() + (seconds * 1000));
   return date.add(Duration(seconds: seconds));
 }
 
