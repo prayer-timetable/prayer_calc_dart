@@ -3,16 +3,16 @@ import 'package:prayer_calc/src/components/Prayers.dart';
 import 'package:prayer_calc/src/components/Durations.dart';
 import 'package:prayer_calc/src/func/prayerTimetableList.dart';
 
-class PrayerTimetable {
+class PrayerTimetableList {
   // PrayersStructure prayers;
   Prayers current;
   Prayers previous;
   Prayers next;
-  PrayerTimetable prayers;
+  PrayerTimetableList prayers;
   Sunnah sunnah;
   Durations durations;
 
-  PrayerTimetable({
+  PrayerTimetableList({
     int year,
     int month,
     int day,
@@ -93,8 +93,8 @@ class PrayerTimetable {
     );
 
     // define components
-    this.prayers =
-        PrayerTimetable.prayers(prayersCurrent, prayersNext, prayersPrevious);
+    this.prayers = PrayerTimetableList.prayers(
+        prayersCurrent, prayersNext, prayersPrevious);
 
     this.sunnah =
         Sunnah(nowLocal, prayersCurrent, prayersNext, prayersPrevious);
@@ -105,7 +105,7 @@ class PrayerTimetable {
     //end
   }
 
-  PrayerTimetable.prayers(
+  PrayerTimetableList.prayers(
       Prayers prayersCurrent, Prayers prayersNext, Prayers prayersPrevious) {
     current = prayersCurrent;
     next = prayersNext;

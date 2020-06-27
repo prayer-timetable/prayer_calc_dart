@@ -1,7 +1,7 @@
 import 'package:prayer_calc/src/PrayerTimetableMap.dart';
 import 'src/timetable_map.dart';
 
-PrayerTimetable dublin = PrayerTimetable(
+PrayerTimetableMap dublin = PrayerTimetableMap(
   timetableDublin,
   // optional parameters:
   // year: 2020,
@@ -9,7 +9,7 @@ PrayerTimetable dublin = PrayerTimetable(
   // day: 28,
 );
 
-PrayerTimetable location = dublin;
+PrayerTimetableMap location = dublin;
 
 timetableTest() {
   print('**************** Today *****************');

@@ -9,7 +9,7 @@ double angleS = 14.6;
 int timezoneS = 1;
 
 // Prayers sarajevo = new Prayers(latS, longS, altitudeS, angleS, timezoneS);
-PrayerTimetable sarajevo = new PrayerTimetable(
+PrayerTimetableList sarajevo = new PrayerTimetableList(
   timetable: base,
   summerTimeCalc: false,
   year: 2020,
@@ -26,7 +26,7 @@ PrayerTimetable sarajevo = new PrayerTimetable(
 // summerTimeCalc is true by default, set to false if no daylight saving should happen
 //
 // example (icci location, Hanafi, 1st June 2020, different ishaAngle, no summer time):
-PrayerTimetable test = new PrayerTimetable(
+PrayerTimetableList test = new PrayerTimetableList(
   timetable: base,
   summerTimeCalc: false,
   year: 2020,
@@ -34,7 +34,7 @@ PrayerTimetable test = new PrayerTimetable(
   day: 1,
 );
 
-PrayerTimetable location = sarajevo;
+PrayerTimetableList location = sarajevo;
 
 timetableTest() {
   print('**************** Today *****************');
