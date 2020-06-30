@@ -2,6 +2,7 @@ import 'package:prayer_calc/src/components/Sunnah.dart';
 import 'package:prayer_calc/src/components/Prayers.dart';
 import 'package:prayer_calc/src/components/Durations.dart';
 import 'package:prayer_calc/src/func/prayerTimetableMap.dart';
+import 'package:prayer_calc/src/func/prayerTimetableMapJamaah.dart';
 
 class PrayerTimetableMap {
   // PrayersStructure prayers;
@@ -9,8 +10,10 @@ class PrayerTimetableMap {
   Prayers previous;
   Prayers next;
   PrayerTimetableMap prayers;
+  PrayerTimetableMap jamaah;
   Sunnah sunnah;
   Durations durations;
+  // Jamaah jamaahPrayer;
 
   PrayerTimetableMap(
     Map timetable, {
@@ -18,18 +21,27 @@ class PrayerTimetableMap {
     int month,
     int day,
     int hijriOffset,
-    bool summerTimeCalc: true,
+    bool summerTimeCalc = true,
+    bool jamaahOn = false,
+    List<String> jamaahMethods,
+    List<List<int>> jamaahOffsets,
+    // for testing:
+    int hour,
+    int minute,
+    int second,
   }) {
     DateTime timestamp = DateTime.now();
     DateTime beginingOfYear = DateTime(timestamp.year); // Jan 1, 0:00
 
     // Local dates needed for dst calc and local midnight past (0:00)
     DateTime date = DateTime(
-        year ?? timestamp.year,
-        month ?? timestamp.month,
-        day ?? timestamp.day,
-        12,
-        0); // using noon of local date to avoid +- 1 hour
+      year ?? timestamp.year,
+      month ?? timestamp.month,
+      day ?? timestamp.day,
+      hour ?? 12,
+      minute ?? 0,
+      second ?? 0,
+    ); // using noon of local date to avoid +- 1 hour
     // define now (local)
     DateTime nowLocal = DateTime.now();
 
@@ -45,51 +57,83 @@ class PrayerTimetableMap {
 
     // ***** PRAYERS CURRENT, NEXT, PREVIOUS
     Prayers prayersCurrent = prayerTimetable(
-      timetable: timetable,
+      timetable,
       hijriOffset: hijriOffset ?? 0,
       date: current,
     );
 
     Prayers prayersNext = prayerTimetable(
-      timetable: timetable,
+      timetable,
       hijriOffset: hijriOffset ?? 0,
       date: next,
     );
 
     Prayers prayersPrevious = prayerTimetable(
-      timetable: timetable,
+      timetable,
       hijriOffset: hijriOffset ?? 0,
       date: previous,
     );
 
     // ***** PRAYERS TODAY, TOMORROW, YESTERDAY
     Prayers prayersToday = prayerTimetable(
-      timetable: timetable,
+      timetable,
       hijriOffset: hijriOffset ?? 0,
       date: today,
     );
 
     Prayers prayersTomorrow = prayerTimetable(
-      timetable: timetable,
+      timetable,
       hijriOffset: hijriOffset ?? 0,
       date: tomorrow,
     );
 
     Prayers prayersYesterday = prayerTimetable(
-      timetable: timetable,
+      timetable,
       hijriOffset: hijriOffset ?? 0,
       date: yesterday,
     );
+
+    // JAMAAH
+    Prayers jamaahCurrent = jamaahOn
+        ? jamaahTimetable(prayersCurrent, jamaahMethods, jamaahOffsets)
+        : prayersCurrent;
+
+    Prayers jamaahNext = jamaahOn
+        ? jamaahTimetable(prayersNext, jamaahMethods, jamaahOffsets)
+        : prayersNext;
+
+    Prayers jamaahPrevious = jamaahOn
+        ? jamaahTimetable(prayersPrevious, jamaahMethods, jamaahOffsets)
+        : prayersPrevious;
+
+    Prayers jamaahToday = jamaahOn
+        ? jamaahTimetable(prayersToday, jamaahMethods, jamaahOffsets)
+        : prayersCurrent;
+
+    Prayers jamaahTomorrow = jamaahOn
+        ? jamaahTimetable(prayersTomorrow, jamaahMethods, jamaahOffsets)
+        : prayersNext;
+
+    Prayers jamaahYesterday = jamaahOn
+        ? jamaahTimetable(prayersYesterday, jamaahMethods, jamaahOffsets)
+        : prayersPrevious;
 
     // define components
     this.prayers = PrayerTimetableMap.prayers(
         prayersCurrent, prayersNext, prayersPrevious);
 
+    this.jamaah =
+        PrayerTimetableMap.prayers(jamaahCurrent, jamaahNext, jamaahPrevious);
+
     this.sunnah =
         Sunnah(nowLocal, prayersCurrent, prayersNext, prayersPrevious);
 
-    this.durations =
-        Durations(nowLocal, prayersToday, prayersTomorrow, prayersYesterday);
+    this.durations = Durations(
+        nowLocal, prayersToday, prayersTomorrow, prayersYesterday,
+        jamaahOn: jamaahOn,
+        jamaahToday: jamaahToday,
+        jamaahTomorrow: jamaahTomorrow,
+        jamaahYesterday: jamaahYesterday);
 
     //end
   }

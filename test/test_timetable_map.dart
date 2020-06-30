@@ -7,6 +7,23 @@ PrayerTimetableMap dublin = PrayerTimetableMap(
   // year: 2020,
   // month: 3,
   // day: 28,
+  jamaahOn: true,
+  jamaahMethods: [
+    'fixed',
+    '',
+    'afterthis',
+    'afterthis',
+    'afterthis',
+    'afterthis'
+  ],
+  jamaahOffsets: [
+    [4, 0],
+    [],
+    [0, 5],
+    [0, 5],
+    [0, 5],
+    [0, 0]
+  ],
 );
 
 PrayerTimetableMap location = dublin;
@@ -33,6 +50,27 @@ timetableTest() {
   print('afternoon:\t${location.prayers.previous.afternoon}');
   print('sunset:\t\t${location.prayers.previous.sunset}');
   print('dusk:\t\t${location.prayers.previous.dusk}');
+  print('************ Today Jamaah *************');
+  print('dawn:\t\t${location.jamaah.current.dawn}');
+  print('sunrise:\t${location.jamaah.current.sunrise}');
+  print('midday:\t\t${location.jamaah.current.midday}');
+  print('afternoon:\t${location.jamaah.current.afternoon}');
+  print('sunset:\t\t${location.jamaah.current.sunset}');
+  print('dusk:\t\t${location.jamaah.current.dusk}');
+  print('*********** Tomorrow Jamaah ***********');
+  print('dawn:\t\t${location.jamaah.next.dawn}');
+  print('sunrise:\t${location.jamaah.next.sunrise}');
+  print('midday:\t\t${location.jamaah.next.midday}');
+  print('afternoon:\t${location.jamaah.next.afternoon}');
+  print('sunset:\t\t${location.jamaah.next.sunset}');
+  print('dusk:\t\t${location.jamaah.next.dusk}');
+  print('********** Yesterday Jamaah ***********');
+  print('dawn:\t\t${location.jamaah.previous.dawn}');
+  print('sunrise:\t${location.jamaah.previous.sunrise}');
+  print('midday:\t\t${location.jamaah.previous.midday}');
+  print('afternoon:\t${location.jamaah.previous.afternoon}');
+  print('sunset:\t\t${location.jamaah.previous.sunset}');
+  print('dusk:\t\t${location.jamaah.previous.dusk}');
   print('*************** Sunnah *****************');
   print('midnight:\t${location.sunnah.midnight}');
   print('lastThird\t${location.sunnah.lastThird}');
@@ -42,6 +80,7 @@ timetableTest() {
   print('next:\t\t${location.durations.next}');
   print('previous:\t${location.durations.previous}');
   print('isAfterIsha:\t${location.durations.isAfterIsha}');
+  print('jamaahPending:\t${location.durations.jamaahPending}');
   print('currentId:\t${location.durations.currentId}');
   print('countDown:\t${location.durations.countDown}');
   print('countUp:\t${location.durations.countUp}');
