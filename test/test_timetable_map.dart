@@ -7,6 +7,7 @@ PrayerTimetableMap dublin = PrayerTimetableMap(
   // year: 2020,
   // month: 3,
   // day: 28,
+
   jamaahOn: true,
   jamaahMethods: [
     'fixed',
@@ -24,6 +25,11 @@ PrayerTimetableMap dublin = PrayerTimetableMap(
     [0, 5],
     [0, 0]
   ],
+  // testing options
+  testing: true,
+  hour: 13,
+  minute: 33,
+  second: 55,
 );
 
 PrayerTimetableMap location = dublin;

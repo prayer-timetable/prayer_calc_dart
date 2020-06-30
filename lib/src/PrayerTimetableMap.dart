@@ -26,6 +26,7 @@ class PrayerTimetableMap {
     List<String> jamaahMethods,
     List<List<int>> jamaahOffsets,
     // for testing:
+    bool testing = false,
     int hour,
     int minute,
     int second,
@@ -44,6 +45,11 @@ class PrayerTimetableMap {
     ); // using noon of local date to avoid +- 1 hour
     // define now (local)
     DateTime nowLocal = DateTime.now();
+
+    if (testing) {
+      nowLocal = DateTime(nowLocal.year, nowLocal.month, nowLocal.day,
+          hour ?? 12, minute ?? 0, second ?? 0);
+    }
 
     // ***** current, next and previous
     DateTime current = date;
