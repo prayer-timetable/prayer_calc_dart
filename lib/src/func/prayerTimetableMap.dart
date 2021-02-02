@@ -17,6 +17,7 @@ Prayers prayerTimetable(
   // print(date);
   DateTime timestamp = date ?? DateTime.now();
   int adjDst = isDSTCalc(timestamp) ? 1 : 0;
+  // print('adjDst: $adjDst');
   // check if leap year
   // bool isLeap = date.year % 4 == 0;
 
