@@ -40,8 +40,8 @@ PrayerTimetableMap location = dublin;
 
 main() {
   tz.initializeTimeZones();
-  jamaahTest(location);
-  // timetableTest(location);
+  // jamaahTest(location);
+  timetableTest(location);
 }
 
 // main() => timetableTest(location);
