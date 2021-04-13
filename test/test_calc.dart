@@ -1,12 +1,16 @@
 import 'package:prayer_calc/src/PrayerCalc.dart';
+import 'test.dart';
+import 'package:timezone/data/latest.dart' as tz;
+// import 'package:timezone/timezone.dart' as tz;
 
+// main() => calcTest();
 // ICCI
 double latI = 53.3046593;
 double longI = -6.2344076;
 double altitudeI = 85;
-double angleI = 18;
-double iangleI = 16;
-int timezoneI = 0;
+double angleI = 14.6; //18
+double iangleI = 14.6; //16
+String timezoneI = 'Europe/Dublin';
 
 // Sarajevo
 double latS = 43.8563;
@@ -14,7 +18,7 @@ double longS = 18.4131;
 double altitudeS = 518;
 double angleS = 14.6; //iz =19
 double iangleS = 14.6; // iz = 17
-int timezoneS = 1;
+String timezoneS = 'Europe/Sarajevo';
 
 // Prayers sarajevo = new Prayers(latS, longS, altitudeS, angleS, timezoneS);
 PrayerCalc sarajevo = new PrayerCalc(
@@ -28,6 +32,7 @@ PrayerCalc sarajevo = new PrayerCalc(
   // day: 30,
   // ishaAngle: iangleS,
   // ishaAngle: 17,
+  // precision: true,
 );
 PrayerCalc icci = new PrayerCalc(timezoneI, latI, longI, angleI,
     ishaAngle: iangleI, precision: true);
@@ -57,44 +62,50 @@ PrayerCalc test = new PrayerCalc(
 );
 
 PrayerCalc location = icci;
+// PrayerCalc location = sarajevo;
+// PrayerCalc location = test;
 
-calcTest() {
-  print('**************** current *****************');
-  print('dawn:\t\t${location.prayers.current.dawn}');
-  print('sunrise:\t${location.prayers.current.sunrise}');
-  print('midday:\t\t${location.prayers.current.midday}');
-  print('afternoon:\t${location.prayers.current.afternoon}');
-  print('sunset:\t\t${location.prayers.current.sunset}');
-  print('dusk:\t\t${location.prayers.current.dusk}');
-  print('*************** next **************');
-  print('dawn:\t\t${location.prayers.next.dawn}');
-  print('sunrise:\t${location.prayers.next.sunrise}');
-  print('midday:\t\t${location.prayers.next.midday}');
-  print('afternoon:\t${location.prayers.next.afternoon}');
-  print('sunset:\t\t${location.prayers.next.sunset}');
-  print('dusk:\t\t${location.prayers.next.dusk}');
-  print('************** previous ***************');
-  print('dawn:\t\t${location.prayers.previous.dawn}');
-  print('sunrise:\t${location.prayers.previous.sunrise}');
-  print('midday:\t\t${location.prayers.previous.midday}');
-  print('afternoon:\t${location.prayers.previous.afternoon}');
-  print('sunset:\t\t${location.prayers.previous.sunset}');
-  print('dusk:\t\t${location.prayers.previous.dusk}');
-  print('*************** Sunnah *****************');
-  print('midnight:\t${location.sunnah.midnight}');
-  print('lastThird\t${location.sunnah.lastThird}');
-  print('************** Durations ***************');
-  print('nowLocal:\t${location.durations.now}');
-  print('current:\t${location.durations.current}');
-  print('next:\t\t${location.durations.next}');
-  print('previous:\t${location.durations.previous}');
-  print('isAfterIsha:\t${location.durations.isAfterIsha}');
-  print('currentId:\t${location.durations.currentId}');
-  print('countDown:\t${location.durations.countDown}');
-  print('countUp:\t${location.durations.countUp}');
-  print('percentage:\t${location.durations.percentage}');
-  print('Qibla:\t\t${location.qibla}');
-  // print(location.current); // TODO
+// calcTest() {
+//   print('**************** current *****************');
+//   print('dawn:\t\t${location.prayers.current.dawn}');
+//   print('sunrise:\t${location.prayers.current.sunrise}');
+//   print('midday:\t\t${location.prayers.current.midday}');
+//   print('afternoon:\t${location.prayers.current.afternoon}');
+//   print('sunset:\t\t${location.prayers.current.sunset}');
+//   print('dusk:\t\t${location.prayers.current.dusk}');
+//   print('*************** next **************');
+//   print('dawn:\t\t${location.prayers.next.dawn}');
+//   print('sunrise:\t${location.prayers.next.sunrise}');
+//   print('midday:\t\t${location.prayers.next.midday}');
+//   print('afternoon:\t${location.prayers.next.afternoon}');
+//   print('sunset:\t\t${location.prayers.next.sunset}');
+//   print('dusk:\t\t${location.prayers.next.dusk}');
+//   print('************** previous ***************');
+//   print('dawn:\t\t${location.prayers.previous.dawn}');
+//   print('sunrise:\t${location.prayers.previous.sunrise}');
+//   print('midday:\t\t${location.prayers.previous.midday}');
+//   print('afternoon:\t${location.prayers.previous.afternoon}');
+//   print('sunset:\t\t${location.prayers.previous.sunset}');
+//   print('dusk:\t\t${location.prayers.previous.dusk}');
+//   print('*************** Sunnah *****************');
+//   print('midnight:\t${location.sunnah.midnight}');
+//   print('lastThird\t${location.sunnah.lastThird}');
+//   print('************** Durations ***************');
+//   print('nowLocal:\t${location.durations.now}');
+//   print('current:\t${location.durations.current}');
+//   print('next:\t\t${location.durations.next}');
+//   print('previous:\t${location.durations.previous}');
+//   print('isAfterIsha:\t${location.durations.isAfterIsha}');
+//   print('currentId:\t${location.durations.currentId}');
+//   print('countDown:\t${location.durations.countDown}');
+//   print('countUp:\t${location.durations.countUp}');
+//   print('percentage:\t${location.durations.percentage}');
+//   print('Qibla:\t\t${location.qibla}');
+//   // print(location.current); // TODO
 
-  // print(location.dayOfYear);
+//   // print(location.dayOfYear);
+// }
+main() {
+  tz.initializeTimeZones();
+  timetableTest(location);
 }

@@ -1,5 +1,9 @@
+import 'package:timezone/data/latest.dart' as tz;
+// import 'package:timezone/timezone.dart' as tz;
+//
 import 'package:prayer_calc/src/PrayerTimetableMap.dart';
 import 'src/timetable_map.dart';
+import 'test.dart';
 
 PrayerTimetableMap dublin = PrayerTimetableMap(
   timetableDublin,
@@ -34,61 +38,10 @@ PrayerTimetableMap dublin = PrayerTimetableMap(
 
 PrayerTimetableMap location = dublin;
 
-timetableTest() {
-  print('**************** Today *****************');
-  print('dawn:\t\t${location.prayers.current.dawn}');
-  print('sunrise:\t${location.prayers.current.sunrise}');
-  print('midday:\t\t${location.prayers.current.midday}');
-  print('afternoon:\t${location.prayers.current.afternoon}');
-  print('sunset:\t\t${location.prayers.current.sunset}');
-  print('dusk:\t\t${location.prayers.current.dusk}');
-  print('*************** Tomorrow **************');
-  print('dawn:\t\t${location.prayers.next.dawn}');
-  print('sunrise:\t${location.prayers.next.sunrise}');
-  print('midday:\t\t${location.prayers.next.midday}');
-  print('afternoon:\t${location.prayers.next.afternoon}');
-  print('sunset:\t\t${location.prayers.next.sunset}');
-  print('dusk:\t\t${location.prayers.next.dusk}');
-  print('************** Yesterday ***************');
-  print('dawn:\t\t${location.prayers.previous.dawn}');
-  print('sunrise:\t${location.prayers.previous.sunrise}');
-  print('midday:\t\t${location.prayers.previous.midday}');
-  print('afternoon:\t${location.prayers.previous.afternoon}');
-  print('sunset:\t\t${location.prayers.previous.sunset}');
-  print('dusk:\t\t${location.prayers.previous.dusk}');
-  print('************ Today Jamaah *************');
-  print('dawn:\t\t${location.jamaah.current.dawn}');
-  print('sunrise:\t${location.jamaah.current.sunrise}');
-  print('midday:\t\t${location.jamaah.current.midday}');
-  print('afternoon:\t${location.jamaah.current.afternoon}');
-  print('sunset:\t\t${location.jamaah.current.sunset}');
-  print('dusk:\t\t${location.jamaah.current.dusk}');
-  print('*********** Tomorrow Jamaah ***********');
-  print('dawn:\t\t${location.jamaah.next.dawn}');
-  print('sunrise:\t${location.jamaah.next.sunrise}');
-  print('midday:\t\t${location.jamaah.next.midday}');
-  print('afternoon:\t${location.jamaah.next.afternoon}');
-  print('sunset:\t\t${location.jamaah.next.sunset}');
-  print('dusk:\t\t${location.jamaah.next.dusk}');
-  print('********** Yesterday Jamaah ***********');
-  print('dawn:\t\t${location.jamaah.previous.dawn}');
-  print('sunrise:\t${location.jamaah.previous.sunrise}');
-  print('midday:\t\t${location.jamaah.previous.midday}');
-  print('afternoon:\t${location.jamaah.previous.afternoon}');
-  print('sunset:\t\t${location.jamaah.previous.sunset}');
-  print('dusk:\t\t${location.jamaah.previous.dusk}');
-  print('*************** Sunnah *****************');
-  print('midnight:\t${location.sunnah.midnight}');
-  print('lastThird\t${location.sunnah.lastThird}');
-  print('************** Durations ***************');
-  print('nowLocal:\t${location.durations.now}');
-  print('current:\t${location.durations.current}');
-  print('next:\t\t${location.durations.next}');
-  print('previous:\t${location.durations.previous}');
-  print('isAfterIsha:\t${location.durations.isAfterIsha}');
-  print('jamaahPending:\t${location.durations.jamaahPending}');
-  print('currentId:\t${location.durations.currentId}');
-  print('countDown:\t${location.durations.countDown}');
-  print('countUp:\t${location.durations.countUp}');
-  // print(location.current);
+main() {
+  tz.initializeTimeZones();
+  jamaahTest(location);
+  // timetableTest(location);
 }
+
+// main() => timetableTest(location);

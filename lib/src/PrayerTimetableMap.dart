@@ -1,3 +1,6 @@
+// import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
+
 import 'package:prayer_calc/src/components/Sunnah.dart';
 import 'package:prayer_calc/src/components/Prayers.dart';
 import 'package:prayer_calc/src/components/Durations.dart';
@@ -17,6 +20,7 @@ class PrayerTimetableMap {
 
   PrayerTimetableMap(
     Map timetable, {
+    String timezone = 'Europe/Dublin',
     int year,
     int month,
     int day,
@@ -31,33 +35,24 @@ class PrayerTimetableMap {
     int minute,
     int second,
   }) {
-    DateTime timestamp = DateTime.now();
-    DateTime beginingOfYear = DateTime(timestamp.year); // Jan 1, 0:00
+    tz.setLocalLocation(tz.getLocation(timezone));
 
-    // Local dates needed for dst calc and local midnight past (0:00)
-    DateTime date = DateTime(
-      year ?? timestamp.year,
-      month ?? timestamp.month,
-      day ?? timestamp.day,
-      hour ?? 12,
-      minute ?? 0,
-      second ?? 0,
-    ); // using noon of local date to avoid +- 1 hour
-    // define now (local)
-    DateTime nowLocal = DateTime.now();
+    DateTime timestamp = tz.TZDateTime.now(tz.getLocation(timezone));
 
-    if (testing) {
-      nowLocal = DateTime(nowLocal.year, nowLocal.month, nowLocal.day,
-          hour ?? 12, minute ?? 0, second ?? 0);
-    }
+    DateTime date = tz.TZDateTime.from(
+        DateTime(year ?? timestamp.year, month ?? timestamp.month,
+            day ?? timestamp.day, hour ?? 12, minute ?? 0, second ?? 0),
+        tz.getLocation(timezone));
 
-    // ***** current, next and previous
+    DateTime now = tz.TZDateTime.from(DateTime.now(), tz.getLocation(timezone));
+
+    // ***** current, next and previous day
     DateTime current = date;
-    DateTime next = date.add(Duration(days: 1));
-    DateTime previous = date.subtract(Duration(days: 1));
+    DateTime next = current.add(Duration(days: 1));
+    DateTime previous = current.subtract(Duration(days: 1));
 
     // ***** today, tomorrow and yesterday
-    DateTime today = DateTime.now();
+    DateTime today = now;
     DateTime tomorrow = today.add(Duration(days: 1));
     DateTime yesterday = today.subtract(Duration(days: 1));
 
@@ -131,11 +126,10 @@ class PrayerTimetableMap {
     this.jamaah =
         PrayerTimetableMap.prayers(jamaahCurrent, jamaahNext, jamaahPrevious);
 
-    this.sunnah =
-        Sunnah(nowLocal, prayersCurrent, prayersNext, prayersPrevious);
+    this.sunnah = Sunnah(now, prayersCurrent, prayersNext, prayersPrevious);
 
     this.durations = Durations(
-        nowLocal, prayersToday, prayersTomorrow, prayersYesterday,
+        now, prayersToday, prayersTomorrow, prayersYesterday,
         jamaahOn: jamaahOn,
         jamaahToday: jamaahToday,
         jamaahTomorrow: jamaahTomorrow,

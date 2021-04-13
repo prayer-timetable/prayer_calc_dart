@@ -8,5 +8,7 @@ documentation: https://ensar.me/docs
 environment:
   sdk: '>=2.2.0 <3.0.0'
 dependencies:
+  adhan_dart: ^1.0.7
+  timezone: ^0.7.0
 
 dev_dependencies:
