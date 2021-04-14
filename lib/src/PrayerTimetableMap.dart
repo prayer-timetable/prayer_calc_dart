@@ -40,8 +40,14 @@ class PrayerTimetableMap {
     DateTime timestamp = tz.TZDateTime.now(tz.getLocation(timezone));
 
     DateTime date = tz.TZDateTime.from(
-        DateTime(year ?? timestamp.year, month ?? timestamp.month,
-            day ?? timestamp.day, hour ?? 12, minute ?? 0, second ?? 0),
+        DateTime(
+          year ?? timestamp.year,
+          month ?? timestamp.month,
+          day ?? timestamp.day,
+          hour ?? timestamp.hour,
+          minute ?? timestamp.minute,
+          second ?? timestamp.second,
+        ),
         tz.getLocation(timezone));
 
     DateTime now = tz.TZDateTime.from(DateTime.now(), tz.getLocation(timezone));
