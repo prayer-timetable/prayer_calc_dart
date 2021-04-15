@@ -32,6 +32,8 @@ timetableTest(location) {
   print('currentId:\t${location.durations.currentId}');
   print('countDown:\t${location.durations.countDown}');
   print('countUp:\t${location.durations.countUp}');
+  print('countDown durationsToday:\t${location.durationsToday.countDown}');
+  print('countUp durationsToday:\t${location.durationsToday.countUp}');
   // print(location.current);
 }
 
