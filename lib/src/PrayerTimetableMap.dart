@@ -16,6 +16,7 @@ class PrayerTimetableMap {
   PrayerTimetableMap jamaah;
   Sunnah sunnah;
   Durations durations;
+  Durations durationsToday;
   // Jamaah jamaahPrayer;
 
   PrayerTimetableMap(
@@ -134,13 +135,19 @@ class PrayerTimetableMap {
 
     this.sunnah = Sunnah(now, prayersCurrent, prayersNext, prayersPrevious);
 
-    this.durations = Durations(
+    this.durationsToday = Durations(
         now, prayersToday, prayersTomorrow, prayersYesterday,
         jamaahOn: jamaahOn,
         jamaahToday: jamaahToday,
         jamaahTomorrow: jamaahTomorrow,
         jamaahYesterday: jamaahYesterday);
 
+    this.durations = Durations(
+        date, prayersCurrent, prayersNext, prayersPrevious,
+        jamaahOn: jamaahOn,
+        jamaahToday: jamaahToday,
+        jamaahTomorrow: jamaahTomorrow,
+        jamaahYesterday: jamaahYesterday);
     //end
   }
 

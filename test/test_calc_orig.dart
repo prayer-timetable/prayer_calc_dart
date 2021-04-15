@@ -85,7 +85,7 @@ calcTest() {
   print('midnight:\t${location.sunnah.midnight}');
   print('lastThird\t${location.sunnah.lastThird}');
   print('************** Durations ***************');
-  print('now:\t${location.durations.now}');
+  print('now:\t${location.durations.time}');
   print('current:\t${location.durations.current}');
   print('next:\t\t${location.durations.next}');
   print('previous:\t${location.durations.previous}');
