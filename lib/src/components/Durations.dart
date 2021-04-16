@@ -2,27 +2,27 @@ import 'package:prayer_calc/src/components/Prayers.dart';
 import 'package:prayer_calc/src/func/helpers.dart';
 
 class Durations {
-  DateTime time;
-  DateTime current;
-  DateTime next;
-  DateTime previous;
-  bool isAfterIsha;
-  int currentId;
-  Duration countDown;
-  Duration countUp;
-  double percentage;
-  bool jamaahPending;
+  DateTime time = DateTime.now();
+  DateTime current = DateTime.now();
+  DateTime next = DateTime.now().add(Duration(days: 1));
+  DateTime previous = DateTime.now().subtract(Duration(days: 1));
+  bool isAfterIsha = false;
+  int currentId = 0;
+  Duration countDown = Duration.zero;
+  Duration countUp = Duration.zero;
+  double percentage = 0;
+  bool jamaahPending = false;
 
   Durations(DateTime _time, Prayers prayersToday, Prayers prayersTomorrow,
       Prayers prayersYesterday,
       {bool jamaahOn = false,
-      Prayers jamaahToday,
-      Prayers jamaahTomorrow,
-      Prayers jamaahYesterday}) {
-    DateTime current;
-    DateTime next;
-    DateTime previous;
-    int currentId;
+      Prayers? jamaahToday,
+      Prayers? jamaahTomorrow,
+      Prayers? jamaahYesterday}) {
+    DateTime current = this.current;
+    DateTime next = this.next;
+    DateTime previous = this.previous;
+    int currentId = this.currentId;
     bool isAfterIsha = false;
 
     // time is local for PrayerTimetable and PrayerCalcAlt
@@ -83,7 +83,7 @@ class Durations {
         currentId = 5;
       }
       // dawn - fajr jamaah
-      else if (_time.isBefore(jamaahToday.dawn)) {
+      else if (_time.isBefore(jamaahToday!.dawn)) {
         current = prayersToday.dawn;
         next = jamaahToday.dawn;
         previous = prayersToday.dawn;

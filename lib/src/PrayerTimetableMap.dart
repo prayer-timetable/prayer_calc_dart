@@ -9,32 +9,46 @@ import 'package:prayer_calc/src/func/prayerTimetableMapJamaah.dart';
 
 class PrayerTimetableMap {
   // PrayersStructure prayers;
-  Prayers current;
-  Prayers previous;
-  Prayers next;
-  PrayerTimetableMap prayers;
-  PrayerTimetableMap jamaah;
-  Sunnah sunnah;
-  Durations durations;
-  Durations durationsToday;
+  Prayers? current;
+  Prayers? previous;
+  Prayers? next;
+  PrayerTimetableMap? prayers;
+  PrayerTimetableMap? jamaah;
+  Sunnah? sunnah;
+  Durations? durations;
+  Durations? durationsToday;
   // Jamaah jamaahPrayer;
 
   PrayerTimetableMap(
     Map timetable, {
     String timezone = 'Europe/Dublin',
-    int year,
-    int month,
-    int day,
-    int hijriOffset,
+    int? year,
+    int? month,
+    int? day,
+    int? hijriOffset,
     bool summerTimeCalc = true,
     bool jamaahOn = false,
-    List<String> jamaahMethods,
-    List<List<int>> jamaahOffsets,
+    List<String> jamaahMethods = const [
+      'afterthis',
+      '',
+      'afterthis',
+      'afterthis',
+      'afterthis',
+      'afterthis'
+    ],
+    List<List<int>> jamaahOffsets = const [
+      [0, 0],
+      [],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0]
+    ],
     // for testing:
     bool testing = false,
-    int hour,
-    int minute,
-    int second,
+    int? hour,
+    int? minute,
+    int? second,
   }) {
     tz.setLocalLocation(tz.getLocation(timezone));
 

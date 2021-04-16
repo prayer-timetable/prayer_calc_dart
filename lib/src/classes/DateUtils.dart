@@ -27,7 +27,7 @@ roundedMinute(DateTime date, {bool precision: true}) {
 }
 
 dayOfYear(date) {
-  int returnedDayOfYear = 0;
+  num returnedDayOfYear = 0;
   int feb = Astronomical.isLeapYear(date.year) ? 29 : 28;
   List<int> months = [31, feb, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   for (var i = 0; i < (date.month - 1); i++) {

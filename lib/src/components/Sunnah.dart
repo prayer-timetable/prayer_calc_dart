@@ -1,8 +1,8 @@
 import 'package:prayer_calc/src/components/Prayers.dart';
 
 class Sunnah {
-  DateTime midnight;
-  DateTime lastThird;
+  DateTime midnight = DateTime.now();
+  DateTime lastThird = DateTime.now();
 
   Sunnah(
     DateTime now,

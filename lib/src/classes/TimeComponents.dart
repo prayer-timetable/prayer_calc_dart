@@ -1,9 +1,9 @@
 // import 'dart:math';
 
 class TimeComponents {
-  int hours;
-  int minutes;
-  int seconds;
+  int hours = 0;
+  int minutes = 0;
+  int seconds = 0;
 
   TimeComponents(double number) {
     this.hours = (number).floor();

@@ -4,11 +4,11 @@ import 'package:prayer_calc/src/func/helpers.dart';
 /* *********************** */
 /* MAIN FUNCTION           */
 /* *********************** */
-Prayers prayerTimetable({
-  List timetable,
-  List difference,
-  int hijriOffset,
-  DateTime date,
+Prayers prayerTimetable(
+  List timetable, {
+  List difference = const [0, 0, 0, 0, 0, 0],
+  int hijriOffset = 0,
+  DateTime? date,
 }) {
   /* *********************** */
   /* TIMES                   */

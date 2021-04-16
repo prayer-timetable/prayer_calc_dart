@@ -4,9 +4,9 @@ import 'package:prayer_calc/src/classes/Astronomical.dart';
 import 'package:prayer_calc/src/classes/MathUtils.dart';
 
 class SolarCoordinates {
-  double declination;
-  double rightAscension;
-  double apparentSiderealTime;
+  double declination = 0;
+  double rightAscension = 0;
+  double apparentSiderealTime = 0;
 
   SolarCoordinates(double julianDay) {
     double T = Astronomical.julianCentury(julianDay);

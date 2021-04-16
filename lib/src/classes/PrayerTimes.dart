@@ -8,17 +8,21 @@ import 'package:prayer_calc/src/classes/Madhab.dart';
 import 'package:prayer_calc/src/classes/Coordinates.dart';
 import 'package:prayer_calc/src/classes/CalculationParameters.dart';
 
-class PrayerTimes {
-  Coordinates coordinates;
-  DateTime date;
-  CalculationParameters calculationParameters;
+import 'CalculationParameters.dart';
+import 'Coordinates.dart';
 
-  DateTime fajr;
-  DateTime sunrise;
-  DateTime dhuhr;
-  DateTime asr;
-  DateTime maghrib;
-  DateTime isha;
+class PrayerTimes {
+  Coordinates coordinates = Coordinates(0, 0);
+  DateTime date = DateTime.now();
+  CalculationParameters calculationParameters =
+      CalculationParameters("Other", 0, 0);
+
+  DateTime? fajr;
+  DateTime? sunrise;
+  DateTime? dhuhr;
+  DateTime? asr;
+  DateTime? maghrib;
+  DateTime? isha;
 
   PrayerTimes(Coordinates coordinates, DateTime date,
       CalculationParameters calculationParameters,

@@ -5,20 +5,20 @@ import 'package:prayer_calc/src/func/prayerTimetableList.dart';
 
 class PrayerTimetableList {
   // PrayersStructure prayers;
-  Prayers current;
-  Prayers previous;
-  Prayers next;
-  PrayerTimetableList prayers;
-  Sunnah sunnah;
-  Durations durations;
+  Prayers? current;
+  Prayers? previous;
+  Prayers? next;
+  PrayerTimetableList? prayers;
+  Sunnah? sunnah;
+  Durations? durations;
 
-  PrayerTimetableList({
-    int year,
-    int month,
-    int day,
-    List timetable,
-    List<int> difference,
-    int hijriOffset,
+  PrayerTimetableList(
+    List timetable, {
+    List<int> difference = const [0, 0, 0, 0, 0, 0],
+    int? year,
+    int? month,
+    int? day,
+    int hijriOffset = 0,
     bool summerTimeCalc: true,
   }) {
     DateTime timestamp = DateTime.now();
@@ -50,44 +50,44 @@ class PrayerTimetableList {
 
     // ***** PRAYERS CURRENT, NEXT, PREVIOUS
     Prayers prayersCurrent = prayerTimetable(
-      timetable: timetable,
-      difference: difference ?? [0, 0, 0, 0, 0, 0],
+      timetable,
+      difference: difference,
       hijriOffset: hijriOffset ?? 0,
       date: current,
     );
 
     Prayers prayersNext = prayerTimetable(
-      timetable: timetable,
-      difference: difference ?? [0, 0, 0, 0, 0, 0],
+      timetable,
+      difference: difference,
       hijriOffset: hijriOffset ?? 0,
       date: next,
     );
 
     Prayers prayersPrevious = prayerTimetable(
-      timetable: timetable,
-      difference: difference ?? [0, 0, 0, 0, 0, 0],
+      timetable,
+      difference: difference,
       hijriOffset: hijriOffset ?? 0,
       date: previous,
     );
 
     // ***** PRAYERS TODAY, TOMORROW, YESTERDAY
     Prayers prayersToday = prayerTimetable(
-      timetable: timetable,
-      difference: difference ?? [0, 0, 0, 0, 0, 0],
+      timetable,
+      difference: difference,
       hijriOffset: hijriOffset ?? 0,
       date: today,
     );
 
     Prayers prayersTomorrow = prayerTimetable(
-      timetable: timetable,
-      difference: difference ?? [0, 0, 0, 0, 0, 0],
+      timetable,
+      difference: difference,
       hijriOffset: hijriOffset ?? 0,
       date: tomorrow,
     );
 
     Prayers prayersYesterday = prayerTimetable(
-      timetable: timetable,
-      difference: difference ?? [0, 0, 0, 0, 0, 0],
+      timetable,
+      difference: difference,
       hijriOffset: hijriOffset ?? 0,
       date: yesterday,
     );

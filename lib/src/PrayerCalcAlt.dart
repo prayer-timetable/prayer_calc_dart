@@ -5,13 +5,13 @@ import 'package:prayer_calc/src/func/prayerCalcAlt.dart';
 
 class PrayerCalc {
   // PrayersStructure prayers;
-  Prayers current;
-  Prayers next;
-  Prayers previous;
-  PrayerCalc prayers;
-  Sunnah sunnah;
-  Durations durations;
-  int dayOfYear;
+  Prayers? current;
+  Prayers? next;
+  Prayers? previous;
+  PrayerCalc? prayers;
+  Sunnah? sunnah;
+  Durations? durations;
+  int? dayOfYear;
 
   PrayerCalc(
     int timezone,
@@ -19,17 +19,17 @@ class PrayerCalc {
     double long,
     double altitude,
     double angle, {
-    int year,
-    int month,
-    int day,
-    int hour,
-    int minute,
-    int second,
-    int asrMethod,
-    double ishaAngle,
+    int? year,
+    int? month,
+    int? day,
+    int? hour,
+    int? minute,
+    int? second,
+    int? asrMethod,
+    double? ishaAngle,
     bool summerTimeCalc: true,
-    DateTime time,
-    bool showSeconds,
+    DateTime? time,
+    bool? showSeconds,
   }) {
     DateTime timestamp = DateTime.now();
     DateTime beginingOfYear = DateTime(timestamp.year); // Jan 1, 0:00
@@ -83,7 +83,7 @@ class PrayerCalc {
       dayOfYear: dayOfYearCurrent,
       asrMethod: asrMethod,
       ishaAngle: ishaAngle,
-      summerTimeCalc: summerTimeCalc ?? true,
+      summerTimeCalc: summerTimeCalc,
       showSeconds: showSeconds,
     );
 
@@ -97,7 +97,7 @@ class PrayerCalc {
       dayOfYear: dayOfYearNext,
       asrMethod: asrMethod,
       ishaAngle: ishaAngle,
-      summerTimeCalc: summerTimeCalc ?? true,
+      summerTimeCalc: summerTimeCalc,
       showSeconds: showSeconds,
     );
 
@@ -111,7 +111,7 @@ class PrayerCalc {
       dayOfYear: dayOfYearPrevious,
       asrMethod: asrMethod,
       ishaAngle: ishaAngle,
-      summerTimeCalc: summerTimeCalc ?? true,
+      summerTimeCalc: summerTimeCalc,
       showSeconds: showSeconds,
     );
 
@@ -126,7 +126,7 @@ class PrayerCalc {
       dayOfYear: dayOfYearToday,
       asrMethod: asrMethod,
       ishaAngle: ishaAngle,
-      summerTimeCalc: summerTimeCalc ?? true,
+      summerTimeCalc: summerTimeCalc,
       showSeconds: showSeconds,
     );
 
@@ -140,7 +140,7 @@ class PrayerCalc {
       dayOfYear: dayOfYearTomorrow,
       asrMethod: asrMethod,
       ishaAngle: ishaAngle,
-      summerTimeCalc: summerTimeCalc ?? true,
+      summerTimeCalc: summerTimeCalc,
       showSeconds: showSeconds,
     );
 
@@ -154,7 +154,7 @@ class PrayerCalc {
       dayOfYear: dayOfYearYesterday,
       asrMethod: asrMethod,
       ishaAngle: ishaAngle,
-      summerTimeCalc: summerTimeCalc ?? true,
+      summerTimeCalc: summerTimeCalc,
       showSeconds: showSeconds,
     );
 

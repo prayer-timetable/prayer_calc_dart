@@ -5,7 +5,7 @@
 bool isDSTCalc(DateTime d) =>
     new DateTime(d.year, 6, 1).timeZoneOffset == d.timeZoneOffset;
 
-double round2Decimals(value) => num.parse(value.toStringAsFixed(2));
+double round2Decimals(value) => double.parse(value.toStringAsFixed(2));
 
 DateTime secondsToDateTime(int seconds, DateTime date, {int offset = 0}) {
   int dstAdjust = isDSTCalc(date) ? 1 : 0;

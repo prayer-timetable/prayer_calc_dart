@@ -6,15 +6,15 @@ import 'package:prayer_calc/src/classes/SolarCoordinates.dart';
 import 'package:prayer_calc/src/classes/Coordinates.dart';
 
 class SolarTime {
-  Coordinates observer;
-  SolarCoordinates solar;
-  SolarCoordinates prevSolar;
-  SolarCoordinates nextSolar;
+  Coordinates observer = Coordinates(0, 0);
+  SolarCoordinates solar = SolarCoordinates(0);
+  SolarCoordinates prevSolar = SolarCoordinates(0);
+  SolarCoordinates nextSolar = SolarCoordinates(0);
 
-  double approxTransit;
-  double transit;
-  double sunrise;
-  double sunset;
+  double approxTransit = 0;
+  double transit = 0;
+  double sunrise = 0;
+  double sunset = 0;
 
   SolarTime(date, coordinates) {
     double julianDay =

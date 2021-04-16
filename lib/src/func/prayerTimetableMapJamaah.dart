@@ -44,8 +44,8 @@ Prayers jamaahTimetable(
     // DateTime jamaahTime = DateTime(;
     int offset;
     DateTime jamaahTime;
-    String method =
-        jamaahMethods[prayerId].isNotEmpty ? jamaahMethods[prayerId] : null;
+    // String method =
+    //     jamaahMethods[prayerId].isNotEmpty ? jamaahMethods[prayerId] : null;
 
     if (jamaahOffsets[prayerId].isNotEmpty) {
       offset = jamaahOffsets[prayerId][0] * 60 + jamaahOffsets[prayerId][1];

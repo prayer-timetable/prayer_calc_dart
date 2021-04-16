@@ -13,31 +13,31 @@ import 'package:prayer_calc/src/func/helpers.dart';
 
 class PrayerCalc {
   // PrayersStructure prayers;
-  Prayers current;
-  Prayers next;
-  Prayers previous;
-  PrayerCalc prayers;
-  Sunnah sunnah;
+  Prayers? current;
+  Prayers? next;
+  Prayers? previous;
+  PrayerCalc? prayers;
+  Sunnah? sunnah;
   // SunnahTimes sunnah;
-  Durations durations;
-  double qibla;
+  Durations? durations;
+  double qibla = 0;
 
   PrayerCalc(
     String timezone,
     double lat,
     double lng,
     double angle, {
-    double altitude,
-    int year,
-    int month,
-    int day,
-    int hour,
-    int minute,
-    int second,
-    int asrMethod,
-    double ishaAngle,
+    double altitude = 0.1,
+    int? year,
+    int? month,
+    int? day,
+    int? hour,
+    int? minute,
+    int? second,
+    int asrMethod = 1,
+    double ishaAngle = 0,
     bool summerTimeCalc: true,
-    DateTime time,
+    DateTime? time,
     bool precision = false,
   }) {
     tz.setLocalLocation(tz.getLocation(timezone));
@@ -109,17 +109,17 @@ class PrayerCalc {
       //     prayerTimes.isha.add(Duration(hours: timezone + summerTime));
       //
       prayers.dawn =
-          tz.TZDateTime.from(prayerTimes.fajr, tz.getLocation(timezone));
+          tz.TZDateTime.from(prayerTimes.fajr!, tz.getLocation(timezone));
       prayers.sunrise =
-          tz.TZDateTime.from(prayerTimes.sunrise, tz.getLocation(timezone));
+          tz.TZDateTime.from(prayerTimes.sunrise!, tz.getLocation(timezone));
       prayers.midday =
-          tz.TZDateTime.from(prayerTimes.dhuhr, tz.getLocation(timezone));
+          tz.TZDateTime.from(prayerTimes.dhuhr!, tz.getLocation(timezone));
       prayers.afternoon =
-          tz.TZDateTime.from(prayerTimes.asr, tz.getLocation(timezone));
+          tz.TZDateTime.from(prayerTimes.asr!, tz.getLocation(timezone));
       prayers.sunset =
-          tz.TZDateTime.from(prayerTimes.maghrib, tz.getLocation(timezone));
+          tz.TZDateTime.from(prayerTimes.maghrib!, tz.getLocation(timezone));
       prayers.dusk =
-          tz.TZDateTime.from(prayerTimes.isha, tz.getLocation(timezone));
+          tz.TZDateTime.from(prayerTimes.isha!, tz.getLocation(timezone));
       return prayers;
     }
 

@@ -25,8 +25,8 @@ main() {
 
   var prayerTimes = new PrayerTimes(coordinates, date, params, precision: true);
 
-  var fajrTime = prayerTimes.fajr.toLocal();
-  print(prayerTimes.fajr.timeZoneName);
+  var fajrTime = prayerTimes.fajr!.toLocal();
+  print(prayerTimes.fajr!.timeZoneName);
   print(fajrTime.timeZoneName);
 
 // var fajrTime = moment(prayerTimes.fajr).tz('Europe/Sarajevo').format('h:mm A');

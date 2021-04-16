@@ -11,7 +11,7 @@ int timezoneS = 1;
 
 // Prayers sarajevo = new Prayers(latS, longS, altitudeS, angleS, timezoneS);
 PrayerTimetableList sarajevo = new PrayerTimetableList(
-  timetable: base,
+  base,
   summerTimeCalc: false,
   year: 2020,
   month: 3,
@@ -28,7 +28,7 @@ PrayerTimetableList sarajevo = new PrayerTimetableList(
 //
 // example (icci location, Hanafi, 1st June 2020, different ishaAngle, no summer time):
 PrayerTimetableList test = new PrayerTimetableList(
-  timetable: base,
+  base,
   summerTimeCalc: false,
   year: 2020,
   month: 6,

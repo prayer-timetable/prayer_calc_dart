@@ -2,23 +2,36 @@ import 'package:prayer_calc/src/classes/Madhab.dart';
 import 'package:prayer_calc/src/classes/HighLatitudeRule.dart';
 
 class CalculationParameters {
-  String method;
-  double fajrAngle;
-  double ishaAngle;
-  double ishaInterval;
-  double maghribAngle;
-  String madhab;
-
-  String highLatitudeRule;
-  Map adjustments;
-  Map methodAdjustments;
+  String method = "Other";
+  double fajrAngle = 0;
+  double ishaAngle = 0;
+  double ishaInterval = 0;
+  double maghribAngle = 0;
+  String madhab = Madhab.Shafi;
+  String highLatitudeRule = HighLatitudeRule.MiddleOfTheNight;
+  Map adjustments = {
+    'fajr': 0,
+    'sunrise': 0,
+    'dhuhr': 0,
+    'asr': 0,
+    'maghrib': 0,
+    'isha': 0
+  };
+  Map methodAdjustments = {
+    'fajr': 0,
+    'sunrise': 0,
+    'dhuhr': 0,
+    'asr': 0,
+    'maghrib': 0,
+    'isha': 0
+  };
 
   CalculationParameters(String methodName, double fajrAngle, double ishaAngle,
-      {double ishaInterval, double maghribAngle}) {
-    this.method = methodName ?? "Other";
-    this.fajrAngle = fajrAngle ?? 0.0;
-    this.ishaAngle = ishaAngle ?? 0.0;
-    this.ishaAngle = ishaInterval ?? 0.0;
+      {double ishaInterval = 0, double maghribAngle = 0}) {
+    this.method = methodName;
+    this.fajrAngle = fajrAngle;
+    this.ishaAngle = ishaAngle;
+    this.ishaAngle = ishaInterval;
     this.maghribAngle = maghribAngle;
     this.madhab = Madhab.Shafi;
     this.highLatitudeRule = HighLatitudeRule.MiddleOfTheNight;

@@ -9,8 +9,8 @@ import 'package:timezone/timezone.dart' as tz;
 /* *********************** */
 Prayers prayerTimetable(
   Map timetable, {
-  int hijriOffset,
-  DateTime date,
+  int hijriOffset = 0,
+  DateTime? date,
   String location = 'Europe/Dublin',
 }) {
   /* *********************** */
