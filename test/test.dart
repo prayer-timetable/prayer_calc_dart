@@ -1,19 +1,19 @@
 timetableTest(location) {
-  print('**************** Today *****************');
+  print('*************** Current ***************');
   print('dawn:\t\t${location.prayers.current.dawn}');
   print('sunrise:\t${location.prayers.current.sunrise}');
   print('midday:\t\t${location.prayers.current.midday}');
   print('afternoon:\t${location.prayers.current.afternoon}');
   print('sunset:\t\t${location.prayers.current.sunset}');
   print('dusk:\t\t${location.prayers.current.dusk}');
-  print('*************** Tomorrow **************');
+  print('**************** Next *****************');
   print('dawn:\t\t${location.prayers.next.dawn}');
   print('sunrise:\t${location.prayers.next.sunrise}');
   print('midday:\t\t${location.prayers.next.midday}');
   print('afternoon:\t${location.prayers.next.afternoon}');
   print('sunset:\t\t${location.prayers.next.sunset}');
   print('dusk:\t\t${location.prayers.next.dusk}');
-  print('************** Yesterday ***************');
+  print('************** Previous ***************');
   print('dawn:\t\t${location.prayers.previous.dawn}');
   print('sunrise:\t${location.prayers.previous.sunrise}');
   print('midday:\t\t${location.prayers.previous.midday}');

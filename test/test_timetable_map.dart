@@ -1,9 +1,12 @@
 import 'package:timezone/data/latest.dart' as tz;
-// import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 //
 import 'package:prayer_calc/src/PrayerTimetableMap.dart';
 import 'src/timetable_map.dart';
 import 'test.dart';
+
+DateTime testTime = tz.TZDateTime.from(
+    DateTime(2021, 4, 14, 13, 26, 45), tz.getLocation('Europe/Dublin'));
 
 PrayerTimetableMap dublin = PrayerTimetableMap(
   timetableDublin,
@@ -31,9 +34,9 @@ PrayerTimetableMap dublin = PrayerTimetableMap(
   ],
   // testing options
   testing: true,
-  hour: 13,
-  minute: 33,
-  second: 55,
+  hour: testTime.hour,
+  minute: testTime.minute,
+  second: testTime.second,
 );
 
 PrayerTimetableMap location = dublin;
