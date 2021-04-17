@@ -70,7 +70,7 @@ Prayers prayerCalc({
   double factor = 12 / pi; // 180 / (15 * pi)
   double deg = pi / 180; // convert radians to degrees
   double sinCalc = sin(D * deg) * sin(B! * deg);
-  double cosCalc = cos(D * deg) * cos(B! * deg);
+  double cosCalc = cos(D * deg) * cos(B * deg);
 // func
   double mainCalc(offset) => factor * acos((offset - sinCalc) / cosCalc);
   acot(x) => atan(1 / x);
