@@ -22,7 +22,7 @@ class PrayerTimetableList {
     bool summerTimeCalc: true,
   }) {
     DateTime timestamp = DateTime.now();
-    DateTime beginingOfYear = DateTime(timestamp.year); // Jan 1, 0:00
+    // DateTime beginingOfYear = DateTime(timestamp.year); // Jan 1, 0:00
 
     // Local date
     DateTime date = DateTime(year ?? timestamp.year, month ?? timestamp.month,
@@ -52,21 +52,21 @@ class PrayerTimetableList {
     Prayers prayersCurrent = prayerTimetable(
       timetable,
       difference: difference,
-      hijriOffset: hijriOffset ?? 0,
+      hijriOffset: hijriOffset,
       date: current,
     );
 
     Prayers prayersNext = prayerTimetable(
       timetable,
       difference: difference,
-      hijriOffset: hijriOffset ?? 0,
+      hijriOffset: hijriOffset,
       date: next,
     );
 
     Prayers prayersPrevious = prayerTimetable(
       timetable,
       difference: difference,
-      hijriOffset: hijriOffset ?? 0,
+      hijriOffset: hijriOffset,
       date: previous,
     );
 
@@ -74,21 +74,21 @@ class PrayerTimetableList {
     Prayers prayersToday = prayerTimetable(
       timetable,
       difference: difference,
-      hijriOffset: hijriOffset ?? 0,
+      hijriOffset: hijriOffset,
       date: today,
     );
 
     Prayers prayersTomorrow = prayerTimetable(
       timetable,
       difference: difference,
-      hijriOffset: hijriOffset ?? 0,
+      hijriOffset: hijriOffset,
       date: tomorrow,
     );
 
     Prayers prayersYesterday = prayerTimetable(
       timetable,
       difference: difference,
-      hijriOffset: hijriOffset ?? 0,
+      hijriOffset: hijriOffset,
       date: yesterday,
     );
 
