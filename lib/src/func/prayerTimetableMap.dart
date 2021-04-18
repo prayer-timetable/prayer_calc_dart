@@ -1,7 +1,7 @@
 import 'package:prayer_calc/src/components/Prayers.dart';
 import 'package:prayer_calc/src/func/helpers.dart';
 
-import 'package:timezone/data/latest.dart' as tz;
+// import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 /* *********************** */
@@ -11,7 +11,7 @@ Prayers prayerTimetable(
   Map timetable, {
   int hijriOffset = 0,
   DateTime? date,
-  String location = 'Europe/Dublin',
+  String timezone = 'Europe/Dublin',
 }) {
   /* *********************** */
   /* TIMES                   */
@@ -20,7 +20,7 @@ Prayers prayerTimetable(
   // print('###');
   // print(date);
   DateTime timestamp = tz.TZDateTime.from(
-      date != null ? date : DateTime.now(), tz.getLocation(location));
+      date != null ? date : DateTime.now(), tz.getLocation(timezone));
 
   // DateTime timestamp = date ?? DateTime.now();
   int adjDst = isDSTCalc(timestamp) ? 1 : 0;

@@ -82,18 +82,21 @@ class PrayerTimetableMap {
       timetable,
       hijriOffset: hijriOffset ?? 0,
       date: current,
+      timezone: timezone,
     );
 
     Prayers prayersNext = prayerTimetable(
       timetable,
       hijriOffset: hijriOffset ?? 0,
       date: next,
+      timezone: timezone,
     );
 
     Prayers prayersPrevious = prayerTimetable(
       timetable,
       hijriOffset: hijriOffset ?? 0,
       date: previous,
+      timezone: timezone,
     );
 
     // ***** PRAYERS TODAY, TOMORROW, YESTERDAY
@@ -101,18 +104,21 @@ class PrayerTimetableMap {
       timetable,
       hijriOffset: hijriOffset ?? 0,
       date: today,
+      timezone: timezone,
     );
 
     Prayers prayersTomorrow = prayerTimetable(
       timetable,
       hijriOffset: hijriOffset ?? 0,
       date: tomorrow,
+      timezone: timezone,
     );
 
     Prayers prayersYesterday = prayerTimetable(
       timetable,
       hijriOffset: hijriOffset ?? 0,
       date: yesterday,
+      timezone: timezone,
     );
 
     // JAMAAH
