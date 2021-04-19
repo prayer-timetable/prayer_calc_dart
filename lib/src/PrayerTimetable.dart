@@ -21,7 +21,6 @@ class PrayerTimetable {
   // SunnahTimes sunnah;
   Calc? calc;
   Calc? calcToday;
-  double qibla = 0;
 
   PrayerTimetable(
     String timezone,
@@ -160,6 +159,8 @@ class PrayerTimetable {
       // jamaahToday: jamaahToday,
       // jamaahTomorrow: jamaahTomorrow,
       // jamaahYesterday: jamaahYesterday,
+      lat: lat,
+      lng: lng,
     );
 
     this.calc = Calc(
@@ -171,8 +172,9 @@ class PrayerTimetable {
       // jamaahToday: jamaahToday,
       // jamaahTomorrow: jamaahTomorrow,
       // jamaahYesterday: jamaahYesterday,
+      lat: lat,
+      lng: lng,
     );
-    this.qibla = Qibla.qibla(new Coordinates(lat, lng));
     //end
   }
 
