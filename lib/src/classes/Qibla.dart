@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:prayer_calc/src/classes/Coordinates.dart';
-import 'package:prayer_calc/src/classes/MathUtils.dart';
+import 'package:prayer_timetable/src/classes/Coordinates.dart';
+import 'package:prayer_timetable/src/classes/MathUtils.dart';
 
 class Qibla {
   double qibla(coordinates) {

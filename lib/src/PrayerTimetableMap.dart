@@ -1,16 +1,12 @@
 // import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-import 'package:prayer_calc/src/components/Sunnah.dart';
-import 'package:prayer_calc/src/components/Prayers.dart';
-import 'package:prayer_calc/src/components/Calc.dart';
+import 'package:prayer_timetable/src/components/Sunnah.dart';
+import 'package:prayer_timetable/src/components/Prayers.dart';
+import 'package:prayer_timetable/src/components/Calc.dart';
 
-import 'package:prayer_calc/src/func/prayerTimetableMap.dart';
-import 'package:prayer_calc/src/func/prayerTimetableMapJamaah.dart';
-
-import 'package:adhan_dart/adhan_dart.dart';
-
-import 'package:prayer_calc/src/func/helpers.dart';
+import 'package:prayer_timetable/src/func/prayerTimetableMap.dart';
+import 'package:prayer_timetable/src/func/prayerTimetableMapJamaah.dart';
 
 class PrayerTimetableMap {
   // PrayersStructure prayers;
@@ -22,7 +18,6 @@ class PrayerTimetableMap {
   Sunnah? sunnah;
   Calc? calc;
   Calc? calcToday;
-  double qibla = 0;
   // Jamaah jamaahPrayer;
 
   PrayerTimetableMap(
@@ -55,8 +50,8 @@ class PrayerTimetableMap {
     int? hour,
     int? minute,
     int? second,
-    double? lat,
-    double? lng,
+    double lat = 0,
+    double lng = 0,
   }) {
     tz.setLocalLocation(tz.getLocation(timezone));
 
@@ -163,19 +158,31 @@ class PrayerTimetableMap {
 
     this.sunnah = Sunnah(now, prayersCurrent, prayersNext, prayersPrevious);
 
-    this.calcToday = Calc(now, prayersToday, prayersTomorrow, prayersYesterday,
-        jamaahOn: jamaahOn,
-        jamaahToday: jamaahToday,
-        jamaahTomorrow: jamaahTomorrow,
-        jamaahYesterday: jamaahYesterday);
+    this.calcToday = Calc(
+      now,
+      prayersToday,
+      prayersTomorrow,
+      prayersYesterday,
+      jamaahOn: jamaahOn,
+      jamaahToday: jamaahToday,
+      jamaahTomorrow: jamaahTomorrow,
+      jamaahYesterday: jamaahYesterday,
+      lat: lat,
+      lng: lng,
+    );
 
-    this.calc = Calc(date, prayersCurrent, prayersNext, prayersPrevious,
-        jamaahOn: jamaahOn,
-        jamaahToday: jamaahToday,
-        jamaahTomorrow: jamaahTomorrow,
-        jamaahYesterday: jamaahYesterday);
-
-    this.qibla = Qibla.qibla(new Coordinates(lat, lng));
+    this.calc = Calc(
+      date,
+      prayersCurrent,
+      prayersNext,
+      prayersPrevious,
+      jamaahOn: jamaahOn,
+      jamaahToday: jamaahToday,
+      jamaahTomorrow: jamaahTomorrow,
+      jamaahYesterday: jamaahYesterday,
+      lat: lat,
+      lng: lng,
+    );
 
     //end
     //

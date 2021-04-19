@@ -1,9 +1,9 @@
 import 'dart:math';
 
-import 'package:prayer_calc/src/classes/Astronomical.dart';
-import 'package:prayer_calc/src/classes/MathUtils.dart';
-import 'package:prayer_calc/src/classes/SolarCoordinates.dart';
-import 'package:prayer_calc/src/classes/Coordinates.dart';
+import 'package:prayer_timetable/src/classes/Astronomical.dart';
+import 'package:prayer_timetable/src/classes/MathUtils.dart';
+import 'package:prayer_timetable/src/classes/SolarCoordinates.dart';
+import 'package:prayer_timetable/src/classes/Coordinates.dart';
 
 class SolarTime {
   Coordinates observer = Coordinates(0, 0);

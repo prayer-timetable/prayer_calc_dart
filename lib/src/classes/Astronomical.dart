@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:prayer_calc/src/classes/MathUtils.dart';
-import 'package:prayer_calc/src/classes/DateUtils.dart';
+import 'package:prayer_timetable/src/classes/MathUtils.dart';
+import 'package:prayer_timetable/src/classes/DateUtils.dart';
 
 class Astronomical {
   /* The geometric mean longitude of the sun in degrees. */

@@ -1,5 +1,5 @@
-import 'package:prayer_calc/src/components/Prayers.dart';
-import 'package:prayer_calc/src/func/helpers.dart';
+import 'package:prayer_timetable/src/components/Prayers.dart';
+import 'package:prayer_timetable/src/func/helpers.dart';
 
 /* *********************** */
 /* MAIN FUNCTION           */

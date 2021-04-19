@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:prayer_calc/src/classes/Astronomical.dart';
-import 'package:prayer_calc/src/classes/MathUtils.dart';
+import 'package:prayer_timetable/src/classes/Astronomical.dart';
+import 'package:prayer_timetable/src/classes/MathUtils.dart';
 
 class SolarCoordinates {
   double declination = 0;

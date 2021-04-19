@@ -1,5 +1,5 @@
-import 'package:prayer_calc/src/classes/Madhab.dart';
-import 'package:prayer_calc/src/classes/HighLatitudeRule.dart';
+import 'package:prayer_timetable/src/classes/Madhab.dart';
+import 'package:prayer_timetable/src/classes/HighLatitudeRule.dart';
 
 class CalculationParameters {
   String method = "Other";

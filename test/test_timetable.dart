@@ -1,4 +1,4 @@
-import 'package:prayer_calc/src/PrayerTimetable.dart';
+import 'package:prayer_timetable/src/PrayerTimetable.dart';
 import 'test.dart';
 import 'package:timezone/data/latest.dart' as tz;
 // import 'package:timezone/timezone.dart' as tz;

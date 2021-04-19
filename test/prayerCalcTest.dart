@@ -1,10 +1,10 @@
 // import 'dart:math';
-// import 'package:prayer_calc/src/helpers.dart';
-import 'package:prayer_calc/src/classes/Coordinates.dart';
-import 'package:prayer_calc/src/classes/CalculationMethod.dart';
-import 'package:prayer_calc/src/classes/CalculationParameters.dart';
-import 'package:prayer_calc/src/classes/Madhab.dart';
-import 'package:prayer_calc/src/classes/PrayerTimes.dart';
+// import 'package:prayer_timetable/src/helpers.dart';
+import 'package:prayer_timetable/src/classes/Coordinates.dart';
+import 'package:prayer_timetable/src/classes/CalculationMethod.dart';
+import 'package:prayer_timetable/src/classes/CalculationParameters.dart';
+import 'package:prayer_timetable/src/classes/Madhab.dart';
+import 'package:prayer_timetable/src/classes/PrayerTimes.dart';
 
 const lat = 43.8563;
 const lng = 18.4131;

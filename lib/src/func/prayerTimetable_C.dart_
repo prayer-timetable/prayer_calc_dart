@@ -1,6 +1,6 @@
 import 'dart:math';
-// import 'package:prayer_calc/src/components/Prayers.dart';
-// import 'package:prayer_calc/src/func/helpers.dart';
+// import 'package:prayer_timetable/src/components/Prayers.dart';
+// import 'package:prayer_timetable/src/func/helpers.dart';
 
 enum Terms { TERM_A, TERM_B, TERM_C, TERM_COUNT }
 const PI = 3.1415926535897932384626433832795028841971;

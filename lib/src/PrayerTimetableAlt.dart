@@ -1,7 +1,7 @@
-import 'package:prayer_calc/src/components/Sunnah.dart';
-import 'package:prayer_calc/src/components/Prayers.dart';
-import 'package:prayer_calc/src/components/Calc.dart';
-import 'package:prayer_calc/src/func/prayerTimetableAlt.dart';
+import 'package:prayer_timetable/src/components/Sunnah.dart';
+import 'package:prayer_timetable/src/components/Prayers.dart';
+import 'package:prayer_timetable/src/components/Calc.dart';
+import 'package:prayer_timetable/src/func/prayerTimetableAlt.dart';
 
 class PrayerTimetable {
   // PrayersStructure prayers;

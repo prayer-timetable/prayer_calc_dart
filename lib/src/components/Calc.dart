@@ -1,5 +1,7 @@
-import 'package:prayer_calc/src/components/Prayers.dart';
-import 'package:prayer_calc/src/func/helpers.dart';
+import 'package:prayer_timetable/src/components/Prayers.dart';
+import 'package:prayer_timetable/src/func/helpers.dart';
+
+import 'package:adhan_dart/adhan_dart.dart';
 
 class Calc {
   DateTime time = DateTime.now();
@@ -12,13 +14,20 @@ class Calc {
   Duration countUp = Duration.zero;
   double percentage = 0;
   bool jamaahPending = false;
+  double qibla = 0;
 
-  Calc(DateTime _time, Prayers prayersToday, Prayers prayersTomorrow,
-      Prayers prayersYesterday,
-      {bool jamaahOn = false,
-      Prayers? jamaahToday,
-      Prayers? jamaahTomorrow,
-      Prayers? jamaahYesterday}) {
+  Calc(
+    DateTime _time,
+    Prayers prayersToday,
+    Prayers prayersTomorrow,
+    Prayers prayersYesterday, {
+    bool jamaahOn = false,
+    Prayers? jamaahToday,
+    Prayers? jamaahTomorrow,
+    Prayers? jamaahYesterday,
+    double lat = 0,
+    double lng = 0,
+  }) {
     DateTime current = this.current;
     DateTime next = this.next;
     DateTime previous = this.previous;
@@ -180,6 +189,8 @@ class Calc {
         (this.countUp.inSeconds /
             (this.countDown.inSeconds + this.countUp.inSeconds)));
     this.jamaahPending = jamaahPending;
+    this.qibla = Qibla.qibla(new Coordinates(lat, lng));
+
     //end
   }
 }

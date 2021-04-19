@@ -1,7 +1,7 @@
-import 'package:prayer_calc/src/components/Sunnah.dart';
-import 'package:prayer_calc/src/components/Prayers.dart';
-import 'package:prayer_calc/src/components/Calc.dart';
-import 'package:prayer_calc/src/func/prayerTimetableList.dart';
+import 'package:prayer_timetable/src/components/Sunnah.dart';
+import 'package:prayer_timetable/src/components/Prayers.dart';
+import 'package:prayer_timetable/src/components/Calc.dart';
+import 'package:prayer_timetable/src/func/prayerTimetableList.dart';
 
 class PrayerTimetableList {
   // PrayersStructure prayers;
@@ -28,13 +28,13 @@ class PrayerTimetableList {
     DateTime date = DateTime(year ?? timestamp.year, month ?? timestamp.month,
         day ?? timestamp.day, 0, 0);
 
-    // Local dates needed for dst calc and local midnight past (0:00)
-    DateTime dateLocal = DateTime(
-        year ?? timestamp.year,
-        month ?? timestamp.month,
-        day ?? timestamp.day,
-        12,
-        0); // using noon of local date to avoid +- 1 hour
+    // // Local dates needed for dst calc and local midnight past (0:00)
+    // DateTime dateLocal = DateTime(
+    //     year ?? timestamp.year,
+    //     month ?? timestamp.month,
+    //     day ?? timestamp.day,
+    //     12,
+    //     0); // using noon of local date to avoid +- 1 hour
     // define now (local)
     DateTime nowLocal = DateTime.now();
 

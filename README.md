@@ -88,9 +88,9 @@ Class returning single value:
 Add to your pubspec.yaml file:
 
 ```
-  prayer_calc:
+  prayer_timetable:
     git:
-      url: git://github.com/prayer-timetable/prayer_calc_dart.git
+      url: git://github.com/prayer-timetable/prayer_timetable_dart.git
 ```
 
 ## Example

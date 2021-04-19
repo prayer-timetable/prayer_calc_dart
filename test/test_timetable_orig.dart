@@ -1,4 +1,4 @@
-import 'package:prayer_calc/src/PrayerTimetableAlt.dart';
+import 'package:prayer_timetable/src/PrayerTimetableAlt.dart';
 
 // ICCI
 double latI = 53.3046593;
@@ -95,6 +95,6 @@ calcTest() {
   print('countDown:\t${location.calc!.countDown}');
   print('countUp:\t${location.calc!.countUp}');
   print('percentage:\t${location.calc!.percentage}');
-  print(location.current); // TODO: current date vs current time
+  print(location.current);
   print(location.dayOfYear);
 }

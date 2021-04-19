@@ -1,12 +1,12 @@
-import 'package:prayer_calc/src/classes/SolarTime.dart';
-import 'package:prayer_calc/src/classes/TimeComponents.dart';
-import 'package:prayer_calc/src/classes/Prayer.dart';
-import 'package:prayer_calc/src/classes/Astronomical.dart';
-import 'package:prayer_calc/src/classes/DateUtils.dart';
-import 'package:prayer_calc/src/classes/Madhab.dart';
+import 'package:prayer_timetable/src/classes/SolarTime.dart';
+import 'package:prayer_timetable/src/classes/TimeComponents.dart';
+import 'package:prayer_timetable/src/classes/Prayer.dart';
+import 'package:prayer_timetable/src/classes/Astronomical.dart';
+import 'package:prayer_timetable/src/classes/DateUtils.dart';
+import 'package:prayer_timetable/src/classes/Madhab.dart';
 
-import 'package:prayer_calc/src/classes/Coordinates.dart';
-import 'package:prayer_calc/src/classes/CalculationParameters.dart';
+import 'package:prayer_timetable/src/classes/Coordinates.dart';
+import 'package:prayer_timetable/src/classes/CalculationParameters.dart';
 
 import 'CalculationParameters.dart';
 import 'Coordinates.dart';

@@ -1,15 +1,15 @@
-// import 'package:prayer_calc/src/classes/SunnahTimes.dart';
+// import 'package:prayer_timetable/src/classes/SunnahTimes.dart';
 
-import 'package:prayer_calc/src/components/Sunnah.dart';
-import 'package:prayer_calc/src/components/Prayers.dart';
-import 'package:prayer_calc/src/components/Calc.dart';
-// import 'package:prayer_calc/src/func/prayerTimetable.dart';
+import 'package:prayer_timetable/src/components/Sunnah.dart';
+import 'package:prayer_timetable/src/components/Prayers.dart';
+import 'package:prayer_timetable/src/components/Calc.dart';
+// import 'package:prayer_timetable/src/func/prayerTimetable.dart';
 // import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 import 'package:adhan_dart/adhan_dart.dart';
 
-import 'package:prayer_calc/src/func/helpers.dart';
+import 'package:prayer_timetable/src/func/helpers.dart';
 
 class PrayerTimetable {
   // PrayersStructure prayers;
