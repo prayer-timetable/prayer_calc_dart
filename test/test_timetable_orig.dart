@@ -1,4 +1,4 @@
-import 'package:prayer_calc/src/PrayerCalcAlt.dart';
+import 'package:prayer_calc/src/PrayerTimetableAlt.dart';
 
 // ICCI
 double latI = 53.3046593;
@@ -17,7 +17,7 @@ double iangleS = 14.6; // iz = 17
 int timezoneS = 1;
 
 // Prayers sarajevo = new Prayers(latS, longS, altitudeS, angleS, timezoneS);
-PrayerCalc sarajevo = new PrayerCalc(
+PrayerTimetable sarajevo = new PrayerTimetable(
   timezoneS,
   latS,
   longS,
@@ -30,7 +30,8 @@ PrayerCalc sarajevo = new PrayerCalc(
   // ishaAngle: iangleS,
   // ishaAngle: 17,
 );
-PrayerCalc icci = new PrayerCalc(timezoneI, latI, longI, altitudeI, angleI,
+PrayerTimetable icci = new PrayerTimetable(
+    timezoneI, latI, longI, altitudeI, angleI,
     ishaAngle: iangleI);
 
 // optional parameters:
@@ -43,7 +44,7 @@ PrayerCalc icci = new PrayerCalc(timezoneI, latI, longI, altitudeI, angleI,
 // summerTimeCalc is true by default, set to false if no daylight saving should happen
 //
 // example (icci location, Hanafi, 1st June 2020, different ishaAngle, no summer time):
-PrayerCalc test = new PrayerCalc(
+PrayerTimetable test = new PrayerTimetable(
   timezoneI,
   latI,
   longI,
@@ -57,7 +58,7 @@ PrayerCalc test = new PrayerCalc(
   day: 28,
 );
 
-PrayerCalc location = sarajevo;
+PrayerTimetable location = sarajevo;
 
 calcTest() {
   print('**************** current *****************');
@@ -84,16 +85,16 @@ calcTest() {
   print('*************** Sunnah *****************');
   print('midnight:\t${location.sunnah!.midnight}');
   print('lastThird\t${location.sunnah!.lastThird}');
-  print('************** Durations ***************');
-  print('now:\t${location.durations!.time}');
-  print('current:\t${location.durations!.current}');
-  print('next:\t\t${location.durations!.next}');
-  print('previous:\t${location.durations!.previous}');
-  print('isAfterIsha:\t${location.durations!.isAfterIsha}');
-  print('currentId:\t${location.durations!.currentId}');
-  print('countDown:\t${location.durations!.countDown}');
-  print('countUp:\t${location.durations!.countUp}');
-  print('percentage:\t${location.durations!.percentage}');
+  print('************** Calc ***************');
+  print('now:\t${location.calc!.time}');
+  print('current:\t${location.calc!.current}');
+  print('next:\t\t${location.calc!.next}');
+  print('previous:\t${location.calc!.previous}');
+  print('isAfterIsha:\t${location.calc!.isAfterIsha}');
+  print('currentId:\t${location.calc!.currentId}');
+  print('countDown:\t${location.calc!.countDown}');
+  print('countUp:\t${location.calc!.countUp}');
+  print('percentage:\t${location.calc!.percentage}');
   print(location.current); // TODO: current date vs current time
   print(location.dayOfYear);
 }

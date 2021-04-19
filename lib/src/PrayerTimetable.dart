@@ -2,8 +2,8 @@
 
 import 'package:prayer_calc/src/components/Sunnah.dart';
 import 'package:prayer_calc/src/components/Prayers.dart';
-import 'package:prayer_calc/src/components/Durations.dart';
-// import 'package:prayer_calc/src/func/prayerCalc.dart';
+import 'package:prayer_calc/src/components/Calc.dart';
+// import 'package:prayer_calc/src/func/prayerTimetable.dart';
 // import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -11,18 +11,19 @@ import 'package:adhan_dart/adhan_dart.dart';
 
 import 'package:prayer_calc/src/func/helpers.dart';
 
-class PrayerCalc {
+class PrayerTimetable {
   // PrayersStructure prayers;
   Prayers? current;
   Prayers? next;
   Prayers? previous;
-  PrayerCalc? prayers;
+  PrayerTimetable? prayers;
   Sunnah? sunnah;
   // SunnahTimes sunnah;
-  Durations? durations;
+  Calc? calc;
+  Calc? calcToday;
   double qibla = 0;
 
-  PrayerCalc(
+  PrayerTimetable(
     String timezone,
     double lat,
     double lng,
@@ -142,22 +143,40 @@ class PrayerCalc {
 
     // define components
     this.prayers =
-        PrayerCalc.prayers(prayersCurrent, prayersNext, prayersPrevious);
+        PrayerTimetable.prayers(prayersCurrent, prayersNext, prayersPrevious);
 
     this.sunnah = Sunnah(now, prayersCurrent, prayersNext, prayersPrevious);
     // this.sunnah = SunnahTimes(PrayerTimes(coordinates, dayCurrent, params, precision: precision));
 
-    // this.durations = Durations(now.add(Duration(hours: timezone + _summerTime)),
+    // this.calc = Calc(now.add(Duration(hours: timezone + _summerTime)),
     //     prayersToday, prayersTomorrow, prayersYesterday);
 
-    this.durations =
-        Durations(now, prayersToday, prayersTomorrow, prayersYesterday);
+    this.calcToday = Calc(
+      now,
+      prayersToday,
+      prayersTomorrow,
+      prayersYesterday,
+      // jamaahOn: jamaahOn,
+      // jamaahToday: jamaahToday,
+      // jamaahTomorrow: jamaahTomorrow,
+      // jamaahYesterday: jamaahYesterday,
+    );
 
+    this.calc = Calc(
+      date,
+      prayersCurrent,
+      prayersNext,
+      prayersPrevious,
+      // jamaahOn: jamaahOn,
+      // jamaahToday: jamaahToday,
+      // jamaahTomorrow: jamaahTomorrow,
+      // jamaahYesterday: jamaahYesterday,
+    );
     this.qibla = Qibla.qibla(new Coordinates(lat, lng));
     //end
   }
 
-  PrayerCalc.prayers(Prayers prayersCurrent, Prayers prayersTomorrow,
+  PrayerTimetable.prayers(Prayers prayersCurrent, Prayers prayersTomorrow,
       Prayers prayersYesterday) {
     current = prayersCurrent;
     next = prayersTomorrow;

@@ -3,9 +3,14 @@ import 'package:timezone/timezone.dart' as tz;
 
 import 'package:prayer_calc/src/components/Sunnah.dart';
 import 'package:prayer_calc/src/components/Prayers.dart';
-import 'package:prayer_calc/src/components/Durations.dart';
+import 'package:prayer_calc/src/components/Calc.dart';
+
 import 'package:prayer_calc/src/func/prayerTimetableMap.dart';
 import 'package:prayer_calc/src/func/prayerTimetableMapJamaah.dart';
+
+import 'package:adhan_dart/adhan_dart.dart';
+
+import 'package:prayer_calc/src/func/helpers.dart';
 
 class PrayerTimetableMap {
   // PrayersStructure prayers;
@@ -15,8 +20,9 @@ class PrayerTimetableMap {
   PrayerTimetableMap? prayers;
   PrayerTimetableMap? jamaah;
   Sunnah? sunnah;
-  Durations? durations;
-  Durations? durationsToday;
+  Calc? calc;
+  Calc? calcToday;
+  double qibla = 0;
   // Jamaah jamaahPrayer;
 
   PrayerTimetableMap(
@@ -49,6 +55,8 @@ class PrayerTimetableMap {
     int? hour,
     int? minute,
     int? second,
+    double? lat,
+    double? lng,
   }) {
     tz.setLocalLocation(tz.getLocation(timezone));
 
@@ -155,20 +163,22 @@ class PrayerTimetableMap {
 
     this.sunnah = Sunnah(now, prayersCurrent, prayersNext, prayersPrevious);
 
-    this.durationsToday = Durations(
-        now, prayersToday, prayersTomorrow, prayersYesterday,
+    this.calcToday = Calc(now, prayersToday, prayersTomorrow, prayersYesterday,
         jamaahOn: jamaahOn,
         jamaahToday: jamaahToday,
         jamaahTomorrow: jamaahTomorrow,
         jamaahYesterday: jamaahYesterday);
 
-    this.durations = Durations(
-        date, prayersCurrent, prayersNext, prayersPrevious,
+    this.calc = Calc(date, prayersCurrent, prayersNext, prayersPrevious,
         jamaahOn: jamaahOn,
         jamaahToday: jamaahToday,
         jamaahTomorrow: jamaahTomorrow,
         jamaahYesterday: jamaahYesterday);
+
+    this.qibla = Qibla.qibla(new Coordinates(lat, lng));
+
     //end
+    //
   }
 
   PrayerTimetableMap.prayers(

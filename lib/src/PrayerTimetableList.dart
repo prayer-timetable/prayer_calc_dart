@@ -1,6 +1,6 @@
 import 'package:prayer_calc/src/components/Sunnah.dart';
 import 'package:prayer_calc/src/components/Prayers.dart';
-import 'package:prayer_calc/src/components/Durations.dart';
+import 'package:prayer_calc/src/components/Calc.dart';
 import 'package:prayer_calc/src/func/prayerTimetableList.dart';
 
 class PrayerTimetableList {
@@ -10,7 +10,7 @@ class PrayerTimetableList {
   Prayers? next;
   PrayerTimetableList? prayers;
   Sunnah? sunnah;
-  Durations? durations;
+  Calc? calc;
 
   PrayerTimetableList(
     List timetable, {
@@ -99,8 +99,7 @@ class PrayerTimetableList {
     this.sunnah =
         Sunnah(nowLocal, prayersCurrent, prayersNext, prayersPrevious);
 
-    this.durations =
-        Durations(nowLocal, prayersToday, prayersTomorrow, prayersYesterday);
+    this.calc = Calc(nowLocal, prayersToday, prayersTomorrow, prayersYesterday);
 
     //end
   }

@@ -1,19 +1,19 @@
 import 'package:prayer_calc/src/components/Sunnah.dart';
 import 'package:prayer_calc/src/components/Prayers.dart';
-import 'package:prayer_calc/src/components/Durations.dart';
-import 'package:prayer_calc/src/func/prayerCalcAlt.dart';
+import 'package:prayer_calc/src/components/Calc.dart';
+import 'package:prayer_calc/src/func/prayerTimetableAlt.dart';
 
-class PrayerCalc {
+class PrayerTimetable {
   // PrayersStructure prayers;
   Prayers? current;
   Prayers? next;
   Prayers? previous;
-  PrayerCalc? prayers;
+  PrayerTimetable? prayers;
   Sunnah? sunnah;
-  Durations? durations;
+  Calc? calc;
   int? dayOfYear;
 
-  PrayerCalc(
+  PrayerTimetable(
     int timezone,
     double lat,
     double long,
@@ -73,7 +73,7 @@ class PrayerCalc {
     int dayOfYearYesterday = dayYesterday.difference(beginingOfYear).inDays;
 
     // ***** PRAYERS CURRENT, NEXT, PREVIOUS
-    Prayers prayersCurrent = prayerCalc(
+    Prayers prayersCurrent = prayerTimetable(
       timezone: timezone,
       lat: lat,
       long: long,
@@ -87,7 +87,7 @@ class PrayerCalc {
       showSeconds: showSeconds,
     );
 
-    Prayers prayersNext = prayerCalc(
+    Prayers prayersNext = prayerTimetable(
       timezone: timezone,
       lat: lat,
       long: long,
@@ -101,7 +101,7 @@ class PrayerCalc {
       showSeconds: showSeconds,
     );
 
-    Prayers prayersPrevious = prayerCalc(
+    Prayers prayersPrevious = prayerTimetable(
       timezone: timezone,
       lat: lat,
       long: long,
@@ -116,7 +116,7 @@ class PrayerCalc {
     );
 
     // ***** PRAYERS TODAY, TOMORROW, YESTERDAY
-    Prayers prayersToday = prayerCalc(
+    Prayers prayersToday = prayerTimetable(
       timezone: timezone,
       lat: lat,
       long: long,
@@ -130,7 +130,7 @@ class PrayerCalc {
       showSeconds: showSeconds,
     );
 
-    Prayers prayersTomorrow = prayerCalc(
+    Prayers prayersTomorrow = prayerTimetable(
       timezone: timezone,
       lat: lat,
       long: long,
@@ -144,7 +144,7 @@ class PrayerCalc {
       showSeconds: showSeconds,
     );
 
-    Prayers prayersYesterday = prayerCalc(
+    Prayers prayersYesterday = prayerTimetable(
       timezone: timezone,
       lat: lat,
       long: long,
@@ -160,19 +160,18 @@ class PrayerCalc {
 
     // define components
     this.prayers =
-        PrayerCalc.prayers(prayersCurrent, prayersNext, prayersPrevious);
+        PrayerTimetable.prayers(prayersCurrent, prayersNext, prayersPrevious);
 
     this.sunnah =
         Sunnah(nowLocal, prayersCurrent, prayersNext, prayersPrevious);
 
-    this.durations =
-        Durations(nowLocal, prayersToday, prayersTomorrow, prayersYesterday);
+    this.calc = Calc(nowLocal, prayersToday, prayersTomorrow, prayersYesterday);
 
     this.dayOfYear = dayOfYearCurrent;
     //end
   }
 
-  PrayerCalc.prayers(Prayers prayersCurrent, Prayers prayersTomorrow,
+  PrayerTimetable.prayers(Prayers prayersCurrent, Prayers prayersTomorrow,
       Prayers prayersYesterday) {
     current = prayersCurrent;
     next = prayersTomorrow;

@@ -23,17 +23,17 @@ timetableTest(location) {
   print('*************** Sunnah *****************');
   print('midnight:\t${location.sunnah.midnight}');
   print('lastThird\t${location.sunnah.lastThird}');
-  print('************** Durations ***************');
-  print('time:\t${location.durations.time}');
-  print('current:\t${location.durations.current}');
-  print('next:\t\t${location.durations.next}');
-  print('previous:\t${location.durations.previous}');
-  print('isAfterIsha:\t${location.durations.isAfterIsha}');
-  print('currentId:\t${location.durations.currentId}');
-  print('countDown:\t${location.durations.countDown}');
-  print('countUp:\t${location.durations.countUp}');
-  print('countDown durationsToday:\t${location.durationsToday.countDown}');
-  print('countUp durationsToday:\t${location.durationsToday.countUp}');
+  print('************** Calc ***************');
+  print('time:\t${location.calc.time}');
+  print('current:\t${location.calc.current}');
+  print('next:\t\t${location.calc.next}');
+  print('previous:\t${location.calc.previous}');
+  print('isAfterIsha:\t${location.calc.isAfterIsha}');
+  print('currentId:\t${location.calc.currentId}');
+  print('countDown:\t${location.calc.countDown}');
+  print('countUp:\t${location.calc.countUp}');
+  print('countDown calcToday:\t${location.calcToday.countDown}');
+  print('countUp calcToday:\t${location.calcToday.countUp}');
   // print(location.current);
 }
 
@@ -83,15 +83,15 @@ jamaahTest(location) {
   print('*************** Sunnah *****************');
   print('midnight:\t${location.sunnah.midnight}');
   print('lastThird\t${location.sunnah.lastThird}');
-  print('************** Durations ***************');
-  print('time:\t${location.durations.time}');
-  print('current:\t${location.durations.current}');
-  print('next:\t\t${location.durations.next}');
-  print('previous:\t${location.durations.previous}');
-  print('isAfterIsha:\t${location.durations.isAfterIsha}');
-  print('jamaahPending:\t${location.durations.jamaahPending}');
-  print('currentId:\t${location.durations.currentId}');
-  print('countDown:\t${location.durations.countDown}');
-  print('countUp:\t${location.durations.countUp}');
+  print('************** Calc ***************');
+  print('time:\t${location.calc.time}');
+  print('current:\t${location.calc.current}');
+  print('next:\t\t${location.calc.next}');
+  print('previous:\t${location.calc.previous}');
+  print('isAfterIsha:\t${location.calc.isAfterIsha}');
+  print('jamaahPending:\t${location.calc.jamaahPending}');
+  print('currentId:\t${location.calc.currentId}');
+  print('countDown:\t${location.calc.countDown}');
+  print('countUp:\t${location.calc.countUp}');
   // print(location.current);
 }

@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:prayer_calc/src/components/Prayers.dart';
 import 'package:prayer_calc/src/func/helpers.dart';
 
-Prayers prayerCalc({
+Prayers prayerTimetable({
   int timezone = 0,
   double? lat = 0,
   double? long = 0,

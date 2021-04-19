@@ -6,7 +6,7 @@ Library for calculating muslim prayer times based on excellent [Adhan JavaScript
 
 # Dart Classes
 
-## PrayerCalc
+## PrayerTimetable
 
 This class returns 5 daily prayers plus Sunrise. Takes the following input parameters:
 
@@ -40,7 +40,7 @@ Optional parameters:
 - **altitude** currently not used
 - **precision** enables the display of seconds, otherwise if false, output times are rounded to nearest minute
 
-This class returns **_prayers_**, **_durations_**, **_sunnah_** and **_qibla_** classes.
+This class returns **_prayers_**, **_calc_**, **_sunnah_** and **_qibla_** classes.
 
 ## Prayers
 
@@ -62,9 +62,9 @@ Each of the **current**, **next** and **previous** returns 6 prayer times (ie. c
 - _DateTime_ **sunset** - maghrib prayer time
 - _DateTime_ **dusk** - isha prayer time
 
-## Durations
+## Calc
 
-This class calculates durations to and from the prayers, taking into account next day Dawn for Isha prayer, as well as Previous day Isha when calculating Dawn for day after midnight. It also determines current, next and previous prayers based on current time. It returns the following:
+This class calculates calc to and from the prayers, taking into account next day Dawn for Isha prayer, as well as Previous day Isha when calculating Dawn for day after midnight. It also determines current, next and previous prayers based on current time. It returns the following:
 
 - _Duration_ **countDown** - time until the next prayer
 - _Duration_ **countUp** - time passed since the current prayer begun
@@ -101,7 +101,7 @@ Add to your pubspec.yaml file:
       double lng = 18.4131;
       double angle = 14.6;
 
-      PrayerCalc location = new PrayerCalc(timezone, lat, lng, angle);
+      PrayerTimetable location = new PrayerTimetable(timezone, lat, lng, angle);
 
       // current day fajr
       print('${location.prayers.current.dawn');
@@ -112,7 +112,7 @@ Add to your pubspec.yaml file:
       // last third of the night
       print('${location.sunnah.lastThird}');
       // countdown to next prayer
-      print('${location.durations.countDown}');
+      print('${location.calc.countDown}');
       // Qibla direction
       print('${location.qibla}');
 

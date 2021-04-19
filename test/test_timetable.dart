@@ -1,4 +1,4 @@
-import 'package:prayer_calc/src/PrayerCalc.dart';
+import 'package:prayer_calc/src/PrayerTimetable.dart';
 import 'test.dart';
 import 'package:timezone/data/latest.dart' as tz;
 // import 'package:timezone/timezone.dart' as tz;
@@ -21,7 +21,7 @@ double iangleS = 14.6; // iz = 17
 String timezoneS = 'Europe/Sarajevo';
 
 // Prayers sarajevo = new Prayers(latS, longS, altitudeS, angleS, timezoneS);
-PrayerCalc sarajevo = new PrayerCalc(
+PrayerTimetable sarajevo = new PrayerTimetable(
   timezoneS,
   latS,
   longS,
@@ -34,7 +34,7 @@ PrayerCalc sarajevo = new PrayerCalc(
   // ishaAngle: 17,
   // precision: true,
 );
-PrayerCalc icci = new PrayerCalc(timezoneI, latI, longI, angleI,
+PrayerTimetable icci = new PrayerTimetable(timezoneI, latI, longI, angleI,
     ishaAngle: iangleI, precision: true);
 
 // optional parameters:
@@ -47,7 +47,7 @@ PrayerCalc icci = new PrayerCalc(timezoneI, latI, longI, angleI,
 // summerTimeCalc is true by default, set to false if no daylight saving should happen
 //
 // example (icci location, Hanafi, 1st June 2020, different ishaAngle, no summer time):
-PrayerCalc test = new PrayerCalc(
+PrayerTimetable test = new PrayerTimetable(
   timezoneI,
   latI,
   longI,
@@ -61,9 +61,9 @@ PrayerCalc test = new PrayerCalc(
   day: 28,
 );
 
-PrayerCalc location = icci;
-// PrayerCalc location = sarajevo;
-// PrayerCalc location = test;
+PrayerTimetable location = icci;
+// PrayerTimetable location = sarajevo;
+// PrayerTimetable location = test;
 
 // calcTest() {
 //   print('**************** current *****************');
@@ -90,16 +90,16 @@ PrayerCalc location = icci;
 //   print('*************** Sunnah *****************');
 //   print('midnight:\t${location.sunnah.midnight}');
 //   print('lastThird\t${location.sunnah.lastThird}');
-//   print('************** Durations ***************');
-//   print('nowLocal:\t${location.durations.now}');
-//   print('current:\t${location.durations.current}');
-//   print('next:\t\t${location.durations.next}');
-//   print('previous:\t${location.durations.previous}');
-//   print('isAfterIsha:\t${location.durations.isAfterIsha}');
-//   print('currentId:\t${location.durations.currentId}');
-//   print('countDown:\t${location.durations.countDown}');
-//   print('countUp:\t${location.durations.countUp}');
-//   print('percentage:\t${location.durations.percentage}');
+//   print('************** Calc ***************');
+//   print('nowLocal:\t${location.calc.now}');
+//   print('current:\t${location.calc.current}');
+//   print('next:\t\t${location.calc.next}');
+//   print('previous:\t${location.calc.previous}');
+//   print('isAfterIsha:\t${location.calc.isAfterIsha}');
+//   print('currentId:\t${location.calc.currentId}');
+//   print('countDown:\t${location.calc.countDown}');
+//   print('countUp:\t${location.calc.countUp}');
+//   print('percentage:\t${location.calc.percentage}');
 //   print('Qibla:\t\t${location.qibla}');
 //   // print(location.current); // TODO
 

@@ -1,7 +1,7 @@
 import 'package:prayer_calc/src/components/Prayers.dart';
 import 'package:prayer_calc/src/func/helpers.dart';
 
-class Durations {
+class Calc {
   DateTime time = DateTime.now();
   DateTime current = DateTime.now();
   DateTime next = DateTime.now().add(Duration(days: 1));
@@ -13,7 +13,7 @@ class Durations {
   double percentage = 0;
   bool jamaahPending = false;
 
-  Durations(DateTime _time, Prayers prayersToday, Prayers prayersTomorrow,
+  Calc(DateTime _time, Prayers prayersToday, Prayers prayersTomorrow,
       Prayers prayersYesterday,
       {bool jamaahOn = false,
       Prayers? jamaahToday,
@@ -25,8 +25,8 @@ class Durations {
     int currentId = this.currentId;
     bool isAfterIsha = false;
 
-    // time is local for PrayerTimetable and PrayerCalcAlt
-    // utc for PrayerCalc
+    // time is local for PrayerTimetable and PrayerTimetableAlt
+    // utc for PrayerTimetable
     /* *********************** */
     /* CURRENT, PREVIOUS, NEXT */
     /* *********************** */
