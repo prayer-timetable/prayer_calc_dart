@@ -12,7 +12,7 @@ class Calc {
   int currentId = 0;
   Duration countDown = Duration.zero;
   Duration countUp = Duration(seconds: 10);
-  double percentage = 0;
+  double percentage = 0.1;
   bool jamaahPending = false;
   double qibla = 0;
 
@@ -176,6 +176,15 @@ class Calc {
       }
     }
 
+    double _percentage = round2Decimals(100 *
+        (this.countUp.inSeconds != double.nan
+            ? this.countUp.inSeconds
+            : 10 /
+                ((this.countDown.inSeconds + this.countUp.inSeconds) !=
+                        double.nan
+                    ? this.countDown.inSeconds + this.countUp.inSeconds
+                    : 10)));
+
     // components
     this.time = _time;
     this.current = current;
@@ -185,9 +194,7 @@ class Calc {
     this.currentId = currentId;
     this.countDown = next.difference(_time);
     this.countUp = _time.difference(current);
-    this.percentage = round2Decimals(100 *
-        (this.countUp.inSeconds /
-            (this.countDown.inSeconds + this.countUp.inSeconds)));
+    this.percentage = _percentage != double.nan ? _percentage : 0.1;
     this.jamaahPending = jamaahPending;
     this.qibla = Qibla.qibla(new Coordinates(lat, lng));
 
