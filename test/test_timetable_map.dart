@@ -6,7 +6,7 @@ import 'src/timetable_map.dart';
 import 'test.dart';
 
 DateTime testTime = tz.TZDateTime.from(
-    DateTime(2021, 4, 14, 13, 26, 45), tz.getLocation('Europe/Dublin'));
+    DateTime(2021, 4, 14, 16, 25, 45), tz.getLocation('Europe/Dublin'));
 
 PrayerTimetableMap dublin = PrayerTimetableMap(
   timetableDublin,
@@ -43,8 +43,9 @@ PrayerTimetableMap location = dublin;
 
 main() {
   tz.initializeTimeZones();
-  jamaahTest(location);
-  // timetableTest(location);
+  // jamaahTest(location);
+  timetableTest(location);
+  // print(location.calc!.percentage);
 }
 
 // main() => timetableTest(location);
