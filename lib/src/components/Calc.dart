@@ -11,7 +11,7 @@ class Calc {
   bool isAfterIsha = false;
   int currentId = 0;
   Duration countDown = Duration.zero;
-  Duration countUp = Duration.zero;
+  Duration countUp = Duration(seconds: 10);
   double percentage = 0;
   bool jamaahPending = false;
   double qibla = 0;
