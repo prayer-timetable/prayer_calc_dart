@@ -185,11 +185,11 @@ class Calc {
     this.currentId = currentId;
     this.countDown = next.difference(_time);
     this.countUp = _time.difference(current);
-    this.percentage = (this.countDown + this.countUp).inSeconds.isNaN
-        ? 0
-        : round2Decimals(100 *
-            (this.countUp.inSeconds /
-                (this.countDown + this.countUp).inSeconds));
+
+    percentage = round2Decimals(100 *
+        (this.countUp.inSeconds / (this.countDown + this.countUp).inSeconds));
+
+    this.percentage = percentage.isNaN ? 0 : percentage;
     this.jamaahPending = jamaahPending;
     this.qibla = Qibla.qibla(new Coordinates(lat, lng));
 
