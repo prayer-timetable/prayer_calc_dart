@@ -45,7 +45,7 @@ main() {
   tz.initializeTimeZones();
   // jamaahTest(location);
   timetableTest(location);
-  // print(location.calc!.percentage);
+  print(location.calc!.percentage);
 }
 
 // main() => timetableTest(location);
