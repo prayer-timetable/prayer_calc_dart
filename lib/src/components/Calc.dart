@@ -10,7 +10,11 @@ class Calc {
   DateTime next = DateTime.now().add(Duration(days: 1));
   DateTime previous = DateTime.now().subtract(Duration(days: 1));
   bool isAfterIsha = false;
-  int currentId = 0;
+
+  int currentId = 1;
+  int previousId = 0;
+  int nextId = 2;
+
   Duration countDown = Duration.zero;
   Duration countUp = Duration(seconds: 10);
   double percentage = 0.1;
@@ -33,6 +37,8 @@ class Calc {
     DateTime _next = this.next;
     DateTime _previous = this.previous;
     int _currentId = this.currentId;
+    int _previousId = this.previousId;
+    int _nextId = this.nextId;
     bool _isAfterIsha = false;
 
     // time is local for PrayerTimetable and PrayerTimetableAlt
@@ -177,6 +183,9 @@ class Calc {
       }
     }
 
+    _nextId = _currentId == 5 ? 0 : _currentId + 1;
+    _previousId = _currentId == 0 ? 5 : _currentId - 1;
+
     // components
     this.time = _time;
     this.current = _current;
@@ -184,6 +193,8 @@ class Calc {
     this.previous = _previous;
     this.isAfterIsha = _isAfterIsha;
     this.currentId = _currentId;
+    this.nextId = _nextId;
+    this.previousId = _previousId;
     this.countDown = _next.difference(_time);
     this.countUp = _time.difference(_current);
 
