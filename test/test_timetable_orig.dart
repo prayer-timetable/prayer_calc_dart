@@ -17,7 +17,7 @@ double iangleS = 14.6; // iz = 17
 int timezoneS = 1;
 
 // Prayers sarajevo = new Prayers(latS, longS, altitudeS, angleS, timezoneS);
-PrayerTimetable sarajevo = new PrayerTimetable(
+PrayerTimetableAlt sarajevo = new PrayerTimetableAlt(
   timezoneS,
   latS,
   longS,
@@ -30,7 +30,7 @@ PrayerTimetable sarajevo = new PrayerTimetable(
   // ishaAngle: iangleS,
   // ishaAngle: 17,
 );
-PrayerTimetable icci = new PrayerTimetable(
+PrayerTimetableAlt icci = new PrayerTimetableAlt(
     timezoneI, latI, longI, altitudeI, angleI,
     ishaAngle: iangleI);
 
@@ -44,7 +44,7 @@ PrayerTimetable icci = new PrayerTimetable(
 // summerTimeCalc is true by default, set to false if no daylight saving should happen
 //
 // example (icci location, Hanafi, 1st June 2020, different ishaAngle, no summer time):
-PrayerTimetable test = new PrayerTimetable(
+PrayerTimetableAlt test = new PrayerTimetableAlt(
   timezoneI,
   latI,
   longI,
@@ -58,7 +58,7 @@ PrayerTimetable test = new PrayerTimetable(
   day: 28,
 );
 
-PrayerTimetable location = sarajevo;
+PrayerTimetableAlt location = sarajevo;
 
 calcTest() {
   print('**************** current *****************');

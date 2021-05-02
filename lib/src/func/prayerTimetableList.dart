@@ -45,9 +45,6 @@ Prayers prayerTimetable(
     );
   });
 
-  // next prayer - add isNext
-  // prayersList[next.id].isNext = true;//TODO
-
   Prayers prayers = new Prayers();
   prayers.dawn = prayerTimes[0];
   prayers.sunrise = prayerTimes[1];

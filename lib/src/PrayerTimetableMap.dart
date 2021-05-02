@@ -4,9 +4,9 @@ import 'package:timezone/timezone.dart' as tz;
 import 'package:prayer_timetable/src/components/Sunnah.dart';
 import 'package:prayer_timetable/src/components/Prayers.dart';
 import 'package:prayer_timetable/src/components/Calc.dart';
+import 'package:prayer_timetable/src/components/Jamaah.dart';
 
 import 'package:prayer_timetable/src/func/prayerTimetableMap.dart';
-import 'package:prayer_timetable/src/func/prayerTimetableMapJamaah.dart';
 
 class PrayerTimetableMap {
   // PrayersStructure prayers;
@@ -125,36 +125,27 @@ class PrayerTimetableMap {
     );
 
     // JAMAAH
-    Prayers jamaahCurrent = jamaahOn
-        ? jamaahTimetable(prayersCurrent, jamaahMethods, jamaahOffsets)
-        : prayersCurrent;
+    Jamaah jamaahCurrent = Jamaah(prayersCurrent, jamaahMethods, jamaahOffsets);
 
-    Prayers jamaahNext = jamaahOn
-        ? jamaahTimetable(prayersNext, jamaahMethods, jamaahOffsets)
-        : prayersNext;
+    Jamaah jamaahNext = Jamaah(prayersNext, jamaahMethods, jamaahOffsets);
 
-    Prayers jamaahPrevious = jamaahOn
-        ? jamaahTimetable(prayersPrevious, jamaahMethods, jamaahOffsets)
-        : prayersPrevious;
+    Jamaah jamaahPrevious =
+        Jamaah(prayersPrevious, jamaahMethods, jamaahOffsets);
 
-    Prayers jamaahToday = jamaahOn
-        ? jamaahTimetable(prayersToday, jamaahMethods, jamaahOffsets)
-        : prayersCurrent;
+    Jamaah jamaahToday = Jamaah(prayersToday, jamaahMethods, jamaahOffsets);
 
-    Prayers jamaahTomorrow = jamaahOn
-        ? jamaahTimetable(prayersTomorrow, jamaahMethods, jamaahOffsets)
-        : prayersNext;
+    Jamaah jamaahTomorrow =
+        Jamaah(prayersTomorrow, jamaahMethods, jamaahOffsets);
 
-    Prayers jamaahYesterday = jamaahOn
-        ? jamaahTimetable(prayersYesterday, jamaahMethods, jamaahOffsets)
-        : prayersPrevious;
+    Jamaah jamaahYesterday =
+        Jamaah(prayersYesterday, jamaahMethods, jamaahOffsets);
 
     // define components
     this.prayers = PrayerTimetableMap.prayers(
         prayersCurrent, prayersNext, prayersPrevious);
 
     this.jamaah =
-        PrayerTimetableMap.prayers(jamaahCurrent, jamaahNext, jamaahPrevious);
+        PrayerTimetableMap.jamaah(jamaahCurrent, jamaahNext, jamaahPrevious);
 
     this.sunnah = Sunnah(now, prayersCurrent, prayersNext, prayersPrevious);
 
@@ -163,12 +154,12 @@ class PrayerTimetableMap {
       prayersToday,
       prayersTomorrow,
       prayersYesterday,
-      jamaahOn: jamaahOn,
-      jamaahToday: jamaahToday,
-      jamaahTomorrow: jamaahTomorrow,
-      jamaahYesterday: jamaahYesterday,
-      lat: lat,
-      lng: lng,
+      jamaahOn,
+      jamaahToday,
+      jamaahTomorrow,
+      jamaahYesterday,
+      lat,
+      lng,
     );
 
     this.calc = Calc(
@@ -176,12 +167,12 @@ class PrayerTimetableMap {
       prayersCurrent,
       prayersNext,
       prayersPrevious,
-      jamaahOn: jamaahOn,
-      jamaahToday: jamaahToday,
-      jamaahTomorrow: jamaahTomorrow,
-      jamaahYesterday: jamaahYesterday,
-      lat: lat,
-      lng: lng,
+      jamaahOn,
+      jamaahCurrent,
+      jamaahNext,
+      jamaahPrevious,
+      lat,
+      lng,
     );
 
     //end
@@ -193,5 +184,11 @@ class PrayerTimetableMap {
     current = prayersCurrent;
     next = prayersNext;
     previous = prayersPrevious;
+  }
+  PrayerTimetableMap.jamaah(
+      Jamaah jamaahCurrent, Jamaah jamaahNext, Jamaah jamaahPrevious) {
+    current = jamaahCurrent;
+    next = jamaahNext;
+    previous = jamaahPrevious;
   }
 }

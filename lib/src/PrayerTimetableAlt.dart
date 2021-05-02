@@ -1,22 +1,26 @@
 import 'package:prayer_timetable/src/components/Sunnah.dart';
 import 'package:prayer_timetable/src/components/Prayers.dart';
+import 'package:prayer_timetable/src/components/Jamaah.dart';
 import 'package:prayer_timetable/src/components/Calc.dart';
 import 'package:prayer_timetable/src/func/prayerTimetableAlt.dart';
 
-class PrayerTimetable {
+class PrayerTimetableAlt {
   // PrayersStructure prayers;
   Prayers? current;
   Prayers? next;
   Prayers? previous;
-  PrayerTimetable? prayers;
+  PrayerTimetableAlt? prayers;
+  PrayerTimetableAlt? jamaah;
+
   Sunnah? sunnah;
   Calc? calc;
+  Calc? calcToday;
   int? dayOfYear;
 
-  PrayerTimetable(
+  PrayerTimetableAlt(
     int timezone,
     double lat,
-    double long,
+    double lng,
     double altitude,
     double angle, {
     int? year,
@@ -30,6 +34,23 @@ class PrayerTimetable {
     bool summerTimeCalc: true,
     DateTime? time,
     bool? showSeconds,
+    List<String> jamaahMethods = const [
+      'afterthis',
+      '',
+      'afterthis',
+      'afterthis',
+      'afterthis',
+      'afterthis'
+    ],
+    List<List<int>> jamaahOffsets = const [
+      [0, 0],
+      [],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0]
+    ],
+    bool jamaahOn = false,
   }) {
     DateTime timestamp = DateTime.now();
     DateTime beginingOfYear = DateTime(timestamp.year); // Jan 1, 0:00
@@ -76,7 +97,7 @@ class PrayerTimetable {
     Prayers prayersCurrent = prayerTimetable(
       timezone: timezone,
       lat: lat,
-      long: long,
+      lng: lng,
       altitude: altitude,
       angle: angle,
       date: dayCurrent,
@@ -90,7 +111,7 @@ class PrayerTimetable {
     Prayers prayersNext = prayerTimetable(
       timezone: timezone,
       lat: lat,
-      long: long,
+      lng: lng,
       altitude: altitude,
       angle: angle,
       date: dayNext,
@@ -104,7 +125,7 @@ class PrayerTimetable {
     Prayers prayersPrevious = prayerTimetable(
       timezone: timezone,
       lat: lat,
-      long: long,
+      lng: lng,
       altitude: altitude,
       angle: angle,
       date: dayPrevious,
@@ -119,7 +140,7 @@ class PrayerTimetable {
     Prayers prayersToday = prayerTimetable(
       timezone: timezone,
       lat: lat,
-      long: long,
+      lng: lng,
       altitude: altitude,
       angle: angle,
       date: dayToday,
@@ -133,7 +154,7 @@ class PrayerTimetable {
     Prayers prayersTomorrow = prayerTimetable(
       timezone: timezone,
       lat: lat,
-      long: long,
+      lng: lng,
       altitude: altitude,
       angle: angle,
       date: dayTomorrow,
@@ -147,7 +168,7 @@ class PrayerTimetable {
     Prayers prayersYesterday = prayerTimetable(
       timezone: timezone,
       lat: lat,
-      long: long,
+      lng: lng,
       altitude: altitude,
       angle: angle,
       date: dayYesterday,
@@ -158,23 +179,71 @@ class PrayerTimetable {
       showSeconds: showSeconds,
     );
 
+    // JAMAAH
+    Jamaah jamaahCurrent = Jamaah(prayersCurrent, jamaahMethods, jamaahOffsets);
+
+    Jamaah jamaahNext = Jamaah(prayersNext, jamaahMethods, jamaahOffsets);
+
+    Jamaah jamaahPrevious =
+        Jamaah(prayersPrevious, jamaahMethods, jamaahOffsets);
+
+    Jamaah jamaahToday = Jamaah(prayersToday, jamaahMethods, jamaahOffsets);
+
+    Jamaah jamaahTomorrow =
+        Jamaah(prayersTomorrow, jamaahMethods, jamaahOffsets);
+
+    Jamaah jamaahYesterday =
+        Jamaah(prayersYesterday, jamaahMethods, jamaahOffsets);
+
     // define components
-    this.prayers =
-        PrayerTimetable.prayers(prayersCurrent, prayersNext, prayersPrevious);
+    this.prayers = PrayerTimetableAlt.prayers(
+        prayersCurrent, prayersNext, prayersPrevious);
+
+    this.jamaah =
+        PrayerTimetableAlt.jamaah(jamaahCurrent, jamaahNext, jamaahPrevious);
 
     this.sunnah =
         Sunnah(nowLocal, prayersCurrent, prayersNext, prayersPrevious);
 
-    this.calc = Calc(nowLocal, prayersToday, prayersTomorrow, prayersYesterday);
+    this.calcToday = Calc(
+      nowLocal,
+      prayersToday,
+      prayersTomorrow,
+      prayersYesterday,
+      jamaahOn,
+      jamaahToday,
+      jamaahTomorrow,
+      jamaahYesterday,
+      lat,
+      lng,
+    );
 
+    this.calc = Calc(
+      date,
+      prayersCurrent,
+      prayersNext,
+      prayersPrevious,
+      jamaahOn,
+      jamaahCurrent,
+      jamaahNext,
+      jamaahToday,
+      lat,
+      lng,
+    );
     this.dayOfYear = dayOfYearCurrent;
     //end
   }
 
-  PrayerTimetable.prayers(Prayers prayersCurrent, Prayers prayersTomorrow,
+  PrayerTimetableAlt.prayers(Prayers prayersCurrent, Prayers prayersTomorrow,
       Prayers prayersYesterday) {
     current = prayersCurrent;
     next = prayersTomorrow;
     previous = prayersYesterday;
+  }
+  PrayerTimetableAlt.jamaah(
+      Jamaah jamaahCurrent, Jamaah jamaahNext, Jamaah jamaahPrevious) {
+    current = jamaahCurrent;
+    next = jamaahNext;
+    previous = jamaahPrevious;
   }
 }

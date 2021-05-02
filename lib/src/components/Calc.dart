@@ -1,4 +1,5 @@
 import 'package:prayer_timetable/src/components/Prayers.dart';
+import 'package:prayer_timetable/src/components/Jamaah.dart';
 import 'package:prayer_timetable/src/func/helpers.dart';
 
 import 'package:adhan_dart/adhan_dart.dart';
@@ -20,14 +21,14 @@ class Calc {
     DateTime _time,
     Prayers _prayersToday,
     Prayers _prayersTomorrow,
-    Prayers _prayersYesterday, {
-    bool jamaahOn = false,
-    Prayers? jamaahToday,
-    Prayers? jamaahTomorrow,
-    Prayers? jamaahYesterday,
-    double lat = 0,
-    double lng = 0,
-  }) {
+    Prayers _prayersYesterday,
+    bool _jamaahOn,
+    Jamaah _jamaahToday,
+    Jamaah _jamaahTomorrow,
+    Jamaah _jamaahYesterday,
+    double _lat,
+    double _lng,
+  ) {
     DateTime _current = this.current;
     DateTime _next = this.next;
     DateTime _previous = this.previous;
@@ -40,7 +41,7 @@ class Calc {
     /* _current, _previous, _next */
     /* *********************** */
     // from midnight to fajr
-    if (!jamaahOn) {
+    if (!_jamaahOn) {
       if (_time.isBefore(_prayersToday.dawn)) {
         _current = _prayersYesterday.dusk;
         _next = _prayersToday.dawn;
@@ -83,7 +84,7 @@ class Calc {
 
     // JAMAAH
     bool _jamaahPending = false;
-    if (jamaahOn) {
+    if (_jamaahOn) {
       // midnight - dawn
       if (_time.isBefore(_prayersToday.dawn)) {
         _current = _prayersYesterday.dusk;
@@ -92,9 +93,9 @@ class Calc {
         _currentId = 5;
       }
       // dawn - fajr jamaah
-      else if (_time.isBefore(jamaahToday!.dawn)) {
+      else if (_time.isBefore(_jamaahToday.dawn)) {
         _current = _prayersToday.dawn;
-        _next = jamaahToday.dawn;
+        _next = _jamaahToday.dawn;
         _previous = _prayersToday.dawn;
         _currentId = 0;
         _jamaahPending = true;
@@ -114,24 +115,24 @@ class Calc {
         _currentId = 1;
       }
       // midday - dhuhr jamaah
-      else if (_time.isBefore(jamaahToday.midday)) {
+      else if (_time.isBefore(_jamaahToday.midday)) {
         _current = _prayersToday.midday;
-        _next = jamaahToday.midday;
+        _next = _jamaahToday.midday;
         _previous = _prayersToday.sunrise;
         _currentId = 2;
         _jamaahPending = true;
       }
       // dhuhr jamaah - afternoon
       else if (_time.isBefore(_prayersToday.afternoon)) {
-        _current = jamaahToday.midday;
+        _current = _jamaahToday.midday;
         _next = _prayersToday.afternoon;
         _previous = _prayersToday.sunrise;
         _currentId = 2;
       }
       // afternoon - asr jamaah
-      else if (_time.isBefore(jamaahToday.afternoon)) {
+      else if (_time.isBefore(_jamaahToday.afternoon)) {
         _current = _prayersToday.afternoon;
-        _next = jamaahToday.afternoon;
+        _next = _jamaahToday.afternoon;
         _previous = _prayersToday.midday;
         _currentId = 3;
         _jamaahPending = true;
@@ -144,9 +145,9 @@ class Calc {
         _currentId = 3;
       }
       // sunset - maghrib jamaah
-      else if (_time.isBefore(jamaahToday.sunset)) {
+      else if (_time.isBefore(_jamaahToday.sunset)) {
         _current = _prayersToday.sunset;
-        _next = jamaahToday.sunset;
+        _next = _jamaahToday.sunset;
         _previous = _prayersToday.afternoon;
         _currentId = 4;
         _jamaahPending = true;
@@ -159,9 +160,9 @@ class Calc {
         _currentId = 4;
       }
       // dusk - isha jamaah
-      else if (_time.isBefore(jamaahToday.dusk)) {
+      else if (_time.isBefore(_jamaahToday.dusk)) {
         _current = _prayersToday.dusk;
-        _next = jamaahToday.dusk;
+        _next = _jamaahToday.dusk;
         _previous = _prayersToday.sunset;
         _currentId = 5;
         _jamaahPending = true;
@@ -191,7 +192,7 @@ class Calc {
 
     this.percentage = percentage.isNaN ? 0 : percentage;
     this.jamaahPending = _jamaahPending;
-    this.qibla = Qibla.qibla(new Coordinates(lat, lng));
+    this.qibla = Qibla.qibla(new Coordinates(_lat, _lng));
 
     //end
   }

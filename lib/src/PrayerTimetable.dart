@@ -3,13 +3,12 @@
 import 'package:prayer_timetable/src/components/Sunnah.dart';
 import 'package:prayer_timetable/src/components/Prayers.dart';
 import 'package:prayer_timetable/src/components/Calc.dart';
-// import 'package:prayer_timetable/src/func/prayerTimetable.dart';
+import 'package:prayer_timetable/src/components/Jamaah.dart';
+
 // import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 import 'package:adhan_dart/adhan_dart.dart';
-
-import 'package:prayer_timetable/src/func/helpers.dart';
 
 class PrayerTimetable {
   // PrayersStructure prayers;
@@ -17,6 +16,7 @@ class PrayerTimetable {
   Prayers? next;
   Prayers? previous;
   PrayerTimetable? prayers;
+  PrayerTimetable? jamaah;
   Sunnah? sunnah;
   // SunnahTimes sunnah;
   Calc? calc;
@@ -35,10 +35,27 @@ class PrayerTimetable {
     int? minute,
     int? second,
     int asrMethod = 1,
-    double ishaAngle = 0,
+    double? ishaAngle,
     bool summerTimeCalc: true,
     DateTime? time,
     bool precision = false,
+    bool jamaahOn = false,
+    List<String> jamaahMethods = const [
+      'afterthis',
+      '',
+      'afterthis',
+      'afterthis',
+      'afterthis',
+      'afterthis'
+    ],
+    List<List<int>> jamaahOffsets = const [
+      [0, 0],
+      [],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0]
+    ],
   }) {
     tz.setLocalLocation(tz.getLocation(timezone));
 
@@ -85,14 +102,16 @@ class PrayerTimetable {
     params.madhab = asrMethod == 2 ? Madhab.Hanafi : Madhab.Shafi;
     // params.methodAdjustments = {'dhuhr': 0};
     params.fajrAngle = angle;
-    params.ishaAngle = ishaAngle != null ? ishaAngle : angle;
+    params.ishaAngle = ishaAngle ?? angle;
 
     // print(date.toLocal());
 
     Prayers toPrayers(PrayerTimes prayerTimes) {
       Prayers prayers = new Prayers();
-      int summerTime =
-          (isDSTCalc(prayerTimes.date.toLocal()) && summerTimeCalc) ? 1 : 0;
+
+      // TODO: summertime
+      // int summerTime =
+      //     (isDSTCalc(prayerTimes.date.toLocal()) && summerTimeCalc) ? 1 : 0;
 
       // (toLocal?)
       // prayers.dawn =
@@ -140,9 +159,28 @@ class PrayerTimetable {
 
     // int _summerTime = (isDSTCalc(now.toLocal()) && summerTimeCalc) ? 1 : 0;
 
+    // JAMAAH
+    Jamaah jamaahCurrent = Jamaah(prayersCurrent, jamaahMethods, jamaahOffsets);
+
+    Jamaah jamaahNext = Jamaah(prayersNext, jamaahMethods, jamaahOffsets);
+
+    Jamaah jamaahPrevious =
+        Jamaah(prayersPrevious, jamaahMethods, jamaahOffsets);
+
+    Jamaah jamaahToday = Jamaah(prayersToday, jamaahMethods, jamaahOffsets);
+
+    Jamaah jamaahTomorrow =
+        Jamaah(prayersTomorrow, jamaahMethods, jamaahOffsets);
+
+    Jamaah jamaahYesterday =
+        Jamaah(prayersYesterday, jamaahMethods, jamaahOffsets);
+
     // define components
     this.prayers =
         PrayerTimetable.prayers(prayersCurrent, prayersNext, prayersPrevious);
+
+    this.jamaah =
+        PrayerTimetable.jamaah(jamaahCurrent, jamaahNext, jamaahPrevious);
 
     this.sunnah = Sunnah(now, prayersCurrent, prayersNext, prayersPrevious);
     // this.sunnah = SunnahTimes(PrayerTimes(coordinates, dayCurrent, params, precision: precision));
@@ -155,12 +193,12 @@ class PrayerTimetable {
       prayersToday,
       prayersTomorrow,
       prayersYesterday,
-      // jamaahOn: jamaahOn,
-      // jamaahToday: jamaahToday,
-      // jamaahTomorrow: jamaahTomorrow,
-      // jamaahYesterday: jamaahYesterday,
-      lat: lat,
-      lng: lng,
+      jamaahOn,
+      jamaahToday,
+      jamaahTomorrow,
+      jamaahYesterday,
+      lat,
+      lng,
     );
 
     this.calc = Calc(
@@ -168,12 +206,12 @@ class PrayerTimetable {
       prayersCurrent,
       prayersNext,
       prayersPrevious,
-      // jamaahOn: jamaahOn,
-      // jamaahToday: jamaahToday,
-      // jamaahTomorrow: jamaahTomorrow,
-      // jamaahYesterday: jamaahYesterday,
-      lat: lat,
-      lng: lng,
+      jamaahOn,
+      jamaahCurrent,
+      jamaahNext,
+      jamaahPrevious,
+      lat,
+      lng,
     );
     //end
   }
@@ -183,5 +221,11 @@ class PrayerTimetable {
     current = prayersCurrent;
     next = prayersTomorrow;
     previous = prayersYesterday;
+  }
+  PrayerTimetable.jamaah(
+      Jamaah jamaahCurrent, Jamaah jamaahNext, Jamaah jamaahPrevious) {
+    current = jamaahCurrent;
+    next = jamaahNext;
+    previous = jamaahPrevious;
   }
 }

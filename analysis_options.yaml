@@ -8,9 +8,8 @@ analyzer:
 
 linter:
   rules:
-    # - annotate_overrides
+    annotate_overrides: true
     # - await_only_futures
-    camel_case_types: true
     # - cancel_subscriptions
     # - close_sinks
     # - comment_references
@@ -18,3 +17,4 @@ linter:
     # - control_flow_in_finally
     # - empty_statements
     curly_braces_in_flow_control_structures: false
+    camel_case_types: true

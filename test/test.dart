@@ -1,3 +1,5 @@
+import 'dart:io';
+
 timetableTest(location) {
   print('*************** Current ***************');
   print('dawn:\t\t${location.prayers.current.dawn}');
@@ -35,7 +37,6 @@ timetableTest(location) {
   print('countDown calcToday:\t${location.calcToday.countDown}');
   print('countUp calcToday:\t${location.calcToday.countUp}');
   print('Qibla:\t${location.calc.qibla}');
-  // print(location.current);
   print('percentage:\t${location.calc.percentage}');
 }
 

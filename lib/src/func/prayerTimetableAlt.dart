@@ -5,7 +5,7 @@ import 'package:prayer_timetable/src/func/helpers.dart';
 Prayers prayerTimetable({
   int timezone = 0,
   double? lat = 0,
-  double? long = 0,
+  double? lng = 0,
   double? altitude = 0.1,
   double? angle = 0,
   DateTime? date,
@@ -29,11 +29,11 @@ Prayers prayerTimetable({
   int TZ = timezone;
   double? H = altitude; // height above sea level in meters
   double? B = lat; //	Latitude (Degrees)
-  double? L = long; // Longitude (Degrees)
+  double? L = lng; // lngitude (Degrees)
   int? Sh = asrMethod; //	Sh=1 (Shafii) - Sh=2 (Hanafi)
   double? Gd = angle; //	Dawn’s Twilight Angle (15°-19°)
   double? Gn = ishaAngle; // Night’s Twilight Angle (15°-19°)
-  int? R = 15 * TZ.toInt(); // Reference Longitude (Degrees)
+  int? R = 15 * TZ.toInt(); // Reference lngitude (Degrees)
 
   //	Day of Year
   // date needs to be utc for accurate calculation
