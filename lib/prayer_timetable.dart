@@ -4,3 +4,4 @@ export 'src/PrayerTimetableMap.dart';
 export 'src/components/Prayers.dart';
 export 'src/components/Calc.dart';
 export 'src/components/Sunnah.dart';
+export 'src/components/Jamaah.dart';
