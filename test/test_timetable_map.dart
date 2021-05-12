@@ -38,22 +38,24 @@ PrayerTimetableMap dublin(newtime) => PrayerTimetableMap(
       hour: newtime.hour,
       minute: newtime.minute,
       second: newtime.second,
+      joinMaghrib: true,
+      joinDhuhr: true,
     );
 
 PrayerTimetableMap location = dublin(testTime);
 
 main() {
   tz.initializeTimeZones();
-  // jamaahTest(location);
+  jamaahTest(location);
   // timetableTest(location);
-  Timer.periodic(Duration(seconds: 1), (Timer t) {
-    testTime = testTime.add(Duration(seconds: 1));
-    location = dublin(testTime);
-    print("\x1B[2J\x1B[0;0H"); // clear entire screen, move cursor to 0;0
-    print("$testTime");
-    print("${location.calc!.percentage}");
-    print("${location.calc!.currentId}");
-  });
+  // Timer.periodic(Duration(seconds: 1), (Timer t) {
+  //   testTime = testTime.add(Duration(seconds: 1));
+  //   location = dublin(testTime);
+  //   print("\x1B[2J\x1B[0;0H"); // clear entire screen, move cursor to 0;0
+  //   print("$testTime");
+  //   print("${location.calc!.percentage}");
+  //   print("${location.calc!.currentId}");
+  // });
 }
 
 // main() => timetableTest(location);

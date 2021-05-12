@@ -52,6 +52,8 @@ class PrayerTimetableMap {
     int? second,
     double lat = 0,
     double lng = 0,
+    bool joinMaghrib = false,
+    bool joinDhuhr = false,
   }) {
     tz.setLocalLocation(tz.getLocation(timezone));
 
@@ -139,6 +141,38 @@ class PrayerTimetableMap {
 
     Jamaah jamaahYesterday =
         Jamaah(prayersYesterday, jamaahMethods, jamaahOffsets);
+
+    // JOINING
+    if (joinMaghrib) {
+      prayersToday.dusk = prayersToday.sunset;
+      prayersYesterday.dusk = prayersYesterday.sunset;
+      prayersTomorrow.dusk = prayersTomorrow.sunset;
+      prayersCurrent.dusk = prayersCurrent.sunset;
+      prayersPrevious.dusk = prayersPrevious.sunset;
+      prayersNext.dusk = prayersNext.sunset;
+
+      jamaahToday.dusk = jamaahToday.sunset;
+      jamaahYesterday.dusk = jamaahYesterday.sunset;
+      jamaahTomorrow.dusk = jamaahTomorrow.sunset;
+      jamaahCurrent.dusk = jamaahCurrent.sunset;
+      jamaahPrevious.dusk = jamaahPrevious.sunset;
+      jamaahNext.dusk = jamaahNext.sunset;
+    }
+    if (joinDhuhr) {
+      prayersToday.afternoon = prayersToday.midday;
+      prayersYesterday.afternoon = prayersYesterday.midday;
+      prayersTomorrow.afternoon = prayersTomorrow.midday;
+      prayersCurrent.afternoon = prayersCurrent.midday;
+      prayersPrevious.afternoon = prayersPrevious.midday;
+      prayersNext.afternoon = prayersNext.midday;
+
+      jamaahToday.afternoon = jamaahToday.midday;
+      jamaahYesterday.afternoon = jamaahYesterday.midday;
+      jamaahTomorrow.afternoon = jamaahTomorrow.midday;
+      jamaahCurrent.afternoon = jamaahCurrent.midday;
+      jamaahPrevious.afternoon = jamaahPrevious.midday;
+      jamaahNext.afternoon = jamaahNext.midday;
+    }
 
     // define components
     this.prayers = PrayerTimetableMap.prayers(
