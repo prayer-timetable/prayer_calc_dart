@@ -12,15 +12,15 @@ DateTime testTime = tz.TZDateTime.from(
 PrayerTimetableMap dublin(newtime) => PrayerTimetableMap(
       timetableDublin,
       // optional parameters:
-      // year: 2020,
-      // month: 3,
-      // day: 28,
+      year: 2020,
+      month: 3,
+      day: 28,
 
       jamaahOn: true,
       jamaahMethods: [
         'fixed',
         '',
-        'afterthis',
+        'fixed',
         'afterthis',
         'afterthis',
         'afterthis'
@@ -28,7 +28,7 @@ PrayerTimetableMap dublin(newtime) => PrayerTimetableMap(
       jamaahOffsets: [
         [6, 0],
         [],
-        [0, 5],
+        [13, 5],
         [0, 5],
         [0, 5],
         [0, 0]
@@ -42,10 +42,13 @@ PrayerTimetableMap dublin(newtime) => PrayerTimetableMap(
       joinDhuhr: true,
     );
 
+
 PrayerTimetableMap location = dublin(testTime);
 
 main() {
   tz.initializeTimeZones();
+
+  print(testTime);
   jamaahTest(location);
   // timetableTest(location);
   // Timer.periodic(Duration(seconds: 1), (Timer t) {

@@ -11,4 +11,4 @@ dependencies:
   adhan_dart: ^1.0.7
 
 dev_dependencies:
-  timezone: ^0.7.0
+  timezone: ^0.8.0

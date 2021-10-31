@@ -40,23 +40,27 @@ class Jamaah extends Prayers {
       // DateTime jamaahTime = DateTime(;
       int offset;
       DateTime jamaahTime;
-      // String method =
-      //     jamaahMethods[prayerId].isNotEmpty ? jamaahMethods[prayerId] : null;
 
       if (jamaahOffsets[prayerId].isNotEmpty) {
         offset = jamaahOffsets[prayerId][0] * 60 + jamaahOffsets[prayerId][1];
       } else
-        offset = 0;
+        offset = -1;
 
+      // String? method =
+      //     jamaahMethods[prayerId].isNotEmpty ? jamaahMethods[prayerId] : null;
       // print('method: $method offset: $offset');
 
       if (jamaahMethods[prayerId] == 'afterthis') {
         // print('it is');
         jamaahTime = prayerList[prayerId].add(Duration(minutes: offset));
       } else if (jamaahMethods[prayerId] == 'fixed') {
-        jamaahTime = DateTime(prayerList[prayerId].year,
-                prayerList[prayerId].month, prayerList[prayerId].day)
-            .add(Duration(minutes: offset));
+        jamaahTime = DateTime(
+            prayerList[prayerId].year,
+            prayerList[prayerId].month,
+            prayerList[prayerId].day,
+           jamaahOffsets[prayerId][0],
+           jamaahOffsets[prayerId][1]);
+        // .add(Duration(minutes: offset));
         //
       } else {
         jamaahTime = prayerList[prayerId];
