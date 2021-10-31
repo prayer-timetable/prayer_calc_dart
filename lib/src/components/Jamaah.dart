@@ -46,7 +46,7 @@ class Jamaah extends Prayers {
       if (jamaahOffsets[prayerId].isNotEmpty) {
         offset = jamaahOffsets[prayerId][0] * 60 + jamaahOffsets[prayerId][1];
       } else
-        offset = -1;
+        offset = 0;
 
       // print('method: $method offset: $offset');
 

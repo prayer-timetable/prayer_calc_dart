@@ -26,7 +26,7 @@ PrayerTimetableMap dublin(newtime) => PrayerTimetableMap(
         'afterthis'
       ],
       jamaahOffsets: [
-        [4, 0],
+        [6, 0],
         [],
         [0, 5],
         [0, 5],

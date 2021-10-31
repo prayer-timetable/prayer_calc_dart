@@ -37,7 +37,6 @@ class PrayerTimetable {
     int asrMethod = 1,
     double? ishaAngle,
     bool summerTimeCalc: true,
-    DateTime? time,
     bool precision = false,
     bool jamaahOn = false,
     List<String> jamaahMethods = const [

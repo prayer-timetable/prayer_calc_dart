@@ -12,7 +12,7 @@ import 'CalculationParameters.dart';
 import 'Coordinates.dart';
 
 class PrayerTimes {
-  Coordinates coordinates = Coordinates(0, 0);
+  Coordinates coordinates = Coordinates(0.0, 0.0);
   DateTime date = DateTime.now();
   CalculationParameters calculationParameters =
       CalculationParameters("Other", 0, 0);
