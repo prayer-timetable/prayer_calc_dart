@@ -5,9 +5,6 @@ import 'package:prayer_timetable/src/components/Prayers.dart';
 import 'package:prayer_timetable/src/components/Calc.dart';
 import 'package:prayer_timetable/src/components/Jamaah.dart';
 
-// import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
-
 import 'package:adhan_dart/adhan_dart.dart';
 
 class PrayerTimetable {
@@ -56,10 +53,9 @@ class PrayerTimetable {
       [0, 0]
     ],
   }) {
-    tz.setLocalLocation(tz.getLocation(timezone));
 
     // DateTime timestamp = DateTime.now().toUtc();
-    DateTime timestamp = tz.TZDateTime.now(tz.getLocation(timezone));
+    DateTime timestamp = DateTime.now();
 
     // UTC date
     // DateTime date = DateTime.utc(year ?? timestamp.year,
@@ -67,10 +63,9 @@ class PrayerTimetable {
     // DateTime nowUtc = DateTime.now().toUtc();
 
     // Local dates needed for dst calc and local midnight past (0:00)
-    DateTime date = tz.TZDateTime.from(
+    DateTime date = 
         DateTime(year ?? timestamp.year, month ?? timestamp.month,
-            day ?? timestamp.day, hour ?? 12, minute ?? 0, second ?? 0),
-        tz.getLocation(timezone));
+            day ?? timestamp.day, hour ?? 12, minute ?? 0, second ?? 0);
     // DateTime date = DateTime.utc(
     //     year ?? timestamp.year,
     //     month ?? timestamp.month,
@@ -82,7 +77,7 @@ class PrayerTimetable {
     // define now (local)
     // DateTime nowLocal = time ?? timestamp;
     //     DateTime now = time ?? timestamp;
-    DateTime now = tz.TZDateTime.from(DateTime.now(), tz.getLocation(timezone));
+    DateTime now = DateTime.now();
 
     // ***** current, next and previous day
     DateTime dayCurrent = date;
@@ -127,17 +122,17 @@ class PrayerTimetable {
       //     prayerTimes.isha.add(Duration(hours: timezone + summerTime));
       //
       prayers.dawn =
-          tz.TZDateTime.from(prayerTimes.fajr!, tz.getLocation(timezone));
+          prayerTimes.fajr!;
       prayers.sunrise =
-          tz.TZDateTime.from(prayerTimes.sunrise!, tz.getLocation(timezone));
+          prayerTimes.sunrise!;
       prayers.midday =
-          tz.TZDateTime.from(prayerTimes.dhuhr!, tz.getLocation(timezone));
+          prayerTimes.dhuhr!;
       prayers.afternoon =
-          tz.TZDateTime.from(prayerTimes.asr!, tz.getLocation(timezone));
+          prayerTimes.asr!;
       prayers.sunset =
-          tz.TZDateTime.from(prayerTimes.maghrib!, tz.getLocation(timezone));
+          prayerTimes.maghrib!;
       prayers.dusk =
-          tz.TZDateTime.from(prayerTimes.isha!, tz.getLocation(timezone));
+          prayerTimes.isha!;
       return prayers;
     }
 

@@ -1,13 +1,11 @@
-import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
 import 'dart:async';
 
 import 'package:prayer_timetable/src/PrayerTimetableMap.dart';
 import 'src/timetable_map.dart';
 import 'test.dart';
 
-DateTime testTime = tz.TZDateTime.from(
-    DateTime(2021, 4, 14, 16, 25, 45), tz.getLocation('Europe/Dublin'));
+DateTime testTime =
+    DateTime(2021, 4, 14, 16, 25, 45);
 
 PrayerTimetableMap dublin(newtime) => PrayerTimetableMap(
       timetableDublin,
@@ -46,8 +44,6 @@ PrayerTimetableMap dublin(newtime) => PrayerTimetableMap(
 PrayerTimetableMap location = dublin(testTime);
 
 main() {
-  tz.initializeTimeZones();
-
   print(testTime);
   jamaahTest(location);
   // timetableTest(location);

@@ -1,7 +1,5 @@
 import 'package:prayer_timetable/src/PrayerTimetable.dart';
 import 'test.dart';
-import 'package:timezone/data/latest.dart' as tz;
-// import 'package:timezone/timezone.dart' as tz;
 
 // main() => calcTest();
 // ICCI
@@ -106,6 +104,5 @@ PrayerTimetable location = icci;
 //   // print(location.dayOfYear);
 // }
 main() {
-  tz.initializeTimeZones();
   timetableTest(location);
 }

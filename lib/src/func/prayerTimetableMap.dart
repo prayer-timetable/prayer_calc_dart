@@ -1,9 +1,6 @@
 import 'package:prayer_timetable/src/components/Prayers.dart';
 import 'package:prayer_timetable/src/func/helpers.dart';
 
-// import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
-
 /* *********************** */
 /* MAIN FUNCTION           */
 /* *********************** */
@@ -19,8 +16,8 @@ Prayers prayerTimetable(
 
   // print('###');
   // print(date);
-  DateTime timestamp = tz.TZDateTime.from(
-      date != null ? date : DateTime.now(), tz.getLocation(timezone));
+  DateTime timestamp = 
+      date != null ? date : DateTime.now();
 
   // DateTime timestamp = date ?? DateTime.now();
   int adjDst = isDSTCalc(timestamp) ? 1 : 0;

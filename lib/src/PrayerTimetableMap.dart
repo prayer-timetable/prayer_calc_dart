@@ -1,6 +1,3 @@
-// import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
-
 import 'package:prayer_timetable/src/components/Sunnah.dart';
 import 'package:prayer_timetable/src/components/Prayers.dart';
 import 'package:prayer_timetable/src/components/Calc.dart';
@@ -55,22 +52,18 @@ class PrayerTimetableMap {
     bool joinMaghrib = false,
     bool joinDhuhr = false,
   }) {
-    tz.setLocalLocation(tz.getLocation(timezone));
+    DateTime timestamp = DateTime.now();
 
-    DateTime timestamp = tz.TZDateTime.now(tz.getLocation(timezone));
+    DateTime date = DateTime(
+      year ?? timestamp.year,
+      month ?? timestamp.month,
+      day ?? timestamp.day,
+      hour ?? timestamp.hour,
+      minute ?? timestamp.minute,
+      second ?? timestamp.second,
+    );
 
-    DateTime date = tz.TZDateTime.from(
-        DateTime(
-          year ?? timestamp.year,
-          month ?? timestamp.month,
-          day ?? timestamp.day,
-          hour ?? timestamp.hour,
-          minute ?? timestamp.minute,
-          second ?? timestamp.second,
-        ),
-        tz.getLocation(timezone));
-
-    DateTime now = tz.TZDateTime.from(DateTime.now(), tz.getLocation(timezone));
+    DateTime now = DateTime.now();
 
     // ***** current, next and previous day
     DateTime current = date;
