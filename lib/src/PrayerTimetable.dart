@@ -97,7 +97,8 @@ class PrayerTimetable {
     // DEFINITIONS
     Coordinates coordinates = Coordinates(lat, lng);
     CalculationParameters params = CalculationMethod.Other();
-    params.highLatitudeRule = HighLatitudeRule.SeventhOfTheNight;
+    // params.highLatitudeRule = HighLatitudeRule.SeventhOfTheNight;
+    params.highLatitudeRule = HighLatitudeRule.TwilightAngle;
     params.madhab = asrMethod == 2 ? Madhab.Hanafi : Madhab.Shafi;
     // params.methodAdjustments = {'dhuhr': 0};
     params.fajrAngle = angle;
