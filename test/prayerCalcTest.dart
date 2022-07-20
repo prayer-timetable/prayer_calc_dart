@@ -36,11 +36,11 @@ main() {
 // var maghribTime = moment(prayerTimes.maghrib).tz('Europe/Sarajevo').format('h:mm A');
 // var ishaTime = moment(prayerTimes.isha).tz('Europe/Sarajevo').format('h:mm A');
 
-  print('fajr\t${prayerTimes.fajr}');
-  print('sunrise\t${prayerTimes.sunrise}');
-  print('dhuhr\t${prayerTimes.dhuhr}');
-  print('asr\t${prayerTimes.asr}');
-  print('maghrib\t${prayerTimes.maghrib}');
-  print('isha\t${prayerTimes.isha}');
+  print('fajr\t${prayerTimes.fajr!.toLocal()}');
+  print('sunrise\t${prayerTimes.sunrise!.toLocal()}');
+  print('dhuhr\t${prayerTimes.dhuhr!.toLocal()}');
+  print('asr\t${prayerTimes.asr!.toLocal()}');
+  print('maghrib\t${prayerTimes.maghrib!.toLocal()}');
+  print('isha\t${prayerTimes.isha!.toLocal()}');
   // print(params.madhab);
 }
