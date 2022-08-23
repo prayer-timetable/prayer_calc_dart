@@ -192,19 +192,19 @@ class PrayerTimetableMap {
     this.sunnah = Sunnah(now, prayersCurrent, prayersNext, prayersPrevious);
 
     /// Today only.
-    this.calcToday = Calc(
-      /// TNow
-      now,
-      prayersToday,
-      prayersTomorrow,
-      prayersYesterday,
-      jamaahOn,
-      jamaahToday,
-      jamaahTomorrow,
-      jamaahYesterday,
-      lat,
-      lng,
-    );
+    // this.calcToday = Calc(
+    //   /// TNow
+    //   now,
+    //   prayersToday,
+    //   prayersTomorrow,
+    //   prayersYesterday,
+    //   jamaahOn,
+    //   jamaahToday,
+    //   jamaahTomorrow,
+    //   jamaahYesterday,
+    //   lat,
+    //   lng,
+    // );
 
     // this.calc = Calc(
     //   date,

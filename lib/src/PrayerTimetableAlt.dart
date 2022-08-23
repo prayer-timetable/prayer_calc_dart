@@ -205,31 +205,31 @@ class PrayerTimetableAlt {
     this.sunnah =
         Sunnah(nowLocal, prayersCurrent, prayersNext, prayersPrevious);
 
-    this.calcToday = Calc(
-      nowLocal,
-      prayersToday,
-      prayersTomorrow,
-      prayersYesterday,
-      jamaahOn,
-      jamaahToday,
-      jamaahTomorrow,
-      jamaahYesterday,
-      lat,
-      lng,
-    );
+    // this.calcToday = Calc(
+    //   nowLocal,
+    //   prayersToday,
+    //   prayersTomorrow,
+    //   prayersYesterday,
+    //   jamaahOn,
+    //   jamaahToday,
+    //   jamaahTomorrow,
+    //   jamaahYesterday,
+    //   lat,
+    //   lng,
+    // );
 
-    this.calc = Calc(
-      date,
-      prayersCurrent,
-      prayersNext,
-      prayersPrevious,
-      jamaahOn,
-      jamaahCurrent,
-      jamaahNext,
-      jamaahToday,
-      lat,
-      lng,
-    );
+    // this.calc = Calc(
+    //   date,
+    //   prayersCurrent,
+    //   prayersNext,
+    //   prayersPrevious,
+    //   jamaahOn,
+    //   jamaahCurrent,
+    //   jamaahNext,
+    //   jamaahToday,
+    //   lat,
+    //   lng,
+    // );
     this.dayOfYear = dayOfYearCurrent;
     //end
   }

@@ -188,31 +188,31 @@ class PrayerTimetable {
     // this.calc = Calc(now.add(Duration(hours: timezone + _summerTime)),
     //     prayersToday, prayersTomorrow, prayersYesterday);
 
-    this.calcToday = Calc(
-      now,
-      prayersToday,
-      prayersTomorrow,
-      prayersYesterday,
-      jamaahOn,
-      jamaahToday,
-      jamaahTomorrow,
-      jamaahYesterday,
-      lat,
-      lng,
-    );
+    // this.calcToday = Calc(
+    //   now,
+    //   prayersToday,
+    //   prayersTomorrow,
+    //   prayersYesterday,
+    //   jamaahOn,
+    //   jamaahToday,
+    //   jamaahTomorrow,
+    //   jamaahYesterday,
+    //   lat,
+    //   lng,
+    // );
 
-    this.calc = Calc(
-      date,
-      prayersCurrent,
-      prayersNext,
-      prayersPrevious,
-      jamaahOn,
-      jamaahCurrent,
-      jamaahNext,
-      jamaahPrevious,
-      lat,
-      lng,
-    );
+    // this.calc = Calc(
+    //   date,
+    //   prayersCurrent,
+    //   prayersNext,
+    //   prayersPrevious,
+    //   jamaahOn,
+    //   jamaahCurrent,
+    //   jamaahNext,
+    //   jamaahPrevious,
+    //   lat,
+    //   lng,
+    // );
     //end
   }
 
