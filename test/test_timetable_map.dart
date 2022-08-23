@@ -38,10 +38,9 @@ PrayerTimetableMap dublin(newtime) => PrayerTimetableMap(
       hour: newtime.hour,
       minute: newtime.minute,
       second: newtime.second,
-      joinMaghrib: true,
-      joinDhuhr: true,
+      joinMaghrib: false,
+      joinDhuhr: false,
     );
-
 
 PrayerTimetableMap location = dublin(testTime);
 
@@ -49,7 +48,9 @@ main() {
   tz.initializeTimeZones();
 
   print(testTime);
+
   jamaahTest(location);
+
   // timetableTest(location);
   // Timer.periodic(Duration(seconds: 1), (Timer t) {
   //   testTime = testTime.add(Duration(seconds: 1));

@@ -8,6 +8,7 @@ import 'package:prayer_timetable/src/components/Jamaah.dart';
 
 import 'package:prayer_timetable/src/func/prayerTimetableMap.dart';
 
+/// Uses predefined map for prayers
 class PrayerTimetableMap {
   // PrayersStructure prayers;
   Prayers? current;
@@ -15,8 +16,14 @@ class PrayerTimetableMap {
   Prayers? next;
   PrayerTimetableMap? prayers;
   PrayerTimetableMap? jamaah;
+
+  /// Sunnah
   Sunnah? sunnah;
+
+  /// Calculates based on set DateTime
   Calc? calc;
+
+  /// Forces using now for DateTime
   Calc? calcToday;
   // Jamaah jamaahPrayer;
 
@@ -57,20 +64,19 @@ class PrayerTimetableMap {
   }) {
     tz.setLocalLocation(tz.getLocation(timezone));
 
-    DateTime timestamp = tz.TZDateTime.now(tz.getLocation(timezone));
+    DateTime now = tz.TZDateTime.now(tz.getLocation(timezone));
+    // DateTime now = tz.TZDateTime.from(DateTime.now(), tz.getLocation(timezone));
 
     DateTime date = tz.TZDateTime.from(
         DateTime(
-          year ?? timestamp.year,
-          month ?? timestamp.month,
-          day ?? timestamp.day,
-          hour ?? timestamp.hour,
-          minute ?? timestamp.minute,
-          second ?? timestamp.second,
+          year ?? now.year,
+          month ?? now.month,
+          day ?? now.day,
+          hour ?? now.hour,
+          minute ?? now.minute,
+          second ?? now.second,
         ),
         tz.getLocation(timezone));
-
-    DateTime now = tz.TZDateTime.from(DateTime.now(), tz.getLocation(timezone));
 
     // ***** current, next and previous day
     DateTime current = date;
@@ -79,8 +85,8 @@ class PrayerTimetableMap {
 
     // ***** today, tomorrow and yesterday
     DateTime today = now;
-    DateTime tomorrow = today.add(Duration(days: 1));
-    DateTime yesterday = today.subtract(Duration(days: 1));
+    DateTime tomorrow = now.add(Duration(days: 1));
+    DateTime yesterday = now.subtract(Duration(days: 1));
 
     // ***** PRAYERS CURRENT, NEXT, PREVIOUS
     Prayers prayersCurrent = prayerTimetable(
@@ -142,6 +148,8 @@ class PrayerTimetableMap {
     Jamaah jamaahYesterday =
         Jamaah(prayersYesterday, jamaahMethods, jamaahOffsets);
 
+    print(joinDhuhr);
+    print(joinMaghrib);
     // JOINING
     if (joinMaghrib) {
       prayersToday.dusk = prayersToday.sunset;
@@ -183,7 +191,9 @@ class PrayerTimetableMap {
 
     this.sunnah = Sunnah(now, prayersCurrent, prayersNext, prayersPrevious);
 
+    /// Today only.
     this.calcToday = Calc(
+      /// TNow
       now,
       prayersToday,
       prayersTomorrow,
@@ -196,18 +206,18 @@ class PrayerTimetableMap {
       lng,
     );
 
-    this.calc = Calc(
-      date,
-      prayersCurrent,
-      prayersNext,
-      prayersPrevious,
-      jamaahOn,
-      jamaahCurrent,
-      jamaahNext,
-      jamaahPrevious,
-      lat,
-      lng,
-    );
+    // this.calc = Calc(
+    //   date,
+    //   prayersCurrent,
+    //   prayersNext,
+    //   prayersPrevious,
+    //   jamaahOn,
+    //   jamaahCurrent,
+    //   jamaahNext,
+    //   jamaahPrevious,
+    //   lat,
+    //   lng,
+    // );
 
     //end
     //
