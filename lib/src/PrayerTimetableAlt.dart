@@ -1,20 +1,30 @@
 import 'package:prayer_timetable/src/components/Sunnah.dart';
-import 'package:prayer_timetable/src/components/Prayers.dart';
-import 'package:prayer_timetable/src/components/Jamaah.dart';
+import 'package:prayer_timetable/src/components/PrayerTimes.dart'
+    as prayertimes;
+import 'package:prayer_timetable/src/components/JamaahTimes.dart';
 import 'package:prayer_timetable/src/components/Calc.dart';
 import 'package:prayer_timetable/src/func/prayerTimetableAlt.dart';
 
 class PrayerTimetableAlt {
-  // PrayersStructure prayers;
-  Prayers? current;
-  Prayers? next;
-  Prayers? previous;
-  PrayerTimetableAlt? prayers;
-  PrayerTimetableAlt? jamaah;
+  /// Prayer Times
+  prayertimes.PrayerTimes currentPrayerTimes = prayertimes.PrayerTimes.now;
+  prayertimes.PrayerTimes previousPrayerTimes = prayertimes.PrayerTimes.now;
+  prayertimes.PrayerTimes nextPrayerTimes = prayertimes.PrayerTimes.now;
 
+  /// Jamaah Times
+  prayertimes.PrayerTimes currentJamaahTimes = prayertimes.PrayerTimes.now;
+  prayertimes.PrayerTimes previousJamaahTimes = prayertimes.PrayerTimes.now;
+  prayertimes.PrayerTimes nextJamaahTimes = prayertimes.PrayerTimes.now;
+
+  /// Sunnah
   Sunnah? sunnah;
+
+  /// Calculations based on set DateTime
   Calc? calc;
+
+  /// Calculations with forced now for DateTime
   Calc? calcToday;
+
   int? dayOfYear;
 
   PrayerTimetableAlt(
@@ -52,8 +62,8 @@ class PrayerTimetableAlt {
     ],
     bool jamaahOn = false,
   }) {
-    DateTime timestamp = DateTime.now();
-    DateTime beginingOfYear = DateTime(timestamp.year); // Jan 1, 0:00
+    DateTime now = DateTime.now();
+    DateTime beginingOfYear = DateTime(now.year); // Jan 1, 0:00
 
     // UTC date
     // DateTime date = DateTime.utc(year ?? timestamp.year,
@@ -62,14 +72,14 @@ class PrayerTimetableAlt {
 
     // Local dates needed for dst calc and local midnight past (0:00)
     DateTime date = DateTime(
-        year ?? timestamp.year,
-        month ?? timestamp.month,
-        day ?? timestamp.day,
+        year ?? now.year,
+        month ?? now.month,
+        day ?? now.day,
         hour ?? 12,
         minute ?? 0,
         second ?? 0); // using noon of local date to avoid +- 1 hour
     // define now (local)
-    DateTime nowLocal = time ?? timestamp;
+    DateTime nowLocal = time ?? now;
 
     // ***** current, next and previous day
     DateTime dayCurrent = date;
@@ -77,7 +87,7 @@ class PrayerTimetableAlt {
     DateTime dayPrevious = date.subtract(Duration(days: 1));
 
     // ***** today, tomorrow and yesterday
-    DateTime dayToday = time ?? timestamp;
+    DateTime dayToday = time ?? now;
     DateTime dayTomorrow = dayToday.add(Duration(days: 1));
     DateTime dayYesterday = dayToday.subtract(Duration(days: 1));
 
@@ -94,7 +104,7 @@ class PrayerTimetableAlt {
     int dayOfYearYesterday = dayYesterday.difference(beginingOfYear).inDays;
 
     // ***** PRAYERS CURRENT, NEXT, PREVIOUS
-    Prayers prayersCurrent = prayerTimetable(
+    prayertimes.PrayerTimes _currentPrayerTimes = prayerTimetable(
       timezone: timezone,
       lat: lat,
       lng: lng,
@@ -108,7 +118,7 @@ class PrayerTimetableAlt {
       showSeconds: showSeconds,
     );
 
-    Prayers prayersNext = prayerTimetable(
+    prayertimes.PrayerTimes _nextPrayerTimes = prayerTimetable(
       timezone: timezone,
       lat: lat,
       lng: lng,
@@ -122,7 +132,7 @@ class PrayerTimetableAlt {
       showSeconds: showSeconds,
     );
 
-    Prayers prayersPrevious = prayerTimetable(
+    prayertimes.PrayerTimes _previousPrayerTimes = prayerTimetable(
       timezone: timezone,
       lat: lat,
       lng: lng,
@@ -137,7 +147,7 @@ class PrayerTimetableAlt {
     );
 
     // ***** PRAYERS TODAY, TOMORROW, YESTERDAY
-    Prayers prayersToday = prayerTimetable(
+    prayertimes.PrayerTimes prayersToday = prayerTimetable(
       timezone: timezone,
       lat: lat,
       lng: lng,
@@ -151,7 +161,7 @@ class PrayerTimetableAlt {
       showSeconds: showSeconds,
     );
 
-    Prayers prayersTomorrow = prayerTimetable(
+    prayertimes.PrayerTimes prayersTomorrow = prayerTimetable(
       timezone: timezone,
       lat: lat,
       lng: lng,
@@ -165,7 +175,7 @@ class PrayerTimetableAlt {
       showSeconds: showSeconds,
     );
 
-    Prayers prayersYesterday = prayerTimetable(
+    prayertimes.PrayerTimes prayersYesterday = prayerTimetable(
       timezone: timezone,
       lat: lat,
       lng: lng,
@@ -180,70 +190,67 @@ class PrayerTimetableAlt {
     );
 
     // JAMAAH
-    Jamaah jamaahCurrent = Jamaah(prayersCurrent, jamaahMethods, jamaahOffsets);
+    JamaahTimes _currentJamaahTimes =
+        JamaahTimes(_currentPrayerTimes, jamaahMethods, jamaahOffsets);
 
-    Jamaah jamaahNext = Jamaah(prayersNext, jamaahMethods, jamaahOffsets);
+    JamaahTimes _nextJamaahTimes =
+        JamaahTimes(_nextPrayerTimes, jamaahMethods, jamaahOffsets);
 
-    Jamaah jamaahPrevious =
-        Jamaah(prayersPrevious, jamaahMethods, jamaahOffsets);
+    JamaahTimes _previousJamaahTimes =
+        JamaahTimes(_previousPrayerTimes, jamaahMethods, jamaahOffsets);
 
-    Jamaah jamaahToday = Jamaah(prayersToday, jamaahMethods, jamaahOffsets);
+    JamaahTimes jamaahToday =
+        JamaahTimes(prayersToday, jamaahMethods, jamaahOffsets);
 
-    Jamaah jamaahTomorrow =
-        Jamaah(prayersTomorrow, jamaahMethods, jamaahOffsets);
+    JamaahTimes jamaahTomorrow =
+        JamaahTimes(prayersTomorrow, jamaahMethods, jamaahOffsets);
 
-    Jamaah jamaahYesterday =
-        Jamaah(prayersYesterday, jamaahMethods, jamaahOffsets);
+    JamaahTimes jamaahYesterday =
+        JamaahTimes(prayersYesterday, jamaahMethods, jamaahOffsets);
 
-    // define components
-    this.prayers = PrayerTimetableAlt.prayers(
-        prayersCurrent, prayersNext, prayersPrevious);
+    /// Define prayer times
+    this.currentPrayerTimes = _currentPrayerTimes;
+    this.nextPrayerTimes = _nextPrayerTimes;
+    this.previousPrayerTimes = _previousPrayerTimes;
 
-    this.jamaah =
-        PrayerTimetableAlt.jamaah(jamaahCurrent, jamaahNext, jamaahPrevious);
+    /// Define jamaah times
+    this.currentJamaahTimes =
+        JamaahTimes(_currentPrayerTimes, jamaahMethods, jamaahOffsets);
+    this.nextJamaahTimes =
+        JamaahTimes(_nextPrayerTimes, jamaahMethods, jamaahOffsets);
+    this.previousJamaahTimes =
+        JamaahTimes(_previousPrayerTimes, jamaahMethods, jamaahOffsets);
 
-    this.sunnah =
-        Sunnah(nowLocal, prayersCurrent, prayersNext, prayersPrevious);
+    /// Define sunnah
+    this.sunnah = Sunnah(
+        now, _currentPrayerTimes, _nextPrayerTimes, _previousPrayerTimes);
 
-    // this.calcToday = Calc(
-    //   nowLocal,
-    //   prayersToday,
-    //   prayersTomorrow,
-    //   prayersYesterday,
-    //   jamaahOn,
-    //   jamaahToday,
-    //   jamaahTomorrow,
-    //   jamaahYesterday,
-    //   lat,
-    //   lng,
-    // );
+    this.calcToday = Calc(
+      nowLocal,
+      prayersToday,
+      prayersTomorrow,
+      prayersYesterday,
+      jamaahOn,
+      jamaahToday,
+      jamaahTomorrow,
+      jamaahYesterday,
+      lat,
+      lng,
+    );
 
-    // this.calc = Calc(
-    //   date,
-    //   prayersCurrent,
-    //   prayersNext,
-    //   prayersPrevious,
-    //   jamaahOn,
-    //   jamaahCurrent,
-    //   jamaahNext,
-    //   jamaahToday,
-    //   lat,
-    //   lng,
-    // );
+    this.calc = Calc(
+      date,
+      _currentPrayerTimes,
+      _nextPrayerTimes,
+      _previousPrayerTimes,
+      jamaahOn,
+      _currentJamaahTimes,
+      _nextJamaahTimes,
+      jamaahToday,
+      lat,
+      lng,
+    );
     this.dayOfYear = dayOfYearCurrent;
     //end
-  }
-
-  PrayerTimetableAlt.prayers(Prayers prayersCurrent, Prayers prayersTomorrow,
-      Prayers prayersYesterday) {
-    current = prayersCurrent;
-    next = prayersTomorrow;
-    previous = prayersYesterday;
-  }
-  PrayerTimetableAlt.jamaah(
-      Jamaah jamaahCurrent, Jamaah jamaahNext, Jamaah jamaahPrevious) {
-    current = jamaahCurrent;
-    next = jamaahNext;
-    previous = jamaahPrevious;
   }
 }

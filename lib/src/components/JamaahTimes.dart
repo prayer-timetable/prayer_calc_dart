@@ -1,6 +1,6 @@
-import 'package:prayer_timetable/src/components/Prayers.dart';
+import 'package:prayer_timetable/src/components/PrayerTimes.dart';
 
-class Jamaah extends Prayers {
+class JamaahTimes extends PrayerTimes {
   @override
   DateTime dawn = DateTime.now();
   @override
@@ -14,8 +14,8 @@ class Jamaah extends Prayers {
   @override
   DateTime dusk = DateTime.now();
 
-  Jamaah(
-    Prayers prayers,
+  JamaahTimes(
+    PrayerTimes prayers,
     List<String> jamaahMethods,
     List<List<int>> jamaahOffsets,
   ) {
@@ -58,8 +58,8 @@ class Jamaah extends Prayers {
             prayerList[prayerId].year,
             prayerList[prayerId].month,
             prayerList[prayerId].day,
-           jamaahOffsets[prayerId][0],
-           jamaahOffsets[prayerId][1]);
+            jamaahOffsets[prayerId][0],
+            jamaahOffsets[prayerId][1]);
         // .add(Duration(minutes: offset));
         //
       } else {
@@ -81,4 +81,6 @@ class Jamaah extends Prayers {
 
     //end
   }
+
+  static PrayerTimes now = new PrayerTimes();
 }

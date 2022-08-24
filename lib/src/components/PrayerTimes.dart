@@ -1,4 +1,4 @@
-class Prayers {
+class PrayerTimes {
   DateTime dawn = DateTime.now();
   DateTime sunrise = DateTime.now();
   DateTime midday = DateTime.now();
@@ -6,7 +6,7 @@ class Prayers {
   DateTime sunset = DateTime.now();
   DateTime dusk = DateTime.now();
 
-  Prayers() {
+  PrayerTimes() {
     this.dawn;
     this.sunrise;
     this.midday;
@@ -14,4 +14,6 @@ class Prayers {
     this.sunset;
     this.dusk;
   }
+
+  static PrayerTimes now = new PrayerTimes();
 }

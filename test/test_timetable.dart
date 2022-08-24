@@ -67,12 +67,12 @@ PrayerTimetable location = icci;
 
 // calcTest() {
 //   print('**************** current *****************');
-//   print('dawn:\t\t${location.prayers.current.dawn}');
-//   print('sunrise:\t${location.prayers.current.sunrise}');
-//   print('midday:\t\t${location.prayers.current.midday}');
-//   print('afternoon:\t${location.prayers.current.afternoon}');
-//   print('sunset:\t\t${location.prayers.current.sunset}');
-//   print('dusk:\t\t${location.prayers.current.dusk}');
+//   print('dawn:\t\t${location.currentPrayerTimes.dawn}');
+//   print('sunrise:\t${location.currentPrayerTimes.sunrise}');
+//   print('midday:\t\t${location.currentPrayerTimes.midday}');
+//   print('afternoon:\t${location.currentPrayerTimes.afternoon}');
+//   print('sunset:\t\t${location.currentPrayerTimes.sunset}');
+//   print('dusk:\t\t${location.currentPrayerTimes.dusk}');
 //   print('*************** next **************');
 //   print('dawn:\t\t${location.prayers.next.dawn}');
 //   print('sunrise:\t${location.prayers.next.sunrise}');

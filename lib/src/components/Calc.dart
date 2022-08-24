@@ -1,5 +1,6 @@
-import 'package:prayer_timetable/src/components/Prayers.dart';
-import 'package:prayer_timetable/src/components/Jamaah.dart';
+import 'package:prayer_timetable/src/components/PrayerTimes.dart'
+    as prayertimes;
+import 'package:prayer_timetable/src/components/JamaahTimes.dart';
 import 'package:prayer_timetable/src/func/helpers.dart';
 
 import 'package:adhan_dart/adhan_dart.dart';
@@ -23,13 +24,13 @@ class Calc {
 
   Calc(
     DateTime _time,
-    Prayers _prayersToday,
-    Prayers _prayersTomorrow,
-    Prayers _prayersYesterday,
+    prayertimes.PrayerTimes _prayersToday,
+    prayertimes.PrayerTimes _prayersTomorrow,
+    prayertimes.PrayerTimes _prayersYesterday,
     bool _jamaahOn,
-    Jamaah _jamaahToday,
-    Jamaah _jamaahTomorrow,
-    Jamaah _jamaahYesterday,
+    JamaahTimes _jamaahToday,
+    JamaahTimes _jamaahTomorrow,
+    JamaahTimes _jamaahYesterday,
     double _lat,
     double _lng,
   ) {

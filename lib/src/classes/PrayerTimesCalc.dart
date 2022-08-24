@@ -11,7 +11,7 @@ import 'package:prayer_timetable/src/classes/CalculationParameters.dart';
 import 'CalculationParameters.dart';
 import 'Coordinates.dart';
 
-class PrayerTimes {
+class PrayerTimesCalc {
   Coordinates coordinates = Coordinates(0.0, 0.0);
   DateTime date = DateTime.now();
   CalculationParameters calculationParameters =
@@ -24,7 +24,7 @@ class PrayerTimes {
   DateTime? maghrib;
   DateTime? isha;
 
-  PrayerTimes(Coordinates coordinates, DateTime date,
+  PrayerTimesCalc(Coordinates coordinates, DateTime date,
       CalculationParameters calculationParameters,
       {precision: true}) {
     this.coordinates = coordinates;

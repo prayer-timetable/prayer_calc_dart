@@ -1,19 +1,19 @@
-import 'package:prayer_timetable/src/classes/PrayerTimes.dart';
+import 'package:prayer_timetable/src/classes/PrayerTimesCalc.dart';
 import 'package:prayer_timetable/src/classes/DateUtils.dart';
 
 class SunnahTimes {
   DateTime? midnight;
   DateTime? lastThird;
 
-  SunnahTimes(PrayerTimes? prayerTimes, {precision: true}) {
+  SunnahTimes(PrayerTimesCalc? prayerTimes, {precision: true}) {
     DateTime? date = prayerTimes!.date;
     DateTime nextDay = dateByAddingDays(date, 1);
-    PrayerTimes nextDayPrayerTimes = new PrayerTimes(
+    PrayerTimesCalc nextDayPrayerTimesCalc = new PrayerTimesCalc(
         prayerTimes.coordinates, nextDay, prayerTimes.calculationParameters,
         precision: precision);
 
     Duration nightDuration =
-        (nextDayPrayerTimes.fajr!.difference(prayerTimes.maghrib!));
+        (nextDayPrayerTimesCalc.fajr!.difference(prayerTimes.maghrib!));
 
     this.midnight = roundedMinute(
         dateByAddingSeconds(

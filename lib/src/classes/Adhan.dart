@@ -6,7 +6,7 @@ import 'package:prayer_timetable/src/classes/CalculationMethod.dart';
 import 'package:prayer_timetable/src/classes/CalculationParameters.dart';
 import 'package:prayer_timetable/src/classes/Madhab.dart';
 import 'package:prayer_timetable/src/classes/Prayer.dart';
-import 'package:prayer_timetable/src/classes/PrayerTimes.dart';
+import 'package:prayer_timetable/src/classes/PrayerTimesCalc.dart';
 import 'package:prayer_timetable/src/classes/Qibla.dart';
 import 'package:prayer_timetable/src/classes/HighLatitudeRule.dart';
 
@@ -17,7 +17,7 @@ const adhan = {
   Coordinates: Coordinates,
   CalculationParameters: CalculationParameters,
   CalculationMethod: CalculationMethod,
-  PrayerTimes: PrayerTimes,
+  PrayerTimesCalc: PrayerTimesCalc,
   SunnahTimes: SunnahTimes,
   Qibla: Qibla
 };

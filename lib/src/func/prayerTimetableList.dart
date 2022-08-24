@@ -1,10 +1,10 @@
-import 'package:prayer_timetable/src/components/Prayers.dart';
+import 'package:prayer_timetable/src/components/PrayerTimes.dart';
 import 'package:prayer_timetable/src/func/helpers.dart';
 
 /* *********************** */
 /* MAIN FUNCTION           */
 /* *********************** */
-Prayers prayerTimetable(
+PrayerTimes prayerTimetable(
   List timetable, {
   List difference = const [0, 0, 0, 0, 0, 0],
   int hijriOffset = 0,
@@ -45,7 +45,7 @@ Prayers prayerTimetable(
     );
   });
 
-  Prayers prayers = new Prayers();
+  PrayerTimes prayers = new PrayerTimes();
   prayers.dawn = prayerTimes[0];
   prayers.sunrise = prayerTimes[1];
   prayers.midday = prayerTimes[2];

@@ -1,8 +1,8 @@
 import 'dart:math';
-import 'package:prayer_timetable/src/components/Prayers.dart';
+import 'package:prayer_timetable/src/components/PrayerTimes.dart';
 import 'package:prayer_timetable/src/func/helpers.dart';
 
-Prayers prayerTimetable({
+PrayerTimes prayerTimetable({
   int timezone = 0,
   double? lat = 0,
   double? lng = 0,
@@ -106,7 +106,7 @@ Prayers prayerTimetable({
       ? Z + U + 1.5
       : Z + Vn; // if dusk can not be calculated, make it 1.5 hours after sunset
 
-  Prayers prayers = new Prayers();
+  PrayerTimes prayers = new PrayerTimes();
   prayers.dawn = hourFractionToDateTime(
       dawnFraction, dateLocal, summerTimeCalc!, showSeconds!);
   prayers.sunrise = hourFractionToDateTime(

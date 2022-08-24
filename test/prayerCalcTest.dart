@@ -4,7 +4,7 @@ import 'package:prayer_timetable/src/classes/Coordinates.dart';
 import 'package:prayer_timetable/src/classes/CalculationMethod.dart';
 import 'package:prayer_timetable/src/classes/CalculationParameters.dart';
 import 'package:prayer_timetable/src/classes/Madhab.dart';
-import 'package:prayer_timetable/src/classes/PrayerTimes.dart';
+import 'package:prayer_timetable/src/classes/PrayerTimesCalc.dart';
 
 const lat = 43.8563;
 const lng = 18.4131;
@@ -23,7 +23,8 @@ main() {
   params.ishaAngle = angleI;
   params.fajrAngle = angleF;
 
-  var prayerTimes = new PrayerTimes(coordinates, date, params, precision: true);
+  var prayerTimes =
+      new PrayerTimesCalc(coordinates, date, params, precision: true);
 
   var fajrTime = prayerTimes.fajr!.toLocal();
   print(prayerTimes.fajr!.timeZoneName);

@@ -1,4 +1,4 @@
-import 'package:prayer_timetable/src/components/Prayers.dart';
+import 'package:prayer_timetable/src/components/PrayerTimes.dart';
 
 class Sunnah {
   DateTime midnight = DateTime.now();
@@ -6,9 +6,9 @@ class Sunnah {
 
   Sunnah(
     DateTime now,
-    Prayers prayersToday,
-    Prayers prayersTomorrow,
-    Prayers prayersYesterday,
+    PrayerTimes prayersToday,
+    PrayerTimes prayersTomorrow,
+    PrayerTimes prayersYesterday,
   ) {
     DateTime dawnTomorrow = prayersTomorrow.dawn;
     DateTime dawnToday = prayersToday.dawn;
