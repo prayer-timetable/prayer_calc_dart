@@ -34,6 +34,7 @@ timetableTest(location) {
   print('currentId:\t${location.calc.currentId}');
   print('countDown:\t${location.calc.countDown}');
   print('countUp:\t${location.calc.countUp}');
+  print('countUpJamaah:\t${location.calc.countUpJamaah}');
   print('countDown calcToday:\t${location.calcToday.countDown}');
   print('countUp calcToday:\t${location.calcToday.countUp}');
   print('Qibla:\t${location.calc.qibla}');

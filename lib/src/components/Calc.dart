@@ -94,7 +94,7 @@ class Calc {
     if (_jamaahOn) {
       // midnight - dawn
       if (_time.isBefore(_prayersToday.dawn)) {
-        _current = _prayersYesterday.dusk;
+        _current = _jamaahYesterday.dusk;
         _next = _prayersToday.dawn;
         _previous = _prayersYesterday.sunset;
         _currentId = 5;
@@ -109,7 +109,7 @@ class Calc {
       }
       // fajr jammah - sunrise
       else if (_time.isBefore(_prayersToday.sunrise)) {
-        _current = _prayersToday.dawn;
+        _current = _jamaahToday.dawn;
         _next = _prayersToday.sunrise;
         _previous = _prayersYesterday.dusk;
         _currentId = 0;
@@ -146,7 +146,7 @@ class Calc {
       }
       // asr jamaah - sunset
       else if (_time.isBefore(_prayersToday.sunset)) {
-        _current = _prayersToday.afternoon;
+        _current = _jamaahToday.afternoon;
         _next = _prayersToday.sunset;
         _previous = _prayersToday.midday;
         _currentId = 3;
@@ -161,7 +161,7 @@ class Calc {
       }
       // maghrib jamaah - dusk
       else if (_time.isBefore(_prayersToday.dusk)) {
-        _current = _prayersToday.sunset;
+        _current = _jamaahToday.sunset;
         _next = _prayersToday.dusk;
         _previous = _prayersToday.afternoon;
         _currentId = 4;
@@ -176,7 +176,7 @@ class Calc {
       }
       // isha jamaah - midnight
       else {
-        _current = _prayersToday.dusk;
+        _current = _jamaahToday.dusk;
         _next = _prayersTomorrow.dawn;
         _previous = _prayersToday.sunset;
         _currentId = 5;
