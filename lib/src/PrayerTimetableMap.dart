@@ -47,7 +47,7 @@ class PrayerTimetableMap {
       'afterthis',
       'afterthis'
     ],
-    List<List<int>> jamaahOffsets = const [
+    List<List<dynamic>> jamaahOffsets = const [
       [0, 0],
       [],
       [0, 0],

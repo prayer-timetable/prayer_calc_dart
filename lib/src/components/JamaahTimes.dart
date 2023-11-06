@@ -17,7 +17,7 @@ class JamaahTimes extends PrayerTimes {
   JamaahTimes(
     PrayerTimes prayers,
     List<String> jamaahMethods,
-    List<List<int>> jamaahOffsets,
+    List<List<dynamic>> jamaahOffsets,
   ) {
     /* *********************** */
     /* PRAYER LISTS            */
