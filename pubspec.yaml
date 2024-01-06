@@ -1,5 +1,5 @@
 name: prayer_timetable
-version: 1.1.0
+version: 1.1.1
 description: >-
     Library to calculate prayer times for muslims.
     Based on precise astronomical formula.
@@ -11,4 +11,4 @@ dependencies:
     adhan_dart: ^1.0.8
 
 dev_dependencies:
-    timezone: ^0.8.0
+    timezone: ^0.9.2

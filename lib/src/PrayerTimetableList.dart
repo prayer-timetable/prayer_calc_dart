@@ -32,7 +32,19 @@ class PrayerTimetableList {
     int? day,
     int hijriOffset = 0,
     bool summerTimeCalc: true,
+
+    /// Enables jamaah times globaly.
     bool jamaahOn = false,
+
+    /// Jammah times per individual prayers. Ignored if global jamaahOn is false.
+    List<bool> jamaahPerPrayer = const [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
     List<String> jamaahMethods = const [
       'afterthis',
       '',
@@ -170,6 +182,7 @@ class PrayerTimetableList {
       jamaahYesterday,
       lat,
       lng,
+      jamaahPerPrayer,
     );
 
     this.calc = Calc(
@@ -183,6 +196,7 @@ class PrayerTimetableList {
       _previousJamaahTimes,
       lat,
       lng,
+      jamaahPerPrayer,
     );
     //end
   }

@@ -6,21 +6,36 @@ import 'package:prayer_timetable/src/PrayerTimetableMap.dart';
 import 'src/timetable_map.dart';
 import 'test.dart';
 
-DateTime testTime = tz.TZDateTime.from(
-    DateTime(2021, 4, 14, 16, 25, 45), tz.getLocation('Europe/Dublin'));
+DateTime testTime = tz.TZDateTime.from(DateTime(2021, 4, 14, 17, 15, 45),
+    tz.getLocation('Europe/Dublin')); // asr jamaah pending
+
+// **************** Today *****************
+// dawn:		  2021-04-14 04:46:00.000
+// sunrise:	  2021-04-14 06:27:00.000
+// midday:		2021-04-14 13:27:00.000
+// afternoon:	2021-04-14 17:14:00.000
+// sunset:		2021-04-14 20:24:00.000
+// dusk:		  2021-04-14 21:59:00.000
+// *********** Today Jamaah *************
+// dawn:		  2021-04-14 06:00:00.000
+// sunrise:	  2021-04-14 06:27:00.000
+// midday:		2021-04-14 13:32:00.000
+// afternoon:	2021-04-14 17:19:00.000
+// sunset:		2021-04-14 20:29:00.000
+// dusk:		  2021-04-14 21:59:00.000
 
 PrayerTimetableMap dublin(newtime) => PrayerTimetableMap(
       timetableDublin,
       // optional parameters:
-      year: 2020,
-      month: 3,
-      day: 28,
+      year: testTime.year,
+      month: testTime.month,
+      day: testTime.day,
 
       jamaahOn: true,
       jamaahMethods: [
         'fixed',
         '',
-        'fixed',
+        'afterthis',
         'afterthis',
         'afterthis',
         'afterthis'
@@ -28,11 +43,12 @@ PrayerTimetableMap dublin(newtime) => PrayerTimetableMap(
       jamaahOffsets: [
         [6, 0],
         [],
-        [13, 5],
+        [0, 5],
         [0, 5],
         [0, 5],
         [0, 0]
       ],
+      jamaahPerPrayer: [false, false, false, false, false, false],
       // testing options
       testing: true,
       hour: newtime.hour,

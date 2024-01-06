@@ -33,6 +33,7 @@ class Calc {
     JamaahTimes _jamaahYesterday,
     double _lat,
     double _lng,
+    List<bool> _jamaahPerPrayer,
   ) {
     DateTime _current = this.current;
     DateTime _next = this.next;
@@ -94,13 +95,15 @@ class Calc {
     if (_jamaahOn) {
       // midnight - dawn
       if (_time.isBefore(_prayersToday.dawn)) {
-        _current = _jamaahYesterday.dusk;
+        _current = _jamaahPerPrayer[5]
+            ? _jamaahYesterday.dusk
+            : _prayersYesterday.dusk;
         _next = _prayersToday.dawn;
         _previous = _prayersYesterday.sunset;
         _currentId = 5;
       }
       // dawn - fajr jamaah
-      else if (_time.isBefore(_jamaahToday.dawn)) {
+      else if (_time.isBefore(_jamaahToday.dawn) && _jamaahPerPrayer[0]) {
         _current = _prayersToday.dawn;
         _next = _jamaahToday.dawn;
         _previous = _prayersToday.dawn;
@@ -122,7 +125,7 @@ class Calc {
         _currentId = 1;
       }
       // midday - dhuhr jamaah
-      else if (_time.isBefore(_jamaahToday.midday)) {
+      else if (_time.isBefore(_jamaahToday.midday) && _jamaahPerPrayer[2]) {
         _current = _prayersToday.midday;
         _next = _jamaahToday.midday;
         _previous = _prayersToday.sunrise;
@@ -137,7 +140,7 @@ class Calc {
         _currentId = 2;
       }
       // afternoon - asr jamaah
-      else if (_time.isBefore(_jamaahToday.afternoon)) {
+      else if (_time.isBefore(_jamaahToday.afternoon) && _jamaahPerPrayer[3]) {
         _current = _prayersToday.afternoon;
         _next = _jamaahToday.afternoon;
         _previous = _prayersToday.midday;
@@ -152,7 +155,7 @@ class Calc {
         _currentId = 3;
       }
       // sunset - maghrib jamaah
-      else if (_time.isBefore(_jamaahToday.sunset)) {
+      else if (_time.isBefore(_jamaahToday.sunset) && _jamaahPerPrayer[4]) {
         _current = _prayersToday.sunset;
         _next = _jamaahToday.sunset;
         _previous = _prayersToday.afternoon;
@@ -167,7 +170,7 @@ class Calc {
         _currentId = 4;
       }
       // dusk - isha jamaah
-      else if (_time.isBefore(_jamaahToday.dusk)) {
+      else if (_time.isBefore(_jamaahToday.dusk) && _jamaahPerPrayer[5]) {
         _current = _prayersToday.dusk;
         _next = _jamaahToday.dusk;
         _previous = _prayersToday.sunset;

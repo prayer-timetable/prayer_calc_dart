@@ -44,6 +44,19 @@ class PrayerTimetableAlt {
     bool summerTimeCalc: true,
     DateTime? time,
     bool? showSeconds,
+
+    /// Enables jamaah times globaly.
+    bool jamaahOn = false,
+
+    /// Jammah times per individual prayers. Ignored if global jamaahOn is false.
+    List<bool> jamaahPerPrayer = const [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
     List<String> jamaahMethods = const [
       'afterthis',
       '',
@@ -60,7 +73,6 @@ class PrayerTimetableAlt {
       [0, 0],
       [0, 0]
     ],
-    bool jamaahOn = false,
   }) {
     DateTime now = DateTime.now();
     DateTime beginingOfYear = DateTime(now.year); // Jan 1, 0:00
@@ -236,6 +248,7 @@ class PrayerTimetableAlt {
       jamaahYesterday,
       lat,
       lng,
+      jamaahPerPrayer,
     );
 
     this.calc = Calc(
@@ -249,6 +262,7 @@ class PrayerTimetableAlt {
       jamaahToday,
       lat,
       lng,
+      jamaahPerPrayer,
     );
     this.dayOfYear = dayOfYearCurrent;
     //end
