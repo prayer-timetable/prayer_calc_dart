@@ -103,16 +103,16 @@ class Calc {
         _currentId = 5;
       }
       // dawn - fajr jamaah
-      else if (_time.isBefore(_jamaahToday.dawn) && _jamaahPerPrayer[0]) {
+      else if (_time.isBefore(_jamaahToday.dawn)) {
         _current = _prayersToday.dawn;
-        _next = _jamaahToday.dawn;
+        _next = _jamaahPerPrayer[0] ? _jamaahToday.dawn : _prayersToday.sunrise;
         _previous = _prayersToday.dawn;
         _currentId = 0;
-        _jamaahPending = true;
+        _jamaahPending = _jamaahPerPrayer[0];
       }
       // fajr jammah - sunrise
       else if (_time.isBefore(_prayersToday.sunrise)) {
-        _current = _jamaahToday.dawn;
+        _current = _jamaahPerPrayer[0] ? _jamaahToday.dawn : _prayersToday.dawn;
         _next = _prayersToday.sunrise;
         _previous = _prayersYesterday.dusk;
         _currentId = 0;
@@ -125,61 +125,67 @@ class Calc {
         _currentId = 1;
       }
       // midday - dhuhr jamaah
-      else if (_time.isBefore(_jamaahToday.midday) && _jamaahPerPrayer[2]) {
+      else if (_time.isBefore(_jamaahToday.midday)) {
         _current = _prayersToday.midday;
-        _next = _jamaahToday.midday;
+        _next =
+            _jamaahPerPrayer[2] ? _jamaahToday.midday : _prayersToday.afternoon;
         _previous = _prayersToday.sunrise;
         _currentId = 2;
-        _jamaahPending = true;
+        _jamaahPending = _jamaahPerPrayer[2];
       }
       // dhuhr jamaah - afternoon
       else if (_time.isBefore(_prayersToday.afternoon)) {
-        _current = _jamaahToday.midday;
+        _current =
+            _jamaahPerPrayer[2] ? _jamaahToday.midday : _prayersToday.midday;
         _next = _prayersToday.afternoon;
         _previous = _prayersToday.sunrise;
         _currentId = 2;
       }
       // afternoon - asr jamaah
-      else if (_time.isBefore(_jamaahToday.afternoon) && _jamaahPerPrayer[3]) {
+      else if (_time.isBefore(_jamaahToday.afternoon)) {
         _current = _prayersToday.afternoon;
-        _next = _jamaahToday.afternoon;
+        _next =
+            _jamaahPerPrayer[3] ? _jamaahToday.afternoon : _prayersToday.sunset;
         _previous = _prayersToday.midday;
         _currentId = 3;
-        _jamaahPending = true;
+        _jamaahPending = _jamaahPerPrayer[3];
       }
       // asr jamaah - sunset
       else if (_time.isBefore(_prayersToday.sunset)) {
-        _current = _jamaahToday.afternoon;
+        _current = _jamaahPerPrayer[3]
+            ? _jamaahToday.afternoon
+            : _prayersToday.afternoon;
         _next = _prayersToday.sunset;
         _previous = _prayersToday.midday;
         _currentId = 3;
       }
       // sunset - maghrib jamaah
-      else if (_time.isBefore(_jamaahToday.sunset) && _jamaahPerPrayer[4]) {
+      else if (_time.isBefore(_jamaahToday.sunset)) {
         _current = _prayersToday.sunset;
-        _next = _jamaahToday.sunset;
+        _next = _jamaahPerPrayer[4] ? _jamaahToday.sunset : _prayersToday.dusk;
         _previous = _prayersToday.afternoon;
         _currentId = 4;
-        _jamaahPending = true;
+        _jamaahPending = _jamaahPerPrayer[4];
       }
       // maghrib jamaah - dusk
       else if (_time.isBefore(_prayersToday.dusk)) {
-        _current = _jamaahToday.sunset;
+        _current =
+            _jamaahPerPrayer[4] ? _jamaahToday.sunset : _prayersToday.sunset;
         _next = _prayersToday.dusk;
         _previous = _prayersToday.afternoon;
         _currentId = 4;
       }
       // dusk - isha jamaah
-      else if (_time.isBefore(_jamaahToday.dusk) && _jamaahPerPrayer[5]) {
+      else if (_time.isBefore(_jamaahToday.dusk)) {
         _current = _prayersToday.dusk;
-        _next = _jamaahToday.dusk;
+        _next = _jamaahPerPrayer[5] ? _jamaahToday.dusk : _prayersTomorrow.dawn;
         _previous = _prayersToday.sunset;
         _currentId = 5;
-        _jamaahPending = true;
+        _jamaahPending = _jamaahPerPrayer[5];
       }
       // isha jamaah - midnight
       else {
-        _current = _jamaahToday.dusk;
+        _current = _jamaahPerPrayer[5] ? _jamaahToday.dusk : _prayersToday.dusk;
         _next = _prayersTomorrow.dawn;
         _previous = _prayersToday.sunset;
         _currentId = 5;

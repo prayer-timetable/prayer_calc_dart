@@ -48,7 +48,7 @@ PrayerTimetableMap dublin(newtime) => PrayerTimetableMap(
         [0, 5],
         [0, 0]
       ],
-      jamaahPerPrayer: [false, false, false, false, false, false],
+      jamaahPerPrayer: [false, false, false, true, false, false],
       // testing options
       testing: true,
       hour: newtime.hour,
