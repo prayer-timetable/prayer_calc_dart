@@ -33,7 +33,7 @@ class Calc {
     JamaahTimes _jamaahYesterday,
     double _lat,
     double _lng,
-    List<bool> _jamaahPerPrayer,
+    List<bool>? _jamaahPerPrayer,
   ) {
     DateTime _current = this.current;
     DateTime _next = this.next;
@@ -92,7 +92,12 @@ class Calc {
 
     // JAMAAH
     bool _jamaahPending = false;
+
     if (_jamaahOn) {
+      if (_jamaahPerPrayer == null) {
+        _jamaahPerPrayer = const [true, true, true, true, true, true];
+      }
+
       // midnight - dawn
       if (_time.isBefore(_prayersToday.dawn)) {
         _current = _jamaahPerPrayer[5]

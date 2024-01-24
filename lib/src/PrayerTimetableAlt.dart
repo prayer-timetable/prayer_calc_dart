@@ -49,14 +49,15 @@ class PrayerTimetableAlt {
     bool jamaahOn = false,
 
     /// Jammah times per individual prayers. Ignored if global jamaahOn is false.
-    List<bool> jamaahPerPrayer = const [
-      false,
-      false,
-      false,
-      false,
-      false,
-      false
-    ],
+    List<bool>? jamaahPerPrayer,
+    //  = const [
+    //   false,
+    //   false,
+    //   false,
+    //   false,
+    //   false,
+    //   false
+    // ],
     List<String> jamaahMethods = const [
       'afterthis',
       '',

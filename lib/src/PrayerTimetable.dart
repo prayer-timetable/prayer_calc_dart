@@ -43,21 +43,22 @@ class PrayerTimetable {
     int? second,
     int asrMethod = 1,
     double? ishaAngle,
-    bool summerTimeCalc: true,
+    bool summerTimeCalc = true,
     bool precision = false,
 
     /// Enables jamaah times globaly.
     bool jamaahOn = false,
 
     /// Jammah times per individual prayers. Ignored if global jamaahOn is false.
-    List<bool> jamaahPerPrayer = const [
-      false,
-      false,
-      false,
-      false,
-      false,
-      false
-    ],
+    List<bool>? jamaahPerPrayer,
+    //  = const [
+    //   false,
+    //   false,
+    //   false,
+    //   false,
+    //   false,
+    //   false
+    // ],
     List<String> jamaahMethods = const [
       'afterthis',
       '',

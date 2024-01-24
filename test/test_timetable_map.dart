@@ -6,7 +6,7 @@ import 'package:prayer_timetable/src/PrayerTimetableMap.dart';
 import 'src/timetable_map.dart';
 import 'test.dart';
 
-DateTime testTime = tz.TZDateTime.from(DateTime(2021, 4, 14, 17, 15, 45),
+DateTime testTime = tz.TZDateTime.from(DateTime(2024, 1, 24, 14, 32, 45),
     tz.getLocation('Europe/Dublin')); // asr jamaah pending
 
 // **************** Today *****************
@@ -48,7 +48,7 @@ PrayerTimetableMap dublin(newtime) => PrayerTimetableMap(
         [0, 5],
         [0, 0]
       ],
-      jamaahPerPrayer: [false, false, false, true, false, false],
+      // jamaahPerPrayer: [false, false, false, true, false, false],
       // testing options
       testing: true,
       hour: newtime.hour,
