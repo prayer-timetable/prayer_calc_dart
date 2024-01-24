@@ -8,9 +8,6 @@ import 'package:prayer_timetable/src/classes/Madhab.dart';
 import 'package:prayer_timetable/src/classes/Coordinates.dart';
 import 'package:prayer_timetable/src/classes/CalculationParameters.dart';
 
-import 'CalculationParameters.dart';
-import 'Coordinates.dart';
-
 class PrayerTimesCalc {
   Coordinates coordinates = Coordinates(0.0, 0.0);
   DateTime date = DateTime.now();
