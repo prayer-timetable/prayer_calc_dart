@@ -20,11 +20,11 @@ class PrayerTimetable {
   prayertimes.PrayerTimes previousJamaahTimes = prayertimes.PrayerTimes.now;
   prayertimes.PrayerTimes nextJamaahTimes = prayertimes.PrayerTimes.now;
 
-  /// Sunnah
-  Sunnah? sunnah;
+  /// Sunnah times - midnight and last third
+  late Sunnah sunnah;
 
   /// Calculations based on set DateTime
-  Calc? calc;
+  late Calc calc;
 
   /// Calculations with forced now for DateTime
   Calc? calcToday;
@@ -162,7 +162,6 @@ class PrayerTimetable {
       return prayers;
     }
 
-    // print(PrayerTimes(coordinates, dayCurrent, params).fajr);
     // ***** PRAYERS CURRENT, NEXT, PREVIOUS
     prayertimes.PrayerTimes _currentPrayerTimes = toPrayers(adhan.PrayerTimes(
         coordinates, dayCurrent, params,

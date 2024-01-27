@@ -223,3 +223,58 @@ class Calc {
     //end
   }
 }
+
+Calc defaultCalc = Calc(
+    DateTime.now(),
+    prayertimes.PrayerTimes.now,
+    prayertimes.PrayerTimes.now,
+    prayertimes.PrayerTimes.now,
+    false,
+    JamaahTimes(prayertimes.PrayerTimes.now, [
+      'afterthis',
+      '',
+      'afterthis',
+      'afterthis',
+      'afterthis',
+      'afterthis'
+    ], [
+      [0, 0],
+      [],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0]
+    ]),
+    JamaahTimes(prayertimes.PrayerTimes.now, [
+      'afterthis',
+      '',
+      'afterthis',
+      'afterthis',
+      'afterthis',
+      'afterthis'
+    ], [
+      [0, 0],
+      [],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0]
+    ]),
+    JamaahTimes(prayertimes.PrayerTimes.now, [
+      'afterthis',
+      '',
+      'afterthis',
+      'afterthis',
+      'afterthis',
+      'afterthis'
+    ], [
+      [0, 0],
+      [],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0]
+    ]),
+    0,
+    0,
+    [false, false, false, false, false, false]);

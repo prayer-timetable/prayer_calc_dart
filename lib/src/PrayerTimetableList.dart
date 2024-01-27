@@ -15,11 +15,11 @@ class PrayerTimetableList {
   PrayerTimes previousJamaahTimes = PrayerTimes.now;
   PrayerTimes nextJamaahTimes = PrayerTimes.now;
 
-  /// Sunnah
-  Sunnah? sunnah;
+  /// Sunnah times - midnight and last third
+  late Sunnah sunnah;
 
   /// Calculations based on set DateTime
-  Calc? calc;
+  late Calc calc;
 
   /// Calculations with forced now for DateTime
   Calc? calcToday;
