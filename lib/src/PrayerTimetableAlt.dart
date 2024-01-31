@@ -41,7 +41,7 @@ class PrayerTimetableAlt {
     int? second,
     int? asrMethod,
     double? ishaAngle,
-    bool summerTimeCalc: true,
+    bool summerTimeCalc = true,
     DateTime? time,
     bool? showSeconds,
 

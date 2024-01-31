@@ -23,7 +23,7 @@ class PrayerTimesCalc {
 
   PrayerTimesCalc(Coordinates coordinates, DateTime date,
       CalculationParameters calculationParameters,
-      {precision: true}) {
+      {precision = true}) {
     this.coordinates = coordinates;
     this.date = date;
     this.calculationParameters = calculationParameters;

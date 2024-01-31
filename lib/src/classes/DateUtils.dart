@@ -12,7 +12,7 @@ dateByAddingSeconds(DateTime date, int seconds) {
   return date.add(Duration(seconds: seconds));
 }
 
-roundedMinute(DateTime date, {bool precision: true}) {
+roundedMinute(DateTime date, {bool precision = true}) {
   // print(date);
 
   // const seconds = date.getUTCSeconds();

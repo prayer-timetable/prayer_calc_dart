@@ -31,7 +31,7 @@ class PrayerTimetableList {
     int? month,
     int? day,
     int hijriOffset = 0,
-    bool summerTimeCalc: true,
+    bool summerTimeCalc = true,
 
     /// Enables jamaah times globaly.
     bool jamaahOn = false,

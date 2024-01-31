@@ -1,5 +1,3 @@
-import 'dart:io';
-
 timetableTest(location) {
   print('*************** Current ***************');
   print('dawn:\t\t${location.currentPrayerTimes.dawn}');

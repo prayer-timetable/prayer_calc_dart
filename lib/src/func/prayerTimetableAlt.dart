@@ -13,8 +13,8 @@ PrayerTimes prayerTimetable({
   bool? isLeap = false,
   int? asrMethod = 1,
   double? ishaAngle = 0,
-  bool? summerTimeCalc: true,
-  bool? showSeconds: false,
+  bool? summerTimeCalc = true,
+  bool? showSeconds = false,
 }) {
   // check if leap year
   bool isLeap = date!.year % 4 == 0;

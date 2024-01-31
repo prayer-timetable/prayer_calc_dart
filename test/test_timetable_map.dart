@@ -1,6 +1,5 @@
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-import 'dart:async';
 
 import 'package:prayer_timetable/src/PrayerTimetableMap.dart';
 import 'src/timetable_map.dart';

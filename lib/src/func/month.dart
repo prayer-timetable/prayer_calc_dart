@@ -1,7 +1,7 @@
 import 'package:prayer_timetable/prayer_timetable.dart';
 import 'package:prayer_timetable/src/func/prayerTimetableMap.dart';
-import 'timetable_map.dart';
-import 'package:timezone/data/latest.dart' as tz;
+// import 'timetable_map.dart';
+// import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 List<PrayerTimes> monthMap(DateTime time, Map<dynamic, dynamic> timetable,
@@ -14,9 +14,9 @@ List<PrayerTimes> monthMap(DateTime time, Map<dynamic, dynamic> timetable,
   // print(daysInYear);
   // print(daysInMonth);
 
-  var days = [for (var i = 1; i <= daysInMonth; i++) i];
+  // var days = [for (var i = 1; i <= daysInMonth; i++) i];
 
-  print(days);
+  // print(days);
 
   List<PrayerTimes> list = List.generate(daysInMonth, (index) {
     return prayerTimetable(timetable,
