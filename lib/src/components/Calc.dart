@@ -5,6 +5,19 @@ import 'package:prayer_timetable/src/func/helpers.dart';
 
 import 'package:adhan_dart/adhan_dart.dart';
 
+/// time DateTime
+/// current DateTime
+/// next = DateTime
+/// previous = DateTime
+/// isAfterIsha = bool
+/// currentId = int
+/// nextId = int
+/// previousId = int
+/// countDown = Duration
+/// countUp = Duration
+/// percentage = double
+/// jamaahPending = bool
+/// qibla = Qibla.qibla(new Coordinates(double lat, double lng))
 class Calc {
   DateTime time = DateTime.now();
   DateTime current = DateTime.now();

@@ -245,6 +245,7 @@ class PrayerTimetable {
       lng,
       jamaahPerPrayer,
     );
+
     //end
   }
 }
