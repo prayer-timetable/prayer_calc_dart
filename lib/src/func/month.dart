@@ -12,7 +12,8 @@ List<PrayerTimes> monthMap(DateTime time, Map<dynamic, dynamic> timetable,
   int daysInMonth = DateTime(date.year, date.month + 1, 0).day;
 
   // print(daysInYear);
-  // print(daysInMonth);
+  print(daysInMonth);
+  print(date);
 
   // var days = [for (var i = 1; i <= daysInMonth; i++) i];
 
@@ -20,7 +21,11 @@ List<PrayerTimes> monthMap(DateTime time, Map<dynamic, dynamic> timetable,
 
   List<PrayerTimes> list = List.generate(daysInMonth, (index) {
     return prayerTimetable(timetable,
-        date: date, timezone: timezone, hijriOffset: hijriOffset);
+        date: DateTime(date.year, date.month, index + 1),
+        // date: tz.TZDateTime.from(DateTime(time.year, time.month, index + 1),
+        //     tz.getLocation(timezone)),
+        timezone: timezone,
+        hijriOffset: hijriOffset);
   });
 
   // print(list[0].afternoon);
