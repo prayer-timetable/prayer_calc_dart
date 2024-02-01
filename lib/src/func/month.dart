@@ -12,8 +12,8 @@ List<PrayerTimes> monthMap(DateTime time, Map<dynamic, dynamic> timetable,
   int daysInMonth = DateTime(date.year, date.month + 1, 0).day;
 
   // print(daysInYear);
-  print(daysInMonth);
-  print(date);
+  // print(daysInMonth);
+  // print(date);
 
   // var days = [for (var i = 1; i <= daysInMonth; i++) i];
 
