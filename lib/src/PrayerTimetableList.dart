@@ -26,6 +26,7 @@ class PrayerTimetableList {
 
   PrayerTimetableList(
     List timetable, {
+    String timezone = 'Europe/Dublin',
     List<int> difference = const [0, 0, 0, 0, 0, 0],
     int? year,
     int? month,
@@ -129,12 +130,11 @@ class PrayerTimetableList {
       date: tomorrow,
     );
 
-    PrayerTimes prayersYesterday = prayerTimetable(
-      timetable,
-      difference: difference,
-      hijriOffset: hijriOffset,
-      date: yesterday,
-    );
+    PrayerTimes prayersYesterday = prayerTimetable(timetable,
+        difference: difference,
+        hijriOffset: hijriOffset,
+        date: yesterday,
+        timezone: timezone);
 
     // JAMAAH
     JamaahTimes _currentJamaahTimes =

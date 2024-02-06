@@ -20,7 +20,10 @@ PrayerTimes prayerTimetable(
   // print('###');
   // print(date);
   DateTime timestamp = tz.TZDateTime.from(
-      date != null ? date : DateTime.now(), tz.getLocation(timezone));
+      date != null
+          ? date.add(Duration(days: hijriOffset))
+          : DateTime.now().add(Duration(days: hijriOffset)),
+      tz.getLocation(timezone));
 
   // DateTime timestamp = date ?? DateTime.now();
   int adjDst = isDSTCalc(timestamp) ? 1 : 0;

@@ -1,6 +1,6 @@
 // import 'package:timezone/data/latest.dart' as tz;
 // import 'package:prayer_timetable/src/classes/PrayerTimesCalc.dart';
-import 'package:prayer_timetable/src/func/month.dart';
+import 'package:prayer_timetable/src/func/monthMap.dart';
 import 'package:timezone/timezone.dart' as tz;
 
 import 'package:prayer_timetable/src/components/Sunnah.dart';

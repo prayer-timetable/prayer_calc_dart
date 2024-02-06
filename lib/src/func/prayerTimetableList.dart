@@ -1,5 +1,6 @@
 import 'package:prayer_timetable/src/components/PrayerTimes.dart';
 import 'package:prayer_timetable/src/func/helpers.dart';
+import 'package:timezone/timezone.dart' as tz;
 
 /* *********************** */
 /* MAIN FUNCTION           */
@@ -9,6 +10,7 @@ PrayerTimes prayerTimetable(
   List difference = const [0, 0, 0, 0, 0, 0],
   int hijriOffset = 0,
   DateTime? date,
+  String timezone = 'Europe/Dublin',
 }) {
   /* *********************** */
   /* TIMES                   */
@@ -16,7 +18,11 @@ PrayerTimes prayerTimetable(
 
   // print('###');
   // print(date);
-  DateTime timestamp = date ?? DateTime.now();
+  DateTime timestamp = tz.TZDateTime.from(
+      date != null
+          ? date.add(Duration(days: hijriOffset))
+          : DateTime.now().add(Duration(days: hijriOffset)),
+      tz.getLocation(timezone));
 
   // check if leap year
   // bool isLeap = date.year % 4 == 0;
