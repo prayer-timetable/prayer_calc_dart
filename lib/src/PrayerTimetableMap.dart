@@ -1,5 +1,6 @@
 // import 'package:timezone/data/latest.dart' as tz;
 // import 'package:prayer_timetable/src/classes/PrayerTimesCalc.dart';
+import 'package:prayer_timetable/src/func/monthHijriMap.dart';
 import 'package:prayer_timetable/src/func/monthMap.dart';
 import 'package:timezone/timezone.dart' as tz;
 
@@ -28,8 +29,11 @@ class PrayerTimetableMap {
   /// Calculations based on set DateTime
   late Calc calc;
 
-  /// Calculations based on set DateTime
+  /// Prayer times for the current month
   late List<PrayerTimes> monthPrayerTimes;
+
+  /// Prayer times for the current hijri month
+  late List<PrayerTimes> monthHijriPrayerTimes;
 
   /// Calculations with forced now for DateTime
   Calc? calcToday;
@@ -251,6 +255,9 @@ class PrayerTimetableMap {
     );
 
     this.monthPrayerTimes = monthMap(date, timetable,
+        hijriOffset: hijriOffset ?? 0, timezone: timezone);
+
+    this.monthHijriPrayerTimes = monthHijriMap(date, timetable,
         hijriOffset: hijriOffset ?? 0, timezone: timezone);
     //end
     //

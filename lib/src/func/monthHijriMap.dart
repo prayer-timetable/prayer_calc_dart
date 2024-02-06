@@ -26,7 +26,7 @@ List<PrayerTimes> monthHijriMap(DateTime time, Map<dynamic, dynamic> timetable,
   int hMonth = hTime.hMonth;
   int hDay = hTime.hDay;
 
-  print('$hYear $hMonth $hDay');
+  // print('$hYear $hMonth $hDay');
 
   int daysInHijriMonth = hTime.lengthOfMonth;
 
