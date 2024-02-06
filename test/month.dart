@@ -12,7 +12,8 @@ main() {
       tz.TZDateTime(tz.getLocation('Europe/Dublin'), 2024, 2, 20, 13, 59, 55);
 
   List<PrayerTimes> list = monthMap(
-      testTime, testTime.year % 4 == 0 ? timetableDublinLeap : timetableDublin);
+      testTime, testTime.year % 4 == 0 ? timetableDublinLeap : timetableDublin,
+      hijriOffset: 0);
   // print(list);
   // print('done');
 

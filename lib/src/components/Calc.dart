@@ -1,3 +1,4 @@
+import 'package:hijri/hijri_calendar.dart';
 import 'package:prayer_timetable/src/components/PrayerTimes.dart'
     as prayertimes;
 import 'package:prayer_timetable/src/components/JamaahTimes.dart';
@@ -34,6 +35,7 @@ class Calc {
   double percentage = 0.1;
   bool jamaahPending = false;
   double qibla = 0;
+  List<int> hijri = [];
 
   Calc(
     DateTime _time,
@@ -232,6 +234,9 @@ class Calc {
     this.percentage = percentage.isNaN ? 0 : percentage;
     this.jamaahPending = _jamaahPending;
     this.qibla = Qibla.qibla(new Coordinates(_lat, _lng));
+
+    var hTime = HijriCalendar.fromDate(_time);
+    this.hijri = [hTime.hYear, hTime.hMonth, hTime.hDay];
 
     //end
   }
