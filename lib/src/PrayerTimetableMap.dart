@@ -157,23 +157,17 @@ class PrayerTimetableMap {
     );
 
     // JAMAAH
-    JamaahTimes jamaahCurrent =
-        JamaahTimes(prayersCurrent, jamaahMethods, jamaahOffsets);
+    JamaahTimes jamaahCurrent = JamaahTimes(prayersCurrent, jamaahMethods, jamaahOffsets);
 
-    JamaahTimes jamaahNext =
-        JamaahTimes(prayersNext, jamaahMethods, jamaahOffsets);
+    JamaahTimes jamaahNext = JamaahTimes(prayersNext, jamaahMethods, jamaahOffsets);
 
-    JamaahTimes jamaahPrevious =
-        JamaahTimes(prayersPrevious, jamaahMethods, jamaahOffsets);
+    JamaahTimes jamaahPrevious = JamaahTimes(prayersPrevious, jamaahMethods, jamaahOffsets);
 
-    JamaahTimes jamaahToday =
-        JamaahTimes(prayersToday, jamaahMethods, jamaahOffsets);
+    JamaahTimes jamaahToday = JamaahTimes(prayersToday, jamaahMethods, jamaahOffsets);
 
-    JamaahTimes jamaahTomorrow =
-        JamaahTimes(prayersTomorrow, jamaahMethods, jamaahOffsets);
+    JamaahTimes jamaahTomorrow = JamaahTimes(prayersTomorrow, jamaahMethods, jamaahOffsets);
 
-    JamaahTimes jamaahYesterday =
-        JamaahTimes(prayersYesterday, jamaahMethods, jamaahOffsets);
+    JamaahTimes jamaahYesterday = JamaahTimes(prayersYesterday, jamaahMethods, jamaahOffsets);
 
     // JOINING
     if (joinMaghrib) {
@@ -211,16 +205,12 @@ class PrayerTimetableMap {
     /// Check if jammah is before the prayer
     /// ********************************************
     // Today
-    if (jamaahToday.dawn.isBefore(prayersToday.dawn))
-      prayersToday.dawn = jamaahToday.dawn;
-    if (jamaahToday.midday.isBefore(prayersToday.midday))
-      prayersToday.midday = jamaahToday.midday;
+    if (jamaahToday.dawn.isBefore(prayersToday.dawn)) prayersToday.dawn = jamaahToday.dawn;
+    if (jamaahToday.midday.isBefore(prayersToday.midday)) prayersToday.midday = jamaahToday.midday;
     if (jamaahToday.afternoon.isBefore(prayersToday.afternoon))
       prayersToday.afternoon = jamaahToday.afternoon;
-    if (jamaahToday.sunset.isBefore(prayersToday.sunset))
-      prayersToday.sunset = jamaahToday.sunset;
-    if (jamaahToday.dusk.isBefore(prayersToday.dusk))
-      prayersToday.dusk = jamaahToday.dusk;
+    if (jamaahToday.sunset.isBefore(prayersToday.sunset)) prayersToday.sunset = jamaahToday.sunset;
+    if (jamaahToday.dusk.isBefore(prayersToday.dusk)) prayersToday.dusk = jamaahToday.dusk;
     // Yesterday
     if (jamaahYesterday.dawn.isBefore(prayersYesterday.dawn))
       prayersYesterday.dawn = jamaahYesterday.dawn;
@@ -245,31 +235,25 @@ class PrayerTimetableMap {
       prayersTomorrow.dusk = jamaahTomorrow.dusk;
 
     // Current
-    if (jamaahYesterday.dawn.isBefore(prayersCurrent.dawn))
-      prayersCurrent.dawn = jamaahCurrent.dawn;
+    if (jamaahCurrent.dawn.isBefore(prayersCurrent.dawn)) prayersCurrent.dawn = jamaahCurrent.dawn;
     if (jamaahCurrent.midday.isBefore(prayersCurrent.midday))
       prayersCurrent.midday = jamaahCurrent.midday;
     if (jamaahCurrent.afternoon.isBefore(prayersCurrent.afternoon))
       prayersCurrent.afternoon = jamaahCurrent.afternoon;
     if (jamaahCurrent.sunset.isBefore(prayersCurrent.sunset))
       prayersCurrent.sunset = jamaahCurrent.sunset;
-    if (jamaahCurrent.dusk.isBefore(prayersCurrent.dusk))
-      prayersCurrent.dusk = jamaahCurrent.dusk;
+    if (jamaahCurrent.dusk.isBefore(prayersCurrent.dusk)) prayersCurrent.dusk = jamaahCurrent.dusk;
 
     // Next
-    if (jamaahYesterday.dawn.isBefore(prayersNext.dawn))
-      prayersNext.dawn = jamaahNext.dawn;
-    if (jamaahNext.midday.isBefore(prayersNext.midday))
-      prayersNext.midday = jamaahNext.midday;
+    if (jamaahNext.dawn.isBefore(prayersNext.dawn)) prayersNext.dawn = jamaahNext.dawn;
+    if (jamaahNext.midday.isBefore(prayersNext.midday)) prayersNext.midday = jamaahNext.midday;
     if (jamaahNext.afternoon.isBefore(prayersNext.afternoon))
       prayersNext.afternoon = jamaahNext.afternoon;
-    if (jamaahNext.sunset.isBefore(prayersNext.sunset))
-      prayersNext.sunset = jamaahNext.sunset;
-    if (jamaahNext.dusk.isBefore(prayersNext.dusk))
-      prayersNext.dusk = jamaahNext.dusk;
+    if (jamaahNext.sunset.isBefore(prayersNext.sunset)) prayersNext.sunset = jamaahNext.sunset;
+    if (jamaahNext.dusk.isBefore(prayersNext.dusk)) prayersNext.dusk = jamaahNext.dusk;
 
     // Previous
-    if (jamaahYesterday.dawn.isBefore(prayersPrevious.dawn))
+    if (jamaahPrevious.dawn.isBefore(prayersPrevious.dawn))
       prayersPrevious.dawn = jamaahPrevious.dawn;
     if (jamaahPrevious.midday.isBefore(prayersPrevious.midday))
       prayersPrevious.midday = jamaahPrevious.midday;
@@ -288,12 +272,9 @@ class PrayerTimetableMap {
     this.previousPrayerTimes = prayersPrevious;
 
     /// Define jamaah times
-    this.currentJamaahTimes =
-        JamaahTimes(prayersCurrent, jamaahMethods, jamaahOffsets);
-    this.nextJamaahTimes =
-        JamaahTimes(prayersNext, jamaahMethods, jamaahOffsets);
-    this.previousJamaahTimes =
-        JamaahTimes(prayersPrevious, jamaahMethods, jamaahOffsets);
+    this.currentJamaahTimes = JamaahTimes(prayersCurrent, jamaahMethods, jamaahOffsets);
+    this.nextJamaahTimes = JamaahTimes(prayersNext, jamaahMethods, jamaahOffsets);
+    this.previousJamaahTimes = JamaahTimes(prayersPrevious, jamaahMethods, jamaahOffsets);
 
     /// Define sunnah
     this.sunnah = Sunnah(now, prayersCurrent, prayersNext, prayersPrevious);
@@ -328,11 +309,11 @@ class PrayerTimetableMap {
       jamaahPerPrayer,
     );
 
-    this.monthPrayerTimes = monthMap(date, timetable,
-        hijriOffset: hijriOffset ?? 0, timezone: timezone);
+    this.monthPrayerTimes =
+        monthMap(date, timetable, hijriOffset: hijriOffset ?? 0, timezone: timezone);
 
-    this.monthHijriPrayerTimes = monthHijriMap(date, timetable,
-        hijriOffset: hijriOffset ?? 0, timezone: timezone);
+    this.monthHijriPrayerTimes =
+        monthHijriMap(date, timetable, hijriOffset: hijriOffset ?? 0, timezone: timezone);
     //end
     //
   }

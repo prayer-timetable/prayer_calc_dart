@@ -12,8 +12,8 @@ List<PrayerTimes> monthHijriMap(DateTime time, Map<dynamic, dynamic> timetable,
     {int hijriOffset = 0, String timezone = 'Europe/Dublin'}) {
   /// Date
   DateTime date = tz.TZDateTime.from(
-      DateTime(time.year, time.month, time.day).add(
-          Duration(hours: 3)), // making sure it is after 1 am for time change
+      DateTime(time.year, time.month, time.day)
+          .add(Duration(hours: 3)), // making sure it is after 1 am for time change
       tz.getLocation(timezone));
 
   var hTimeBase = HijriCalendar.fromDate(date);
@@ -31,8 +31,7 @@ List<PrayerTimes> monthHijriMap(DateTime time, Map<dynamic, dynamic> timetable,
   int daysInHijriMonth = hTime.lengthOfMonth;
 
   var g_date = HijriCalendar();
-  DateTime startDate =
-      g_date.hijriToGregorian(hYear, hMonth, hDay).add(Duration(hours: 3));
+  DateTime startDate = g_date.hijriToGregorian(hYear, hMonth, hDay).add(Duration(hours: 3));
 
   List<PrayerTimes> list = List.generate(daysInHijriMonth, (index) {
     // DateTime newtime =

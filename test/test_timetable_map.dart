@@ -3,10 +3,11 @@ import 'package:timezone/timezone.dart' as tz;
 
 import 'package:prayer_timetable/src/PrayerTimetableMap.dart';
 import 'src/timetable_map.dart';
+import 'src/timetable_map_leap.dart';
 import 'test.dart';
 
-DateTime testTime = tz.TZDateTime.from(DateTime(2024, 3, 31, 14, 32, 45),
-    tz.getLocation('Europe/Dublin')); // asr jamaah pending
+DateTime testTime = tz.TZDateTime.from(
+    DateTime(2024, 3, 11, 14, 32, 45), tz.getLocation('Europe/Dublin')); // asr jamaah pending
 
 // **************** Today *****************
 // dawn:		  2021-04-14 04:46:00.000
@@ -23,22 +24,16 @@ DateTime testTime = tz.TZDateTime.from(DateTime(2024, 3, 31, 14, 32, 45),
 // sunset:		2021-04-14 20:29:00.000
 // dusk:		  2021-04-14 21:59:00.000
 
-PrayerTimetableMap dublin(newtime) => PrayerTimetableMap(
-      timetableDublin,
+PrayerTimetableMap dublinTimetableMap(newtime) => PrayerTimetableMap(
+      dublinLeap,
+      // dublin,
       // optional parameters:
       year: testTime.year,
       month: testTime.month,
       day: testTime.day,
 
       jamaahOn: true,
-      jamaahMethods: [
-        'fixed',
-        '',
-        'afterthis',
-        'afterthis',
-        'afterthis',
-        'afterthis'
-      ],
+      jamaahMethods: ['fixed', '', 'afterthis', 'afterthis', 'afterthis', 'afterthis'],
       jamaahOffsets: [
         [6, 0],
         [],
@@ -57,7 +52,7 @@ PrayerTimetableMap dublin(newtime) => PrayerTimetableMap(
       joinDhuhr: false,
     );
 
-PrayerTimetableMap location = dublin(testTime);
+PrayerTimetableMap location = dublinTimetableMap(testTime);
 
 main() {
   tz.initializeTimeZones();
