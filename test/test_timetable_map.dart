@@ -6,8 +6,10 @@ import 'src/timetable_map.dart';
 import 'src/timetable_map_leap.dart';
 import 'test.dart';
 
-DateTime testTime = tz.TZDateTime.from(
-    DateTime(2024, 3, 11, 14, 32, 45), tz.getLocation('Europe/Dublin')); // asr jamaah pending
+// DateTime testTime = tz.TZDateTime.from(
+//     DateTime(2024, 3, 11, 14, 32, 45), tz.getLocation('Europe/Dublin')); // asr jamaah pending
+
+DateTime testTime = DateTime.now();
 
 // **************** Today *****************
 // dawn:		  2021-04-14 04:46:00.000
@@ -50,6 +52,7 @@ PrayerTimetableMap dublinTimetableMap(newtime) => PrayerTimetableMap(
       second: newtime.second,
       joinMaghrib: false,
       joinDhuhr: false,
+      hijriOffset: 0,
     );
 
 PrayerTimetableMap location = dublinTimetableMap(testTime);
