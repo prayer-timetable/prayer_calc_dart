@@ -1,5 +1,6 @@
 import 'package:prayer_timetable/prayer_timetable.dart';
-import 'package:prayer_timetable/src/func/prayerTimetableMap.dart';
+import 'package:prayer_timetable/src/func/prayerTimes.dart';
+import 'package:prayer_timetable/src/func/old/prayerTimetableMap.dart';
 // import 'timetable_map.dart';
 // import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -37,7 +38,7 @@ List<PrayerTimes> monthHijriMap(DateTime time, Map<dynamic, dynamic> timetable,
     // DateTime newtime =
     //     tz.TZDateTime.from(time, tz.getLocation('Europe/Dublin'));
 
-    return prayerTimetable(
+    return prayerTimetableMap(
       timetable,
       // date: DateTime(date.year, date.month, index + 1),
       // date: tz.TZDateTime.from(DateTime(time.year, time.month, index + 1),

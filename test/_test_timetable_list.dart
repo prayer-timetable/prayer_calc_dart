@@ -1,4 +1,4 @@
-import 'package:prayer_timetable/src/PrayerTimetableList.dart';
+import 'package:prayer_timetable/src/PrayerTimetableList.dart_';
 import 'src/timetable_list.dart';
 import 'test.dart';
 

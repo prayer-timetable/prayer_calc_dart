@@ -15,5 +15,5 @@ class PrayerTimes {
     this.dusk;
   }
 
-  static PrayerTimes now = new PrayerTimes();
+  static PrayerTimes times = new PrayerTimes();
 }

@@ -1,3 +1,4 @@
+import 'package:prayer_timetable/prayer_timetable.dart';
 import 'package:prayer_timetable/src/components/PrayerTimes.dart';
 import 'package:prayer_timetable/src/func/helpers.dart';
 
@@ -7,8 +8,7 @@ import 'package:timezone/timezone.dart' as tz;
 /* *********************** */
 /* MAIN FUNCTION           */
 /* *********************** */
-PrayerTimes prayerTimetable(
-  Map timetable, {
+PrayerTimes prayerTimes({
   int hijriOffset = 0,
   DateTime? date,
   String timezone = 'Europe/Dublin',
@@ -44,10 +44,8 @@ PrayerTimes prayerTimetable(
       timestamp.year,
       timestamp.month,
       timestamp.day,
-      timetable[timestamp.month.toString()][timestamp.day.toString()][prayerId]
-          [0],
-      timetable[timestamp.month.toString()][timestamp.day.toString()][prayerId]
-          [1],
+      // timetable[timestamp.month.toString()][timestamp.day.toString()][prayerId][0],
+      // timetable[timestamp.month.toString()][timestamp.day.toString()][prayerId][1],
     ).add(Duration(hours: adjDst));
 
     prayerTimes.insert(
@@ -71,3 +69,4 @@ PrayerTimes prayerTimetable(
 }
 
 //export { prayersCalc, dayCalc }
+

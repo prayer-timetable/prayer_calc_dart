@@ -1,20 +1,19 @@
 import 'package:prayer_timetable/src/components/Sunnah.dart';
-import 'package:prayer_timetable/src/components/PrayerTimes.dart'
-    as prayertimes;
+import 'package:prayer_timetable/src/components/PrayerTimes.dart' as prayertimes;
 import 'package:prayer_timetable/src/components/JamaahTimes.dart';
 import 'package:prayer_timetable/src/components/Calc.dart';
 import 'package:prayer_timetable/src/func/prayerTimetableAlt.dart';
 
 class PrayerTimetableAlt {
   /// Prayer Times
-  prayertimes.PrayerTimes currentPrayerTimes = prayertimes.PrayerTimes.now;
-  prayertimes.PrayerTimes previousPrayerTimes = prayertimes.PrayerTimes.now;
-  prayertimes.PrayerTimes nextPrayerTimes = prayertimes.PrayerTimes.now;
+  prayertimes.PrayerTimes currentPrayerTimes = prayertimes.PrayerTimes.times;
+  prayertimes.PrayerTimes previousPrayerTimes = prayertimes.PrayerTimes.times;
+  prayertimes.PrayerTimes nextPrayerTimes = prayertimes.PrayerTimes.times;
 
   /// Jamaah Times
-  prayertimes.PrayerTimes currentJamaahTimes = prayertimes.PrayerTimes.now;
-  prayertimes.PrayerTimes previousJamaahTimes = prayertimes.PrayerTimes.now;
-  prayertimes.PrayerTimes nextJamaahTimes = prayertimes.PrayerTimes.now;
+  prayertimes.PrayerTimes currentJamaahTimes = prayertimes.PrayerTimes.times;
+  prayertimes.PrayerTimes previousJamaahTimes = prayertimes.PrayerTimes.times;
+  prayertimes.PrayerTimes nextJamaahTimes = prayertimes.PrayerTimes.times;
 
   /// Sunnah times - midnight and last third
   late Sunnah sunnah;
@@ -66,9 +65,9 @@ class PrayerTimetableAlt {
       'afterthis',
       'afterthis'
     ],
-    List<List<dynamic>> jamaahOffsets = const [
+    List<List<int>> jamaahOffsets = const [
       [0, 0],
-      [],
+      [0, 0],
       [0, 0],
       [0, 0],
       [0, 0],
@@ -84,13 +83,8 @@ class PrayerTimetableAlt {
     // DateTime nowUtc = DateTime.now().toUtc();
 
     // Local dates needed for dst calc and local midnight past (0:00)
-    DateTime date = DateTime(
-        year ?? now.year,
-        month ?? now.month,
-        day ?? now.day,
-        hour ?? 12,
-        minute ?? 0,
-        second ?? 0); // using noon of local date to avoid +- 1 hour
+    DateTime date = DateTime(year ?? now.year, month ?? now.month, day ?? now.day, hour ?? 12,
+        minute ?? 0, second ?? 0); // using noon of local date to avoid +- 1 hour
     // define now (local)
     DateTime nowLocal = time ?? now;
 
@@ -206,20 +200,16 @@ class PrayerTimetableAlt {
     JamaahTimes _currentJamaahTimes =
         JamaahTimes(_currentPrayerTimes, jamaahMethods, jamaahOffsets);
 
-    JamaahTimes _nextJamaahTimes =
-        JamaahTimes(_nextPrayerTimes, jamaahMethods, jamaahOffsets);
+    JamaahTimes _nextJamaahTimes = JamaahTimes(_nextPrayerTimes, jamaahMethods, jamaahOffsets);
 
     JamaahTimes _previousJamaahTimes =
         JamaahTimes(_previousPrayerTimes, jamaahMethods, jamaahOffsets);
 
-    JamaahTimes jamaahToday =
-        JamaahTimes(prayersToday, jamaahMethods, jamaahOffsets);
+    JamaahTimes jamaahToday = JamaahTimes(prayersToday, jamaahMethods, jamaahOffsets);
 
-    JamaahTimes jamaahTomorrow =
-        JamaahTimes(prayersTomorrow, jamaahMethods, jamaahOffsets);
+    JamaahTimes jamaahTomorrow = JamaahTimes(prayersTomorrow, jamaahMethods, jamaahOffsets);
 
-    JamaahTimes jamaahYesterday =
-        JamaahTimes(prayersYesterday, jamaahMethods, jamaahOffsets);
+    JamaahTimes jamaahYesterday = JamaahTimes(prayersYesterday, jamaahMethods, jamaahOffsets);
 
     /// Define prayer times
     this.currentPrayerTimes = _currentPrayerTimes;
@@ -227,16 +217,12 @@ class PrayerTimetableAlt {
     this.previousPrayerTimes = _previousPrayerTimes;
 
     /// Define jamaah times
-    this.currentJamaahTimes =
-        JamaahTimes(_currentPrayerTimes, jamaahMethods, jamaahOffsets);
-    this.nextJamaahTimes =
-        JamaahTimes(_nextPrayerTimes, jamaahMethods, jamaahOffsets);
-    this.previousJamaahTimes =
-        JamaahTimes(_previousPrayerTimes, jamaahMethods, jamaahOffsets);
+    this.currentJamaahTimes = JamaahTimes(_currentPrayerTimes, jamaahMethods, jamaahOffsets);
+    this.nextJamaahTimes = JamaahTimes(_nextPrayerTimes, jamaahMethods, jamaahOffsets);
+    this.previousJamaahTimes = JamaahTimes(_previousPrayerTimes, jamaahMethods, jamaahOffsets);
 
     /// Define sunnah
-    this.sunnah = Sunnah(
-        now, _currentPrayerTimes, _nextPrayerTimes, _previousPrayerTimes);
+    this.sunnah = Sunnah(now, _currentPrayerTimes, _nextPrayerTimes, _previousPrayerTimes);
 
     this.calcToday = Calc(
       nowLocal,

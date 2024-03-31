@@ -9,19 +9,19 @@ import 'package:prayer_timetable/src/components/PrayerTimes.dart';
 import 'package:prayer_timetable/src/components/Calc.dart';
 import 'package:prayer_timetable/src/components/JamaahTimes.dart';
 
-import 'package:prayer_timetable/src/func/prayerTimetableMap.dart';
+import 'package:prayer_timetable/src/func/old/prayerTimetableMap.dart';
 
 /// Uses predefined map for prayers
 class PrayerTimetableMap {
   /// Prayer Times
-  PrayerTimes currentPrayerTimes = PrayerTimes.now;
-  PrayerTimes previousPrayerTimes = PrayerTimes.now;
-  PrayerTimes nextPrayerTimes = PrayerTimes.now;
+  PrayerTimes currentPrayerTimes = PrayerTimes.times;
+  PrayerTimes previousPrayerTimes = PrayerTimes.times;
+  PrayerTimes nextPrayerTimes = PrayerTimes.times;
 
   /// Jamaah Times
-  PrayerTimes currentJamaahTimes = PrayerTimes.now;
-  PrayerTimes previousJamaahTimes = PrayerTimes.now;
-  PrayerTimes nextJamaahTimes = PrayerTimes.now;
+  PrayerTimes currentJamaahTimes = PrayerTimes.times;
+  PrayerTimes previousJamaahTimes = PrayerTimes.times;
+  PrayerTimes nextJamaahTimes = PrayerTimes.times;
 
   /// Sunnah times - midnight and last third
   late Sunnah sunnah;
@@ -68,9 +68,9 @@ class PrayerTimetableMap {
       'afterthis',
       'afterthis'
     ],
-    List<List<dynamic>> jamaahOffsets = const [
+    List<List<int>> jamaahOffsets = const [
       [0, 0],
-      [],
+      [0, 0],
       [0, 0],
       [0, 0],
       [0, 0],
@@ -89,7 +89,7 @@ class PrayerTimetableMap {
     tz.setLocalLocation(tz.getLocation(timezone));
 
     DateTime now = tz.TZDateTime.now(tz.getLocation(timezone));
-    // DateTime now = tz.TZDateTime.from(DateTime.now(), tz.getLocation(timezone));
+    // DateTime now = tz.TZDateTime.from(DateTime.times(), tz.getLocation(timezone));
 
     DateTime date = tz.TZDateTime.from(
         DateTime(
@@ -113,21 +113,21 @@ class PrayerTimetableMap {
     DateTime yesterday = now.subtract(Duration(days: 1));
 
     // ***** PRAYERS CURRENT, NEXT, PREVIOUS
-    PrayerTimes prayersCurrent = prayerTimetable(
+    PrayerTimes prayersCurrent = prayerTimetableMap(
       timetable,
       hijriOffset: hijriOffset ?? 0,
       date: current,
       timezone: timezone,
     );
 
-    PrayerTimes prayersNext = prayerTimetable(
+    PrayerTimes prayersNext = prayerTimetableMap(
       timetable,
       hijriOffset: hijriOffset ?? 0,
       date: next,
       timezone: timezone,
     );
 
-    PrayerTimes prayersPrevious = prayerTimetable(
+    PrayerTimes prayersPrevious = prayerTimetableMap(
       timetable,
       hijriOffset: hijriOffset ?? 0,
       date: previous,
@@ -135,21 +135,21 @@ class PrayerTimetableMap {
     );
 
     // ***** PRAYERS TODAY, TOMORROW, YESTERDAY
-    PrayerTimes prayersToday = prayerTimetable(
+    PrayerTimes prayersToday = prayerTimetableMap(
       timetable,
       hijriOffset: hijriOffset ?? 0,
       date: today,
       timezone: timezone,
     );
 
-    PrayerTimes prayersTomorrow = prayerTimetable(
+    PrayerTimes prayersTomorrow = prayerTimetableMap(
       timetable,
       hijriOffset: hijriOffset ?? 0,
       date: tomorrow,
       timezone: timezone,
     );
 
-    PrayerTimes prayersYesterday = prayerTimetable(
+    PrayerTimes prayersYesterday = prayerTimetableMap(
       timetable,
       hijriOffset: hijriOffset ?? 0,
       date: yesterday,
@@ -157,17 +157,17 @@ class PrayerTimetableMap {
     );
 
     // JAMAAH
-    JamaahTimes jamaahCurrent = JamaahTimes(prayersCurrent, jamaahMethods, jamaahOffsets);
+    JamaahTimes jamaahCurrent = JamaahTimes();
 
-    JamaahTimes jamaahNext = JamaahTimes(prayersNext, jamaahMethods, jamaahOffsets);
+    JamaahTimes jamaahNext = JamaahTimes();
 
-    JamaahTimes jamaahPrevious = JamaahTimes(prayersPrevious, jamaahMethods, jamaahOffsets);
+    JamaahTimes jamaahPrevious = JamaahTimes();
 
-    JamaahTimes jamaahToday = JamaahTimes(prayersToday, jamaahMethods, jamaahOffsets);
+    JamaahTimes jamaahToday = JamaahTimes();
 
-    JamaahTimes jamaahTomorrow = JamaahTimes(prayersTomorrow, jamaahMethods, jamaahOffsets);
+    JamaahTimes jamaahTomorrow = JamaahTimes();
 
-    JamaahTimes jamaahYesterday = JamaahTimes(prayersYesterday, jamaahMethods, jamaahOffsets);
+    JamaahTimes jamaahYesterday = JamaahTimes();
 
     // JOINING
     if (joinMaghrib) {
@@ -272,9 +272,9 @@ class PrayerTimetableMap {
     this.previousPrayerTimes = prayersPrevious;
 
     /// Define jamaah times
-    this.currentJamaahTimes = JamaahTimes(prayersCurrent, jamaahMethods, jamaahOffsets);
-    this.nextJamaahTimes = JamaahTimes(prayersNext, jamaahMethods, jamaahOffsets);
-    this.previousJamaahTimes = JamaahTimes(prayersPrevious, jamaahMethods, jamaahOffsets);
+    this.currentJamaahTimes = JamaahTimes();
+    this.nextJamaahTimes = JamaahTimes();
+    this.previousJamaahTimes = JamaahTimes();
 
     /// Define sunnah
     this.sunnah = Sunnah(now, prayersCurrent, prayersNext, prayersPrevious);

@@ -1,5 +1,6 @@
 import 'package:prayer_timetable/prayer_timetable.dart';
-import 'package:prayer_timetable/src/func/prayerTimetableMap.dart';
+import 'package:prayer_timetable/src/func/prayerTimes.dart';
+import 'package:prayer_timetable/src/func/old/prayerTimetableMap.dart';
 // import 'timetable_map.dart';
 // import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -8,8 +9,8 @@ List<PrayerTimes> monthMap(DateTime time, Map<dynamic, dynamic> timetable,
     {int hijriOffset = 0, String timezone = 'Europe/Dublin'}) {
   /// Date
   DateTime date = tz.TZDateTime.from(
-      DateTime(time.year, time.month).add(
-          Duration(hours: 3)), // making sure it is after 1 am for time change
+      DateTime(time.year, time.month)
+          .add(Duration(hours: 3)), // making sure it is after 1 am for time change
       tz.getLocation(timezone));
 
   // int daysInYear = date.year % 4 == 0 ? 366 : 365;
@@ -27,7 +28,7 @@ List<PrayerTimes> monthMap(DateTime time, Map<dynamic, dynamic> timetable,
     // DateTime newtime =
     //     tz.TZDateTime.from(time, tz.getLocation('Europe/Dublin'));
 
-    return prayerTimetable(timetable,
+    return prayerTimetableMap(timetable,
         // date: DateTime(date.year, date.month, index + 1),
         // date: tz.TZDateTime.from(DateTime(time.year, time.month, index + 1),
         //     tz.getLocation(timezone)),

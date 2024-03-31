@@ -1,6 +1,5 @@
 import 'package:hijri/hijri_calendar.dart';
-import 'package:prayer_timetable/src/components/PrayerTimes.dart'
-    as prayertimes;
+import 'package:prayer_timetable/src/components/PrayerTimes.dart' as prayertimes;
 import 'package:prayer_timetable/src/components/JamaahTimes.dart';
 import 'package:prayer_timetable/src/func/helpers.dart';
 
@@ -115,9 +114,7 @@ class Calc {
 
       // midnight - dawn
       if (_time.isBefore(_prayersToday.dawn)) {
-        _current = _jamaahPerPrayer[5]
-            ? _jamaahYesterday.dusk
-            : _prayersYesterday.dusk;
+        _current = _jamaahPerPrayer[5] ? _jamaahYesterday.dusk : _prayersYesterday.dusk;
         _next = _prayersToday.dawn;
         _previous = _prayersYesterday.sunset;
         _currentId = 5;
@@ -147,16 +144,14 @@ class Calc {
       // midday - dhuhr jamaah
       else if (_time.isBefore(_jamaahToday.midday)) {
         _current = _prayersToday.midday;
-        _next =
-            _jamaahPerPrayer[2] ? _jamaahToday.midday : _prayersToday.afternoon;
+        _next = _jamaahPerPrayer[2] ? _jamaahToday.midday : _prayersToday.afternoon;
         _previous = _prayersToday.sunrise;
         _currentId = 2;
         _jamaahPending = _jamaahPerPrayer[2];
       }
       // dhuhr jamaah - afternoon
       else if (_time.isBefore(_prayersToday.afternoon)) {
-        _current =
-            _jamaahPerPrayer[2] ? _jamaahToday.midday : _prayersToday.midday;
+        _current = _jamaahPerPrayer[2] ? _jamaahToday.midday : _prayersToday.midday;
         _next = _prayersToday.afternoon;
         _previous = _prayersToday.sunrise;
         _currentId = 2;
@@ -164,17 +159,14 @@ class Calc {
       // afternoon - asr jamaah
       else if (_time.isBefore(_jamaahToday.afternoon)) {
         _current = _prayersToday.afternoon;
-        _next =
-            _jamaahPerPrayer[3] ? _jamaahToday.afternoon : _prayersToday.sunset;
+        _next = _jamaahPerPrayer[3] ? _jamaahToday.afternoon : _prayersToday.sunset;
         _previous = _prayersToday.midday;
         _currentId = 3;
         _jamaahPending = _jamaahPerPrayer[3];
       }
       // asr jamaah - sunset
       else if (_time.isBefore(_prayersToday.sunset)) {
-        _current = _jamaahPerPrayer[3]
-            ? _jamaahToday.afternoon
-            : _prayersToday.afternoon;
+        _current = _jamaahPerPrayer[3] ? _jamaahToday.afternoon : _prayersToday.afternoon;
         _next = _prayersToday.sunset;
         _previous = _prayersToday.midday;
         _currentId = 3;
@@ -189,8 +181,7 @@ class Calc {
       }
       // maghrib jamaah - dusk
       else if (_time.isBefore(_prayersToday.dusk)) {
-        _current =
-            _jamaahPerPrayer[4] ? _jamaahToday.sunset : _prayersToday.sunset;
+        _current = _jamaahPerPrayer[4] ? _jamaahToday.sunset : _prayersToday.sunset;
         _next = _prayersToday.dusk;
         _previous = _prayersToday.afternoon;
         _currentId = 4;
@@ -228,8 +219,8 @@ class Calc {
     this.countDown = _next.difference(_time);
     this.countUp = _time.difference(_current);
 
-    percentage = round2Decimals(100 *
-        (this.countUp.inSeconds / (this.countDown + this.countUp).inSeconds));
+    percentage =
+        round2Decimals(100 * (this.countUp.inSeconds / (this.countDown + this.countUp).inSeconds));
 
     this.percentage = percentage.isNaN ? 0 : percentage;
     this.jamaahPending = _jamaahPending;
@@ -242,57 +233,57 @@ class Calc {
   }
 }
 
-Calc defaultCalc = Calc(
-    DateTime.now(),
-    prayertimes.PrayerTimes.now,
-    prayertimes.PrayerTimes.now,
-    prayertimes.PrayerTimes.now,
-    false,
-    JamaahTimes(prayertimes.PrayerTimes.now, [
-      'afterthis',
-      '',
-      'afterthis',
-      'afterthis',
-      'afterthis',
-      'afterthis'
-    ], [
-      [0, 0],
-      [],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0]
-    ]),
-    JamaahTimes(prayertimes.PrayerTimes.now, [
-      'afterthis',
-      '',
-      'afterthis',
-      'afterthis',
-      'afterthis',
-      'afterthis'
-    ], [
-      [0, 0],
-      [],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0]
-    ]),
-    JamaahTimes(prayertimes.PrayerTimes.now, [
-      'afterthis',
-      '',
-      'afterthis',
-      'afterthis',
-      'afterthis',
-      'afterthis'
-    ], [
-      [0, 0],
-      [],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0]
-    ]),
-    0,
-    0,
-    [false, false, false, false, false, false]);
+// Calc defaultCalc = Calc(
+//     DateTime.now(),
+//     prayertimes.PrayerTimes.times,
+//     prayertimes.PrayerTimes.times,
+//     prayertimes.PrayerTimes.times,
+//     false,
+//     JamaahTimes(prayertimes.PrayerTimes.times, [
+//       'afterthis',
+//       '',
+//       'afterthis',
+//       'afterthis',
+//       'afterthis',
+//       'afterthis'
+//     ], [
+//       [0, 0],
+//       [],
+//       [0, 0],
+//       [0, 0],
+//       [0, 0],
+//       [0, 0]
+//     ]),
+//     JamaahTimes(prayertimes.PrayerTimes.times, [
+//       'afterthis',
+//       '',
+//       'afterthis',
+//       'afterthis',
+//       'afterthis',
+//       'afterthis'
+//     ], [
+//       [0, 0],
+//       [],
+//       [0, 0],
+//       [0, 0],
+//       [0, 0],
+//       [0, 0]
+//     ]),
+//     JamaahTimes(prayertimes.PrayerTimes.times, [
+//       'afterthis',
+//       '',
+//       'afterthis',
+//       'afterthis',
+//       'afterthis',
+//       'afterthis'
+//     ], [
+//       [0, 0],
+//       [],
+//       [0, 0],
+//       [0, 0],
+//       [0, 0],
+//       [0, 0]
+//     ]),
+//     0,
+//     0,
+//     [false, false, false, false, false, false]);
