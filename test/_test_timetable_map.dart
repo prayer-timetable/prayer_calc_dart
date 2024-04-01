@@ -1,10 +1,7 @@
 import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
 
 import 'package:prayer_timetable/src/old/PrayerTimetableMap.dart';
-import 'src/timetable_map.dart';
 import 'src/timetable_map_leap.dart';
-import 'test.dart';
 
 // DateTime testTime = tz.TZDateTime.from(
 //     DateTime(2024, 3, 11, 14, 32, 45), tz.getLocation('Europe/Dublin')); // asr jamaah pending

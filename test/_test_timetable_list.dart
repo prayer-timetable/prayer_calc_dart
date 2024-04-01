@@ -1,6 +1,6 @@
 // import 'package:prayer_timetable/src/PrayerTimetableList.dart_';
-import 'src/timetable_list.dart';
-import 'test.dart';
+// import 'src/timetable_list.dart';
+// import 'test.dart';
 
 // Sarajevo
 double latS = 43.8563;

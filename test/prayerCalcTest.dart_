@@ -1,10 +1,6 @@
 // import 'dart:math';
 // import 'package:prayer_timetable/src/helpers.dart';
-import 'package:prayer_timetable/src/classes/Coordinates.dart';
-import 'package:prayer_timetable/src/classes/CalculationMethod.dart';
-import 'package:prayer_timetable/src/classes/CalculationParameters.dart';
-import 'package:prayer_timetable/src/classes/Madhab.dart';
-import 'package:prayer_timetable/src/classes/PrayerTimesCalc.dart';
+import 'package:adhan_dart/adhan_dart.dart';
 
 const lat = 43.8563;
 const lng = 18.4131;

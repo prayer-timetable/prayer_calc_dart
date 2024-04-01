@@ -4,7 +4,6 @@ import 'dart:core';
 
 // import 'package:adhan_dart/adhan_dart.dart';
 import 'package:prayer_timetable/prayer_timetable.dart';
-import 'package:prayer_timetable/src/components/Calc.dart';
 import 'package:prayer_timetable/src/func/jamaahTimes.dart';
 import 'package:prayer_timetable/src/func/monthHijriMap.dart';
 import 'package:prayer_timetable/src/func/monthMap.dart';
@@ -112,28 +111,161 @@ class PrayerTimetable<T> {
 
   double lat = 0;
   double lng = 0;
-  /***************************************************** */
-
-  // this.calc = Calc(
-  //   DateTime(year ?? DateTime.now().year, month ?? DateTime.now().month,
-  //       day ?? DateTime.now().day, hour ?? 3),
-  //   PrayerTimes.times,
-  //   PrayerTimes.times,
-  //   PrayerTimes.times,
-  //   jamaahOn,
-  //   PrayerTimes.times,
-  //   PrayerTimes.times,
-  //   PrayerTimes.times,
-  //   [0, 0],
-  //   jamaahPerPrayer,
-  // );
 
 /***************************************************** */
 
 /***************************************************** */
 
 /***************************************************** */
+  factory PrayerTimetable(String name) {
+    return PrayerTimetable.base();
+  }
 
+  static final PrayerTimetable _dbHelper = PrayerTimetable.base();
+
+  PrayerTimetable.base({
+    this.year,
+    this.month,
+    this.day,
+    this.hijriOffset,
+    // this.summerTimeCalc = true,
+
+    /// Enables jamaah times globaly.
+    this.jamaahOn = false,
+    this.joinMaghrib = false,
+    this.joinDhuhr = false,
+    this.timezone = 'Europe/Dublin',
+
+    /// Jammah times per individual prayers. Ignored if global jamaahOn is false.
+    this.jamaahPerPrayer,
+    this.jamaahMethods = defaultJamaahMethods,
+    this.jamaahOffsets = defaultJamaahOffsets,
+    this.hour,
+    this.minute,
+    this.second,
+  })  : assert((jamaahOn) && (jamaahMethods != null && jamaahOffsets != null) ||
+            (jamaahOn && jamaahPerPrayer != null) ||
+            jamaahOn == false), //  && jamaahPerPrayer != null
+        this.testing = false,
+        this.calc = defaultCalc,
+        this.sunnah = defaultSunnah {
+    /// ********************************************
+    /// Define time
+    /// ********************************************
+    DateTime date = nowTZ(timezone ?? 'Europe/Dublin',
+        year: year, month: month, day: day, hour: hour, minute: minute, second: second);
+
+    /// ********************************************
+    /// Define prayer times
+    /// ********************************************
+    this.currentPrayerTimes = prayerTimes(
+        date: DateTime(this.year ?? date.year, this.month ?? date.month, this.day ?? date.day,
+            this.hour ?? 3, this.minute ?? 0, this.second ?? 0));
+    this.nextPrayerTimes = prayerTimes(
+      date: DateTime(this.year ?? date.year, this.month ?? date.month, (this.day ?? date.day) + 1,
+          this.hour ?? 3, this.minute ?? 0, this.second ?? 0),
+    );
+    this.previousPrayerTimes = prayerTimes(
+        date: DateTime(this.year ?? date.year, this.month ?? date.month, (this.day ?? date.day) - 1,
+            this.hour ?? 3, this.minute ?? 0, this.second ?? 0));
+
+    /// ********************************************
+    /// Define jamaah times
+    /// ********************************************
+    bool _jamaahOn = this.jamaahOn;
+    List<bool> _jamaahPerPrayer =
+        _jamaahOn ? this.jamaahPerPrayer ?? defaultJamaahPerPrayerOn : defaultJamaahPerPrayerOff;
+
+    this.currentJamaahTimes = jamaahTimes(
+        prayers: currentPrayerTimes,
+        jamaahMethods: this.jamaahMethods ?? defaultJamaahMethods,
+        jamaahOffsets: this.jamaahOffsets ?? defaultJamaahOffsets,
+        jamaahPerPrayer: _jamaahPerPrayer);
+    this.nextJamaahTimes = jamaahTimes(
+        prayers: nextPrayerTimes,
+        jamaahMethods: this.jamaahMethods ?? defaultJamaahMethods,
+        jamaahOffsets: this.jamaahOffsets ?? defaultJamaahOffsets,
+        jamaahPerPrayer: _jamaahPerPrayer);
+    this.previousJamaahTimes = jamaahTimes(
+        prayers: previousPrayerTimes,
+        jamaahMethods: this.jamaahMethods ?? defaultJamaahMethods,
+        jamaahOffsets: this.jamaahOffsets ?? defaultJamaahOffsets,
+        jamaahPerPrayer: _jamaahPerPrayer);
+
+    /// ********************************************
+    /// Check if jammah is before the prayer
+    /// ********************************************
+    this.currentPrayerTimes = prayerTimesValidate(
+        prayerTimes: this.currentPrayerTimes, jamaahTimes: this.currentJamaahTimes);
+    this.nextPrayerTimes =
+        prayerTimesValidate(prayerTimes: this.nextPrayerTimes, jamaahTimes: this.nextJamaahTimes);
+    this.previousPrayerTimes = prayerTimesValidate(
+        prayerTimes: this.previousPrayerTimes, jamaahTimes: this.previousJamaahTimes);
+
+    /// ********************************************
+    /// Joining prayers
+    /// ********************************************
+    List joinedTimesCurrent = prayerJoining(
+      joinDhuhr: this.joinDhuhr,
+      joinMaghrib: this.joinMaghrib,
+      prayerTimes: this.currentPrayerTimes,
+      jamaahTimes: this.currentJamaahTimes,
+    );
+    List joinedTimesNext = prayerJoining(
+      joinDhuhr: this.joinDhuhr,
+      joinMaghrib: this.joinMaghrib,
+      prayerTimes: this.nextPrayerTimes,
+      jamaahTimes: this.nextJamaahTimes,
+    );
+    List joinedTimesPrevious = prayerJoining(
+      joinDhuhr: this.joinDhuhr,
+      joinMaghrib: this.joinMaghrib,
+      prayerTimes: this.previousPrayerTimes,
+      jamaahTimes: this.previousJamaahTimes,
+    );
+    this.currentPrayerTimes = joinedTimesCurrent[0];
+    this.nextPrayerTimes = joinedTimesNext[0];
+    this.previousPrayerTimes = joinedTimesPrevious[0];
+    this.currentJamaahTimes = joinedTimesCurrent[1];
+    this.nextJamaahTimes = joinedTimesNext[1];
+    this.previousJamaahTimes = joinedTimesPrevious[1];
+
+    /// ********************************************
+    /// Sunnah prayers
+    /// ********************************************
+    this.sunnah = Sunnah(date,
+        prayersCurrent: this.currentPrayerTimes,
+        prayersNext: this.nextPrayerTimes,
+        prayersPrevious: this.previousPrayerTimes);
+
+    /// ********************************************
+    /// Calc
+    /// ********************************************
+    this.calc = Calc(
+      date,
+      prayersCurrent: this.currentPrayerTimes,
+      prayersNext: this.nextPrayerTimes,
+      prayersPrevious: this.previousPrayerTimes,
+      jamaahOn: this.jamaahOn,
+      jamaahCurrent: this.currentJamaahTimes,
+      jamaahPrevious: this.previousJamaahTimes,
+      lat: this.lat,
+      lng: this.lng,
+      jamaahPerPrayer: this.jamaahPerPrayer,
+    );
+
+    /// ********************************************
+    /// Month calendars
+    /// ********************************************
+    this.monthPrayerTimes =
+        monthP(date, hijriOffset: hijriOffset ?? 0, timezone: this.timezone ?? 'Europe/Dublin');
+    this.monthHijriPrayerTimes = monthHijriP(date,
+        hijriOffset: hijriOffset ?? 0, timezone: this.timezone ?? 'Europe/Dublin');
+
+    /// end
+  }
+
+  /// end PrayerTimetable
 /***************************************************** */
 
   PrayerTimetable.map(
@@ -279,6 +411,10 @@ class PrayerTimetable<T> {
 
     /// end
   }
+
+  /// end PrayerTimetable.map
+
+  // PrayerTimetable.list ;
 }
 
 // PrayerTimetable.map(Map timetable);

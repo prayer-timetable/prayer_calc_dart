@@ -37,12 +37,9 @@ PrayerTimes prayerTimetable(
 
   prayerCount.forEach((prayerId) {
     DateTime prayerTime = secondsToDateTime(
-            timetable[timestamp.month - 1][timestamp.day - 1][prayerId],
-            timestamp,
+            timetable[timestamp.month - 1][timestamp.day - 1][prayerId], timestamp,
             offset: 0)
         .add(Duration(seconds: difference[prayerId]));
-
-    // bool isNext = false;//TODO
 
     // DateTime time, int id, bool hasPassed, String name, String when, bool isNext,
     prayerTimes.insert(
