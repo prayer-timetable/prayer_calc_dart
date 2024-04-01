@@ -277,37 +277,37 @@ class PrayerTimetableMap {
     this.previousJamaahTimes = JamaahTimes();
 
     /// Define sunnah
-    this.sunnah = Sunnah(now, prayersCurrent, prayersNext, prayersPrevious);
+    // this.sunnah = Sunnah(now, prayersCurrent, prayersNext, prayersPrevious);
 
     /// Today only.
-    this.calcToday = Calc(
-      /// TNow
-      now,
-      prayersToday,
-      prayersTomorrow,
-      prayersYesterday,
-      jamaahOn,
-      jamaahToday,
-      jamaahTomorrow,
-      jamaahYesterday,
-      lat,
-      lng,
-      jamaahPerPrayer,
-    );
+    // this.calcToday = Calc(
+    //   /// TNow
+    //   now,
+    //   prayersToday,
+    //   prayersTomorrow,
+    //   prayersYesterday,
+    //   jamaahOn,
+    //   jamaahToday,
+    //   jamaahTomorrow,
+    //   jamaahYesterday,
+    //   lat,
+    //   lng,
+    //   jamaahPerPrayer,
+    // );
 
-    this.calc = Calc(
-      date,
-      prayersCurrent,
-      prayersNext,
-      prayersPrevious,
-      jamaahOn,
-      jamaahCurrent,
-      jamaahNext,
-      jamaahPrevious,
-      lat,
-      lng,
-      jamaahPerPrayer,
-    );
+    // this.calc = Calc(
+    //   date,
+    //   prayersCurrent,
+    //   prayersNext,
+    //   prayersPrevious,
+    //   jamaahOn,
+    //   jamaahCurrent,
+    //   jamaahNext,
+    //   jamaahPrevious,
+    //   lat,
+    //   lng,
+    //   jamaahPerPrayer,
+    // );
 
     this.monthPrayerTimes =
         monthMap(date, timetable, hijriOffset: hijriOffset ?? 0, timezone: timezone);

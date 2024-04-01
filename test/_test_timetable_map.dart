@@ -62,7 +62,7 @@ main() {
 
   print(testTime);
 
-  jamaahTest(location);
+  // jamaahTest(location);
 
   // timetableTest(location);
   // Timer.periodic(Duration(seconds: 1), (Timer t) {

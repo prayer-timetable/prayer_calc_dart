@@ -20,20 +20,22 @@ PrayerTimetable dublin = PrayerTimetable.map(
   jamaahOn: true,
   jamaahMethods: ['fixed', '', 'afterthis', 'afterthis', 'afterthis', 'afterthis'],
   jamaahOffsets: [
-    [6, 0],
+    [5, 0],
     [0, 0],
     [0, 5],
     [0, 5],
     [0, 5],
     [0, 0]
   ],
+  // joinDhuhr: true,
+  // joinMaghrib: true,
+
   // // jamaahPerPrayer: [false, false, false, true, false, false],
   // // testing options
   // hour: newtime.hour,
   // minute: newtime.minute,
   // second: newtime.second,
-  // joinMaghrib: false,
-  // joinDhuhr: false,
+
   // hijriOffset: 0,
 );
 
@@ -42,7 +44,8 @@ main() {
 
   print(testTime);
 
-  // print(location.currentPrayerTimes.dawn);
+  // print(dublin.currentPrayerTimes.dawn);
+  // print(dublin.currentJamaahTimes.dawn);
 
   jamaahTest(dublin);
 

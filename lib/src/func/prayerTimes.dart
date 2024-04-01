@@ -70,3 +70,37 @@ PrayerTimes prayerTimes({
 
 //export { prayersCalc, dayCalc }
 
+PrayerTimes prayerTimesValidate(
+    {required PrayerTimes prayerTimes, required JamaahTimes jamaahTimes}) {
+  PrayerTimes newPrayerTimes = prayerTimes;
+  // Current
+  if (jamaahTimes.dawn.isBefore(prayerTimes.dawn)) newPrayerTimes.dawn = jamaahTimes.dawn;
+  if (jamaahTimes.midday.isBefore(prayerTimes.midday)) newPrayerTimes.midday = jamaahTimes.midday;
+  if (jamaahTimes.afternoon.isBefore(prayerTimes.afternoon))
+    newPrayerTimes.afternoon = jamaahTimes.afternoon;
+  if (jamaahTimes.sunset.isBefore(prayerTimes.sunset)) newPrayerTimes.sunset = jamaahTimes.sunset;
+  if (jamaahTimes.dusk.isBefore(prayerTimes.dusk)) newPrayerTimes.dusk = jamaahTimes.dusk;
+
+  return newPrayerTimes;
+}
+
+List prayerJoining(
+    {required joinDhuhr,
+    required joinMaghrib,
+    required PrayerTimes prayerTimes,
+    required JamaahTimes jamaahTimes}) {
+  // JOINING
+  PrayerTimes newPrayerTimes = prayerTimes;
+  JamaahTimes newJamaahTimes = jamaahTimes;
+
+  if (joinMaghrib) {
+    newPrayerTimes.dusk = newPrayerTimes.sunset;
+    newJamaahTimes.dusk = newJamaahTimes.sunset;
+  }
+  if (joinDhuhr) {
+    newPrayerTimes.afternoon = newPrayerTimes.midday;
+    newJamaahTimes.afternoon = newJamaahTimes.midday;
+  }
+
+  return [newPrayerTimes, newJamaahTimes];
+}

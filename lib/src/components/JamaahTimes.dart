@@ -22,5 +22,5 @@ class JamaahTimes extends PrayerTimes {
     //end
   }
 
-  static PrayerTimes times = new PrayerTimes();
+  static JamaahTimes times = new JamaahTimes();
 }

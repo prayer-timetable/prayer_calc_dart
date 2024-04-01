@@ -1,4 +1,6 @@
-timetableTest(location) {
+import 'package:prayer_timetable/src/PrayerTimetable.dart';
+
+timetableTest(PrayerTimetable location) {
   print('*************** Current ***************');
   print('dawn:\t\t${location.currentPrayerTimes.dawn}');
   print('sunrise:\t${location.currentPrayerTimes.sunrise}');
@@ -32,13 +34,11 @@ timetableTest(location) {
   print('currentId:\t${location.calc.currentId}');
   print('countDown:\t${location.calc.countDown}');
   print('countUp:\t${location.calc.countUp}');
-  print('countDown calcToday:\t${location.calcToday.countDown}');
-  print('countUp calcToday:\t${location.calcToday.countUp}');
   print('Qibla:\t${location.calc.qibla}');
   print('percentage:\t${location.calc.percentage}');
 }
 
-jamaahTest(location) {
+jamaahTest(PrayerTimetable location) {
   print('**************** Today *****************');
   print('dawn:\t\t${location.currentPrayerTimes.dawn}');
   print('sunrise:\t${location.currentPrayerTimes.sunrise}');
@@ -82,18 +82,18 @@ jamaahTest(location) {
   print('sunset:\t\t${location.previousJamaahTimes.sunset}');
   print('dusk:\t\t${location.previousJamaahTimes.dusk}');
   print('*************** Sunnah *****************');
-  // print('midnight:\t${location.sunnah.midnight}');
-  // print('lastThird\t${location.sunnah.lastThird}');
+  print('midnight:\t${location.sunnah.midnight}');
+  print('lastThird\t${location.sunnah.lastThird}');
   print('************** Calc ***************');
-  // print('time:\t${location.calc.time}');
-  // print('current:\t${location.calc.current}');
-  // print('next:\t\t${location.calc.next}');
-  // print('previous:\t${location.calc.previous}');
-  // print('isAfterIsha:\t${location.calc.isAfterIsha}');
-  // print('jamaahPending:\t${location.calc.jamaahPending}');
-  // print('currentId:\t${location.calc.currentId}');
-  // print('countDown:\t${location.calc.countDown}');
-  // print('countUp:\t${location.calc.countUp}');
-  // print('percentage:\t${location.calc.percentage}');
+  print('time:\t${location.calc.time}');
+  print('current:\t${location.calc.current}');
+  print('next:\t\t${location.calc.next}');
+  print('previous:\t${location.calc.previous}');
+  print('isAfterIsha:\t${location.calc.isAfterIsha}');
+  print('jamaahPending:\t${location.calc.jamaahPending}');
+  print('currentId:\t${location.calc.currentId}');
+  print('countDown:\t${location.calc.countDown}');
+  print('countUp:\t${location.calc.countUp}');
+  print('percentage:\t${location.calc.percentage}');
   // print(location.current);
 }

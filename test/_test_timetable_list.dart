@@ -37,4 +37,4 @@ PrayerTimetableList test = new PrayerTimetableList(
 
 PrayerTimetableList location = sarajevo;
 
-main() => timetableTest(location);
+// main() => timetableTest(location);
