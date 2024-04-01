@@ -49,7 +49,8 @@ const List<String> defaultJamaahMethods = const [
   'afterthis'
 ];
 
-const List<bool> defaultJamaahPerPrayer = const [false, false, false, false, false, false];
+const List<bool> defaultJamaahPerPrayerOff = const [false, false, false, false, false, false];
+const List<bool> defaultJamaahPerPrayerOn = const [true, true, true, true, true, true];
 
 class PrayerTimetable<T> {
   ///current prayer times
@@ -94,7 +95,7 @@ class PrayerTimetable<T> {
   final String? timezone;
 
   /// Enables jamaah times globaly.
-  final bool? jamaahOn;
+  bool jamaahOn = false;
 
   /// Jammah times per individual prayers. Ignored if global jamaahOn is false.
   final List<bool>? jamaahPerPrayer;
@@ -150,16 +151,15 @@ class PrayerTimetable<T> {
     this.timezone = 'Europe/Dublin',
 
     /// Jammah times per individual prayers. Ignored if global jamaahOn is false.
-    this.jamaahPerPrayer = defaultJamaahPerPrayer,
+    this.jamaahPerPrayer,
     this.jamaahMethods = defaultJamaahMethods,
     this.jamaahOffsets = defaultJamaahOffsets,
     this.hour,
     this.minute,
     this.second,
-  })  : assert((jamaahOn != null && jamaahOn) && (jamaahMethods != null && jamaahOffsets != null) ||
-            (jamaahOn != null &&
-                jamaahOn &&
-                jamaahPerPrayer != null)), //  && jamaahPerPrayer != null
+  })  : assert((jamaahOn) && (jamaahMethods != null && jamaahOffsets != null) ||
+            (jamaahOn && jamaahPerPrayer != null) ||
+            jamaahOn == false), //  && jamaahPerPrayer != null
         this.testing = false,
         this.calc = defaultCalc,
         this.sunnah = defaultSunnah {
@@ -187,18 +187,25 @@ class PrayerTimetable<T> {
     /// ********************************************
     /// Define jamaah times
     /// ********************************************
+    bool _jamaahOn = this.jamaahOn;
+    List<bool> _jamaahPerPrayer =
+        _jamaahOn ? this.jamaahPerPrayer ?? defaultJamaahPerPrayerOn : defaultJamaahPerPrayerOff;
+
     this.currentJamaahTimes = jamaahTimes(
         prayers: currentPrayerTimes,
         jamaahMethods: this.jamaahMethods ?? defaultJamaahMethods,
-        jamaahOffsets: this.jamaahOffsets ?? defaultJamaahOffsets);
+        jamaahOffsets: this.jamaahOffsets ?? defaultJamaahOffsets,
+        jamaahPerPrayer: _jamaahPerPrayer);
     this.nextJamaahTimes = jamaahTimes(
         prayers: nextPrayerTimes,
         jamaahMethods: this.jamaahMethods ?? defaultJamaahMethods,
-        jamaahOffsets: this.jamaahOffsets ?? defaultJamaahOffsets);
+        jamaahOffsets: this.jamaahOffsets ?? defaultJamaahOffsets,
+        jamaahPerPrayer: _jamaahPerPrayer);
     this.previousJamaahTimes = jamaahTimes(
         prayers: previousPrayerTimes,
         jamaahMethods: this.jamaahMethods ?? defaultJamaahMethods,
-        jamaahOffsets: this.jamaahOffsets ?? defaultJamaahOffsets);
+        jamaahOffsets: this.jamaahOffsets ?? defaultJamaahOffsets,
+        jamaahPerPrayer: _jamaahPerPrayer);
 
     /// ********************************************
     /// Check if jammah is before the prayer

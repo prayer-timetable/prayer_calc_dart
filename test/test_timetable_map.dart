@@ -6,8 +6,8 @@ import 'src/timetable_map.dart';
 import 'src/timetable_map_leap.dart';
 import 'test.dart';
 
-DateTime testTime = tz.TZDateTime.from(
-    DateTime(2024, 3, 11, 14, 32, 45), tz.getLocation('Europe/Dublin')); // asr jamaah pending
+DateTime testTime =
+    tz.TZDateTime.from(DateTime(2024, 3, 11, 14, 32, 45), tz.getLocation('Europe/Dublin'));
 
 PrayerTimetable dublin = PrayerTimetable.map(
   dublinLeap,
@@ -20,17 +20,17 @@ PrayerTimetable dublin = PrayerTimetable.map(
   jamaahOn: true,
   jamaahMethods: ['fixed', '', 'afterthis', 'afterthis', 'afterthis', 'afterthis'],
   jamaahOffsets: [
-    [5, 0],
+    [6, 0],
     [0, 0],
-    [0, 5],
-    [0, 5],
-    [0, 5],
-    [0, 0]
+    [0, 15],
+    [0, 15],
+    [0, 15],
+    [0, 15]
   ],
   // joinDhuhr: true,
   // joinMaghrib: true,
 
-  // // jamaahPerPrayer: [false, false, false, true, false, false],
+  // jamaahPerPrayer: [false, false, true, true, false, false],
   // // testing options
   // hour: newtime.hour,
   // minute: newtime.minute,
@@ -42,7 +42,7 @@ PrayerTimetable dublin = PrayerTimetable.map(
 main() {
   tz.initializeTimeZones();
 
-  print(testTime);
+  // print(testTime);
 
   // print(dublin.currentPrayerTimes.dawn);
   // print(dublin.currentJamaahTimes.dawn);

@@ -46,20 +46,7 @@ jamaahTest(PrayerTimetable location) {
   print('afternoon:\t${location.currentPrayerTimes.afternoon}');
   print('sunset:\t\t${location.currentPrayerTimes.sunset}');
   print('dusk:\t\t${location.currentPrayerTimes.dusk}');
-  print('*************** Tomorrow **************');
-  print('dawn:\t\t${location.nextPrayerTimes.dawn}');
-  print('sunrise:\t${location.nextPrayerTimes.sunrise}');
-  print('midday:\t\t${location.nextPrayerTimes.midday}');
-  print('afternoon:\t${location.nextPrayerTimes.afternoon}');
-  print('sunset:\t\t${location.nextPrayerTimes.sunset}');
-  print('dusk:\t\t${location.nextPrayerTimes.dusk}');
-  print('************** Yesterday ***************');
-  print('dawn:\t\t${location.previousPrayerTimes.dawn}');
-  print('sunrise:\t${location.previousPrayerTimes.sunrise}');
-  print('midday:\t\t${location.previousPrayerTimes.midday}');
-  print('afternoon:\t${location.previousPrayerTimes.afternoon}');
-  print('sunset:\t\t${location.previousPrayerTimes.sunset}');
-  print('dusk:\t\t${location.previousPrayerTimes.dusk}');
+
   print('************ Today Jamaah *************');
   print('dawn:\t\t${location.currentJamaahTimes.dawn}');
   print('sunrise:\t${location.currentJamaahTimes.sunrise}');
@@ -67,6 +54,15 @@ jamaahTest(PrayerTimetable location) {
   print('afternoon:\t${location.currentJamaahTimes.afternoon}');
   print('sunset:\t\t${location.currentJamaahTimes.sunset}');
   print('dusk:\t\t${location.currentJamaahTimes.dusk}');
+
+  print('*************** Tomorrow **************');
+  print('dawn:\t\t${location.nextPrayerTimes.dawn}');
+  print('sunrise:\t${location.nextPrayerTimes.sunrise}');
+  print('midday:\t\t${location.nextPrayerTimes.midday}');
+  print('afternoon:\t${location.nextPrayerTimes.afternoon}');
+  print('sunset:\t\t${location.nextPrayerTimes.sunset}');
+  print('dusk:\t\t${location.nextPrayerTimes.dusk}');
+
   print('*********** Tomorrow Jamaah ***********');
   print('dawn:\t\t${location.nextJamaahTimes.dawn}');
   print('sunrise:\t${location.nextJamaahTimes.sunrise}');
@@ -74,6 +70,15 @@ jamaahTest(PrayerTimetable location) {
   print('afternoon:\t${location.nextJamaahTimes.afternoon}');
   print('sunset:\t\t${location.nextJamaahTimes.sunset}');
   print('dusk:\t\t${location.nextJamaahTimes.dusk}');
+
+  print('************** Yesterday ***************');
+  print('dawn:\t\t${location.previousPrayerTimes.dawn}');
+  print('sunrise:\t${location.previousPrayerTimes.sunrise}');
+  print('midday:\t\t${location.previousPrayerTimes.midday}');
+  print('afternoon:\t${location.previousPrayerTimes.afternoon}');
+  print('sunset:\t\t${location.previousPrayerTimes.sunset}');
+  print('dusk:\t\t${location.previousPrayerTimes.dusk}');
+
   print('********** Yesterday Jamaah ***********');
   print('dawn:\t\t${location.previousJamaahTimes.dawn}');
   print('sunrise:\t${location.previousJamaahTimes.sunrise}');
@@ -81,6 +86,7 @@ jamaahTest(PrayerTimetable location) {
   print('afternoon:\t${location.previousJamaahTimes.afternoon}');
   print('sunset:\t\t${location.previousJamaahTimes.sunset}');
   print('dusk:\t\t${location.previousJamaahTimes.dusk}');
+
   print('*************** Sunnah *****************');
   print('midnight:\t${location.sunnah.midnight}');
   print('lastThird\t${location.sunnah.lastThird}');

@@ -1,4 +1,4 @@
-import 'package:prayer_timetable/src/PrayerTimetableList.dart_';
+// import 'package:prayer_timetable/src/PrayerTimetableList.dart_';
 import 'src/timetable_list.dart';
 import 'test.dart';
 
@@ -10,13 +10,13 @@ double angleS = 14.6;
 int timezoneS = 1;
 
 // Prayers sarajevo = new Prayers(latS, longS, altitudeS, angleS, timezoneS);
-PrayerTimetableList sarajevo = new PrayerTimetableList(
-  base,
-  summerTimeCalc: false,
-  year: 2020,
-  month: 3,
-  day: 28,
-);
+// PrayerTimetableList sarajevo = new PrayerTimetableList(
+//   base,
+//   summerTimeCalc: false,
+//   year: 2020,
+//   month: 3,
+//   day: 28,
+// );
 // optional parameters:
 // int year, int month, int day, int asrMethod, double ishaAngle, bool summerTimeCalc
 //
@@ -27,14 +27,14 @@ PrayerTimetableList sarajevo = new PrayerTimetableList(
 // summerTimeCalc is true by default, set to false if no daylight saving should happen
 //
 // example (icci location, Hanafi, 1st June 2020, different ishaAngle, no summer time):
-PrayerTimetableList test = new PrayerTimetableList(
-  base,
-  summerTimeCalc: false,
-  year: 2020,
-  month: 6,
-  day: 1,
-);
+// PrayerTimetableList test = new PrayerTimetableList(
+//   base,
+//   summerTimeCalc: false,
+//   year: 2020,
+//   month: 6,
+//   day: 1,
+// );
 
-PrayerTimetableList location = sarajevo;
+// PrayerTimetableList location = sarajevo;
 
 // main() => timetableTest(location);

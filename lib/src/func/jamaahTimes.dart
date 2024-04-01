@@ -7,10 +7,10 @@ JamaahTimes jamaahTimes({
   required PrayerTimes prayers,
   required List<String> jamaahMethods,
   required List<List<int>> jamaahOffsets,
+  required List<bool> jamaahPerPrayer,
 }) {
   List<DateTime> jamaahTimes = [];
 
-  List prayerCount = Iterable<int>.generate(6).toList();
   List<DateTime> prayerList = [
     prayers.dawn,
     prayers.sunrise,
@@ -20,38 +20,30 @@ JamaahTimes jamaahTimes({
     prayers.dusk
   ];
 
-  prayerCount.forEach((prayerId) {
-    // print(prayers);
-    // DateTime jamaahTime = DateTime(;
-    int offset;
-    DateTime jamaahTime;
+  for (final (index, DateTime item) in prayerList.indexed) {
+    int offset = 0;
+    DateTime jamaahTime = item;
 
-    if (jamaahOffsets[prayerId].isNotEmpty) {
-      offset = jamaahOffsets[prayerId][0] * 60 + jamaahOffsets[prayerId][1];
-    } else
-      offset = -1;
+    if (jamaahOffsets[index].isNotEmpty) {
+      offset = jamaahOffsets[index][0] * 60 + jamaahOffsets[index][1];
+    }
 
-    // String? method =
-    //     jamaahMethods[prayerId].isNotEmpty ? jamaahMethods[prayerId] : null;
-    // print('method: $method offset: $offset');
-
-    if (jamaahMethods[prayerId] == 'afterthis') {
+    if (!jamaahPerPrayer[index])
+      jamaahTime = prayerList[index];
+    else if (jamaahMethods[index] == 'afterthis') {
       // print('it is');
-      jamaahTime = prayerList[prayerId].add(Duration(minutes: offset));
-    } else if (jamaahMethods[prayerId] == 'fixed') {
-      jamaahTime = DateTime(prayerList[prayerId].year, prayerList[prayerId].month,
-          prayerList[prayerId].day, jamaahOffsets[prayerId][0], jamaahOffsets[prayerId][1]);
+      jamaahTime = prayerList[index].add(Duration(minutes: offset));
+    } else if (jamaahMethods[index] == 'fixed') {
+      jamaahTime = DateTime(prayerList[index].year, prayerList[index].month, prayerList[index].day,
+          jamaahOffsets[index][0], jamaahOffsets[index][1]);
       // .add(Duration(minutes: offset));
       //
     } else {
-      jamaahTime = prayerList[prayerId];
+      jamaahTime = prayerList[index];
     }
 
-    jamaahTimes.insert(
-      prayerId,
-      jamaahTime,
-    );
-  });
+    jamaahTimes = [...jamaahTimes, jamaahTime];
+  }
 
   JamaahTimes jamaahs = new JamaahTimes();
   jamaahs.dawn = jamaahTimes[0];
