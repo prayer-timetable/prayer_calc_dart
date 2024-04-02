@@ -1,4 +1,5 @@
 import 'package:prayer_timetable/prayer_timetable.dart';
+import 'package:prayer_timetable/src/components/CalcPrayers.dart';
 import 'package:prayer_timetable/src/func/helpers.dart';
 
 // import 'package:timezone/data/latest.dart' as tz;
@@ -7,7 +8,10 @@ import 'package:timezone/timezone.dart' as tz;
 /* *********************** */
 /* MAIN FUNCTION           */
 /* *********************** */
-PrayerTimes prayerTimes({
+PrayerTimes prayerTimesGen({
+  Map? timetableMap,
+  List? timetableList,
+  CalcPrayers? calcPrayers,
   int hijriOffset = 0,
   DateTime? date,
   String timezone = 'Europe/Dublin',
@@ -15,7 +19,7 @@ PrayerTimes prayerTimes({
   /* *********************** */
   /* TIMES                   */
   /* *********************** */
-
+  // print(timetableMap);
   // print('###');
   // print(date);
   DateTime timestamp = tz.TZDateTime.from(
@@ -25,6 +29,7 @@ PrayerTimes prayerTimes({
       tz.getLocation(timezone));
 
   // DateTime timestamp = date ?? DateTime.now();
+  // TODO:
   int adjDst = isDSTCalc(timestamp) ? 1 : 0;
   // print('adjDst: $adjDst');
   // check if leap year
@@ -38,23 +43,51 @@ PrayerTimes prayerTimes({
 
   List prayerCount = Iterable<int>.generate(6).toList();
 
-  prayerCount.forEach((prayerId) {
-    DateTime prayerTime = DateTime(
-      timestamp.year,
-      timestamp.month,
-      timestamp.day,
-      // timetable[timestamp.month.toString()][timestamp.day.toString()][prayerId][0],
-      // timetable[timestamp.month.toString()][timestamp.day.toString()][prayerId][1],
-    ).add(Duration(hours: adjDst));
+  if (timetableMap != null)
+    prayerCount.forEach((prayerId) {
+      DateTime prayerTime = DateTime(
+        timestamp.year,
+        timestamp.month,
+        timestamp.day,
+        timetableMap[timestamp.month.toString()][timestamp.day.toString()][prayerId][0],
+        timetableMap[timestamp.month.toString()][timestamp.day.toString()][prayerId][1],
+      ).add(Duration(hours: adjDst));
 
-    prayerTimes.insert(
-      prayerId,
-      prayerTime,
-    );
-  });
+      // prayerTimes = [...prayerTimes, prayerTime];
+      prayerTimes.insert(
+        prayerId,
+        prayerTime,
+      );
+    });
+  else if (timetableList != null) {
+    var lastMidnight = DateTime(timestamp.year, timestamp.month, timestamp.day);
 
-  // next prayer - add isNext
-  // prayersList[next.id].isNext = true;//TODO
+    prayerCount.forEach((prayerId) {
+      DateTime prayerTime = lastMidnight
+          .add(Duration(seconds: timetableList[timestamp.month][timestamp.day][prayerId]))
+          .add(Duration(hours: adjDst));
+      prayerTimes.insert(
+        prayerId,
+        prayerTime,
+      );
+    });
+  } else if (calcPrayers != null) {
+    DateTime fajr = calcPrayers.prayerTimes.fajr!.add(Duration(hours: adjDst));
+    DateTime sunrise = calcPrayers.prayerTimes.sunrise!.add(Duration(hours: adjDst));
+    DateTime dhuhr = calcPrayers.prayerTimes.dhuhr!.add(Duration(hours: adjDst));
+    DateTime asr = calcPrayers.prayerTimes.asr!.add(Duration(hours: adjDst));
+    DateTime maghrib = calcPrayers.prayerTimes.maghrib!.add(Duration(hours: adjDst));
+    DateTime isha = calcPrayers.prayerTimes.isha!.add(Duration(hours: adjDst));
+    prayerTimes = [fajr, sunrise, dhuhr, asr, maghrib, isha];
+  } else {
+    prayerCount.forEach((prayerId) {
+      DateTime prayerTime = DateTime.now().add(Duration(hours: adjDst));
+      prayerTimes.insert(
+        prayerId,
+        prayerTime,
+      );
+    });
+  }
 
   PrayerTimes prayers = new PrayerTimes();
   prayers.dawn = prayerTimes[0];
@@ -66,8 +99,6 @@ PrayerTimes prayerTimes({
 
   return prayers;
 }
-
-//export { prayersCalc, dayCalc }
 
 PrayerTimes prayerTimesValidate(
     {required PrayerTimes prayerTimes, required JamaahTimes jamaahTimes}) {

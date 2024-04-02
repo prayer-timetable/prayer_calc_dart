@@ -64,7 +64,7 @@ List<PrayerTimes> monthP(DateTime time, {int hijriOffset = 0, String timezone = 
     // DateTime newtime =
     //     tz.TZDateTime.from(time, tz.getLocation('Europe/Dublin'));
 
-    return prayerTimes(
+    return prayerTimesGen(
         // date: DateTime(date.year, date.month, index + 1),
         // date: tz.TZDateTime.from(DateTime(time.year, time.month, index + 1),
         //     tz.getLocation(timezone)),
