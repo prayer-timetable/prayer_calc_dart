@@ -9,7 +9,6 @@ import 'package:prayer_timetable/src/func/jamaahTimes.dart';
 import 'package:prayer_timetable/src/func/monthHijriMap.dart';
 import 'package:prayer_timetable/src/func/monthMap.dart';
 import 'package:prayer_timetable/src/func/prayerTimes.dart';
-import 'package:prayer_timetable/src/func/prayerTimes.dart';
 import 'package:prayer_timetable/src/func/tzTime.dart';
 
 // typedef Future<List<T>> PrayerTimetableOnFind<T>(String text);

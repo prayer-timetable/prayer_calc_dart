@@ -26,7 +26,6 @@ class CalcPrayers {
     this.params.fajrAngle = angle ?? CalculationMethod.MuslimWorldLeague().fajrAngle;
     this.params.ishaAngle = angle ?? CalculationMethod.MuslimWorldLeague().fajrAngle;
 
-    print(lat);
     this.prayerTimes = PrayerTimes(Coordinates(lat, long), date, this.params, precision: precision);
   }
 }

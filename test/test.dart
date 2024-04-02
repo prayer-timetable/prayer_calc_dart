@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:date_format/date_format.dart';
 import 'package:prayer_timetable/src/PrayerTimetable.dart';
 
 timetableTest(PrayerTimetable location) {
@@ -102,4 +105,77 @@ jamaahTest(PrayerTimetable location) {
   print('countUp:\t${location.calc.countUp}');
   print('percentage:\t${location.calc.percentage}');
   // print(location.current);
+}
+
+liveTest(PrayerTimetable location, DateTime testTime) {
+  Timer.periodic(Duration(seconds: 1), (Timer t) {
+    testTime = testTime.add(Duration(seconds: 1));
+    PrayerTimetable loc = location;
+
+    String yellow = '\u001b[93m';
+    String noColor = '\u001b[0m';
+    String green = '\u001b[32m';
+    // String red = '\u001b[31m';
+    String gray = '\u001b[90m';
+
+    print('\x1B[2J\x1B[0;0H'); // clear entire screen, move cursor to 0;0
+    print('date:\t\t${formatDate(testTime, [yyyy, '-', mm, '-', dd])}');
+    print('time:\t\t${formatDate(testTime, [HH, ':', nn, ':', ss])}');
+    print('${gray}------------------------------------${noColor}');
+    print(
+        '${loc.calc.currentId == 0 ? green : ''}fajr:\t\t${formatDate(loc.currentPrayerTimes.dawn, [
+          HH,
+          ':',
+          nn,
+          ':',
+          ss
+        ])}${noColor}');
+    print(
+        '${loc.calc.currentId == 1 ? green : ''}sunrise:\t${formatDate(loc.currentPrayerTimes.sunrise, [
+          HH,
+          ':',
+          nn,
+          ':',
+          ss
+        ])}${noColor}');
+    print(
+        '${loc.calc.currentId == 2 ? green : ''}dhuhr:\t\t${formatDate(loc.currentPrayerTimes.midday, [
+          HH,
+          ':',
+          nn,
+          ':',
+          ss
+        ])}$noColor');
+    print(
+        '${loc.calc.currentId == 3 ? green : ''}asr:\t\t${formatDate(loc.currentPrayerTimes.afternoon, [
+          HH,
+          ':',
+          nn,
+          ':',
+          ss
+        ])}${noColor}');
+    print(
+        '${loc.calc.currentId == 4 ? green : ''}maghrib:\t${formatDate(loc.currentPrayerTimes.sunset, [
+          HH,
+          ':',
+          nn,
+          ':',
+          ss
+        ])}${noColor}');
+    print(
+        '${loc.calc.currentId == 5 ? green : ''}isha:\t\t${formatDate(loc.currentPrayerTimes.dusk, [
+          HH,
+          ':',
+          nn,
+          ':',
+          ss
+        ])}${noColor}');
+    print('${gray}------------------------------------${noColor}');
+    print('${yellow}countDown:\t${loc.calc.countDown}${noColor}');
+    print('${yellow}countUp:\t${loc.calc.countUp}${noColor}');
+    print('${yellow}percentage:\t${loc.calc.percentage}${noColor}');
+    print('${yellow}currentId:\t${loc.calc.currentId}${noColor}');
+    print('${yellow}nextId:\t\t${loc.calc.nextId}${noColor}');
+    print('${yellow}previousId:\t${loc.calc.previousId}${noColor}');
+  });
 }

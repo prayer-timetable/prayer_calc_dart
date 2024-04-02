@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:date_format/date_format.dart';
 import 'package:prayer_timetable/src/PrayerTimetable.dart';
 import 'package:prayer_timetable/src/components/CalcPrayers.dart';
 import 'package:timezone/data/latest.dart' as tz;
@@ -5,6 +8,7 @@ import 'package:timezone/timezone.dart' as tz;
 
 import 'src/timetable_list.dart';
 import 'src/timetable_map_leap.dart';
+// ignore: unused_import
 import 'test.dart';
 
 // ICCI
@@ -23,59 +27,62 @@ double angleS = 14.6; //iz =19
 double iangleS = 14.6; // iz = 17
 String timezoneS = 'Europe/Sarajevo';
 
-DateTime testTime =
-    tz.TZDateTime.from(DateTime(2024, 3, 11, 14, 32, 45), tz.getLocation(timezoneI));
-
 DateTime now = tz.TZDateTime.now(tz.getLocation(timezoneI));
 
-PrayerTimetable map = PrayerTimetable.map(
-  timetableMap: dublinLeap,
-  // dublin,
-  // optional parameters:
-  // year: testTime.year,
-  // month: testTime.month,
-  // day: testTime.day,
+DateTime setTime = tz.TZDateTime.from(DateTime(2024, 3, 11, 14, 32, 45), tz.getLocation(timezoneI));
 
-  jamaahOn: true,
-  jamaahMethods: ['fixed', '', 'afterthis', 'afterthis', 'afterthis', 'afterthis'],
-  jamaahOffsets: [
-    [6, 0],
-    [0, 0],
-    [0, 15],
-    [0, 15],
-    [0, 15],
-    [0, 15]
-  ],
-  // joinDhuhr: true,
-  // joinMaghrib: true,
+DateTime testTime = now;
 
-  jamaahPerPrayer: [false, false, true, true, false, false],
-  // // testing options
-  // hour: newtime.hour,
-  // minute: newtime.minute,
-  // second: newtime.second,
+PrayerTimetable map(DateTime testTime) => PrayerTimetable.map(
+      timetableMap: dublinLeap,
+      // optional parameters:
+      year: testTime.year,
+      month: testTime.month,
+      day: testTime.day,
+      hour: testTime.hour,
+      minute: testTime.minute,
+      second: testTime.second,
 
-  // hijriOffset: 0,
-);
+      jamaahOn: true,
+      jamaahMethods: ['fixed', '', 'afterthis', 'afterthis', 'afterthis', 'afterthis'],
+      jamaahOffsets: [
+        [6, 0],
+        [0, 0],
+        [0, 15],
+        [0, 15],
+        [0, 15],
+        [0, 15]
+      ],
+      // joinDhuhr: true,
+      // joinMaghrib: true,
 
-PrayerTimetable list = PrayerTimetable.list(
-  timetableList: base,
-  jamaahOn: true,
-  jamaahMethods: ['fixed', '', 'afterthis', 'afterthis', 'afterthis', 'afterthis'],
-  jamaahOffsets: [
-    [6, 0],
-    [0, 0],
-    [0, 15],
-    [0, 15],
-    [0, 15],
-    [0, 15]
-  ],
-  jamaahPerPrayer: [false, false, true, true, false, false],
-);
+      jamaahPerPrayer: [false, false, true, true, false, false],
+      // // testing options
+      // hour: newtime.hour,
+      // minute: newtime.minute,
+      // second: newtime.second,
+
+      // hijriOffset: 0,
+    );
+
+PrayerTimetable list(DateTime testTime) => PrayerTimetable.list(
+      timetableList: base,
+      jamaahOn: true,
+      jamaahMethods: ['fixed', '', 'afterthis', 'afterthis', 'afterthis', 'afterthis'],
+      jamaahOffsets: [
+        [6, 0],
+        [0, 0],
+        [0, 15],
+        [0, 15],
+        [0, 15],
+        [0, 15]
+      ],
+      jamaahPerPrayer: [false, false, true, true, false, false],
+    );
 
 CalcPrayers calcPrayers = CalcPrayers(
   // testTime,
-  now,
+  testTime,
   timezone: timezoneI,
   lat: latI,
   long: longI,
@@ -83,48 +90,64 @@ CalcPrayers calcPrayers = CalcPrayers(
   precision: true,
 );
 
-PrayerTimetable calc = PrayerTimetable.calc(
-  calcPrayers: calcPrayers,
-  jamaahOn: true,
-  jamaahMethods: ['fixed', '', 'afterthis', 'afterthis', 'afterthis', 'afterthis'],
-  jamaahOffsets: [
-    [6, 0],
-    [0, 0],
-    [0, 15],
-    [0, 15],
-    [0, 15],
-    [0, 15]
-  ],
-  jamaahPerPrayer: [false, false, true, true, false, false],
-);
+PrayerTimetable calc(DateTime testTime) => PrayerTimetable.calc(
+      year: testTime.year,
+      month: testTime.month,
+      day: testTime.day,
+      calcPrayers: calcPrayers,
+      jamaahOn: true,
+      jamaahMethods: ['fixed', '', 'afterthis', 'afterthis', 'afterthis', 'afterthis'],
+      jamaahOffsets: [
+        [6, 0],
+        [0, 0],
+        [0, 15],
+        [0, 15],
+        [0, 15],
+        [0, 15]
+      ],
+      jamaahPerPrayer: [false, false, true, true, false, false],
+    );
+
+PrayerTimetable location = calc(testTime);
 
 main() {
   tz.initializeTimeZones();
+  print('\x1B[2J\x1B[0;0H'); // clear entire screen, move cursor to 0;0
+  bool live = false;
 
-  // print(calcPrayers.prayerTimes.dhuhr);
-  // print(calcPrayers.prayerTimes.asr);
-  // print(calcPrayers.prayerTimes.maghrib);
-  // print(calcPrayers.coordinates.latitude);
-  // print(calcPrayers.coordinates.longitude);
+  if (!live) {
+    // jamaahTest(map);
+    // jamaahTest(list);
+    jamaahTest(calc(testTime));
 
-  // print(testTime);
-
-  // print(dublin.currentPrayerTimes.dawn);
-  // print(dublin.currentJamaahTimes.dawn);
-
-  // jamaahTest(map);
-  // jamaahTest(list);
-  jamaahTest(calc);
-
-  // timetableTest(location);
-  // Timer.periodic(Duration(seconds: 1), (Timer t) {
-  //   testTime = testTime.add(Duration(seconds: 1));
-  //   location = dublin(testTime);
-  //   print("\x1B[2J\x1B[0;0H"); // clear entire screen, move cursor to 0;0
-  //   print("$testTime");
-  //   print("${location.calc!.percentage}");
-  //   print("${location.calc!.currentId}");
-  // });
+    // ignore: dead_code
+  } else {
+    liveTest(location, testTime);
+  }
+  ;
 }
 
 // main() => timetableTest(location);
+
+
+// exports.colors = {
+//   pass: 90,
+//   fail: 31,
+//   'bright pass': 92,
+//   'bright fail': 91,
+//   'bright yellow': 93,
+//   pending: 36,
+//   suite: 0,
+//   'error title': 0,
+//   'error message': 31,
+//   'error stack': 90,
+//   checkmark: 32,
+//   fast: 90,
+//   medium: 33,
+//   slow: 31,
+//   green: 32,
+//   light: 90,
+//   'diff gutter': 90,
+//   'diff added': 32,
+//   'diff removed': 31
+// };
