@@ -1,6 +1,3 @@
-import 'dart:async';
-
-import 'package:date_format/date_format.dart';
 import 'package:prayer_timetable/src/PrayerTimetable.dart';
 import 'package:prayer_timetable/src/components/CalcPrayers.dart';
 import 'package:timezone/data/latest.dart' as tz;

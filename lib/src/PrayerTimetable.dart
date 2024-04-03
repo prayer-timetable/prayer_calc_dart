@@ -113,8 +113,8 @@ class PrayerTimetable<T> {
   final bool? joinMaghrib;
   final bool? joinDhuhr;
 
-  double lat = 0;
-  double lng = 0;
+  double? lat;
+  double? lng;
 
 /***************************************************** */
 
@@ -265,8 +265,8 @@ class PrayerTimetable<T> {
       jamaahOn: this.jamaahOn,
       jamaahCurrent: this.currentJamaahTimes,
       jamaahPrevious: this.previousJamaahTimes,
-      lat: this.lat,
-      lng: this.lng,
+      lat: this.lat ?? calcPrayers!.coordinates.latitude ?? 0,
+      lng: this.lng ?? calcPrayers!.coordinates.longitude ?? 0,
       jamaahPerPrayer: this.jamaahPerPrayer,
     );
 
