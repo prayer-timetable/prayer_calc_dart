@@ -8,13 +8,13 @@ import 'package:timezone/timezone.dart' as tz;
 /* *********************** */
 /* MAIN FUNCTION           */
 /* *********************** */
-PrayerTimes prayerTimesGen({
+PrayerTimes prayerTimesGen(
+  DateTime date, {
   Map? timetableMap,
   List? timetableList,
   CalcPrayers? calcPrayers,
   int hijriOffset = 0,
-  DateTime? date,
-  String timezone = 'Europe/Dublin',
+  required String timezone,
 }) {
   /* *********************** */
   /* TIMES                   */
@@ -22,15 +22,17 @@ PrayerTimes prayerTimesGen({
   // print(timetableMap);
   // print('###');
   // print(date);
-  DateTime timestamp = tz.TZDateTime.from(
-      date != null
-          ? date.add(Duration(days: hijriOffset))
-          : DateTime.now().add(Duration(days: hijriOffset)),
-      tz.getLocation(timezone));
+
+  print('date: $date');
+  DateTime timestamp =
+      tz.TZDateTime.from(date.add(Duration(days: hijriOffset)), tz.getLocation(timezone));
 
   // DateTime timestamp = date ?? DateTime.now();
   // TODO:
   int adjDst = isDSTCalc(timestamp) ? 1 : 0;
+  // int adjDst = tz.getLocation(timezone).currentTimeZone.isDst ? 1 : 0;
+  // print(tz.getLocation(timezone).currentTimeZone.isDst);
+
   // print('adjDst: $adjDst');
 
   /* *********************** */
@@ -41,9 +43,11 @@ PrayerTimes prayerTimesGen({
 
   List prayerCount = Iterable<int>.generate(6).toList();
 
+  /// Map
   if (timetableMap != null)
     prayerCount.forEach((prayerId) {
-      DateTime prayerTime = DateTime(
+      DateTime prayerTime = tz.TZDateTime(
+        tz.getLocation(timezone),
         timestamp.year,
         timestamp.month,
         timestamp.day,
@@ -57,27 +61,44 @@ PrayerTimes prayerTimesGen({
         prayerTime,
       );
     });
+
+  /// List
   else if (timetableList != null) {
-    var lastMidnight = DateTime(timestamp.year, timestamp.month, timestamp.day);
+    DateTime lastMidnight =
+        tz.TZDateTime.from(DateTime(date.year, date.month, date.day), tz.getLocation(timezone));
+
+    // print(lastMidnight);
 
     prayerCount.forEach((prayerId) {
+      // print(adjDst);
       DateTime prayerTime = lastMidnight
-          .add(Duration(seconds: timetableList[timestamp.month][timestamp.day][prayerId]))
+          .add(Duration(seconds: timetableList[timestamp.month - 1][timestamp.day - 1][prayerId]))
           .add(Duration(hours: adjDst));
+
       prayerTimes.insert(
         prayerId,
         prayerTime,
       );
     });
-  } else if (calcPrayers != null) {
-    DateTime fajr = calcPrayers.prayerTimes.fajr!.add(Duration(hours: adjDst));
-    DateTime sunrise = calcPrayers.prayerTimes.sunrise!.add(Duration(hours: adjDst));
-    DateTime dhuhr = calcPrayers.prayerTimes.dhuhr!.add(Duration(hours: adjDst));
-    DateTime asr = calcPrayers.prayerTimes.asr!.add(Duration(hours: adjDst));
-    DateTime maghrib = calcPrayers.prayerTimes.maghrib!.add(Duration(hours: adjDst));
-    DateTime isha = calcPrayers.prayerTimes.isha!.add(Duration(hours: adjDst));
+  }
+
+  /// Calc
+  else if (calcPrayers != null) {
+    print(calcPrayers.prayerTimes!.fajr);
+    DateTime fajr = tz.TZDateTime.from(calcPrayers.prayerTimes!.fajr!, tz.getLocation(timezone));
+    DateTime sunrise =
+        tz.TZDateTime.from(calcPrayers.prayerTimes!.sunrise!, tz.getLocation(timezone));
+    DateTime dhuhr = tz.TZDateTime.from(calcPrayers.prayerTimes!.dhuhr!, tz.getLocation(timezone));
+    DateTime asr = tz.TZDateTime.from(calcPrayers.prayerTimes!.asr!, tz.getLocation(timezone));
+    DateTime maghrib =
+        tz.TZDateTime.from(calcPrayers.prayerTimes!.maghrib!, tz.getLocation(timezone));
+    DateTime isha = tz.TZDateTime.from(calcPrayers.prayerTimes!.isha!, tz.getLocation(timezone));
+
     prayerTimes = [fajr, sunrise, dhuhr, asr, maghrib, isha];
-  } else {
+  }
+
+  /// Else
+  else {
     prayerCount.forEach((prayerId) {
       DateTime prayerTime = DateTime.now().add(Duration(hours: adjDst));
       prayerTimes.insert(

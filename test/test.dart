@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:date_format/date_format.dart';
 import 'package:prayer_timetable/src/PrayerTimetable.dart';
+import 'package:prayer_timetable/src/func/helpers.dart';
+import 'package:timezone/timezone.dart' as tz;
 
 String yellow = '\u001b[93m';
 String noColor = '\u001b[0m';
@@ -24,6 +26,22 @@ double altitudeS = 518;
 double angleS = 14.6; //iz =19
 double iangleS = 14.6; // iz = 17
 String timezoneS = 'Europe/Sarajevo';
+
+infoTest(time) {
+  print('${green}***************** Info *****************${noColor}');
+  print('time:\t${time.toIso8601String()}');
+  print('timeZoneOffset:\t${time.timeZoneOffset}');
+  print('isDst:\t\t${time.timeZone.isDst}');
+  print('location:\t${time.location}');
+  print('timeZone:\t${time.timeZone}');
+  print('timeZone abr:\t${time.timeZone.abbreviation}');
+  print('offset (ms):\t${time.timeZone.offset}');
+  print('isDSTCalc:\t${isDSTCalc(time)}');
+
+// timeZone: ${lastMidnight.timeZone} or lastMidnight.location.name
+// time: ${lastMidnight.toIso8601String()}
+// lastMidnight.timeZone.offset in miliseconds
+}
 
 timetableTest(PrayerTimetable location) {
   print('${yellow}*************** Current ****************${noColor}');
@@ -72,7 +90,7 @@ jamaahTest(PrayerTimetable location) {
   print('sunset:\t\t${location.currentPrayerTimes.sunset}');
   print('dusk:\t\t${location.currentPrayerTimes.dusk}');
 
-  print('${yellow}************ Today Jamaah **************${noColor}');
+  print('${gray}************ Today Jamaah **************${noColor}');
   print('dawn:\t\t${location.currentJamaahTimes.dawn}');
   print('sunrise:\t${location.currentJamaahTimes.sunrise}');
   print('midday:\t\t${location.currentJamaahTimes.midday}');
@@ -88,7 +106,7 @@ jamaahTest(PrayerTimetable location) {
   print('sunset:\t\t${location.nextPrayerTimes.sunset}');
   print('dusk:\t\t${location.nextPrayerTimes.dusk}');
 
-  print('${yellow}*********** Tomorrow Jamaah ************${noColor}');
+  print('${gray}*********** Tomorrow Jamaah ************${noColor}');
   print('dawn:\t\t${location.nextJamaahTimes.dawn}');
   print('sunrise:\t${location.nextJamaahTimes.sunrise}');
   print('midday:\t\t${location.nextJamaahTimes.midday}');
@@ -104,7 +122,7 @@ jamaahTest(PrayerTimetable location) {
   print('sunset:\t\t${location.previousPrayerTimes.sunset}');
   print('dusk:\t\t${location.previousPrayerTimes.dusk}');
 
-  print('${yellow}********** Yesterday Jamaah ************${noColor}');
+  print('${gray}********** Yesterday Jamaah ************${noColor}');
   print('dawn:\t\t${location.previousJamaahTimes.dawn}');
   print('sunrise:\t${location.previousJamaahTimes.sunrise}');
   print('midday:\t\t${location.previousJamaahTimes.midday}');

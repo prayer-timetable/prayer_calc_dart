@@ -237,7 +237,7 @@ class Calc {
 
     this.percentage = percentage.isNaN ? 0 : percentage;
     this.jamaahPending = _jamaahPending;
-    print(lat);
+    // print(lat);
     this.qibla = Qibla.qibla(new Coordinates(lat, lng));
 
     var hTime = HijriCalendar.fromDate(_date);

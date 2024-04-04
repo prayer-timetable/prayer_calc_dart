@@ -6,9 +6,13 @@ import 'src/timetable_map_dublin_leap.dart';
 // ignore: unused_import
 import 'test.dart';
 
-DateTime now = tz.TZDateTime.now(tz.getLocation(timezoneI));
-DateTime setTime = tz.TZDateTime.from(DateTime(2024, 3, 11, 14, 32, 45), tz.getLocation(timezoneI));
-DateTime testTime = now;
+String timezone = timezoneI;
+double lat = latI;
+double long = longI;
+
+DateTime now = tz.TZDateTime.now(tz.getLocation(timezone));
+DateTime setTime = tz.TZDateTime.from(DateTime(2024, 3, 31, 14, 32, 45), tz.getLocation(timezone));
+DateTime testTime = setTime;
 
 PrayerTimetable map(DateTime testTime) => PrayerTimetable.map(
       timetableMap: dublinLeap,
@@ -19,7 +23,6 @@ PrayerTimetable map(DateTime testTime) => PrayerTimetable.map(
       hour: testTime.hour,
       minute: testTime.minute,
       second: testTime.second,
-
       jamaahOn: true,
       jamaahMethods: ['fixed', '', 'afterthis', 'afterthis', 'afterthis', 'afterthis'],
       jamaahOffsets: [
@@ -38,6 +41,7 @@ PrayerTimetable map(DateTime testTime) => PrayerTimetable.map(
       // hour: newtime.hour,
       // minute: newtime.minute,
       // second: newtime.second,
+      timezone: timezone,
 
       // hijriOffset: 0,
     );
@@ -48,6 +52,8 @@ main() {
   tz.initializeTimeZones();
   print('\x1B[2J\x1B[0;0H'); // clear entire screen, move cursor to 0;0
   bool live = false;
+
+  infoTest(testTime);
 
   if (!live) {
     jamaahTest(location);

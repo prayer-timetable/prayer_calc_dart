@@ -2,12 +2,12 @@ import 'package:adhan_dart/adhan_dart.dart';
 import 'package:timezone/timezone.dart' as tz;
 
 class CalcPrayers {
-  String timezone = 'Europe/Dublin';
-  tz.Location timezoneLoc = tz.getLocation('Europe/Dublin');
-  Coordinates coordinates = new Coordinates(43.8563, 18.4131);
+  String? timezone;
+  tz.Location? timezoneLoc; // = tz.getLocation('xx/xx');
+  Coordinates? coordinates; // = new Coordinates(43.8563, 18.4131);
   CalculationParameters params = CalculationMethod.MuslimWorldLeague();
-  PrayerTimes prayerTimes = PrayerTimes(
-      Coordinates(43.8563, 18.4131), DateTime.now(), CalculationMethod.MuslimWorldLeague());
+  PrayerTimes? prayerTimes; // = PrayerTimes(
+  // Coordinates(43.8563, 18.4131), DateTime.now(), CalculationMethod.MuslimWorldLeague());
   // double angle = CalculationMethod.MuslimWorldLeague().fajrAngle;
 
   CalcPrayers(
