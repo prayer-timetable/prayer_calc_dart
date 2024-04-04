@@ -3,8 +3,8 @@ import 'package:prayer_timetable/prayer_timetable.dart';
 import 'package:prayer_timetable/src/func/monthHijriMap.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-import 'src/timetable_map.dart';
-import 'src/timetable_map_leap.dart';
+import 'src/timetable_map_dublin.dart';
+import 'src/timetable_map_dublin_leap.dart';
 
 String yellow = '\u001b[93m';
 String noColor = '\u001b[0m';
