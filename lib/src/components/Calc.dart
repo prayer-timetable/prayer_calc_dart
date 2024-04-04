@@ -35,6 +35,8 @@ class Calc {
   bool jamaahPending = false;
   double qibla = 0;
   List<int> hijri = [];
+  // check if leap year
+  bool isLeap = false;
 
   Calc(
     DateTime _date, {
@@ -228,6 +230,7 @@ class Calc {
     this.previousId = _previousId;
     this.countDown = _next.difference(_date);
     this.countUp = _date.difference(_current);
+    this.isLeap = _date.year % 4 == 0;
 
     percentage =
         round2Decimals(100 * (this.countUp.inSeconds / (this.countDown + this.countUp).inSeconds));

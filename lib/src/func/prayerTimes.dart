@@ -32,8 +32,6 @@ PrayerTimes prayerTimesGen({
   // TODO:
   int adjDst = isDSTCalc(timestamp) ? 1 : 0;
   // print('adjDst: $adjDst');
-  // check if leap year
-  // bool isLeap = date.year % 4 == 0;
 
   /* *********************** */
   /* PRAYER LISTS            */

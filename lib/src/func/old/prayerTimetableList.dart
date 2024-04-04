@@ -24,9 +24,6 @@ PrayerTimes prayerTimetable(
           : DateTime.now().add(Duration(days: hijriOffset)),
       tz.getLocation(timezone));
 
-  // check if leap year
-  // bool isLeap = date.year % 4 == 0;
-
   /* *********************** */
   /* PRAYER LISTS            */
   /* *********************** */

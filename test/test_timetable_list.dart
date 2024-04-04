@@ -1,10 +1,8 @@
 import 'package:prayer_timetable/src/PrayerTimetable.dart';
-import 'package:prayer_timetable/src/components/CalcPrayers.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 import 'src/timetable_list.dart';
-import 'src/timetable_map_leap.dart';
 // ignore: unused_import
 import 'test.dart';
 
