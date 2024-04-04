@@ -1,7 +1,9 @@
 import 'package:prayer_timetable/src/PrayerTimetable.dart';
+import 'package:prayer_timetable/src/components/CalcPrayers.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
+import 'src/timetable_list.dart';
 import 'src/timetable_map_leap.dart';
 // ignore: unused_import
 import 'test.dart';
@@ -10,16 +12,21 @@ DateTime now = tz.TZDateTime.now(tz.getLocation(timezoneI));
 DateTime setTime = tz.TZDateTime.from(DateTime(2024, 3, 11, 14, 32, 45), tz.getLocation(timezoneI));
 DateTime testTime = now;
 
-PrayerTimetable map(DateTime testTime) => PrayerTimetable.map(
-      timetableMap: dublinLeap,
-      // optional parameters:
+CalcPrayers calcPrayers = CalcPrayers(
+  // testTime,
+  testTime,
+  timezone: timezoneI,
+  lat: latI,
+  long: longI,
+  madhab: 'shafi',
+  precision: true,
+);
+
+PrayerTimetable calc(DateTime testTime) => PrayerTimetable.calc(
       year: testTime.year,
       month: testTime.month,
       day: testTime.day,
-      hour: testTime.hour,
-      minute: testTime.minute,
-      second: testTime.second,
-
+      calcPrayers: calcPrayers,
       jamaahOn: true,
       jamaahMethods: ['fixed', '', 'afterthis', 'afterthis', 'afterthis', 'afterthis'],
       jamaahOffsets: [
@@ -30,19 +37,10 @@ PrayerTimetable map(DateTime testTime) => PrayerTimetable.map(
         [0, 15],
         [0, 15]
       ],
-      // joinDhuhr: true,
-      // joinMaghrib: true,
-
       jamaahPerPrayer: [false, false, true, true, false, false],
-      // // testing options
-      // hour: newtime.hour,
-      // minute: newtime.minute,
-      // second: newtime.second,
-
-      // hijriOffset: 0,
     );
 
-PrayerTimetable location = map(testTime);
+PrayerTimetable location = calc(testTime);
 
 main() {
   tz.initializeTimeZones();

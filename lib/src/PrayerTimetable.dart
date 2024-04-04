@@ -150,9 +150,12 @@ class PrayerTimetable<T> {
     this.hour,
     this.minute,
     this.second,
+    this.lat,
+    this.lng,
   })  : assert((jamaahOn) && (jamaahMethods != null && jamaahOffsets != null) ||
             (jamaahOn && jamaahPerPrayer != null) ||
-            jamaahOn == false), //  && jamaahPerPrayer != null
+            jamaahOn == false),
+        assert(calcPrayers != null || (lat != null && lng != null)), //  && jamaahPerPrayer != null
         this.testing = false,
         this.calc = defaultCalc,
         this.sunnah = defaultSunnah {
@@ -265,8 +268,8 @@ class PrayerTimetable<T> {
       jamaahOn: this.jamaahOn,
       jamaahCurrent: this.currentJamaahTimes,
       jamaahPrevious: this.previousJamaahTimes,
-      lat: this.lat ?? calcPrayers!.coordinates.latitude ?? 0,
-      lng: this.lng ?? calcPrayers!.coordinates.longitude ?? 0,
+      lat: this.lat ?? calcPrayers!.coordinates.latitude,
+      lng: this.lng ?? calcPrayers!.coordinates.longitude,
       jamaahPerPrayer: this.jamaahPerPrayer,
     );
 

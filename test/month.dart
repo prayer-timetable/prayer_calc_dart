@@ -1,3 +1,4 @@
+import 'package:date_format/date_format.dart';
 import 'package:prayer_timetable/prayer_timetable.dart';
 import 'package:prayer_timetable/src/func/monthMap.dart';
 import 'package:timezone/data/latest.dart' as tz;
@@ -12,11 +13,37 @@ main() {
 
   List<PrayerTimes> list =
       monthMap(testTime, testTime.year % 4 == 0 ? dublinLeap : dublin, hijriOffset: 0);
-  // print(list);
-  // print('done');
+
+  print('----------------------------------------------------------------------');
+  print('Date        Fajr      Sunrise   Dhuhr     Asr       Maghrib   Isha');
+  print('----------------------------------------------------------------------');
 
   for (PrayerTimes item in list) {
-    print(
-        '${item.dawn.year}-${item.dawn.month}-${item.dawn.day} ${item.dawn.hour}:${item.dawn.minute}, ${item.dawn.weekday}');
+    print('''${formatDate(item.dawn, [
+          yyyy,
+          '-',
+          mm,
+          '-',
+          dd,
+          '  ',
+          HH,
+          ':',
+          nn,
+          ':',
+          ss
+        ])}  ${formatDate(item.sunrise, [HH, ':', nn, ':', ss])}  ${formatDate(item.midday, [
+          HH,
+          ':',
+          nn,
+          ':',
+          ss
+        ])}  ${formatDate(item.afternoon, [HH, ':', nn, ':', ss])}  ${formatDate(item.sunset, [
+          HH,
+          ':',
+          nn,
+          ':',
+          ss
+        ])}  ${formatDate(item.dusk, [HH, ':', nn, ':', ss])}''');
   }
+  print('----------------------------------------------------------------------');
 }

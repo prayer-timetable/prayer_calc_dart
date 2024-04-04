@@ -9,6 +9,22 @@ String green = '\u001b[32m';
 // String red = '\u001b[31m';
 String gray = '\u001b[90m';
 
+// ICCI
+double latI = 53.3046593;
+double longI = -6.2344076;
+double altitudeI = 85;
+double angleI = 14.6; //18
+double iangleI = 14.6; //16
+String timezoneI = 'Europe/Dublin';
+
+// Sarajevo
+double latS = 43.8563;
+double longS = 18.4131;
+double altitudeS = 518;
+double angleS = 14.6; //iz =19
+double iangleS = 14.6; // iz = 17
+String timezoneS = 'Europe/Sarajevo';
+
 timetableTest(PrayerTimetable location) {
   print('${yellow}*************** Current ****************${noColor}');
   print('dawn:\t\t${location.currentPrayerTimes.dawn}');
@@ -181,3 +197,26 @@ liveTest(PrayerTimetable location, DateTime testTime) {
     print('${yellow}previousId:\t${loc.calc.previousId}${noColor}');
   });
 }
+
+
+// exports.colors = {
+//   pass: 90,
+//   fail: 31,
+//   'bright pass': 92,
+//   'bright fail': 91,
+//   'bright yellow': 93,
+//   pending: 36,
+//   suite: 0,
+//   'error title': 0,
+//   'error message': 31,
+//   'error stack': 90,
+//   checkmark: 32,
+//   fast: 90,
+//   medium: 33,
+//   slow: 31,
+//   green: 32,
+//   light: 90,
+//   'diff gutter': 90,
+//   'diff added': 32,
+//   'diff removed': 31
+// };
