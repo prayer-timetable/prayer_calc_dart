@@ -1,5 +1,4 @@
 import 'package:prayer_timetable/src/components/Prayer.dart';
-import 'package:prayer_timetable/src/components/PrayerTimes.dart';
 
 class Sunnah {
   DateTime midnight = DateTime.now();

@@ -1,5 +1,4 @@
 import 'package:prayer_timetable/prayer_timetable.dart';
-import 'package:prayer_timetable/src/PrayerTimetable.dart';
 import 'package:prayer_timetable/src/components/Prayer.dart';
 import 'package:prayer_timetable/src/components/TimetableCalc.dart';
 import 'package:prayer_timetable/src/func/helpers.dart';
@@ -33,7 +32,7 @@ List<Prayer> prayersGen(
   // print('###');
   // print(date);
 
-  print('date: $date');
+  // print('date: $date');
   DateTime timestamp =
       tz.TZDateTime.from(date.add(Duration(days: hijriOffset)), tz.getLocation(timezone));
 
@@ -112,8 +111,10 @@ List<Prayer> prayersGen(
       // print('it is');
       prayer.jamaahTime = prayerTime.add(Duration(minutes: jamaahOffsetMin));
     } else if (jamaahMethods[prayerId] == 'fixed') {
-      prayer.jamaahTime = DateTime(prayerTime.year, prayerTime.month, prayerTime.day,
-          jamaahOffsets[prayerId][0], jamaahOffsets[prayerId][1]);
+      prayer.jamaahTime = tz.TZDateTime.from(
+          DateTime(prayerTime.year, prayerTime.month, prayerTime.day, jamaahOffsets[prayerId][0],
+              jamaahOffsets[prayerId][1]),
+          tz.getLocation(timezone));
       // .add(Duration(minutes: offset));
       //
     } else {

@@ -1,5 +1,4 @@
 import 'package:prayer_timetable/prayer_timetable.dart';
-import 'package:prayer_timetable/src/components/Prayer.dart';
 import 'package:prayer_timetable/src/func/prayers.dart';
 // import 'timetable_map.dart';
 // import 'package:timezone/data/latest.dart' as tz;
@@ -15,11 +14,11 @@ List<List<Prayer>> monthHijriGen(
   List? list,
   int hijriOffset = 0,
   required String timezone,
-  required jamaahOn,
-  required jamaahMethods,
-  required jamaahOffsets,
-  required joinDhuhr,
-  required joinMaghrib,
+  jamaahOn = false,
+  jamaahMethods = defaultJamaahMethods,
+  jamaahOffsets = defaultJamaahOffsets,
+  joinDhuhr = false,
+  joinMaghrib = false,
 }) {
   /// Date
   DateTime date = tz.TZDateTime.from(

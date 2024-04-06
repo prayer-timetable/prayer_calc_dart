@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:date_format/date_format.dart';
 import 'package:prayer_timetable/src/PrayerTimetable.dart';
 import 'package:prayer_timetable/src/func/helpers.dart';
-import 'package:timezone/timezone.dart' as tz;
 
 String yellow = '\u001b[93m';
 String noColor = '\u001b[0m';
@@ -28,7 +27,7 @@ double iangleS = 14.6; // iz = 17
 String timezoneS = 'Europe/Sarajevo';
 
 infoTest(time) {
-  print('${green}***************** Info *****************${noColor}');
+  print('${green}******************* Info *******************${noColor}');
   print('time:\t${time.toIso8601String()}');
   print('timeZoneOffset:\t${time.timeZoneOffset}');
   print('isDst:\t\t${time.timeZone.isDst}');
@@ -44,109 +43,127 @@ infoTest(time) {
 }
 
 timetableTest(PrayerTimetable location) {
-  print('${yellow}*************** Current ****************${noColor}');
-  print('dawn:\t\t${location.currentPrayerTimes.dawn}');
-  print('sunrise:\t${location.currentPrayerTimes.sunrise}');
-  print('midday:\t\t${location.currentPrayerTimes.midday}');
-  print('afternoon:\t${location.currentPrayerTimes.afternoon}');
-  print('sunset:\t\t${location.currentPrayerTimes.sunset}');
-  print('dusk:\t\t${location.currentPrayerTimes.dusk}');
-  print('${yellow}**************** Next ******************${noColor}');
-  print('dawn:\t\t${location.nextPrayerTimes.dawn}');
-  print('sunrise:\t${location.nextPrayerTimes.sunrise}');
-  print('midday:\t\t${location.nextPrayerTimes.midday}');
-  print('afternoon:\t${location.nextPrayerTimes.afternoon}');
-  print('sunset:\t\t${location.nextPrayerTimes.sunset}');
-  print('dusk:\t\t${location.nextPrayerTimes.dusk}');
-  print('${yellow}************** Previous ****************${noColor}');
-  print('dawn:\t\t${location.previousPrayerTimes.dawn}');
-  print('sunrise:\t${location.previousPrayerTimes.sunrise}');
-  print('midday:\t\t${location.previousPrayerTimes.midday}');
-  print('afternoon:\t${location.previousPrayerTimes.afternoon}');
-  print('sunset:\t\t${location.previousPrayerTimes.sunset}');
-  print('dusk:\t\t${location.previousPrayerTimes.dusk}');
-  print('${yellow}*************** Sunnah ******************${noColor}');
+  print('${yellow}***************** Current ******************${noColor}');
+  print('fajr:\t\t${location.current[0].prayerTime}');
+  print('sunrise:\t${location.current[1].prayerTime}');
+  print('dhuhr:\t\t${location.current[2].prayerTime}');
+  print('asr:\t${location.current[3].prayerTime}');
+  print('maghrib:\t\t${location.current[4].prayerTime}');
+  print('isha:\t\t${location.current[5].prayerTime}');
+  print('${yellow}****************** Next ********************${noColor}');
+  print('fajr:\t\t${location.next[0].prayerTime}');
+  print('sunrise:\t${location.next[1].prayerTime}');
+  print('dhuhr:\t\t${location.next[2].prayerTime}');
+  print('asr:\t${location.next[3].prayerTime}');
+  print('maghrib:\t\t${location.next[4].prayerTime}');
+  print('isha:\t\t${location.next[5].prayerTime}');
+  print('${yellow}************** Previous ******************${noColor}');
+  print('fajr:\t\t${location.previous[0].prayerTime}');
+  print('sunrise:\t${location.previous[1].prayerTime}');
+  print('dhuhr:\t\t${location.previous[2].prayerTime}');
+  print('asr:\t${location.previous[3].prayerTime}');
+  print('maghrib:\t\t${location.previous[4].prayerTime}');
+  print('isha:\t\t${location.previous[5].prayerTime}');
+  print('${yellow}***************** Sunnah ********************${noColor}');
   print('midnight:\t${location.sunnah.midnight}');
   print('lastThird\t${location.sunnah.lastThird}');
-  print('${yellow}************** Calc ****************${noColor}');
-  print('time:\t${location.calc.time}');
-  print('current:\t${location.calc.current}');
-  print('next:\t\t${location.calc.next}');
-  print('previous:\t${location.calc.previous}');
-  print('isAfterIsha:\t${location.calc.isAfterIsha}');
-  print('currentId:\t${location.calc.currentId}');
-  print('countDown:\t${location.calc.countDown}');
-  print('countUp:\t${location.calc.countUp}');
-  print('Qibla:\t${location.calc.qibla}');
-  print('percentage:\t${location.calc.percentage}');
+  print('${yellow}************** Calc ******************${noColor}');
+  print('time:\t${location.utils.time}');
+  print('current:\t${location.utils.current}');
+  print('next:\t\t${location.utils.next}');
+  print('previous:\t${location.utils.previous}');
+  print('isAfterIsha:\t${location.utils.isAfterIsha}');
+  print('currentId:\t${location.utils.currentId}');
+  print('countDown:\t${location.utils.countDown}');
+  print('countUp:\t${location.utils.countUp}');
+  print('Qibla:\t${location.utils.qibla}');
+  print('percentage:\t${location.utils.percentage}');
 }
 
-jamaahTest(PrayerTimetable location) {
-  print('${yellow}**************** Today *****************${noColor}');
-  // print('dawn:\t\t${location.currentPrayerTimes.dawn}');
-  // print('sunrise:\t${location.currentPrayerTimes.sunrise}');
-  // print('midday:\t\t${location.currentPrayerTimes.midday}');
-  // print('afternoon:\t${location.currentPrayerTimes.afternoon}');
-  // print('sunset:\t\t${location.currentPrayerTimes.sunset}');
-  // print('dusk:\t\t${location.currentPrayerTimes.dusk}');
+jamaahTest(PrayerTimetable location,
+    {bool prayer = true, bool jamaah = false, bool sunnah = false, bool utils = false}) {
+  if (prayer) {
+    print('${yellow}****************** Today *******************${noColor}');
+    print('fajr:\t\t${location.current[0].prayerTime}');
+    print('sunrise:\t${location.current[1].prayerTime}');
+    print('dhuhr:\t\t${location.current[2].prayerTime}');
+    print('asr:\t\t${location.current[3].prayerTime}');
+    print('maghrib:\t${location.current[4].prayerTime}');
+    print('isha:\t\t${location.current[5].prayerTime}');
+  }
 
-  // print('${gray}************ Today Jamaah **************${noColor}');
-  // print('dawn:\t\t${location.currentJamaahTimes.dawn}');
-  // print('sunrise:\t${location.currentJamaahTimes.sunrise}');
-  // print('midday:\t\t${location.currentJamaahTimes.midday}');
-  // print('afternoon:\t${location.currentJamaahTimes.afternoon}');
-  // print('sunset:\t\t${location.currentJamaahTimes.sunset}');
-  // print('dusk:\t\t${location.currentJamaahTimes.dusk}');
+  if (jamaah) {
+    print('${gray}************** Today Jamaah ****************${noColor}');
+    print('fajr:\t\t${location.current[0].jamaahTime}');
+    print('sunrise:\t${location.current[1].jamaahTime}');
+    print('dhuhr:\t\t${location.current[2].jamaahTime}');
+    print('asr:\t\t${location.current[3].jamaahTime}');
+    print('maghrib:\t${location.current[4].jamaahTime}');
+    print('isha:\t\t${location.current[5].jamaahTime}');
+  }
 
-  // print('${yellow}*************** Tomorrow ***************${noColor}');
-  // print('dawn:\t\t${location.nextPrayerTimes.dawn}');
-  // print('sunrise:\t${location.nextPrayerTimes.sunrise}');
-  // print('midday:\t\t${location.nextPrayerTimes.midday}');
-  // print('afternoon:\t${location.nextPrayerTimes.afternoon}');
-  // print('sunset:\t\t${location.nextPrayerTimes.sunset}');
-  // print('dusk:\t\t${location.nextPrayerTimes.dusk}');
+  if (prayer) {
+    print('${yellow}***************** Tomorrow *****************${noColor}');
+    print('fajr:\t\t${location.next[0].prayerTime}');
+    print('sunrise:\t${location.next[1].prayerTime}');
+    print('dhuhr:\t\t${location.next[2].prayerTime}');
+    print('asr:\t\t${location.next[3].prayerTime}');
+    print('maghrib:\t${location.next[4].prayerTime}');
+    print('isha:\t\t${location.next[5].prayerTime}');
+  }
 
-  // print('${gray}*********** Tomorrow Jamaah ************${noColor}');
-  // print('dawn:\t\t${location.nextJamaahTimes.dawn}');
-  // print('sunrise:\t${location.nextJamaahTimes.sunrise}');
-  // print('midday:\t\t${location.nextJamaahTimes.midday}');
-  // print('afternoon:\t${location.nextJamaahTimes.afternoon}');
-  // print('sunset:\t\t${location.nextJamaahTimes.sunset}');
-  // print('dusk:\t\t${location.nextJamaahTimes.dusk}');
+  if (jamaah) {
+    print('${gray}************* Tomorrow Jamaah **************${noColor}');
+    print('fajr:\t\t${location.next[0].jamaahTime}');
+    print('sunrise:\t${location.next[1].jamaahTime}');
+    print('dhuhr:\t\t${location.next[2].jamaahTime}');
+    print('asr:\t\t${location.next[3].jamaahTime}');
+    print('maghrib:\t${location.next[4].jamaahTime}');
+    print('isha:\t\t${location.next[5].jamaahTime}');
+  }
 
-  // print('${yellow}************* Yesterday ****************${noColor}');
-  // print('dawn:\t\t${location.previousPrayerTimes.dawn}');
-  // print('sunrise:\t${location.previousPrayerTimes.sunrise}');
-  // print('midday:\t\t${location.previousPrayerTimes.midday}');
-  // print('afternoon:\t${location.previousPrayerTimes.afternoon}');
-  // print('sunset:\t\t${location.previousPrayerTimes.sunset}');
-  // print('dusk:\t\t${location.previousPrayerTimes.dusk}');
+  if (prayer) {
+    print('${yellow}***************** Yesterday ****************${noColor}');
+    print('fajr:\t\t${location.previous[0].prayerTime}');
+    print('sunrise:\t${location.previous[1].prayerTime}');
+    print('dhuhr:\t\t${location.previous[2].prayerTime}');
+    print('asr:\t\t${location.previous[3].prayerTime}');
+    print('maghrib:\t${location.previous[4].prayerTime}');
+    print('isha:\t\t${location.previous[5].prayerTime}');
+  }
 
-  // print('${gray}********** Yesterday Jamaah ************${noColor}');
-  // print('dawn:\t\t${location.previousJamaahTimes.dawn}');
-  // print('sunrise:\t${location.previousJamaahTimes.sunrise}');
-  // print('midday:\t\t${location.previousJamaahTimes.midday}');
-  // print('afternoon:\t${location.previousJamaahTimes.afternoon}');
-  // print('sunset:\t\t${location.previousJamaahTimes.sunset}');
-  // print('dusk:\t\t${location.previousJamaahTimes.dusk}');
+  if (jamaah) {
+    print('${gray}************* Yesterday Jamaah *************${noColor}');
+    print('fajr:\t\t${location.previous[0].jamaahTime}');
+    print('sunrise:\t${location.previous[1].jamaahTime}');
+    print('dhuhr:\t\t${location.previous[2].jamaahTime}');
+    print('asr:\t\t${location.previous[3].jamaahTime}');
+    print('maghrib:\t${location.previous[4].jamaahTime}');
+    print('isha:\t\t${location.previous[5].jamaahTime}');
+  }
 
-  // print('${yellow}*************** Sunnah *****************${noColor}');
-  // print('midnight:\t${location.sunnah.midnight}');
-  // print('lastThird\t${location.sunnah.lastThird}');
-  // print('${yellow}**************** Calc ******************${noColor}');
-  // print('time:\t\t${location.calc.time}');
-  // print('current:\t${location.calc.current}');
-  // print('next:\t\t${location.calc.next}');
-  // print('previous:\t${location.calc.previous}');
-  // print('isAfterIsha:\t${location.calc.isAfterIsha}');
-  // print('jamaahPending:\t${location.calc.jamaahPending}');
-  // print('currentId:\t${location.calc.currentId}');
-  // print('countDown:\t${location.calc.countDown}');
-  // print('countUp:\t${location.calc.countUp}');
-  // print('percentage:\t${location.calc.percentage}');
-  // print('qibla:\t\t${location.calc.qibla}');
-  // print('hijri:\t\t${location.calc.hijri}');
-  // print(location.current);
+  if (sunnah) {
+    print('${yellow}***************** Sunnah *******************${noColor}');
+    print('midnight:\t${location.sunnah.midnight}');
+    print('lastThird\t${location.sunnah.lastThird}');
+  }
+
+  if (utils) {
+    print('${yellow}****************** Utils *******************${noColor}');
+    print('time:\t\t${location.utils.time}');
+    print('current:\t${location.utils.current}');
+    print('next:\t\t${location.utils.next}');
+    print('previous:\t${location.utils.previous}');
+    print('isAfterIsha:\t${location.utils.isAfterIsha}');
+    print('jamaahPending:\t${location.utils.jamaahPending}');
+    print('currentId:\t${location.utils.currentId}');
+    print('countDown:\t${location.utils.countDown}');
+    print('countUp:\t${location.utils.countUp}');
+    print('percentage:\t${location.utils.percentage}');
+    print('qibla:\t\t${location.utils.qibla}');
+    print('hijri:\t\t${location.utils.hijri}');
+    // print(location.current);
+  }
 }
 
 liveTest(PrayerTimetable location, DateTime testTime) {
@@ -159,7 +176,7 @@ liveTest(PrayerTimetable location, DateTime testTime) {
     print('time:\t\t${formatDate(testTime, [HH, ':', nn, ':', ss])}');
     print('${gray}------------------------------------${noColor}');
     print(
-        '${loc.calc.currentId == 0 ? green : ''}fajr:\t\t${formatDate(loc.currentPrayerTimes.dawn, [
+        '${loc.utils.currentId == 0 ? green : ''}fajr:\t\t${formatDate(loc.current[0].prayerTime, [
           HH,
           ':',
           nn,
@@ -167,7 +184,7 @@ liveTest(PrayerTimetable location, DateTime testTime) {
           ss
         ])}${noColor}');
     print(
-        '${loc.calc.currentId == 1 ? green : ''}sunrise:\t${formatDate(loc.currentPrayerTimes.sunrise, [
+        '${loc.utils.currentId == 1 ? green : ''}sunrise:\t${formatDate(loc.current[1].prayerTime, [
           HH,
           ':',
           nn,
@@ -175,15 +192,14 @@ liveTest(PrayerTimetable location, DateTime testTime) {
           ss
         ])}${noColor}');
     print(
-        '${loc.calc.currentId == 2 ? green : ''}dhuhr:\t\t${formatDate(loc.currentPrayerTimes.midday, [
+        '${loc.utils.currentId == 2 ? green : ''}dhuhr:\t\t${formatDate(loc.current[2].prayerTime, [
           HH,
           ':',
           nn,
           ':',
           ss
         ])}$noColor');
-    print(
-        '${loc.calc.currentId == 3 ? green : ''}asr:\t\t${formatDate(loc.currentPrayerTimes.afternoon, [
+    print('${loc.utils.currentId == 3 ? green : ''}asr:\t\t${formatDate(loc.current[3].prayerTime, [
           HH,
           ':',
           nn,
@@ -191,7 +207,7 @@ liveTest(PrayerTimetable location, DateTime testTime) {
           ss
         ])}${noColor}');
     print(
-        '${loc.calc.currentId == 4 ? green : ''}maghrib:\t${formatDate(loc.currentPrayerTimes.sunset, [
+        '${loc.utils.currentId == 4 ? green : ''}maghrib:\t${formatDate(loc.current[4].prayerTime, [
           HH,
           ':',
           nn,
@@ -199,7 +215,7 @@ liveTest(PrayerTimetable location, DateTime testTime) {
           ss
         ])}${noColor}');
     print(
-        '${loc.calc.currentId == 5 ? green : ''}isha:\t\t${formatDate(loc.currentPrayerTimes.dusk, [
+        '${loc.utils.currentId == 5 ? green : ''}isha:\t\t${formatDate(loc.current[5].prayerTime, [
           HH,
           ':',
           nn,
@@ -207,12 +223,12 @@ liveTest(PrayerTimetable location, DateTime testTime) {
           ss
         ])}${noColor}');
     print('${gray}------------------------------------${noColor}');
-    print('${yellow}countDown:\t${loc.calc.countDown}${noColor}');
-    print('${yellow}countUp:\t${loc.calc.countUp}${noColor}');
-    print('${yellow}percentage:\t${loc.calc.percentage}${noColor}');
-    print('${yellow}currentId:\t${loc.calc.currentId}${noColor}');
-    print('${yellow}nextId:\t\t${loc.calc.nextId}${noColor}');
-    print('${yellow}previousId:\t${loc.calc.previousId}${noColor}');
+    print('${yellow}countDown:\t${loc.utils.countDown}${noColor}');
+    print('${yellow}countUp:\t${loc.utils.countUp}${noColor}');
+    print('${yellow}percentage:\t${loc.utils.percentage}${noColor}');
+    print('${yellow}currentId:\t${loc.utils.currentId}${noColor}');
+    print('${yellow}nextId:\t\t${loc.utils.nextId}${noColor}');
+    print('${yellow}previousId:\t${loc.utils.previousId}${noColor}');
   });
 }
 

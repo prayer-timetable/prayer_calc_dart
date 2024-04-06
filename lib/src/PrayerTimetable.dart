@@ -5,8 +5,6 @@ import 'dart:core';
 // import 'package:adhan_dart/adhan_dart.dart';
 import 'package:prayer_timetable/prayer_timetable.dart';
 import 'package:prayer_timetable/src/components/TimetableCalc.dart';
-import 'package:prayer_timetable/src/func/monthHijriGen.dart';
-import 'package:prayer_timetable/src/func/monthGen.dart';
 import 'package:prayer_timetable/src/func/prayers.dart';
 import 'package:prayer_timetable/src/func/tzTime.dart';
 
@@ -66,10 +64,10 @@ class PrayerTimetable<T> {
   List<Prayer> previous = List<Prayer>.filled(6, Prayer(), growable: false);
 
   ///sunnah times - midnight and last third
-  Sunnah? sunnah;
+  Sunnah sunnah;
 
   ///calculations based on set DateTime
-  Utils? utils;
+  Utils utils;
 
   /// Prayer times for the current month
   List<List<Prayer>>? monthPrayerTimes;
@@ -259,8 +257,10 @@ class PrayerTimetable<T> {
     this.day,
     this.hijriOffset,
     required this.timezone,
-  }) : //  && jamaahPerPrayer != null
-        this.testing = false {
+  })  : //  && jamaahPerPrayer != null
+        this.testing = false,
+        sunnah = defaultSunnah,
+        utils = defaultUtils {
     /// ********************************************
     /// Define time
     /// ********************************************

@@ -15,7 +15,7 @@ main() {
   // DateTime testTime = DateTime(2024, 3, 20, 13, 59, 55);
   DateTime testTime = tz.TZDateTime(tz.getLocation('Europe/Sarajevo'), 2024, 3, 15, 13, 59, 55);
 
-  List<PrayerTimes> list = monthGen(
+  List<List<Prayer>> list = monthGen(
     testTime,
     // timetable: testTime.year % 4 == 0 ? dublinLeap : dublin,
     list: base,
@@ -27,8 +27,8 @@ main() {
   print('Date        Fajr      Sunrise   Dhuhr     Asr       Maghrib   Isha');
   print('----------------------------------------------------------------------');
 
-  for (PrayerTimes item in list) {
-    print('''${formatDate(item.dawn, [
+  for (List<Prayer> item in list) {
+    print('''${formatDate(item[0].prayerTime, [
           yyyy,
           '-',
           mm,
@@ -40,19 +40,31 @@ main() {
           nn,
           ':',
           ss
-        ])}  ${formatDate(item.sunrise, [HH, ':', nn, ':', ss])}  ${formatDate(item.midday, [
+        ])}  ${formatDate(item[1].prayerTime, [
           HH,
           ':',
           nn,
           ':',
           ss
-        ])}  ${formatDate(item.afternoon, [HH, ':', nn, ':', ss])}  ${formatDate(item.sunset, [
+        ])}  ${formatDate(item[2].prayerTime, [
           HH,
           ':',
           nn,
           ':',
           ss
-        ])}  ${formatDate(item.dusk, [HH, ':', nn, ':', ss])}''');
+        ])}  ${formatDate(item[3].prayerTime, [
+          HH,
+          ':',
+          nn,
+          ':',
+          ss
+        ])}  ${formatDate(item[4].prayerTime, [
+          HH,
+          ':',
+          nn,
+          ':',
+          ss
+        ])}  ${formatDate(item[5].prayerTime, [HH, ':', nn, ':', ss])}''');
   }
   print('----------------------------------------------------------------------');
 }

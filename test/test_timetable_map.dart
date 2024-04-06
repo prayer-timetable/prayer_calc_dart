@@ -17,12 +17,12 @@ DateTime testTime = setTime;
 PrayerTimetable map(DateTime testTime) => PrayerTimetable.map(
       timetableMap: dublinLeap,
       // optional parameters:
-      year: testTime.year,
-      month: testTime.month,
-      day: testTime.day,
-      hour: testTime.hour,
-      minute: testTime.minute,
-      second: testTime.second,
+      // year: testTime.year,
+      // month: testTime.month,
+      // day: testTime.day,
+      // hour: testTime.hour,
+      // minute: testTime.minute,
+      // second: testTime.second,
       jamaahOn: true,
       jamaahMethods: ['fixed', '', 'afterthis', 'afterthis', 'afterthis', 'afterthis'],
       jamaahOffsets: [
@@ -54,9 +54,9 @@ main() {
   bool live = false;
 
   // infoTest(testTime);
-  print(location.day);
+  // print(location.day);
   // if (!live) {
-  // jamaahTest(location);
+  jamaahTest(location, prayer: true, jamaah: true, sunnah: true, utils: true);
 
   //   // ignore: dead_code
   // } else {
