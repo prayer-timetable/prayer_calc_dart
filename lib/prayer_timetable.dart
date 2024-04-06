@@ -1,6 +1,6 @@
 library prayer_timetable;
 
-export 'src/components/PrayerTimes.dart';
-export 'src/components/Calc.dart';
+export 'src/PrayerTimetable.dart';
+export 'src/components/Prayer.dart';
+export 'src/components/Utils.dart';
 export 'src/components/Sunnah.dart';
-export 'src/components/JamaahTimes.dart';

@@ -1,5 +1,6 @@
 import 'package:prayer_timetable/prayer_timetable.dart';
-import 'package:prayer_timetable/src/func/prayerTimes.dart';
+import 'package:prayer_timetable/src/components/Prayer.dart';
+import 'package:prayer_timetable/src/func/prayers.dart';
 // import 'timetable_map.dart';
 // import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -8,12 +9,17 @@ import 'package:timezone/timezone.dart' as tz;
 // import 'package:hijri/hijri_array.dart';
 import 'package:hijri/hijri_calendar.dart';
 
-List<PrayerTimes> monthHijriGen(
+List<List<Prayer>> monthHijriGen(
   DateTime time, {
   Map<dynamic, dynamic>? timetable,
   List? list,
   int hijriOffset = 0,
   required String timezone,
+  required jamaahOn,
+  required jamaahMethods,
+  required jamaahOffsets,
+  required joinDhuhr,
+  required joinMaghrib,
 }) {
   /// Date
   DateTime date = tz.TZDateTime.from(
@@ -38,13 +44,18 @@ List<PrayerTimes> monthHijriGen(
   var g_date = HijriCalendar();
   DateTime startDate = g_date.hijriToGregorian(hYear, hMonth, hDay).add(Duration(hours: 3));
 
-  List<PrayerTimes> prayerList = List.generate(daysInHijriMonth, (index) {
-    return prayerTimesGen(
+  List<List<Prayer>> prayerList = List.generate(daysInHijriMonth, (index) {
+    return prayersGen(
       startDate.add(Duration(days: index)),
       timetableMap: timetable,
       timetableList: list,
       timezone: timezone,
       hijriOffset: hijriOffset,
+      jamaahOn: jamaahOn,
+      jamaahMethods: jamaahMethods,
+      jamaahOffsets: jamaahOffsets,
+      joinDhuhr: joinDhuhr,
+      joinMaghrib: joinMaghrib,
     );
   });
 

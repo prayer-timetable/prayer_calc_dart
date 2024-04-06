@@ -1,7 +1,7 @@
 import 'package:adhan_dart/adhan_dart.dart';
 import 'package:timezone/timezone.dart' as tz;
 
-class CalcPrayers {
+class TimetableCalc {
   String? timezone;
   tz.Location? timezoneLoc; // = tz.getLocation('xx/xx');
   Coordinates? coordinates; // = new Coordinates(43.8563, 18.4131);
@@ -10,7 +10,7 @@ class CalcPrayers {
   // Coordinates(43.8563, 18.4131), DateTime.now(), CalculationMethod.MuslimWorldLeague());
   // double angle = CalculationMethod.MuslimWorldLeague().fajrAngle;
 
-  CalcPrayers(
+  TimetableCalc(
     DateTime date, {
     required String timezone,
     required double lat,

@@ -53,14 +53,13 @@ main() {
   print('\x1B[2J\x1B[0;0H'); // clear entire screen, move cursor to 0;0
   bool live = false;
 
-  infoTest(testTime);
+  // infoTest(testTime);
+  print(location.day);
+  // if (!live) {
+  // jamaahTest(location);
 
-  if (!live) {
-    jamaahTest(location);
-
-    // ignore: dead_code
-  } else {
-    liveTest(location, testTime);
-  }
-  ;
+  //   // ignore: dead_code
+  // } else {
+  //   liveTest(location, testTime);
+  // }
 }

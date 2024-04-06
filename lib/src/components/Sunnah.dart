@@ -1,3 +1,4 @@
+import 'package:prayer_timetable/src/components/Prayer.dart';
 import 'package:prayer_timetable/src/components/PrayerTimes.dart';
 
 class Sunnah {
@@ -6,14 +7,14 @@ class Sunnah {
 
   Sunnah(
     DateTime date, {
-    required PrayerTimes prayersCurrent,
-    required PrayerTimes prayersNext,
-    required PrayerTimes prayersPrevious,
+    required List<Prayer> prayersCurrent,
+    required List<Prayer> prayersNext,
+    required List<Prayer> prayersPrevious,
   }) {
-    DateTime dawnTomorrow = prayersNext.dawn;
-    DateTime dawnToday = prayersCurrent.dawn;
-    DateTime sunsetToday = prayersCurrent.sunset;
-    DateTime sunsetYesterday = prayersPrevious.sunset;
+    DateTime dawnTomorrow = prayersNext[0].prayerTime;
+    DateTime dawnToday = prayersCurrent[0].prayerTime;
+    DateTime sunsetToday = prayersCurrent[4].prayerTime;
+    DateTime sunsetYesterday = prayersPrevious[4].prayerTime;
 
     // print(now.isBefore(dawnToday));
     // midnight
@@ -31,5 +32,9 @@ class Sunnah {
   }
 }
 
-Sunnah defaultSunnah = Sunnah(DateTime.now(),
-    prayersCurrent: PrayerTimes(), prayersNext: PrayerTimes(), prayersPrevious: PrayerTimes());
+Sunnah defaultSunnah = Sunnah(
+  DateTime.now(),
+  prayersCurrent: List<Prayer>.filled(6, Prayer(), growable: false),
+  prayersNext: List<Prayer>.filled(6, Prayer(), growable: false),
+  prayersPrevious: List<Prayer>.filled(6, Prayer(), growable: false),
+);

@@ -1,11 +1,22 @@
 import 'package:prayer_timetable/prayer_timetable.dart';
-import 'package:prayer_timetable/src/func/prayerTimes.dart';
+import 'package:prayer_timetable/src/components/Prayer.dart';
+import 'package:prayer_timetable/src/func/prayers.dart';
 // import 'timetable_map.dart';
 // import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-List<PrayerTimes> monthGen(DateTime time,
-    {Map<dynamic, dynamic>? timetable, List? list, int hijriOffset = 0, required String timezone}) {
+List<List<Prayer>> monthGen(
+  DateTime time, {
+  Map<dynamic, dynamic>? timetable,
+  List? list,
+  int hijriOffset = 0,
+  required String timezone,
+  required jamaahOn,
+  required jamaahMethods,
+  required jamaahOffsets,
+  required joinDhuhr,
+  required joinMaghrib,
+}) {
   /// Date
   DateTime date = tz.TZDateTime.from(
       DateTime(time.year, time.month)
@@ -23,14 +34,18 @@ List<PrayerTimes> monthGen(DateTime time,
 
   // print(days);
 
-  List<PrayerTimes> prayerList = List.generate(daysInMonth, (index) {
-    return prayerTimesGen(
+  List<List<Prayer>> prayerList = List.generate(daysInMonth, (index) {
+    return prayersGen(
       date.add(Duration(days: index)),
-      // timetableMap: timetable,
+      timetableMap: timetable,
       timetableList: list,
-
       timezone: timezone,
       hijriOffset: hijriOffset,
+      jamaahOn: jamaahOn,
+      jamaahMethods: jamaahMethods,
+      jamaahOffsets: jamaahOffsets,
+      joinDhuhr: joinDhuhr,
+      joinMaghrib: joinMaghrib,
     );
   });
 

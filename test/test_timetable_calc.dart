@@ -1,5 +1,5 @@
 import 'package:prayer_timetable/src/PrayerTimetable.dart';
-import 'package:prayer_timetable/src/components/CalcPrayers.dart';
+import 'package:prayer_timetable/src/components/TimetableCalc.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -12,7 +12,7 @@ DateTime now = tz.TZDateTime.now(tz.getLocation(timezone));
 DateTime setTime = tz.TZDateTime.from(DateTime(2024, 3, 31, 14, 32, 45), tz.getLocation(timezone));
 DateTime testTime = setTime;
 
-CalcPrayers calcPrayers = CalcPrayers(
+TimetableCalc timetableCalc = TimetableCalc(
   // testTime,
   testTime,
   timezone: timezone,
@@ -26,7 +26,7 @@ PrayerTimetable calc(DateTime testTime) => PrayerTimetable.calc(
     year: testTime.year,
     month: testTime.month,
     day: testTime.day,
-    calcPrayers: calcPrayers,
+    timetableCalc: timetableCalc,
     jamaahOn: true,
     jamaahMethods: ['fixed', '', 'afterthis', 'afterthis', 'afterthis', 'afterthis'],
     jamaahOffsets: [
