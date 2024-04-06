@@ -165,7 +165,7 @@ class PrayerTimetable<T> {
     //     this.hour ?? 3, this.minute ?? 0, this.second ?? 0));
     bool _jamaahOn = this.jamaahOn;
     List<bool> _jamaahPerPrayer =
-        _jamaahOn ? this.jamaahPerPrayer ?? defaultJamaahPerPrayerOn : defaultJamaahPerPrayerOff;
+        !_jamaahOn ? defaultJamaahPerPrayerOff : this.jamaahPerPrayer ?? defaultJamaahPerPrayerOn;
 
     this.current = prayersGen(
       DateTime(this.year ?? date.year, this.month ?? date.month, this.day ?? date.day,
@@ -297,9 +297,9 @@ class PrayerTimetable<T> {
     required String timezone,
 
     /// Jammah times per individual prayers. Ignored if global jamaahOn is false.
-    List<bool> jamaahPerPrayer = defaultJamaahPerPrayerOff,
-    List<String> jamaahMethods = defaultJamaahMethods,
-    List<List<int>> jamaahOffsets = defaultJamaahOffsets,
+    List<bool>? jamaahPerPrayer,
+    List<String>? jamaahMethods,
+    List<List<int>>? jamaahOffsets,
     int? hour,
     int? minute,
     int? second,
@@ -341,9 +341,9 @@ class PrayerTimetable<T> {
     required String timezone,
 
     /// Jammah times per individual prayers. Ignored if global jamaahOn is false.
-    List<bool> jamaahPerPrayer = defaultJamaahPerPrayerOff,
-    List<String> jamaahMethods = defaultJamaahMethods,
-    List<List<int>> jamaahOffsets = defaultJamaahOffsets,
+    List<bool>? jamaahPerPrayer,
+    List<String>? jamaahMethods,
+    List<List<int>>? jamaahOffsets,
     int? hour,
     int? minute,
     int? second,
@@ -385,9 +385,9 @@ class PrayerTimetable<T> {
     required String timezone,
 
     /// Jammah times per individual prayers. Ignored if global jamaahOn is false.
-    List<bool> jamaahPerPrayer = defaultJamaahPerPrayerOff,
-    List<String> jamaahMethods = defaultJamaahMethods,
-    List<List<int>> jamaahOffsets = defaultJamaahOffsets,
+    List<bool>? jamaahPerPrayer,
+    List<String>? jamaahMethods,
+    List<List<int>>? jamaahOffsets,
     int? hour,
     int? minute,
     int? second,

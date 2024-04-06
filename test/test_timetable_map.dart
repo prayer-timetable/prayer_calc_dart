@@ -36,7 +36,7 @@ PrayerTimetable map(DateTime testTime) => PrayerTimetable.map(
       // joinDhuhr: true,
       // joinMaghrib: true,
 
-      jamaahPerPrayer: [false, false, true, true, false, false],
+      // jamaahPerPrayer: [false, false, true, true, false, false],
 
       timezone: timezone,
       lat: lat,
