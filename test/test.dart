@@ -12,7 +12,7 @@ String gray = '\u001b[90m';
 
 // ICCI
 double latI = 53.3046593;
-double longI = -6.2344076;
+double lngI = -6.2344076;
 double altitudeI = 85;
 double angleI = 14.6; //18
 double iangleI = 14.6; //16
@@ -20,7 +20,7 @@ String timezoneI = 'Europe/Dublin';
 
 // Sarajevo
 double latS = 43.8563;
-double longS = 18.4131;
+double lngS = 18.4131;
 double altitudeS = 518;
 double angleS = 14.6; //iz =19
 double iangleS = 14.6; // iz = 17

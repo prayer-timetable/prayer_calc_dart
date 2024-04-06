@@ -8,7 +8,7 @@ import 'test.dart';
 
 String timezone = timezoneI;
 double lat = latI;
-double long = longI;
+double lng = lngI;
 
 DateTime now = tz.TZDateTime.now(tz.getLocation(timezone));
 DateTime setTime = tz.TZDateTime.from(DateTime(2024, 3, 31, 14, 32, 45), tz.getLocation(timezone));
@@ -37,12 +37,10 @@ PrayerTimetable map(DateTime testTime) => PrayerTimetable.map(
       // joinMaghrib: true,
 
       jamaahPerPrayer: [false, false, true, true, false, false],
-      // // testing options
-      // hour: newtime.hour,
-      // minute: newtime.minute,
-      // second: newtime.second,
-      timezone: timezone,
 
+      timezone: timezone,
+      lat: lat,
+      lng: lng,
       // hijriOffset: 0,
     );
 

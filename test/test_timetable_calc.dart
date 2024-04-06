@@ -17,7 +17,7 @@ TimetableCalc timetableCalc = TimetableCalc(
   testTime,
   timezone: timezone,
   lat: latI,
-  long: longI,
+  long: lngI,
   madhab: 'shafi',
   precision: true,
 );

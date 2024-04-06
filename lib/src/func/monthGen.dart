@@ -15,6 +15,7 @@ List<List<Prayer>> monthGen(
   jamaahOffsets = defaultJamaahOffsets,
   joinDhuhr = false,
   joinMaghrib = false,
+  jamaahPerPrayer = defaultJamaahPerPrayerOff,
 }) {
   /// Date
   DateTime date = tz.TZDateTime.from(
@@ -45,6 +46,7 @@ List<List<Prayer>> monthGen(
       jamaahOffsets: jamaahOffsets,
       joinDhuhr: joinDhuhr,
       joinMaghrib: joinMaghrib,
+      jamaahPerPrayer: jamaahPerPrayer,
     );
   });
 

@@ -23,7 +23,7 @@ List<Prayer> prayersGen(
   required List<List<int>> jamaahOffsets, // = const [0, 0],
   required bool joinDhuhr, // = false,
   required bool joinMaghrib, // = false,
-  // List<bool> jamaahPerPrayer = defaultJamaahPerPrayerOff,
+  required List<bool> jamaahPerPrayer, // = defaultJamaahPerPrayerOff,
 }) {
   /* *********************** */
   /* TIMES                   */
@@ -105,19 +105,22 @@ List<Prayer> prayersGen(
     int jamaahOffsetMin = 0;
     prayer.jamaahTime = prayerTime;
     jamaahOffsetMin = jamaahOffsets[prayerId][0] * 60 + jamaahOffsets[prayerId][1];
-    // if (!jamaahPerPrayer[prayerId])
-    //   prayer.jamaahTime = prayerList[index];
-    if (jamaahMethods[prayerId] == 'afterthis') {
-      // print('it is');
+    //if jamaah not enableed for the prayer
+    if (!jamaahPerPrayer[prayerId])
+      prayer.jamaahTime = prayerTime;
+    //if afterthis
+    else if (jamaahMethods[prayerId] == 'afterthis') {
       prayer.jamaahTime = prayerTime.add(Duration(minutes: jamaahOffsetMin));
-    } else if (jamaahMethods[prayerId] == 'fixed') {
+    }
+    //if fixed
+    else if (jamaahMethods[prayerId] == 'fixed') {
       prayer.jamaahTime = tz.TZDateTime.from(
           DateTime(prayerTime.year, prayerTime.month, prayerTime.day, jamaahOffsets[prayerId][0],
               jamaahOffsets[prayerId][1]),
           tz.getLocation(timezone));
-      // .add(Duration(minutes: offset));
-      //
-    } else {
+    }
+    //all else
+    else {
       prayer.jamaahTime = prayerTime;
     }
 

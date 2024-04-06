@@ -180,6 +180,7 @@ class PrayerTimetable<T> {
       jamaahOn: this.jamaahOn,
       jamaahMethods: this.jamaahMethods ?? defaultJamaahMethods,
       jamaahOffsets: this.jamaahOffsets ?? defaultJamaahOffsets,
+      jamaahPerPrayer: _jamaahPerPrayer,
     );
     this.next = prayersGen(
       DateTime(this.year ?? date.year, this.month ?? date.month, (this.day ?? date.day) + 1,
@@ -194,6 +195,7 @@ class PrayerTimetable<T> {
       jamaahOn: this.jamaahOn,
       jamaahMethods: this.jamaahMethods ?? defaultJamaahMethods,
       jamaahOffsets: this.jamaahOffsets ?? defaultJamaahOffsets,
+      jamaahPerPrayer: _jamaahPerPrayer,
     );
     this.previous = prayersGen(
       DateTime(this.year ?? date.year, this.month ?? date.month, (this.day ?? date.day) - 1,
@@ -208,6 +210,7 @@ class PrayerTimetable<T> {
       jamaahOn: this.jamaahOn,
       jamaahMethods: this.jamaahMethods ?? defaultJamaahMethods,
       jamaahOffsets: this.jamaahOffsets ?? defaultJamaahOffsets,
+      jamaahPerPrayer: _jamaahPerPrayer,
     );
 
     /// ********************************************
