@@ -140,7 +140,20 @@ List<Prayer> prayersGen(
     /// define
     if (jamaahOn)
       prayer.isJamaahPending =
-          timestamp.isAfter(prayer.jamaahTime) && timestamp.isBefore(prayer.jamaahTime);
+          timestamp.isAfter(prayer.prayerTime) && timestamp.isBefore(prayer.jamaahTime);
+
+    /// is next
+    int previousId = prayerId - 1;
+    if (previousId < 0) previousId = 0;
+    if (prayerId == 5) {
+      prayer.isNext = prayer.isJamaahPending;
+    } else if (prayerId == 0) {
+      prayer.isNext =
+          prayer.isAfterIsha || prayer.isJamaahPending || prayer.prayerTime.isAfter(timestamp);
+    } else {
+      prayer.isNext = (prayer.jamaahTime.isAfter(timestamp) &&
+          prayers[previousId].jamaahTime.isBefore(timestamp));
+    }
 
     // prayerTimes = [...prayerTimes, prayerTime];
     prayers.insert(

@@ -54,7 +54,7 @@ main() {
 
     // ignore: dead_code
   } else {
-    liveTest(location, testTime);
+    liveTest(location);
   }
   ;
 }

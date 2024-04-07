@@ -63,6 +63,9 @@ class PrayerTimetable<T> {
   ///previous prayers
   List<Prayer> previous = List<Prayer>.filled(6, Prayer(), growable: false);
 
+  ///prayers in focus
+  List<Prayer> focus = List<Prayer>.filled(6, Prayer(), growable: false);
+
   ///calculations based on set DateTime
   Utils utils;
 
@@ -210,7 +213,7 @@ class PrayerTimetable<T> {
     );
 
     /// ********************************************
-    /// Calc
+    /// Utils
     /// ********************************************
     this.utils = Utils(
       date,
@@ -230,6 +233,11 @@ class PrayerTimetable<T> {
               : 0,
       jamaahPerPrayer: this.jamaahPerPrayer,
     );
+
+    /// ********************************************
+    /// Prayers in focus
+    /// ********************************************
+    this.focus = this.utils.isAfterIsha ? this.next : this.current;
 
     /// ********************************************
     /// Month calendars

@@ -11,18 +11,19 @@ double lat = latI;
 double lng = lngI;
 
 DateTime now = tz.TZDateTime.now(tz.getLocation(timezone));
-DateTime setTime = tz.TZDateTime.from(DateTime(2024, 3, 31, 14, 32, 45), tz.getLocation(timezone));
+DateTime setTime = tz.TZDateTime.from(DateTime(2024, 3, 30, 20, 45, 45), tz.getLocation(timezone));
 DateTime testTime = setTime;
 
 PrayerTimetable map(DateTime testTime) => PrayerTimetable.map(
       timetableMap: dublinLeap,
       // optional parameters:
-      // year: testTime.year,
-      // month: testTime.month,
-      // day: testTime.day,
-      // hour: testTime.hour,
-      // minute: testTime.minute,
-      // second: testTime.second,
+      year: testTime.year,
+      month: testTime.month,
+      day: testTime.day,
+      hour: testTime.hour,
+      minute: testTime.minute,
+      second: testTime.second,
+
       jamaahOn: true,
       jamaahMethods: ['fixed', '', 'afterthis', 'afterthis', 'afterthis', 'afterthis'],
       jamaahOffsets: [
@@ -36,7 +37,7 @@ PrayerTimetable map(DateTime testTime) => PrayerTimetable.map(
       // joinDhuhr: true,
       // joinMaghrib: true,
 
-      jamaahPerPrayer: [false, false, true, true, false, false],
+      // jamaahPerPrayer: [false, false, true, true, false, true],
 
       timezone: timezone,
       lat: lat,
@@ -49,15 +50,16 @@ PrayerTimetable location = map(testTime);
 main() {
   tz.initializeTimeZones();
   print('\x1B[2J\x1B[0;0H'); // clear entire screen, move cursor to 0;0
-  bool live = false;
+  bool live = true;
 
   // infoTest(testTime);
   // print(location.day);
-  // if (!live) {
-  jamaahTest(location, prayer: true, jamaah: true, utils: true);
+  // ignore: dead_code
+  if (!live) {
+    jamaahTest(location, prayer: true, jamaah: true, utils: true);
 
-  //   // ignore: dead_code
-  // } else {
-  //   liveTest(location, testTime);
-  // }
+    // ignore: dead_code
+  } else {
+    liveTest(location);
+  }
 }
