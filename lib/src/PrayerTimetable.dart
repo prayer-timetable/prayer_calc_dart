@@ -63,9 +63,6 @@ class PrayerTimetable<T> {
   ///previous prayers
   List<Prayer> previous = List<Prayer>.filled(6, Prayer(), growable: false);
 
-  ///sunnah times - midnight and last third
-  Sunnah sunnah;
-
   ///calculations based on set DateTime
   Utils utils;
 
@@ -149,8 +146,7 @@ class PrayerTimetable<T> {
             timetableList != null ||
             timetableMap != null), //  && jamaahPerPrayer != null
         this.testing = false,
-        this.utils = defaultUtils,
-        this.sunnah = defaultSunnah {
+        this.utils = defaultUtils {
     /// ********************************************
     /// Define time
     /// ********************************************
@@ -214,12 +210,6 @@ class PrayerTimetable<T> {
     );
 
     /// ********************************************
-    /// Sunnah prayers
-    /// ********************************************
-    this.sunnah = Sunnah(date,
-        prayersCurrent: this.current, prayersNext: this.next, prayersPrevious: this.previous);
-
-    /// ********************************************
     /// Calc
     /// ********************************************
     this.utils = Utils(
@@ -262,7 +252,6 @@ class PrayerTimetable<T> {
     required this.timezone,
   })  : //  && jamaahPerPrayer != null
         this.testing = false,
-        sunnah = defaultSunnah,
         utils = defaultUtils {
     /// ********************************************
     /// Define time

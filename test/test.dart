@@ -64,9 +64,6 @@ timetableTest(PrayerTimetable location) {
   print('asr:\t${location.previous[3].prayerTime}');
   print('maghrib:\t\t${location.previous[4].prayerTime}');
   print('isha:\t\t${location.previous[5].prayerTime}');
-  print('${yellow}***************** Sunnah ********************${noColor}');
-  print('midnight:\t${location.sunnah.midnight}');
-  print('lastThird\t${location.sunnah.lastThird}');
   print('${yellow}************** Calc ******************${noColor}');
   print('time:\t${location.utils.time}');
   print('current:\t${location.utils.current}');
@@ -78,10 +75,12 @@ timetableTest(PrayerTimetable location) {
   print('countUp:\t${location.utils.countUp}');
   print('Qibla:\t${location.utils.qibla}');
   print('percentage:\t${location.utils.percentage}');
+  print('midnight:\t${location.utils.midnight}');
+  print('lastThird\t${location.utils.lastThird}');
 }
 
 jamaahTest(PrayerTimetable location,
-    {bool prayer = true, bool jamaah = false, bool sunnah = false, bool utils = false}) {
+    {bool prayer = true, bool jamaah = false, bool utils = false}) {
   if (prayer) {
     print('${yellow}****************** Today *******************${noColor}');
     print('fajr:\t\t${location.current[0].prayerTime}');
@@ -142,12 +141,6 @@ jamaahTest(PrayerTimetable location,
     print('isha:\t\t${location.previous[5].jamaahTime}');
   }
 
-  if (sunnah) {
-    print('${yellow}***************** Sunnah *******************${noColor}');
-    print('midnight:\t${location.sunnah.midnight}');
-    print('lastThird\t${location.sunnah.lastThird}');
-  }
-
   if (utils) {
     print('${yellow}****************** Utils *******************${noColor}');
     print('time:\t\t${location.utils.time}');
@@ -155,13 +148,15 @@ jamaahTest(PrayerTimetable location,
     print('next:\t\t${location.utils.next}');
     print('previous:\t${location.utils.previous}');
     print('isAfterIsha:\t${location.utils.isAfterIsha}');
-    print('jamaahPending:\t${location.utils.jamaahPending}');
+    print('isJamaahPending:\t${location.utils.isJamaahPending}');
     print('currentId:\t${location.utils.currentId}');
     print('countDown:\t${location.utils.countDown}');
     print('countUp:\t${location.utils.countUp}');
     print('percentage:\t${location.utils.percentage}');
     print('qibla:\t\t${location.utils.qibla}');
     print('hijri:\t\t${location.utils.hijri}');
+    print('midnight:\t${location.utils.midnight}');
+    print('lastThird\t${location.utils.lastThird}');
     // print(location.current);
   }
 }

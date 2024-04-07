@@ -36,7 +36,7 @@ PrayerTimetable map(DateTime testTime) => PrayerTimetable.map(
       // joinDhuhr: true,
       // joinMaghrib: true,
 
-      // jamaahPerPrayer: [false, false, true, true, false, false],
+      jamaahPerPrayer: [false, false, true, true, false, false],
 
       timezone: timezone,
       lat: lat,
@@ -54,7 +54,7 @@ main() {
   // infoTest(testTime);
   // print(location.day);
   // if (!live) {
-  jamaahTest(location, prayer: true, jamaah: true, sunnah: true, utils: true);
+  jamaahTest(location, prayer: true, jamaah: true, utils: true);
 
   //   // ignore: dead_code
   // } else {

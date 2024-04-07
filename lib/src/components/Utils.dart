@@ -20,29 +20,40 @@ import 'package:prayer_timetable/src/func/helpers.dart';
 /// qibla = Qibla.qibla(new Coordinates(double lat, double lng))
 class Utils {
   DateTime time = DateTime.now();
+
+  /// Prayer times
   DateTime current = DateTime.now();
   DateTime next = DateTime.now();
   DateTime previous = DateTime.now();
-  bool isAfterIsha = false;
 
+  /// Prayer details
   int currentId = 1;
   int previousId = 0;
   int nextId = 2;
+  bool isJamaahPending = false;
+  bool isAfterIsha = false;
 
+  /// Sunnah
+  DateTime midnight = DateTime.now();
+  DateTime lastThird = DateTime.now();
+
+  /// Countdown
   Duration countDown = Duration.zero;
   Duration countUp = Duration(seconds: 10);
   double percentage = 0.1;
-  bool jamaahPending = false;
+
+  /// Qibla direction
   double qibla = 0;
+
+  /// Years
   List<int> hijri = [];
-  // check if leap year
   bool isLeap = false;
 
   Utils(
     DateTime _date, {
-    List<Prayer>? prayersCurrent,
-    List<Prayer>? prayersNext,
-    List<Prayer>? prayersPrevious,
+    required List<Prayer> prayersCurrent,
+    required List<Prayer> prayersNext,
+    required List<Prayer> prayersPrevious,
     bool? jamaahOn,
     double? lat,
     double? lng,
@@ -227,29 +238,49 @@ class Utils {
     _nextId = _currentId == 5 ? 0 : _currentId + 1;
     _previousId = _currentId == 0 ? 5 : _currentId - 1;
 
+    /// Sunnah
+    DateTime dawnTomorrow = prayersNext[0].prayerTime;
+    DateTime dawnToday = prayersCurrent[0].prayerTime;
+    DateTime sunsetToday = prayersCurrent[4].prayerTime;
+    DateTime sunsetYesterday = prayersPrevious[4].prayerTime;
+    this.midnight = time.isBefore(dawnToday)
+        ? sunsetYesterday
+            .add(Duration(minutes: (dawnToday.difference(sunsetYesterday).inMinutes / 2).floor()))
+        : sunsetToday
+            .add(Duration(minutes: (dawnTomorrow.difference(sunsetToday).inMinutes / 2).floor()));
+
+    this.lastThird = time.isBefore(dawnToday)
+        ? sunsetYesterday.add(
+            Duration(minutes: (2 * dawnToday.difference(sunsetYesterday).inMinutes / 3).floor()))
+        : sunsetToday.add(
+            Duration(minutes: (2 * dawnTomorrow.difference(sunsetToday).inMinutes / 3).floor()));
+
     // components
     this.time = _date;
     this.current = _current;
     this.next = _next;
     this.previous = _previous;
-    this.isAfterIsha = _isAfterIsha;
+
     this.currentId = _currentId;
     this.nextId = _nextId;
     this.previousId = _previousId;
+    this.isAfterIsha = _isAfterIsha;
+    this.isJamaahPending = _jamaahPending;
+
     this.countDown = _next.difference(_date);
     this.countUp = _date.difference(_current);
-    this.isLeap = _date.year % 4 == 0;
 
     percentage =
         round2Decimals(100 * (this.countUp.inSeconds / (this.countDown + this.countUp).inSeconds));
 
     this.percentage = percentage.isNaN ? 0 : percentage;
-    this.jamaahPending = _jamaahPending;
+
     // print(lat);
     this.qibla = adhan.Qibla.qibla(new adhan.Coordinates(lat, lng));
 
     var hTime = HijriCalendar.fromDate(_date);
     this.hijri = [hTime.hYear, hTime.hMonth, hTime.hDay];
+    this.isLeap = _date.year % 4 == 0;
 
     //end
   }

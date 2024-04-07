@@ -8,6 +8,7 @@ class Prayer {
   bool isCurrent = false;
   bool isNext = false;
   bool isJamaahPending = false;
+  bool isAfterIsha = false;
 
   Prayer() {
     this.id;
@@ -20,6 +21,7 @@ class Prayer {
     this.isCurrent;
     this.isNext;
     this.isJamaahPending;
+    this.isAfterIsha;
   }
 
   static Prayer prayer = new Prayer();
