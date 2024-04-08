@@ -10,12 +10,13 @@ List<List<Prayer>> monthGen(
   List? list,
   int hijriOffset = 0,
   required String timezone,
-  jamaahOn = false,
-  jamaahMethods = defaultJamaahMethods,
-  jamaahOffsets = defaultJamaahOffsets,
-  joinDhuhr = false,
-  joinMaghrib = false,
-  jamaahPerPrayer = defaultJamaahPerPrayerOff,
+  bool jamaahOn = false,
+  List<String> jamaahMethods = defaultJamaahMethods,
+  List<List<int>> jamaahOffsets = defaultJamaahOffsets,
+  bool joinDhuhr = false,
+  bool joinMaghrib = false,
+  List<bool> jamaahPerPrayer = defaultJamaahPerPrayerOff,
+  bool useTz = false,
 }) {
   /// Date
   DateTime date = tz.TZDateTime.from(
@@ -47,6 +48,7 @@ List<List<Prayer>> monthGen(
       joinDhuhr: joinDhuhr,
       joinMaghrib: joinMaghrib,
       jamaahPerPrayer: jamaahPerPrayer,
+      useTz: useTz,
     );
   });
 

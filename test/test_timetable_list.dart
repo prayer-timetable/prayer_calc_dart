@@ -13,22 +13,26 @@ DateTime setTime = tz.TZDateTime.from(DateTime(2024, 3, 31, 14, 32, 45), tz.getL
 DateTime testTime = setTime;
 
 PrayerTimetable list(DateTime testTime) => PrayerTimetable.list(
-    year: testTime.year,
-    month: testTime.month,
-    day: testTime.day,
-    timetableList: base,
-    jamaahOn: true,
-    jamaahMethods: ['fixed', '', 'afterthis', 'afterthis', 'afterthis', 'afterthis'],
-    jamaahOffsets: [
-      [6, 0],
-      [0, 0],
-      [0, 15],
-      [0, 15],
-      [0, 15],
-      [0, 15]
-    ],
-    jamaahPerPrayer: [false, false, true, true, false, false],
-    timezone: timezone);
+      year: testTime.year,
+      month: testTime.month,
+      day: testTime.day,
+      timetableList: base,
+      jamaahOn: true,
+      // jamaahMethods: ['fixed', '', 'afterthis', 'afterthis', 'afterthis', 'afterthis'],
+      jamaahMethods: ['afterthis', '', 'afterthis', 'afterthis', 'afterthis', 'afterthis'],
+      jamaahOffsets: [
+        // [6, 0],
+        [0, 15],
+        [0, 0],
+        [0, 15],
+        [0, 15],
+        [0, 15],
+        [0, 15]
+      ],
+      // jamaahPerPrayer: [false, false, true, true, false, false],
+      timezone: timezone,
+      useTz: false,
+    );
 
 PrayerTimetable location = list(testTime);
 
@@ -40,7 +44,7 @@ main() {
   infoTest(testTime);
 
   if (!live) {
-    jamaahTest(location);
+    jamaahTest(location, utils: true);
 
     // ignore: dead_code
   } else {

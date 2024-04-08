@@ -5,6 +5,8 @@ import 'dart:core';
 // import 'package:adhan_dart/adhan_dart.dart';
 import 'package:prayer_timetable/prayer_timetable.dart';
 import 'package:prayer_timetable/src/components/TimetableCalc.dart';
+import 'package:prayer_timetable/src/func/monthGen.dart';
+import 'package:prayer_timetable/src/func/monthHijriGen.dart';
 import 'package:prayer_timetable/src/func/prayers.dart';
 import 'package:prayer_timetable/src/func/tzTime.dart';
 
@@ -85,6 +87,8 @@ class PrayerTimetable<T> {
   final int? hijriOffset;
   // bool summerTimeCalc = true,
   final String timezone;
+  // true means we're using tz time
+  bool? useTz;
 
   /// Enables jamaah times globaly.
   bool jamaahOn = false;
@@ -131,6 +135,7 @@ class PrayerTimetable<T> {
     this.joinMaghrib = false,
     this.joinDhuhr = false,
     required this.timezone,
+    this.useTz = true,
 
     /// Jammah times per individual prayers. Ignored if global jamaahOn is false.
     this.jamaahPerPrayer,
@@ -173,6 +178,7 @@ class PrayerTimetable<T> {
       timetableList: timetableList,
       timetableCalc: timetableCalc,
       timezone: this.timezone,
+      useTz: this.useTz,
       hijriOffset: this.hijriOffset ?? 0,
       joinMaghrib: this.joinMaghrib ?? false,
       joinDhuhr: this.joinDhuhr ?? false,
@@ -189,6 +195,7 @@ class PrayerTimetable<T> {
       timetableList: timetableList,
       timetableCalc: timetableCalc,
       timezone: this.timezone,
+      useTz: this.useTz,
       hijriOffset: this.hijriOffset ?? 0,
       joinMaghrib: this.joinMaghrib ?? false,
       joinDhuhr: this.joinDhuhr ?? false,
@@ -204,6 +211,7 @@ class PrayerTimetable<T> {
       timetableList: timetableList,
       timetableCalc: timetableCalc,
       timezone: this.timezone,
+      useTz: this.useTz,
       hijriOffset: this.hijriOffset ?? 0,
       joinMaghrib: this.joinMaghrib ?? false,
       joinDhuhr: this.joinDhuhr ?? false,
@@ -235,6 +243,8 @@ class PrayerTimetable<T> {
       jamaahPerPrayer: this.jamaahPerPrayer,
     );
 
+    this.utils.utcOffsetHours = offsetHr(date, timezone);
+
     /// ********************************************
     /// Prayers in focus
     /// ********************************************
@@ -244,6 +254,7 @@ class PrayerTimetable<T> {
       this.focus.last.isNext = false;
       this.focus.first.isNext = true;
     }
+
     // else {
     //   for (Prayer prayer in this.focus) {
     //     prayer.isNext = this.utils.nextId == prayer.id && !prayer.isJamaahPending;
@@ -272,6 +283,7 @@ class PrayerTimetable<T> {
     this.day,
     this.hijriOffset,
     required this.timezone,
+    this.useTz = true,
   })  : //  && jamaahPerPrayer != null
         this.testing = false,
         utils = defaultUtils {
@@ -284,9 +296,9 @@ class PrayerTimetable<T> {
     /// ********************************************
     /// Month calendars
     /// ********************************************
-    // this.monthPrayerTimes = monthGen(date, hijriOffset: hijriOffset ?? 0, timezone: this.timezone);
-    // this.monthHijriPrayerTimes =
-    //     monthHijriGen(date, hijriOffset: hijriOffset ?? 0, timezone: this.timezone);
+    this.monthPrayerTimes = monthGen(date, hijriOffset: hijriOffset ?? 0, timezone: this.timezone);
+    this.monthHijriPrayerTimes =
+        monthHijriGen(date, hijriOffset: hijriOffset ?? 0, timezone: this.timezone);
 
     /// end
   }
@@ -306,6 +318,7 @@ class PrayerTimetable<T> {
     bool joinMaghrib = false,
     bool joinDhuhr = false,
     required String timezone,
+    bool useTz = true,
 
     /// Jammah times per individual prayers. Ignored if global jamaahOn is false.
     List<bool>? jamaahPerPrayer,
@@ -326,6 +339,7 @@ class PrayerTimetable<T> {
           joinMaghrib: joinMaghrib,
           joinDhuhr: joinDhuhr,
           timezone: timezone,
+          useTz: useTz,
           jamaahPerPrayer: jamaahPerPrayer,
           jamaahMethods: jamaahMethods,
           jamaahOffsets: jamaahOffsets,
@@ -350,6 +364,7 @@ class PrayerTimetable<T> {
     bool joinMaghrib = false,
     bool joinDhuhr = false,
     required String timezone,
+    bool useTz = true,
 
     /// Jammah times per individual prayers. Ignored if global jamaahOn is false.
     List<bool>? jamaahPerPrayer,
@@ -370,6 +385,7 @@ class PrayerTimetable<T> {
           joinMaghrib: joinMaghrib,
           joinDhuhr: joinDhuhr,
           timezone: timezone,
+          useTz: useTz,
           jamaahPerPrayer: jamaahPerPrayer,
           jamaahMethods: jamaahMethods,
           jamaahOffsets: jamaahOffsets,
@@ -394,6 +410,7 @@ class PrayerTimetable<T> {
     bool joinMaghrib = false,
     bool joinDhuhr = false,
     required String timezone,
+    bool useTz = true,
 
     /// Jammah times per individual prayers. Ignored if global jamaahOn is false.
     List<bool>? jamaahPerPrayer,
@@ -412,6 +429,7 @@ class PrayerTimetable<T> {
           joinMaghrib: joinMaghrib,
           joinDhuhr: joinDhuhr,
           timezone: timezone,
+          useTz: useTz,
           jamaahPerPrayer: jamaahPerPrayer,
           jamaahMethods: jamaahMethods,
           jamaahOffsets: jamaahOffsets,

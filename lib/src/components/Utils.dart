@@ -2,6 +2,7 @@ import 'package:adhan_dart/adhan_dart.dart' as adhan;
 import 'package:hijri/hijri_calendar.dart';
 import 'package:prayer_timetable/src/components/Prayer.dart';
 import 'package:prayer_timetable/src/func/helpers.dart';
+import 'package:prayer_timetable/src/func/tzTime.dart';
 
 // import 'package:adhan_dart/adhan_dart.dart';
 
@@ -48,6 +49,7 @@ class Utils {
   /// Years
   List<int> hijri = [];
   bool isLeap = false;
+  int? utcOffsetHours;
 
   Utils(
     DateTime _date, {
@@ -58,6 +60,7 @@ class Utils {
     double? lat,
     double? lng,
     List<bool>? jamaahPerPrayer,
+    int? utcOffsetHours,
   }) {
     DateTime _current = this.current;
     DateTime _next = this.next;
@@ -74,11 +77,7 @@ class Utils {
     /* *********************** */
 
     /// NO JAMAAH
-    if (jamaahOn != null &&
-        prayersCurrent != null &&
-        prayersNext != null &&
-        prayersPrevious != null &&
-        !jamaahOn) {
+    if (jamaahOn != null && !jamaahOn) {
       // midnight - fajr
       if (_date.isBefore(prayersCurrent[0].prayerTime)) {
         _previous = prayersPrevious[4].prayerTime;
@@ -133,11 +132,7 @@ class Utils {
     // JAMAAH
     bool _jamaahPending = false;
 
-    if (jamaahOn != null &&
-        prayersCurrent != null &&
-        prayersNext != null &&
-        prayersPrevious != null &&
-        jamaahOn) {
+    if (jamaahOn != null && jamaahOn) {
       if (jamaahPerPrayer == null) {
         jamaahPerPrayer = const [true, true, true, true, true, true];
       }

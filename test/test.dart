@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:date_format/date_format.dart';
 import 'package:prayer_timetable/prayer_timetable.dart';
-import 'package:prayer_timetable/src/PrayerTimetable.dart';
 import 'package:prayer_timetable/src/func/helpers.dart';
 import 'package:prayer_timetable/src/func/prayers.dart';
 
@@ -31,6 +30,7 @@ infoTest(time) {
   print('timeZone:\t${time.timeZone}');
   print('timeZone abr:\t${time.timeZone.abbreviation}');
   print('offset (ms):\t${time.timeZone.offset}');
+  print('isDSTCalc:\t${isDSTCalc(time)}');
   print('isDSTCalc:\t${isDSTCalc(time)}');
 
 // timeZone: ${lastMidnight.timeZone} or lastMidnight.location.name
@@ -153,6 +153,9 @@ jamaahTest(PrayerTimetable location,
     print('hijri:\t\t${location.utils.hijri}');
     print('midnight:\t${location.utils.midnight}');
     print('lastThird\t${location.utils.lastThird}');
+    print('timezone\t${location.timezone}');
+    print('useTz\t\t${location.useTz}');
+    print('utcOffsetHours\t${location.utils.utcOffsetHours}');
     // print(location.current);
   }
 }

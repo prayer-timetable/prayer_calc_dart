@@ -18,3 +18,14 @@ DateTime nowTZ(String timezone,
 
   return newTime;
 }
+
+int offsetHr(
+  DateTime date,
+  String timezone,
+) {
+  int offset = tz.TZDateTime.from(DateTime(date.year, 1, 1), tz.getLocation(timezone))
+      .timeZoneOffset
+      .inHours;
+
+  return offset;
+}
