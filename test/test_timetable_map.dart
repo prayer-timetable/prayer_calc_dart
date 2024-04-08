@@ -11,7 +11,9 @@ double lat = latI;
 double lng = lngI;
 
 DateTime now = tz.TZDateTime.now(tz.getLocation(timezone));
-DateTime setTime = tz.TZDateTime.from(DateTime(2024, 3, 30, 20, 45, 45), tz.getLocation(timezone));
+DateTime setTime =
+    tz.TZDateTime.from(DateTime(now.year, now.month, now.day, 22, 3, 57), tz.getLocation(timezone));
+// DateTime setTime = tz.TZDateTime.from(DateTime(2024, 3, 30, 20, 00, 55), tz.getLocation(timezone));
 DateTime testTime = setTime;
 
 PrayerTimetable map(DateTime testTime) => PrayerTimetable.map(
@@ -25,9 +27,11 @@ PrayerTimetable map(DateTime testTime) => PrayerTimetable.map(
       second: testTime.second,
 
       jamaahOn: true,
-      jamaahMethods: ['fixed', '', 'afterthis', 'afterthis', 'afterthis', 'afterthis'],
+      jamaahMethods: ['afterthis', '', 'afterthis', 'afterthis', 'afterthis', 'afterthis'],
+      // jamaahMethods: ['fixed', '', 'afterthis', 'afterthis', 'afterthis', 'afterthis'],
       jamaahOffsets: [
-        [6, 0],
+        // [5, 0],
+        [0, 15],
         [0, 0],
         [0, 15],
         [0, 15],
@@ -60,6 +64,6 @@ main() {
 
     // ignore: dead_code
   } else {
-    liveTest(location);
+    liveTest(location, show: true);
   }
 }

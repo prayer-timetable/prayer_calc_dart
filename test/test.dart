@@ -4,12 +4,7 @@ import 'package:date_format/date_format.dart';
 import 'package:prayer_timetable/prayer_timetable.dart';
 import 'package:prayer_timetable/src/PrayerTimetable.dart';
 import 'package:prayer_timetable/src/func/helpers.dart';
-
-String yellow = '\u001b[93m';
-String noColor = '\u001b[0m';
-String green = '\u001b[32m';
-// String red = '\u001b[31m';
-String gray = '\u001b[90m';
+import 'package:prayer_timetable/src/func/prayers.dart';
 
 // ICCI
 double latI = 53.3046593;
@@ -162,7 +157,7 @@ jamaahTest(PrayerTimetable location,
   }
 }
 
-liveTest(PrayerTimetable location) {
+liveTest(PrayerTimetable location, {bool show = true}) {
   DateTime time = location.utils.time;
   PrayerTimetable loc = location;
 
@@ -190,75 +185,73 @@ liveTest(PrayerTimetable location) {
       lng: loc.lng,
     );
 
+    // List<Prayer> prayers = loc.focus;
     List<Prayer> prayers = loc.utils.isAfterIsha ? loc.next : loc.current;
 
-    print('\x1B[2J\x1B[0;0H'); // clear entire screen, move cursor to 0;0
-    print('date:\t\t${formatDate(time, [yyyy, '-', mm, '-', dd])}');
-    print('hijri:\t\t${loc.utils.hijri[0]}-${loc.utils.hijri[1]}-${loc.utils.hijri[2]}');
-    print('time:\t\t${formatDate(time, [HH, ':', nn, ':', ss])}');
-    print('${gray}------------------------------------${noColor}');
-    print('${loc.utils.nextId == 0 ? green : ''}fajr:\t\t${formatDate(prayers[0].prayerTime, [
-          HH,
-          ':',
-          nn,
-          ':',
-          ss
-        ])}\t${formatDate(prayers[0].jamaahTime, [HH, ':', nn, ':', ss])}${noColor}');
-    print('${loc.utils.nextId == 1 ? green : ''}sunrise:\t${formatDate(prayers[1].prayerTime, [
-          HH,
-          ':',
-          nn,
-          ':',
-          ss
-        ])}\t${formatDate(prayers[1].jamaahTime, [HH, ':', nn, ':', ss])}${noColor}');
-    print('${loc.utils.nextId == 2 ? green : ''}dhuhr:\t\t${formatDate(prayers[2].prayerTime, [
-          HH,
-          ':',
-          nn,
-          ':',
-          ss
-        ])}\t${formatDate(prayers[2].jamaahTime, [HH, ':', nn, ':', ss])}$noColor');
-    print('${loc.utils.nextId == 3 ? green : ''}asr:\t\t${formatDate(prayers[3].prayerTime, [
-          HH,
-          ':',
-          nn,
-          ':',
-          ss
-        ])}\t${formatDate(prayers[3].jamaahTime, [HH, ':', nn, ':', ss])}${noColor}');
-    print('${loc.utils.nextId == 4 ? green : ''}maghrib:\t${formatDate(prayers[4].prayerTime, [
-          HH,
-          ':',
-          nn,
-          ':',
-          ss
-        ])}\t${formatDate(prayers[4].jamaahTime, [HH, ':', nn, ':', ss])}${noColor}');
-    print('${loc.utils.nextId == 5 ? green : ''}isha:\t\t${formatDate(prayers[5].prayerTime, [
-          HH,
-          ':',
-          nn,
-          ':',
-          ss
-        ])}\t${formatDate(prayers[5].jamaahTime, [HH, ':', nn, ':', ss])}${noColor}');
-    print('${gray}------------------------------------${noColor}');
-    print('${yellow}countDown:\t${printDuration(loc.utils.countDown)}${noColor}');
-    print('${yellow}countUp:\t${printDuration(loc.utils.countUp)}${noColor}');
-    print('${yellow}percentage:\t${loc.utils.percentage}${noColor}');
-    // print('${yellow}currentId:\t${loc.utils.currentId}${noColor}');
-    // print('${yellow}nextId:\t\t${loc.utils.nextId}${noColor}');
-    // print('${yellow}previousId:\t${loc.utils.previousId}${noColor}');
-    print('${yellow}isJamaahPend:\t${loc.utils.isJamaahPending}${noColor}');
-    print('${yellow}isAfterIsha:\t${loc.utils.isAfterIsha}${noColor}');
+    if (show) {
+      print('\x1B[2J\x1B[0;0H'); // clear entire screen, move cursor to 0;0
+      print('date:\t\t${formatDate(time, [yyyy, '-', mm, '-', dd])}');
+      print('hijri:\t\t${loc.utils.hijri[0]}-${loc.utils.hijri[1]}-${loc.utils.hijri[2]}');
+      print('time:\t\t${formatDate(time, [HH, ':', nn, ':', ss])}');
 
-    String isNext = '${yellow}isNext:\t\t';
-    for (var i = 0; i <= 5; i++) {
-      isNext = isNext + (prayers[i].isNext ? '${green}' : '${yellow}');
-      isNext = isNext + '${prayers[i].isNext}';
-      isNext = i != 5 ? isNext + '\t' : isNext;
+      print('${gray}------------------------------------${noColor}');
+      print('Prayers for:\t${formatDate(prayers.first.prayerTime, [yyyy, '-', mm, '-', dd])}');
+      print('${gray}------------------------------------${noColor}');
+
+      for (var i = 0; i <= 5; i++) {
+        print(
+            '${prayers[i].isNext ? green : ''}${prayerNames[i] + ':'.padRight(8)}\t${formatDate(prayers[i].prayerTime, [
+              HH,
+              ':',
+              nn,
+              ':',
+              ss
+            ])}\t${formatDate(prayers[i].jamaahTime, [HH, ':', nn, ':', ss])}${noColor}');
+      }
+
+      print('${gray}------------------------------------${noColor}');
+      print('${yellow}countDown:\t${printDuration(loc.utils.countDown)}${noColor}');
+      print('${yellow}countUp:\t${printDuration(loc.utils.countUp)}${noColor}');
+      print('${yellow}percentage:\t${loc.utils.percentage}${noColor}');
+      // print('${yellow}currentId:\t${loc.utils.currentId}${noColor}');
+      // print('${yellow}nextId:\t\t${loc.utils.nextId}${noColor}');
+      // print('${yellow}previousId:\t${loc.utils.previousId}${noColor}');
+      print('${yellow}isJamaahPend:\t${loc.utils.isJamaahPending}${noColor}');
+      print('${yellow}isAfterIsha:\t${loc.utils.isAfterIsha}${noColor}');
+
+      String isNextString = '${yellow}isNext:\t\t';
+      String isCurrentString = '${yellow}isCurrent:\t';
+
+      for (var i = 0; i <= 5; i++) {
+        isNextString = isNextString + (prayers[i].isNext ? '${green}' : '${yellow}');
+        isNextString = isNextString + '${prayers[i].isNext}';
+        isNextString = i != 5 ? isNextString + '\t' : isNextString;
+        isCurrentString = isCurrentString + (prayers[i].isCurrent ? '${green}' : '${yellow}');
+        isCurrentString = isCurrentString + '${prayers[i].isCurrent}';
+        isCurrentString = i != 5 ? isCurrentString + '\t' : isCurrentString;
+      }
+      isCurrentString = isCurrentString + '${noColor}';
+      print(isCurrentString);
+      isNextString = isNextString + '${noColor}';
+      print(isNextString);
+
+      // print(
+      // '${yellow}isNext:\t${prayers[0].isNext}\t${prayers[1].isNext}\t${prayers[2].isNext}\t${prayers[3].isNext}\t${prayers[4].isNext}\t${prayers[5].isNext}${noColor}');
+    } else {
+      print('${clear}');
+      print('isha adhan\t${prayers[5].prayerTime}');
+      print('isha jamaah\t${prayers[5].jamaahTime}');
+      print('-----');
+      print('time\t\t${time}');
+      print('-----');
+      print('fajr adhan\t${prayers[0].prayerTime}');
+      print('fajr jamaah\t${prayers[0].jamaahTime}');
+      print('-----');
+      print('isAfterIsha\t${loc.utils.isAfterIsha}');
+      print('${prayers[0].jamaahTime.isAfter(time)}');
+      print('fajr next?\t${prayers[0].isNext}');
+      print('isha next?\t${prayers[5].isNext}');
     }
-    isNext = isNext + '${noColor}';
-    print(isNext);
-    // print(
-    // '${yellow}isNext:\t${prayers[0].isNext}\t${prayers[1].isNext}\t${prayers[2].isNext}\t${prayers[3].isNext}\t${prayers[4].isNext}\t${prayers[5].isNext}${noColor}');
   });
 }
 

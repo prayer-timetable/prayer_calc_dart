@@ -156,9 +156,6 @@ class PrayerTimetable<T> {
     DateTime date = nowTZ(timezone,
         year: year, month: month, day: day, hour: hour, minute: minute, second: second);
 
-    /// ********************************************
-    /// Define prayer times
-    /// ********************************************
     // print('${this.year}, ${this.month}, ${this.day}');
     // print(DateTime(this.year ?? date.year, this.month ?? date.month, (this.day ?? date.day) + 1,
     //     this.hour ?? 3, this.minute ?? 0, this.second ?? 0));
@@ -166,6 +163,9 @@ class PrayerTimetable<T> {
     List<bool> _jamaahPerPrayer =
         !_jamaahOn ? defaultJamaahPerPrayerOff : this.jamaahPerPrayer ?? defaultJamaahPerPrayerOn;
 
+    /// ********************************************
+    /// Define prayer times
+    /// ********************************************
     this.current = prayersGen(
       DateTime(this.year ?? date.year, this.month ?? date.month, this.day ?? date.day,
           this.hour ?? 3, this.minute ?? 0, this.second ?? 0),
@@ -181,6 +181,7 @@ class PrayerTimetable<T> {
       jamaahOffsets: this.jamaahOffsets ?? defaultJamaahOffsets,
       jamaahPerPrayer: _jamaahPerPrayer,
     );
+
     this.next = prayersGen(
       DateTime(this.year ?? date.year, this.month ?? date.month, (this.day ?? date.day) + 1,
           this.hour ?? 3, this.minute ?? 0, this.second ?? 0),
@@ -238,6 +239,19 @@ class PrayerTimetable<T> {
     /// Prayers in focus
     /// ********************************************
     this.focus = this.utils.isAfterIsha ? this.next : this.current;
+    // to avoid next day isha adding few minutes and becoming next again
+    if (this.utils.isAfterIsha) {
+      this.focus.last.isNext = false;
+      this.focus.first.isNext = true;
+    }
+    // else {
+    //   for (Prayer prayer in this.focus) {
+    //     prayer.isNext = this.utils.nextId == prayer.id && !prayer.isJamaahPending;
+    //     prayer.isCurrent = this.utils.currentId == prayer.id;
+    //   }
+    // }
+
+    // this.next.first.is
 
     /// ********************************************
     /// Month calendars

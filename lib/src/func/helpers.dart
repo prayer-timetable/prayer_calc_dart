@@ -114,3 +114,10 @@ String printDurationAlt(Duration duration, {adjust = 0, round = false}) {
 String capitalise(String s) => s.isNotEmpty ? s[0].toUpperCase() + s.substring(1) : '';
 
 double roundDecimals(double value, int decimals) => double.parse(value.toStringAsFixed(decimals));
+
+String clear = '\x1B[2J\x1B[0;0H';
+String yellow = '\u001b[93m';
+String noColor = '\u001b[0m';
+String green = '\u001b[32m';
+String red = '\u001b[31m';
+String gray = '\u001b[90m';

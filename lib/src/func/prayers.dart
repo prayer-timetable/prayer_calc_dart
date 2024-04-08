@@ -24,6 +24,8 @@ List<Prayer> prayersGen(
   required bool joinDhuhr, // = false,
   required bool joinMaghrib, // = false,
   required List<bool> jamaahPerPrayer, // = defaultJamaahPerPrayerOff,
+  bool isAfterIsha = false,
+  // DateTime? ishaTime,
 }) {
   /* *********************** */
   /* TIMES                   */
@@ -35,6 +37,13 @@ List<Prayer> prayersGen(
   // print('date: $date');
   DateTime timestamp =
       tz.TZDateTime.from(date.add(Duration(days: hijriOffset)), tz.getLocation(timezone));
+
+  DateTime dayBegin = tz.TZDateTime.from(
+      DateTime(date.year, date.month, date.day).add(Duration(days: hijriOffset)),
+      tz.getLocation(timezone));
+  DateTime dayEnd = tz.TZDateTime.from(
+      DateTime(date.year, date.month, date.day + 1).add(Duration(days: hijriOffset)),
+      tz.getLocation(timezone));
 
   // DateTime timestamp = date ?? DateTime.now();
   // TODO:
@@ -55,9 +64,21 @@ List<Prayer> prayersGen(
   prayerCount.forEach((prayerId) {
     Prayer prayer = Prayer();
     DateTime prayerTime = DateTime.now();
+    DateTime prayerEndTime = DateTime.now();
+    DateTime ishaPrayerTime = DateTime.now();
+    DateTime ishaJamaahTime = DateTime.now();
 
     ///map
     if (timetableMap != null) {
+      ishaPrayerTime = tz.TZDateTime(
+        tz.getLocation(timezone),
+        timestamp.year,
+        timestamp.month,
+        timestamp.day,
+        timetableMap[timestamp.month.toString()][timestamp.day.toString()][5][0],
+        timetableMap[timestamp.month.toString()][timestamp.day.toString()][5][1],
+      ).add(Duration(hours: adjDst));
+
       prayerTime = tz.TZDateTime(
         tz.getLocation(timezone),
         timestamp.year,
@@ -66,48 +87,89 @@ List<Prayer> prayersGen(
         timetableMap[timestamp.month.toString()][timestamp.day.toString()][prayerId][0],
         timetableMap[timestamp.month.toString()][timestamp.day.toString()][prayerId][1],
       ).add(Duration(hours: adjDst));
+
+      prayerEndTime = prayerId == 5
+          ? dayEnd
+          : tz.TZDateTime(
+              tz.getLocation(timezone),
+              timestamp.year,
+              timestamp.month,
+              timestamp.day,
+              timetableMap[timestamp.month.toString()][timestamp.day.toString()][prayerId + 1][0],
+              timetableMap[timestamp.month.toString()][timestamp.day.toString()][prayerId + 1][1],
+            ).add(Duration(hours: adjDst));
     }
 
     ///list
     else if (timetableList != null) {
-      DateTime lastMidnight =
-          tz.TZDateTime.from(DateTime(date.year, date.month, date.day), tz.getLocation(timezone));
-      prayerTime = lastMidnight
+      ishaPrayerTime = dayBegin
+          .add(Duration(seconds: timetableList[timestamp.month - 1][timestamp.day - 1][5]))
+          .add(Duration(hours: adjDst));
+
+      prayerTime = dayBegin
           .add(Duration(seconds: timetableList[timestamp.month - 1][timestamp.day - 1][prayerId]))
           .add(Duration(hours: adjDst));
+
+      prayerEndTime = prayerId == 5
+          ? dayEnd
+          : dayBegin
+              .add(Duration(
+                  seconds: timetableList[timestamp.month - 1][timestamp.day - 1][prayerId]))
+              .add(Duration(hours: adjDst));
     }
 
     ///calc
     else if (timetableCalc != null) {
-      if (prayerId == 0)
-        prayerTime = tz.TZDateTime.from(timetableCalc.prayerTimes!.fajr!, tz.getLocation(timezone));
-      else if (prayerId == 1)
-        prayerTime =
-            tz.TZDateTime.from(timetableCalc.prayerTimes!.sunrise!, tz.getLocation(timezone));
-      else if (prayerId == 2)
-        prayerTime =
-            tz.TZDateTime.from(timetableCalc.prayerTimes!.dhuhr!, tz.getLocation(timezone));
-      else if (prayerId == 3)
-        prayerTime = tz.TZDateTime.from(timetableCalc.prayerTimes!.asr!, tz.getLocation(timezone));
-      else if (prayerId == 4)
-        prayerTime =
-            tz.TZDateTime.from(timetableCalc.prayerTimes!.maghrib!, tz.getLocation(timezone));
-      else if (prayerId == 5)
-        prayerTime = tz.TZDateTime.from(timetableCalc.prayerTimes!.isha!, tz.getLocation(timezone));
+      DateTime fajrTime =
+          tz.TZDateTime.from(timetableCalc.prayerTimes!.fajr!, tz.getLocation(timezone));
+      DateTime sunriseTime =
+          tz.TZDateTime.from(timetableCalc.prayerTimes!.sunrise!, tz.getLocation(timezone));
+      DateTime dhuhrTime =
+          tz.TZDateTime.from(timetableCalc.prayerTimes!.dhuhr!, tz.getLocation(timezone));
+      DateTime asrTime =
+          tz.TZDateTime.from(timetableCalc.prayerTimes!.asr!, tz.getLocation(timezone));
+      DateTime maghribTime =
+          tz.TZDateTime.from(timetableCalc.prayerTimes!.maghrib!, tz.getLocation(timezone));
+      DateTime ishaTime =
+          tz.TZDateTime.from(timetableCalc.prayerTimes!.isha!, tz.getLocation(timezone));
+
+      ishaPrayerTime = ishaTime;
+
+      if (prayerId == 0) {
+        prayerTime = fajrTime;
+        prayerEndTime = sunriseTime;
+      } else if (prayerId == 1) {
+        prayerTime = sunriseTime;
+        prayerEndTime = dhuhrTime;
+      } else if (prayerId == 2) {
+        prayerTime = dhuhrTime;
+        prayerEndTime = asrTime;
+      } else if (prayerId == 3) {
+        prayerTime = asrTime;
+        prayerEndTime = maghribTime;
+      } else if (prayerId == 4) {
+        prayerTime = maghribTime;
+        prayerEndTime = ishaTime;
+      } else if (prayerId == 5) {
+        prayerTime = ishaTime;
+        prayerEndTime = dayEnd;
+      }
     }
 
     /// define
     prayer.id = prayerId;
     prayer.name = prayerNames[prayerId];
     prayer.prayerTime = prayerTime;
+    prayer.endTime = prayerEndTime;
 
     ///jamaah
     int jamaahOffsetMin = 0;
     prayer.jamaahTime = prayerTime;
     jamaahOffsetMin = jamaahOffsets[prayerId][0] * 60 + jamaahOffsets[prayerId][1];
-    //if jamaah not enableed for the prayer
-    if (!jamaahPerPrayer[prayerId])
+    //if jamaah not enabled for the prayer
+    if (!jamaahPerPrayer[prayerId]) {
       prayer.jamaahTime = prayerTime;
+    }
     //if afterthis
     else if (jamaahMethods[prayerId] == 'afterthis') {
       prayer.jamaahTime = prayerTime.add(Duration(minutes: jamaahOffsetMin));
@@ -124,17 +186,46 @@ List<Prayer> prayersGen(
       prayer.jamaahTime = prayerTime;
     }
 
+    /// ISHA
+    int jamaahIshaOffsetMin = jamaahOffsets[5][0] * 60 + jamaahOffsets[5][1];
+    //if jamaah not enabled for the prayer
+    if (!jamaahPerPrayer[5]) {
+      ishaJamaahTime = ishaPrayerTime;
+    }
+    //if afterthis
+    else if (jamaahMethods[5] == 'afterthis') {
+      ishaJamaahTime = ishaPrayerTime.add(Duration(minutes: jamaahIshaOffsetMin));
+    }
+    //if fixed
+    else if (jamaahMethods[5] == 'fixed') {
+      ishaJamaahTime = tz.TZDateTime.from(
+          DateTime(prayerTime.year, prayerTime.month, prayerTime.day, jamaahOffsets[5][0],
+              jamaahOffsets[5][1]),
+          tz.getLocation(timezone));
+    }
+    //all else
+    else {
+      ishaJamaahTime = ishaPrayerTime;
+    }
+
     ///validate if jammah time is before prayer time
     if (prayer.jamaahTime.isBefore(prayer.prayerTime)) prayer.prayerTime = prayer.jamaahTime;
+    if (ishaJamaahTime.isBefore(ishaPrayerTime)) ishaJamaahTime = ishaPrayerTime;
 
     ///prayer joining
-    if (joinMaghrib && prayerId == 5) {
-      prayer.prayerTime = prayers[4].prayerTime;
-      prayer.jamaahTime = prayers[4].jamaahTime;
+    if (joinMaghrib) {
+      ishaPrayerTime = prayers[4].prayerTime;
+      ishaJamaahTime = prayers[4].jamaahTime;
+      if (prayerId == 5) {
+        prayer.prayerTime = prayers[4].prayerTime;
+        prayer.jamaahTime = prayers[4].jamaahTime;
+      }
     }
-    if (joinDhuhr && prayerId == 3) {
-      prayer.prayerTime = prayers[2].prayerTime;
-      prayer.jamaahTime = prayers[2].jamaahTime;
+    if (joinDhuhr) {
+      if (prayerId == 3) {
+        prayer.prayerTime = prayers[2].prayerTime;
+        prayer.jamaahTime = prayers[2].jamaahTime;
+      }
     }
 
     /// define
@@ -143,17 +234,54 @@ List<Prayer> prayersGen(
           timestamp.isAfter(prayer.prayerTime) && timestamp.isBefore(prayer.jamaahTime);
 
     /// is next
-    int previousId = prayerId - 1;
-    if (previousId < 0) previousId = 0;
-    if (prayerId == 5) {
-      prayer.isNext = prayer.isJamaahPending;
-    } else if (prayerId == 0) {
-      prayer.isNext =
-          prayer.isAfterIsha || prayer.isJamaahPending || prayer.prayerTime.isAfter(timestamp);
-    } else {
-      prayer.isNext = (prayer.jamaahTime.isAfter(timestamp) &&
-          prayers[previousId].jamaahTime.isBefore(timestamp));
+    prayer.isNext = false;
+    // int previousId = prayerId - 1;
+    // if (previousId < 0) previousId = 5;
+    // if (prayerId == 5) {
+    //   prayer.isNext = prayer.isJamaahPending;
+    // } else if (prayerId == 0) {
+    //   // prayer.isNext = prayer.isJamaahPending || prayer.prayerTime.isAfter(timestamp);
+    //   prayer.isNext = timestamp.isAfter(ishaJamaahTime) ||
+    //       timestamp.isAfter(dayBegin) ||
+    //       prayer.isJamaahPending;
+
+    //   // print('${clear}$mode');
+    //   // print('${yellow}ishaPrayerTime\t${noColor}$ishaPrayerTime');
+    //   // print('${yellow}ishaJamaahTime\t${noColor}$ishaJamaahTime');
+    //   // print('${yellow}timestamp\t${noColor}$timestamp');
+    //   // print(
+    //   //     '${yellow}id${noColor} ${prayerId} ${yellow}isNext${noColor} ${prayer.isNext} ${yellow}jamaah${noColor} ${prayer.jamaahTime} ${yellow}isha jamaah${noColor} ${ishaJamaahTime} ${yellow}time${noColor} ${timestamp}');
+    // } else {
+    //   prayer.isNext = prayer.isJamaahPending ||
+    //       (prayer.jamaahTime.isAfter(timestamp) &&
+    //           prayers[previousId].jamaahTime.isBefore(timestamp));
+    // }
+
+    /// isCurrent
+    if (prayerId == 5 &&
+        timestamp.isAfter(dayBegin) &&
+        (timestamp.isBefore(prayers[0].prayerTime) ||
+            timestamp.isAtSameMomentAs(prayers[0].prayerTime))) {
+      prayer.isCurrent = true;
     }
+    if ((timestamp.isAfter(prayerTime) && timestamp.isBefore(prayerEndTime)) ||
+        prayer.isJamaahPending ||
+        timestamp.isAtSameMomentAs(prayerEndTime)) {
+      prayer.isCurrent = true;
+    }
+
+    /// isNext
+    // if (prayerId == 0 && timestamp.isAfter(dayBegin) && timestamp.isBefore(prayer.prayerTime)) {
+    //   prayer.isNext = true;
+    // }
+    // if (prayerId == 5) prayers[0].isNext = timestamp.isAfter(prayerTime) && !prayer.isJamaahPending;
+    // if (prayerId != 0)
+    //   prayer.isNext =
+    //       timestamp.isBefore(prayerTime) && timestamp.isAfter(prayers[prayerId - 1].jamaahTime);
+
+    //  else if (prayerId == 5) prayers[5].isCurrent = true;
+
+    // prayer.isNext = timestamp.isAfter(prayerTime) && timestamp.isBefore(prayerEndTime);
 
     // prayerTimes = [...prayerTimes, prayerTime];
     prayers.insert(
@@ -161,6 +289,14 @@ List<Prayer> prayersGen(
       prayer,
     );
   });
+
+  /// isNext
+  for (Prayer prayer in prayers) {
+    int nextId = prayer.id != 5 ? prayer.id + 1 : 0;
+
+    if ((prayer.isCurrent && !prayer.isJamaahPending) || prayers[nextId].isJamaahPending)
+      prayers[nextId].isNext = true;
+  }
 
   /// Determine current, next, previous
   // for (final (int index, Prayer prayer) in prayers.indexed) {
