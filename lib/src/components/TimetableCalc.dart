@@ -1,5 +1,4 @@
 import 'package:adhan_dart/adhan_dart.dart' as adhan;
-import 'package:timezone/timezone.dart' as tz;
 
 class TimetableCalc {
   TimetableCalc({

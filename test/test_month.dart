@@ -4,6 +4,7 @@ import 'package:prayer_timetable/src/func/helpers.dart';
 import 'package:prayer_timetable/src/func/monthGen.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+// ignore: unused_import
 import 'src/timetable_list_sarajevo.dart';
 // ignore: unused_import
 import 'src/timetable_map_dublin.dart';

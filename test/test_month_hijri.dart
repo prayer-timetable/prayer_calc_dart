@@ -1,17 +1,14 @@
-import 'package:adhan_dart/adhan_dart.dart' as adhan;
 import 'package:date_format/date_format.dart';
 import 'package:prayer_timetable/prayer_timetable.dart';
 import 'package:prayer_timetable/src/func/helpers.dart';
 import 'package:prayer_timetable/src/func/monthHijriGen.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-import 'src/timetable_list_sarajevo.dart';
 // ignore: unused_import
 import 'src/timetable_map_dublin.dart';
 // ignore: unused_import
 import 'src/timetable_map_dublin_leap.dart';
 import 'test.dart';
-import 'test_timetable_calc.dart';
 
 String timezone = timezoneI;
 double lat = latI;

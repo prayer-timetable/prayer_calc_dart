@@ -4,7 +4,6 @@ import 'dart:core';
 
 // import 'package:adhan_dart/adhan_dart.dart';
 import 'package:prayer_timetable/prayer_timetable.dart';
-import 'package:prayer_timetable/src/components/TimetableCalc.dart';
 import 'package:prayer_timetable/src/func/monthGen.dart';
 import 'package:prayer_timetable/src/func/monthHijriGen.dart';
 import 'package:prayer_timetable/src/func/prayers.dart';

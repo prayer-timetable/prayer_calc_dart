@@ -2,7 +2,6 @@ import 'package:adhan_dart/adhan_dart.dart' as adhan;
 import 'package:hijri/hijri_calendar.dart';
 import 'package:prayer_timetable/src/components/Prayer.dart';
 import 'package:prayer_timetable/src/func/helpers.dart';
-import 'package:prayer_timetable/src/func/tzTime.dart';
 
 // import 'package:adhan_dart/adhan_dart.dart';
 
