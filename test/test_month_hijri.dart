@@ -1,3 +1,4 @@
+import 'package:adhan_dart/adhan_dart.dart' as adhan;
 import 'package:date_format/date_format.dart';
 import 'package:prayer_timetable/prayer_timetable.dart';
 import 'package:prayer_timetable/src/func/monthHijriGen.dart';
@@ -8,29 +9,43 @@ import 'src/timetable_list_sarajevo.dart';
 import 'src/timetable_map_dublin.dart';
 // ignore: unused_import
 import 'src/timetable_map_dublin_leap.dart';
+import 'test.dart';
+import 'test_timetable_calc.dart';
 
-String yellow = '\u001b[93m';
-String noColor = '\u001b[0m';
-String green = '\u001b[32m';
-// String red = '\u001b[31m';
-String gray = '\u001b[90m';
+String timezone = timezoneI;
+double lat = latI;
+double lng = lngI;
+
+DateTime testTime = tz.TZDateTime(tz.getLocation(timezone), 2024, 3, 15, 13, 59, 55);
+
+// params.madhab = Madhab.Hanafi;
+// params.adjustments.fajr = 2;
+
+TimetableCalc calc = TimetableCalc(
+  date: testTime,
+  timezone: timezone,
+  lat: lat,
+  lng: lng,
+  precision: true,
+  fajrAngle: 14.6,
+);
+
+List<List<Prayer>> list = monthHijriGen(
+  testTime,
+  calc: calc,
+  // timetable: testTime.year % 4 == 0 ? dublinLeap : dublin,
+  // list: base,
+  hijriOffset: 0,
+  timezone: timezone,
+);
 
 main() {
   tz.initializeTimeZones();
 
-  DateTime testTime = tz.TZDateTime(tz.getLocation('Europe/Sarajevo'), 2024, 3, 15, 13, 59, 55);
-
-  List<List<Prayer>> list = monthHijriGen(
-    testTime,
-    // timetable: testTime.year % 4 == 0 ? dublinLeap : dublin,
-    list: base,
-    hijriOffset: 0,
-    timezone: 'Europe/Sarajevo',
-  );
   // print(list);
   // print('done');
 
-  print(testTime);
+  // print(testTime);
 
   print('----------------------------------------------------------------------');
   print('Date        Fajr      Sunrise   Dhuhr     Asr       Maghrib   Isha');

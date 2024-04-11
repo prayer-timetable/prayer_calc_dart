@@ -6,16 +6,20 @@ import 'src/timetable_list_sarajevo.dart';
 // ignore: unused_import
 import 'test.dart';
 
-String timezone = timezoneI;
+String timezone = timezoneS;
 
 DateTime now = tz.TZDateTime.now(tz.getLocation(timezone));
-DateTime setTime = tz.TZDateTime.from(DateTime(2024, 3, 31, 14, 32, 45), tz.getLocation(timezone));
+// DateTime setTime = tz.TZDateTime.from(DateTime(2024, 3, 31, 14, 32, 45), tz.getLocation(timezone));
+DateTime setTime = DateTime(2024, 3, 31, 14, 32, 45);
 DateTime testTime = setTime;
 
 PrayerTimetable list(DateTime testTime) => PrayerTimetable.list(
       year: testTime.year,
       month: testTime.month,
       day: testTime.day,
+      hour: testTime.hour,
+      minute: testTime.minute,
+      second: testTime.second,
       timetableList: base,
       jamaahOn: true,
       // jamaahMethods: ['fixed', '', 'afterthis', 'afterthis', 'afterthis', 'afterthis'],
@@ -31,7 +35,7 @@ PrayerTimetable list(DateTime testTime) => PrayerTimetable.list(
       ],
       // jamaahPerPrayer: [false, false, true, true, false, false],
       timezone: timezone,
-      useTz: false,
+      // useTz: false,
     );
 
 PrayerTimetable location = list(testTime);
@@ -41,14 +45,14 @@ main() {
   print('\x1B[2J\x1B[0;0H'); // clear entire screen, move cursor to 0;0
   bool live = false;
 
-  infoTest(testTime);
+  // infoTest(testTime);
 
   if (!live) {
-    jamaahTest(location, utils: true);
+    jamaahTest(location,
+        utils: false, jamaah: false, prayer: true, tomorrow: true, yesterday: true);
 
     // ignore: dead_code
   } else {
     liveTest(location);
   }
-  ;
 }

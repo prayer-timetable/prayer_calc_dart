@@ -31,7 +31,6 @@ infoTest(time) {
   print('timeZone abr:\t${time.timeZone.abbreviation}');
   print('offset (ms):\t${time.timeZone.offset}');
   print('isDSTCalc:\t${isDSTCalc(time)}');
-  print('isDSTCalc:\t${isDSTCalc(time)}');
 
 // timeZone: ${lastMidnight.timeZone} or lastMidnight.location.name
 // time: ${lastMidnight.toIso8601String()}
@@ -76,8 +75,13 @@ timetableTest(PrayerTimetable location) {
 }
 
 jamaahTest(PrayerTimetable location,
-    {bool prayer = true, bool jamaah = false, bool utils = false}) {
-  if (prayer) {
+    {bool prayer = true,
+    bool jamaah = false,
+    bool utils = false,
+    bool today = true,
+    bool yesterday = true,
+    bool tomorrow = true}) {
+  if (prayer && today) {
     print('${yellow}****************** Today *******************${noColor}');
     print('fajr:\t\t${location.current[0].prayerTime}');
     print('sunrise:\t${location.current[1].prayerTime}');
@@ -87,7 +91,7 @@ jamaahTest(PrayerTimetable location,
     print('isha:\t\t${location.current[5].prayerTime}');
   }
 
-  if (jamaah) {
+  if (jamaah && today) {
     print('${gray}************** Today Jamaah ****************${noColor}');
     print('fajr:\t\t${location.current[0].jamaahTime}');
     print('sunrise:\t${location.current[1].jamaahTime}');
@@ -97,7 +101,7 @@ jamaahTest(PrayerTimetable location,
     print('isha:\t\t${location.current[5].jamaahTime}');
   }
 
-  if (prayer) {
+  if (prayer && tomorrow) {
     print('${yellow}***************** Tomorrow *****************${noColor}');
     print('fajr:\t\t${location.next[0].prayerTime}');
     print('sunrise:\t${location.next[1].prayerTime}');
@@ -107,7 +111,7 @@ jamaahTest(PrayerTimetable location,
     print('isha:\t\t${location.next[5].prayerTime}');
   }
 
-  if (jamaah) {
+  if (jamaah && tomorrow) {
     print('${gray}************* Tomorrow Jamaah **************${noColor}');
     print('fajr:\t\t${location.next[0].jamaahTime}');
     print('sunrise:\t${location.next[1].jamaahTime}');
@@ -117,7 +121,7 @@ jamaahTest(PrayerTimetable location,
     print('isha:\t\t${location.next[5].jamaahTime}');
   }
 
-  if (prayer) {
+  if (prayer && yesterday) {
     print('${yellow}***************** Yesterday ****************${noColor}');
     print('fajr:\t\t${location.previous[0].prayerTime}');
     print('sunrise:\t${location.previous[1].prayerTime}');
@@ -127,7 +131,7 @@ jamaahTest(PrayerTimetable location,
     print('isha:\t\t${location.previous[5].prayerTime}');
   }
 
-  if (jamaah) {
+  if (jamaah && yesterday) {
     print('${gray}************* Yesterday Jamaah *************${noColor}');
     print('fajr:\t\t${location.previous[0].jamaahTime}');
     print('sunrise:\t${location.previous[1].jamaahTime}');
@@ -144,7 +148,7 @@ jamaahTest(PrayerTimetable location,
     print('next:\t\t${location.utils.next}');
     print('previous:\t${location.utils.previous}');
     print('isAfterIsha:\t${location.utils.isAfterIsha}');
-    print('isJamaahPending:\t${location.utils.isJamaahPending}');
+    print('isJamaahPend:\t${location.utils.isJamaahPending}');
     print('currentId:\t${location.utils.currentId}');
     print('countDown:\t${location.utils.countDown}');
     print('countUp:\t${location.utils.countUp}');

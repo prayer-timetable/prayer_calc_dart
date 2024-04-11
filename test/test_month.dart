@@ -14,8 +14,6 @@ import 'test.dart';
 main() {
   tz.initializeTimeZones();
   String timezone = timezoneS;
-  double lat = latI;
-  double lng = lngI;
 
   // DateTime now = tz.TZDateTime.now(tz.getLocation(timezone));
 // DateTime setTime =

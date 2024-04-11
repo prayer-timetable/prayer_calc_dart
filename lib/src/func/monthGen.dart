@@ -48,7 +48,7 @@ List<List<Prayer>> monthGen(
       joinDhuhr: joinDhuhr,
       joinMaghrib: joinMaghrib,
       jamaahPerPrayer: jamaahPerPrayer,
-      useTz: useTz,
+      // useTz: useTz,
     );
   });
 

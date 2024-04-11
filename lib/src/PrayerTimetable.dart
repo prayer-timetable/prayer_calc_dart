@@ -178,7 +178,7 @@ class PrayerTimetable<T> {
       timetableList: timetableList,
       timetableCalc: timetableCalc,
       timezone: this.timezone,
-      useTz: this.useTz,
+      // useTz: this.useTz,
       hijriOffset: this.hijriOffset ?? 0,
       joinMaghrib: this.joinMaghrib ?? false,
       joinDhuhr: this.joinDhuhr ?? false,
@@ -195,7 +195,7 @@ class PrayerTimetable<T> {
       timetableList: timetableList,
       timetableCalc: timetableCalc,
       timezone: this.timezone,
-      useTz: this.useTz,
+      // useTz: this.useTz,
       hijriOffset: this.hijriOffset ?? 0,
       joinMaghrib: this.joinMaghrib ?? false,
       joinDhuhr: this.joinDhuhr ?? false,
@@ -211,7 +211,7 @@ class PrayerTimetable<T> {
       timetableList: timetableList,
       timetableCalc: timetableCalc,
       timezone: this.timezone,
-      useTz: this.useTz,
+      // useTz: this.useTz,
       hijriOffset: this.hijriOffset ?? 0,
       joinMaghrib: this.joinMaghrib ?? false,
       joinDhuhr: this.joinDhuhr ?? false,
@@ -230,16 +230,8 @@ class PrayerTimetable<T> {
       prayersNext: this.next,
       prayersPrevious: this.previous,
       jamaahOn: this.jamaahOn,
-      lat: this.lat != null
-          ? lat
-          : timetableCalc != null
-              ? timetableCalc!.coordinates!.latitude
-              : 0,
-      lng: this.lng != null
-          ? lng
-          : timetableCalc != null
-              ? timetableCalc!.coordinates!.longitude
-              : 0,
+      lat: this.lat != null ? lat : 0,
+      lng: this.lng != null ? lng : 0,
       jamaahPerPrayer: this.jamaahPerPrayer,
     );
 

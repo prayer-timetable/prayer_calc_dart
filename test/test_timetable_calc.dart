@@ -14,12 +14,12 @@ DateTime testTime = setTime;
 
 TimetableCalc timetableCalc = TimetableCalc(
   // testTime,
-  testTime,
+  date: testTime,
   timezone: timezone,
   lat: latI,
-  long: lngI,
-  madhab: 'shafi',
+  lng: lngI,
   precision: true,
+  fajrAngle: 14.6,
 );
 
 PrayerTimetable calc(DateTime testTime) => PrayerTimetable.calc(

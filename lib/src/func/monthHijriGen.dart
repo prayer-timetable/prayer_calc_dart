@@ -1,4 +1,5 @@
 import 'package:prayer_timetable/prayer_timetable.dart';
+import 'package:prayer_timetable/src/components/TimetableCalc.dart';
 import 'package:prayer_timetable/src/func/prayers.dart';
 // import 'timetable_map.dart';
 // import 'package:timezone/data/latest.dart' as tz;
@@ -12,6 +13,7 @@ List<List<Prayer>> monthHijriGen(
   DateTime time, {
   Map<dynamic, dynamic>? timetable,
   List? list,
+  TimetableCalc? calc,
   int hijriOffset = 0,
   required String timezone,
   bool jamaahOn = false,
@@ -20,7 +22,7 @@ List<List<Prayer>> monthHijriGen(
   bool joinDhuhr = false,
   bool joinMaghrib = false,
   List<bool> jamaahPerPrayer = defaultJamaahPerPrayerOff,
-  bool useTz = false,
+  // bool useTz = false,
 }) {
   /// Date
   DateTime date = tz.TZDateTime.from(
@@ -50,6 +52,8 @@ List<List<Prayer>> monthHijriGen(
       startDate.add(Duration(days: index)),
       timetableMap: timetable,
       timetableList: list,
+      timetableCalc:
+          calc != null ? calc.copyWith(date: startDate.add(Duration(days: index))) : null,
       timezone: timezone,
       hijriOffset: hijriOffset,
       jamaahOn: jamaahOn,
@@ -58,7 +62,7 @@ List<List<Prayer>> monthHijriGen(
       joinDhuhr: joinDhuhr,
       joinMaghrib: joinMaghrib,
       jamaahPerPrayer: jamaahPerPrayer,
-      useTz: useTz,
+      // useTz: useTz,
     );
   });
 

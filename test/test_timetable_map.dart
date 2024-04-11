@@ -6,14 +6,17 @@ import 'src/timetable_map_dublin_leap.dart';
 // ignore: unused_import
 import 'test.dart';
 
-String timezone = timezoneI;
+// String timezone = 'Europe/Sarajevo';
+// String timezone = 'Europe/Amsterdam';
+String timezone = 'Europe/Dublin'; // glitch for dst detection
+// String timezone = 'Europe/London';
 double lat = latI;
 double lng = lngI;
 
 DateTime now = tz.TZDateTime.now(tz.getLocation(timezone));
 // DateTime setTime =
 //     tz.TZDateTime.from(DateTime(now.year, now.month, now.day, 22, 3, 57), tz.getLocation(timezone));
-DateTime setTime = tz.TZDateTime.from(DateTime(2024, 3, 11, 10, 00, 55), tz.getLocation(timezone));
+DateTime setTime = tz.TZDateTime.from(DateTime(2024, 3, 30, 10, 00, 55), tz.getLocation(timezone));
 DateTime testTime = setTime;
 
 PrayerTimetable map(DateTime testTime) => PrayerTimetable.map(
@@ -54,13 +57,13 @@ PrayerTimetable location = map(testTime);
 main() {
   tz.initializeTimeZones();
   print('\x1B[2J\x1B[0;0H'); // clear entire screen, move cursor to 0;0
-  bool live = true;
+  bool live = false;
 
   // infoTest(testTime);
   // print(location.day);
   // ignore: dead_code
   if (!live) {
-    jamaahTest(location, prayer: true, jamaah: true, utils: true);
+    jamaahTest(location, prayer: true, jamaah: false, utils: true);
 
     // ignore: dead_code
   } else {

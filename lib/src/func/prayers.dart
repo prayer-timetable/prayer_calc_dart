@@ -1,6 +1,5 @@
 import 'package:prayer_timetable/prayer_timetable.dart';
-import 'package:prayer_timetable/src/components/Prayer.dart';
-import 'package:prayer_timetable/src/components/TimetableCalc.dart';
+
 import 'package:prayer_timetable/src/func/helpers.dart';
 
 // import 'package:timezone/data/latest.dart' as tz;
@@ -26,7 +25,7 @@ List<Prayer> prayersGen(
   required List<bool> jamaahPerPrayer, // = defaultJamaahPerPrayerOff,
   // bool isAfterIsha = false,
   // DateTime? ishaTime,
-  useTz = true,
+  // useTz = true,
 }) {
   /* *********************** */
   /* TIMES                   */
@@ -35,12 +34,13 @@ List<Prayer> prayersGen(
   // print('###');
   // print(date);
 
-  tz.Location tzGet = useTz ? tz.getLocation(timezone) : tz.UTC;
+  // tz.Location tzGet = useTz ? tz.getLocation(timezone) : tz.UTC;
+  tz.Location tzGet = tz.getLocation(timezone);
 
   // get offset without dst
-  int utcOffsetHours = tz.TZDateTime.from(DateTime(date.year, 1, 1), tz.getLocation(timezone))
-      .timeZoneOffset
-      .inHours;
+  // int utcOffsetHours = tz.TZDateTime.from(DateTime(date.year, 1, 1), tz.getLocation(timezone))
+  //     .timeZoneOffset
+  //     .inHours;
 
   // print(utcOffsetHours);
   // tz.Location tzGet = tz.getLocation(timezone);
@@ -48,26 +48,33 @@ List<Prayer> prayersGen(
   // print('date: $date');
   tz.TZDateTime timestamp = tz.TZDateTime.from(date.add(Duration(days: hijriOffset)), tzGet);
 
-  tz.TZDateTime dayBegin = tz.TZDateTime.from(
-      DateTime(date.year, date.month, date.day).add(Duration(days: hijriOffset)), tzGet);
-  tz.TZDateTime dayEnd = tz.TZDateTime.from(
-      DateTime(date.year, date.month, date.day + 1).add(Duration(days: hijriOffset)), tzGet);
+  /// For list
+  DateTime dayBegin = tz.TZDateTime(tzGet, timestamp.year, timestamp.month, timestamp.day)
+      .add(Duration(days: hijriOffset));
+  DateTime dayEnd = tz.TZDateTime(tzGet, timestamp.year, timestamp.month, timestamp.day + 1)
+      .add(Duration(days: hijriOffset));
 
   // DateTime timestamp = date ?? DateTime.now();
   // TODO:
   // int adjDst = isDSTCalc(timestamp) && useTz ? 1 : 0;
-  int adjDst = isDSTCalc(timestamp) ? 1 : 0;
+  // int adjDst = isDSTCalc(timestamp) ? 1 : 0;
+  int adjDst = timestamp.timeZone.isDst ? 1 : 0;
+
+  // TODO: glitch in tz package
+  if (timezone == 'Europe/Dublin') adjDst = isDSTCalc(timestamp) ? 1 : 0;
+
+  // print('kk ${timetableCalc!.timezone}');
 
   /// timestamp.timeZone.offset : int, miliseconds
   /// timestamp.timeZoneOffset: Duration
 
-  if (!useTz) {
-    // tz.TZDateTime newTime =
-    //     tz.TZDateTime.from(date.add(Duration(days: hijriOffset)), tz.getLocation(timezone));
-    // print('${newTime.timeZoneOffset.inHours} ${newTime.toLocal()} ');
+  // if (!useTz) {
+  //   // tz.TZDateTime newTime =
+  //   //     tz.TZDateTime.from(date.add(Duration(days: hijriOffset)), tz.getLocation(timezone));
+  //   // print('${newTime.timeZoneOffset.inHours} ${newTime.toLocal()} ');
 
-    adjDst = -utcOffsetHours;
-  }
+  //   adjDst = -utcOffsetHours;
+  // }
 
   // int adjDst = tzGet.currentTimeZone.isDst ? 1 : 0;
   // print(tzGet.currentTimeZone.isDst);
@@ -91,6 +98,9 @@ List<Prayer> prayersGen(
 
     ///map
     if (timetableMap != null) {
+      // print(
+      //     'timestamp ${timestamp} | dayEnd ${dayEnd} | adjDst ${adjDst} | isDst ${timestamp.timeZone.isDst}');
+
       ishaPrayerTime = tz.TZDateTime(
         tzGet,
         timestamp.year,
@@ -123,35 +133,37 @@ List<Prayer> prayersGen(
 
     ///list
     else if (timetableList != null) {
-      ishaPrayerTime = dayBegin
-          .add(Duration(
-              hours: adjDst, seconds: timetableList[timestamp.month - 1][timestamp.day - 1][5]))
-          .toLocal();
+      // print(
+      // 'dayBegin ${dayBegin} | dayEnd ${dayEnd} | utcOffsetHours ${utcOffsetHours} | adjDst ${adjDst}');
+      // print(
+      //     'dayBegin ${dayBegin} | sec ${timetableList[timestamp.month - 1][timestamp.day - 1][0]} | dur ${Duration(seconds: timetableList[timestamp.month - 1][timestamp.day - 1][0])} | time ${dayEnd.add(Duration(hours: -24 + adjDst, seconds: timetableList[timestamp.month - 1][timestamp.day - 1][0]))}');
 
-      prayerTime = dayBegin
-          .add(Duration(
-              hours: adjDst,
-              seconds: timetableList[timestamp.month - 1][timestamp.day - 1][prayerId]))
-          .toLocal();
+      ishaPrayerTime = dayEnd.add(Duration(
+          hours: -24 + adjDst, seconds: timetableList[timestamp.month - 1][timestamp.day - 1][5]));
+
+      prayerTime = dayEnd.add(Duration(
+          hours: -24 + adjDst,
+          seconds: timetableList[timestamp.month - 1][timestamp.day - 1][prayerId]));
 
       prayerEndTime = prayerId == 5
           ? dayEnd
-          : dayBegin
-              .add(Duration(
-                  hours: adjDst,
-                  seconds: timetableList[timestamp.month - 1][timestamp.day - 1][prayerId]))
-              .toLocal();
+          : dayEnd.add(Duration(
+              hours: -24 + adjDst,
+              seconds: timetableList[timestamp.month - 1][timestamp.day - 1][prayerId]));
       // print(useTz);
     }
 
     ///calc
     else if (timetableCalc != null) {
-      DateTime fajrTime = tz.TZDateTime.from(timetableCalc.prayerTimes!.fajr!, tzGet);
-      DateTime sunriseTime = tz.TZDateTime.from(timetableCalc.prayerTimes!.sunrise!, tzGet);
-      DateTime dhuhrTime = tz.TZDateTime.from(timetableCalc.prayerTimes!.dhuhr!, tzGet);
-      DateTime asrTime = tz.TZDateTime.from(timetableCalc.prayerTimes!.asr!, tzGet);
-      DateTime maghribTime = tz.TZDateTime.from(timetableCalc.prayerTimes!.maghrib!, tzGet);
-      DateTime ishaTime = tz.TZDateTime.from(timetableCalc.prayerTimes!.isha!, tzGet);
+      // print(
+      //     'timestamp ${timestamp} | dayEnd ${dayEnd} | adjDst ${adjDst} | isDst ${timestamp.timeZone.isDst}');
+
+      DateTime fajrTime = tz.TZDateTime.from(timetableCalc.prayerTimes.fajr!, tzGet);
+      DateTime sunriseTime = tz.TZDateTime.from(timetableCalc.prayerTimes.sunrise!, tzGet);
+      DateTime dhuhrTime = tz.TZDateTime.from(timetableCalc.prayerTimes.dhuhr!, tzGet);
+      DateTime asrTime = tz.TZDateTime.from(timetableCalc.prayerTimes.asr!, tzGet);
+      DateTime maghribTime = tz.TZDateTime.from(timetableCalc.prayerTimes.maghrib!, tzGet);
+      DateTime ishaTime = tz.TZDateTime.from(timetableCalc.prayerTimes.isha!, tzGet);
 
       ishaPrayerTime = ishaTime;
 
