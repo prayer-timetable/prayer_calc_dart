@@ -13,8 +13,7 @@ class TimetableCalc {
   }) : this.prayerTimes = adhan.PrayerTimes(
           adhan.Coordinates(lat, lng),
           date,
-          adhan.CalculationParameters(
-              adhan.CalculationMethod.MuslimWorldLeague(), fajrAngle, ishaAngle ?? fajrAngle),
+          adhan.CalculationParameters('MuslimWorldLeague', fajrAngle, ishaAngle ?? fajrAngle),
           precision: precision,
         );
 

@@ -8,6 +8,7 @@ List<List<Prayer>> monthGen(
   DateTime time, {
   Map<dynamic, dynamic>? timetable,
   List? list,
+  TimetableCalc? calc,
   int hijriOffset = 0,
   required String timezone,
   bool jamaahOn = false,
@@ -16,7 +17,7 @@ List<List<Prayer>> monthGen(
   bool joinDhuhr = false,
   bool joinMaghrib = false,
   List<bool> jamaahPerPrayer = defaultJamaahPerPrayerOff,
-  bool useTz = false,
+  // bool useTz = false,
 }) {
   /// Date
   DateTime date = tz.TZDateTime.from(
@@ -40,6 +41,7 @@ List<List<Prayer>> monthGen(
       date.add(Duration(days: index)),
       timetableMap: timetable,
       timetableList: list,
+      timetableCalc: calc != null ? calc.copyWith(date: date.add(Duration(days: index))) : null,
       timezone: timezone,
       hijriOffset: hijriOffset,
       jamaahOn: jamaahOn,

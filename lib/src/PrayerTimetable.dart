@@ -176,7 +176,11 @@ class PrayerTimetable<T> {
           this.hour ?? 3, this.minute ?? 0, this.second ?? 0),
       timetableMap: timetableMap,
       timetableList: timetableList,
-      timetableCalc: timetableCalc,
+      timetableCalc: timetableCalc != null
+          ? timetableCalc!.copyWith(
+              date: DateTime(this.year ?? date.year, this.month ?? date.month,
+                  (this.day ?? date.day), this.hour ?? 3, this.minute ?? 0, this.second ?? 0))
+          : null,
       timezone: this.timezone,
       // useTz: this.useTz,
       hijriOffset: this.hijriOffset ?? 0,
@@ -193,7 +197,11 @@ class PrayerTimetable<T> {
           this.hour ?? 3, this.minute ?? 0, this.second ?? 0),
       timetableMap: timetableMap,
       timetableList: timetableList,
-      timetableCalc: timetableCalc,
+      timetableCalc: timetableCalc != null
+          ? timetableCalc!.copyWith(
+              date: DateTime(this.year ?? date.year, this.month ?? date.month,
+                  (this.day ?? date.day) + 1, this.hour ?? 3, this.minute ?? 0, this.second ?? 0))
+          : null,
       timezone: this.timezone,
       // useTz: this.useTz,
       hijriOffset: this.hijriOffset ?? 0,
@@ -209,7 +217,11 @@ class PrayerTimetable<T> {
           this.hour ?? 3, this.minute ?? 0, this.second ?? 0),
       timetableMap: timetableMap,
       timetableList: timetableList,
-      timetableCalc: timetableCalc,
+      timetableCalc: timetableCalc != null
+          ? timetableCalc!.copyWith(
+              date: DateTime(this.year ?? date.year, this.month ?? date.month,
+                  (this.day ?? date.day) - 1, this.hour ?? 3, this.minute ?? 0, this.second ?? 0))
+          : null,
       timezone: this.timezone,
       // useTz: this.useTz,
       hijriOffset: this.hijriOffset ?? 0,

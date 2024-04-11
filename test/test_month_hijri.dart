@@ -1,6 +1,7 @@
 import 'package:adhan_dart/adhan_dart.dart' as adhan;
 import 'package:date_format/date_format.dart';
 import 'package:prayer_timetable/prayer_timetable.dart';
+import 'package:prayer_timetable/src/func/helpers.dart';
 import 'package:prayer_timetable/src/func/monthHijriGen.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -52,7 +53,8 @@ main() {
   print('----------------------------------------------------------------------');
 
   for (List<Prayer> item in list) {
-    print('''${formatDate(item[0].prayerTime, [
+    print(
+        '''${testTime.day == item[0].prayerTime.day ? green : noColor}${formatDate(item[0].prayerTime, [
           yyyy,
           '-',
           mm,

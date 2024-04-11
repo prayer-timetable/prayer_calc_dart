@@ -11,27 +11,36 @@ import 'src/timetable_map_dublin.dart';
 import 'src/timetable_map_dublin_leap.dart';
 import 'test.dart';
 
+String timezone = timezoneI;
+double lat = latI;
+double lng = lngI;
+
+DateTime testTime = tz.TZDateTime(tz.getLocation(timezone), 2024, 3, 15, 13, 59, 55);
+
+// params.madhab = Madhab.Hanafi;
+// params.adjustments.fajr = 2;
+
+TimetableCalc calc = TimetableCalc(
+  date: testTime,
+  timezone: timezone,
+  lat: lat,
+  lng: lng,
+  precision: true,
+  fajrAngle: 14.6,
+);
+
+List<List<Prayer>> list = monthGen(
+  testTime,
+  calc: calc,
+  // timetable: testTime.year % 4 == 0 ? dublinLeap : dublin,
+  // list: base,
+  hijriOffset: 0,
+  timezone: timezone,
+);
+
 main() {
   tz.initializeTimeZones();
-  String timezone = timezoneS;
-
-  // DateTime now = tz.TZDateTime.now(tz.getLocation(timezone));
-// DateTime setTime =
-//     tz.TZDateTime.from(DateTime(now.year, now.month, now.day, 22, 3, 57), tz.getLocation(timezone));
-  DateTime setTime =
-      tz.TZDateTime.from(DateTime(2024, 3, 11, 10, 00, 55), tz.getLocation(timezone));
-  DateTime testTime = setTime;
-
-  // DateTime testTime = tz.TZDateTime(tz.getLocation(timezoneI), 2024, 3, 11, 13, 59, 55);
-
-  List<List<Prayer>> list = monthGen(
-    testTime,
-    // timetable: testTime.year % 4 == 0 ? dublinLeap : dublin,
-    list: base,
-    hijriOffset: 0,
-    timezone: timezone,
-    useTz: false,
-  );
+  DateTime testTime = tz.TZDateTime(tz.getLocation(timezoneI), 2024, 3, 11, 13, 59, 55);
 
   print('----------------------------------------------------------------------');
   print('Date        Fajr      Sunrise   Dhuhr     Asr       Maghrib   Isha');
