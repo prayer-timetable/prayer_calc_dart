@@ -16,7 +16,7 @@ String timezone = timezoneI;
 double lat = latI;
 double lng = lngI;
 
-DateTime testTime = tz.TZDateTime(tz.getLocation(timezone), 2024, 3, 15, 13, 59, 55);
+DateTime testTime = tz.TZDateTime(tz.getLocation(timezone), 2024, 10, 15, 13, 59, 55);
 
 // params.madhab = Madhab.Hanafi;
 // params.adjustments.fajr = 2;
