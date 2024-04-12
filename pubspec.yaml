@@ -11,11 +11,11 @@ dependencies:
     adhan_dart: ^1.0.8
 
     # needed for monthHijriMap
-    hijri: ^3.0.0
+    # hijri: ^3.0.0
 
-    # hijri:
-    #     git:
-    #         url: https://github.com/prayer-timetable/hijri_date.git
+    hijri:
+        git:
+            url: https://github.com/prayer-timetable/hijri_date.git
 
 dev_dependencies:
     timezone: ^0.9.2
