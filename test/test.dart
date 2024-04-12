@@ -74,13 +74,17 @@ timetableTest(PrayerTimetable location) {
   print('lastThird\t${location.utils.lastThird}');
 }
 
-jamaahTest(PrayerTimetable location,
-    {bool prayer = true,
-    bool jamaah = false,
-    bool utils = false,
-    bool today = true,
-    bool yesterday = true,
-    bool tomorrow = true}) {
+jamaahTest(
+  PrayerTimetable location, {
+  bool prayer = true,
+  bool jamaah = false,
+  bool utils = false,
+  bool today = true,
+  bool yesterday = true,
+  bool tomorrow = true,
+  bool info = false,
+}) {
+  if (info) infoTest(location.utils.time);
   if (prayer && today) {
     print('${yellow}****************** Today *******************${noColor}');
     print('fajr:\t\t${location.current[0].prayerTime}');
@@ -164,11 +168,11 @@ jamaahTest(PrayerTimetable location,
   }
 }
 
-liveTest(PrayerTimetable location, {bool show = true}) {
+liveTest(PrayerTimetable location, {bool show = true, bool info = false}) {
   DateTime time = location.utils.time;
   PrayerTimetable loc = location;
 
-  Timer.periodic(Duration(seconds: 1), (Timer t) {
+  Timer.periodic(Duration(milliseconds: 1000), (Timer t) {
     time = time.add(Duration(seconds: 1));
     loc = PrayerTimetable.base(
       timezone: loc.timezone,
@@ -197,13 +201,16 @@ liveTest(PrayerTimetable location, {bool show = true}) {
 
     if (show) {
       print('\x1B[2J\x1B[0;0H'); // clear entire screen, move cursor to 0;0
+
+      if (info) infoTest(time);
+
       print('date:\t\t${formatDate(time, [yyyy, '-', mm, '-', dd])}');
       print('hijri:\t\t${loc.utils.hijri[0]}-${loc.utils.hijri[1]}-${loc.utils.hijri[2]}');
       print('time:\t\t${formatDate(time, [HH, ':', nn, ':', ss])}');
 
-      print('${gray}------------------------------------${noColor}');
+      print('${gray}----------------------------------------${noColor}');
       print('Prayers for:\t${formatDate(prayers.first.prayerTime, [yyyy, '-', mm, '-', dd])}');
-      print('${gray}------------------------------------${noColor}');
+      print('${gray}----------------------------------------${noColor}');
 
       for (var i = 0; i <= 5; i++) {
         print(
@@ -216,7 +223,9 @@ liveTest(PrayerTimetable location, {bool show = true}) {
             ])}\t${formatDate(prayers[i].jamaahTime, [HH, ':', nn, ':', ss])}${noColor}');
       }
 
-      print('${gray}------------------------------------${noColor}');
+      print('${gray}----------------------------------------${noColor}');
+      print('${green}${'-' * (loc.utils.percentage / 100 * 40).round()}${noColor}');
+      print('${gray}----------------------------------------${noColor}');
       print('${yellow}countDown:\t${printDuration(loc.utils.countDown)}${noColor}');
       print('${yellow}countUp:\t${printDuration(loc.utils.countUp)}${noColor}');
       print('${yellow}percentage:\t${loc.utils.percentage}${noColor}');

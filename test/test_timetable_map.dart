@@ -16,7 +16,7 @@ double lng = lngI;
 DateTime now = tz.TZDateTime.now(tz.getLocation(timezone));
 // DateTime setTime =
 //     tz.TZDateTime.from(DateTime(now.year, now.month, now.day, 22, 3, 57), tz.getLocation(timezone));
-DateTime setTime = tz.TZDateTime.from(DateTime(2024, 3, 30, 10, 00, 55), tz.getLocation(timezone));
+DateTime setTime = tz.TZDateTime.from(DateTime(2024, 3, 31, 0, 59, 55), tz.getLocation(timezone));
 DateTime testTime = setTime;
 
 PrayerTimetable map(DateTime testTime) => PrayerTimetable.map(
@@ -57,16 +57,16 @@ PrayerTimetable location = map(testTime);
 main() {
   tz.initializeTimeZones();
   print('\x1B[2J\x1B[0;0H'); // clear entire screen, move cursor to 0;0
-  bool live = false;
+  bool live = true;
 
   // infoTest(testTime);
   // print(location.day);
   // ignore: dead_code
   if (!live) {
-    jamaahTest(location, prayer: true, jamaah: false, utils: true);
+    jamaahTest(location, prayer: true, jamaah: false, utils: true, info: true);
 
     // ignore: dead_code
   } else {
-    liveTest(location, show: true);
+    liveTest(location, show: true, info: true);
   }
 }

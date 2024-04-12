@@ -47,6 +47,7 @@ List<Prayer> prayersGen(
 
   // print('date: $date');
   tz.TZDateTime timestamp = tz.TZDateTime.from(date.add(Duration(days: hijriOffset)), tzGet);
+  tz.TZDateTime timestampTZsafe = timestamp.add(Duration(hours: 3));
 
   /// For list
   DateTime dayBegin = tz.TZDateTime(tzGet, timestamp.year, timestamp.month, timestamp.day)
@@ -58,10 +59,11 @@ List<Prayer> prayersGen(
   // TODO:
   // int adjDst = isDSTCalc(timestamp) && useTz ? 1 : 0;
   // int adjDst = isDSTCalc(timestamp) ? 1 : 0;
-  int adjDst = timestamp.timeZone.isDst ? 1 : 0;
+  int adjDst = timestampTZsafe.timeZone.isDst ? 1 : 0;
 
   // TODO: glitch in tz package
-  if (timezone == 'Europe/Dublin') adjDst = isDSTCalc(timestamp) ? 1 : 0;
+  // if (timezone == 'Europe/Dublin') adjDst = isDSTCalc(timestamp) ? 1 : 0;
+  if (timezone == 'Europe/Dublin') adjDst = timestampTZsafe.timeZone.isDst ? 0 : 1; // reverse
 
   // print('kk ${timetableCalc!.timezone}');
 
