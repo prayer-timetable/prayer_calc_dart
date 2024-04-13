@@ -96,22 +96,11 @@ List<Prayer> prayersGen(
     Prayer prayer = Prayer();
     DateTime prayerTime = DateTime.now();
     DateTime prayerEndTime = DateTime.now();
-    DateTime ishaPrayerTime = DateTime.now();
-    DateTime ishaJamaahTime = DateTime.now();
 
     ///map
     if (timetableMap != null) {
       // print(
       //     'timestamp ${timestamp} | dayEnd ${dayEnd} | adjDst ${adjDst} | isDst ${timestamp.timeZone.isDst}');
-
-      ishaPrayerTime = tz.TZDateTime(
-        tzGet,
-        timestamp.year,
-        timestamp.month,
-        timestamp.day,
-        timetableMap[timestamp.month.toString()][timestamp.day.toString()][5][0],
-        timetableMap[timestamp.month.toString()][timestamp.day.toString()][5][1],
-      ).add(Duration(hours: adjDst));
 
       prayerTime = tz.TZDateTime(
         tzGet,
@@ -141,9 +130,6 @@ List<Prayer> prayersGen(
       // print(
       //     'dayBegin ${dayBegin} | sec ${timetableList[timestamp.month - 1][timestamp.day - 1][0]} | dur ${Duration(seconds: timetableList[timestamp.month - 1][timestamp.day - 1][0])} | time ${dayEnd.add(Duration(hours: -24 + adjDst, seconds: timetableList[timestamp.month - 1][timestamp.day - 1][0]))}');
 
-      ishaPrayerTime = dayEnd.add(Duration(
-          hours: -24 + adjDst, seconds: timetableList[timestamp.month - 1][timestamp.day - 1][5]));
-
       prayerTime = dayEnd.add(Duration(
           hours: -24 + adjDst,
           seconds: timetableList[timestamp.month - 1][timestamp.day - 1][prayerId]));
@@ -167,8 +153,6 @@ List<Prayer> prayersGen(
       DateTime asrTime = tz.TZDateTime.from(timetableCalc.prayerTimes.asr!, tzGet);
       DateTime maghribTime = tz.TZDateTime.from(timetableCalc.prayerTimes.maghrib!, tzGet);
       DateTime ishaTime = tz.TZDateTime.from(timetableCalc.prayerTimes.isha!, tzGet);
-
-      ishaPrayerTime = ishaTime;
 
       if (prayerId == 0) {
         prayerTime = fajrTime;
@@ -221,36 +205,11 @@ List<Prayer> prayersGen(
       prayer.jamaahTime = prayerTime;
     }
 
-    /// ISHA
-    int jamaahIshaOffsetMin = jamaahOffsets[5][0] * 60 + jamaahOffsets[5][1];
-    //if jamaah not enabled for the prayer
-    if (!jamaahPerPrayer[5]) {
-      ishaJamaahTime = ishaPrayerTime;
-    }
-    //if afterthis
-    else if (jamaahMethods[5] == 'afterthis') {
-      ishaJamaahTime = ishaPrayerTime.add(Duration(minutes: jamaahIshaOffsetMin));
-    }
-    //if fixed
-    else if (jamaahMethods[5] == 'fixed') {
-      ishaJamaahTime = tz.TZDateTime.from(
-          DateTime(prayerTime.year, prayerTime.month, prayerTime.day, jamaahOffsets[5][0],
-              jamaahOffsets[5][1]),
-          tzGet);
-    }
-    //all else
-    else {
-      ishaJamaahTime = ishaPrayerTime;
-    }
-
     ///validate if jammah time is before prayer time
     if (prayer.jamaahTime.isBefore(prayer.prayerTime)) prayer.prayerTime = prayer.jamaahTime;
-    if (ishaJamaahTime.isBefore(ishaPrayerTime)) ishaJamaahTime = ishaPrayerTime;
 
     ///prayer joining
     if (joinMaghrib) {
-      ishaPrayerTime = prayers[4].prayerTime;
-      ishaJamaahTime = prayers[4].jamaahTime;
       if (prayerId == 5) {
         prayer.prayerTime = prayers[4].prayerTime;
         prayer.jamaahTime = prayers[4].jamaahTime;

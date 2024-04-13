@@ -16,7 +16,7 @@ double lng = lngI;
 DateTime now = tz.TZDateTime.now(tz.getLocation(timezone));
 // DateTime setTime =
 //     tz.TZDateTime.from(DateTime(now.year, now.month, now.day, 22, 3, 57), tz.getLocation(timezone));
-DateTime setTime = tz.TZDateTime.from(DateTime(2024, 10, 26, 19, 58, 55), tz.getLocation(timezone));
+DateTime setTime = tz.TZDateTime.from(DateTime(2024, 4, 13, 22, 13, 55), tz.getLocation(timezone));
 DateTime testTime = setTime;
 
 PrayerTimetable map(DateTime testTime) => PrayerTimetable.map(
