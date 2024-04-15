@@ -10,6 +10,7 @@ import 'src/timetable_list_sarajevo.dart';
 import 'src/timetable_map_dublin.dart';
 // ignore: unused_import
 import 'src/timetable_map_dublin_leap.dart';
+import 'src/timetable_vaktija_bh.dart';
 import 'test.dart';
 
 String timezone = timezoneI;
@@ -32,7 +33,9 @@ TimetableCalc calc = TimetableCalc(
 
 List<List<Prayer>> list = monthGen(
   testTime,
-  calc: calc,
+  // calc: calc,
+  vaktija: vaktija,
+  cityNo: 77,
   // timetable: testTime.year % 4 == 0 ? dublinLeap : dublin,
   // list: base,
   hijriOffset: 0,
