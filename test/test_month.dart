@@ -41,7 +41,6 @@ List<List<Prayer>> list = monthGen(
 
 main() {
   tz.initializeTimeZones();
-  DateTime testTime = tz.TZDateTime(tz.getLocation(timezoneI), 2024, 3, 11, 13, 59, 55);
 
   print('----------------------------------------------------------------------');
   print('Date        Fajr      Sunrise   Dhuhr     Asr       Maghrib   Isha');

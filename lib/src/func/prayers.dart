@@ -15,6 +15,8 @@ List<Prayer> prayersGen(
   DateTime date, {
   Map? timetableMap,
   List? timetableList,
+  Map? timetableVaktijaMap,
+  int? cityNo,
   TimetableCalc? timetableCalc,
   required int hijriOffset,
   required String timezone,
@@ -138,8 +140,35 @@ List<Prayer> prayersGen(
           ? dayEnd
           : dayEnd.add(Duration(
               hours: -24 + adjDst,
-              seconds: timetableList[timestamp.month - 1][timestamp.day - 1][prayerId]));
+              seconds: timetableList[timestamp.month - 1][timestamp.day - 1][prayerId + 1]));
       // print(useTz);
+    }
+
+    ///vaktija map
+    else if (timetableVaktijaMap != null) {
+      prayerTime = dayEnd
+          .add(Duration(
+              hours: -24 + adjDst,
+              seconds:
+                  // base
+                  timetableVaktijaMap['vaktija']['months'][timestamp.month - 1]['days']
+                      [timestamp.day - 1]['vakat'][prayerId]))
+          .add(Duration(
+              seconds: timetableVaktijaMap['differences'][cityNo]['months'][timestamp.month - 1]
+                  ['vakat'][prayerId]));
+
+      prayerEndTime = prayerId == 5
+          ? dayEnd
+          : dayEnd
+              .add(Duration(
+                  hours: -24 + adjDst,
+                  seconds:
+                      // base
+                      timetableVaktijaMap['vaktija']['months'][timestamp.month - 1]['days']
+                          [timestamp.day - 1]['vakat'][prayerId + 1]))
+              .add(Duration(
+                  seconds: timetableVaktijaMap['differences'][cityNo]['months'][timestamp.month - 1]
+                      ['vakat'][prayerId + 1]));
     }
 
     ///calc
