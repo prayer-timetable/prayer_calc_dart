@@ -12,8 +12,7 @@ List<List<Prayer>> monthHijriGen(
   DateTime time, {
   Map<dynamic, dynamic>? timetable,
   List? list,
-  Map? vaktija,
-  int? cityNo,
+  List? differences,
   TimetableCalc? calc,
   int hijriOffset = 0,
   required String timezone,
@@ -53,8 +52,7 @@ List<List<Prayer>> monthHijriGen(
       startDate.add(Duration(days: index)),
       timetableMap: timetable,
       timetableList: list,
-      timetableVaktijaMap: vaktija,
-      cityNo: cityNo,
+      differences: differences,
       timetableCalc:
           calc != null ? calc.copyWith(date: startDate.add(Duration(days: index))) : null,
       timezone: timezone,

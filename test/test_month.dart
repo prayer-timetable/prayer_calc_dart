@@ -21,6 +21,19 @@ DateTime testTime = tz.TZDateTime(tz.getLocation(timezone), 2024, 10, 15, 13, 59
 
 // params.madhab = Madhab.Hanafi;
 // params.adjustments.fajr = 2;
+int cityNo = 77; // Sarajevo
+
+List timetableList = vaktija['vaktija']['months']
+    .map((months) => months['days'])
+    .toList()
+    .map((days) => days.map((vakat) => vakat['vakat']).toList())
+    .toList();
+
+List differences = vaktija['differences']
+    .map((months) => months['months'])
+    .toList()[cityNo]
+    .map((vakat) => vakat['vakat'])
+    .toList();
 
 TimetableCalc calc = TimetableCalc(
   date: testTime,
@@ -34,8 +47,8 @@ TimetableCalc calc = TimetableCalc(
 List<List<Prayer>> list = monthGen(
   testTime,
   // calc: calc,
-  vaktija: vaktija,
-  cityNo: 77,
+  list: timetableList,
+  differences: differences,
   // timetable: testTime.year % 4 == 0 ? dublinLeap : dublin,
   // list: base,
   hijriOffset: 0,

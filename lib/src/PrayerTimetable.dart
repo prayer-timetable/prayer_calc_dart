@@ -53,8 +53,7 @@ class PrayerTimetable<T> {
   ///method
   Map? timetableMap;
   List? timetableList;
-  Map? timetableVaktijaMap;
-  int? cityNo;
+  List? differences;
   TimetableCalc? timetableCalc;
 
   ///current prayers
@@ -124,8 +123,7 @@ class PrayerTimetable<T> {
   PrayerTimetable.base({
     this.timetableMap,
     this.timetableList,
-    this.timetableVaktijaMap,
-    this.cityNo,
+    this.differences,
     this.timetableCalc,
     this.year,
     this.month,
@@ -155,7 +153,6 @@ class PrayerTimetable<T> {
         assert(timetableCalc != null ||
             (lat != null && lng != null) ||
             timetableList != null ||
-            (timetableVaktijaMap != null && cityNo != null) ||
             timetableMap != null), //  && jamaahPerPrayer != null
         this.testing = false,
         this.utils = defaultUtils {
@@ -180,8 +177,7 @@ class PrayerTimetable<T> {
           this.hour ?? 3, this.minute ?? 0, this.second ?? 0),
       timetableMap: timetableMap,
       timetableList: timetableList,
-      timetableVaktijaMap: timetableVaktijaMap,
-      cityNo: cityNo,
+      differences: differences,
       timetableCalc: timetableCalc != null
           ? timetableCalc!.copyWith(
               date: DateTime(this.year ?? date.year, this.month ?? date.month,
@@ -203,8 +199,7 @@ class PrayerTimetable<T> {
           this.hour ?? 3, this.minute ?? 0, this.second ?? 0),
       timetableMap: timetableMap,
       timetableList: timetableList,
-      timetableVaktijaMap: timetableVaktijaMap,
-      cityNo: cityNo,
+      differences: differences,
       timetableCalc: timetableCalc != null
           ? timetableCalc!.copyWith(
               date: DateTime(this.year ?? date.year, this.month ?? date.month,
@@ -225,8 +220,7 @@ class PrayerTimetable<T> {
           this.hour ?? 3, this.minute ?? 0, this.second ?? 0),
       timetableMap: timetableMap,
       timetableList: timetableList,
-      timetableVaktijaMap: timetableVaktijaMap,
-      cityNo: cityNo,
+      differences: differences,
       timetableCalc: timetableCalc != null
           ? timetableCalc!.copyWith(
               date: DateTime(this.year ?? date.year, this.month ?? date.month,
@@ -368,6 +362,20 @@ class PrayerTimetable<T> {
 
   PrayerTimetable.list({
     required List timetableList,
+    List differences = const [
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0]
+    ],
     int? year,
     int? month,
     int? day,
@@ -391,6 +399,7 @@ class PrayerTimetable<T> {
     double? lng,
   }) : this.base(
           timetableList: timetableList,
+          differences: differences,
           year: year,
           month: month,
           day: day,
@@ -412,53 +421,6 @@ class PrayerTimetable<T> {
 
   /// end PrayerTimetable.list
 
-  PrayerTimetable.vaktija({
-    required Map timetableVaktijaMap,
-    required int cityNo,
-    int? year,
-    int? month,
-    int? day,
-    int? hijriOffset,
-
-    /// Enables jamaah times globaly.
-    bool jamaahOn = false,
-    bool joinMaghrib = false,
-    bool joinDhuhr = false,
-    required String timezone,
-    bool useTz = true,
-
-    /// Jammah times per individual prayers. Ignored if global jamaahOn is false.
-    List<bool>? jamaahPerPrayer,
-    List<String>? jamaahMethods,
-    List<List<int>>? jamaahOffsets,
-    int? hour,
-    int? minute,
-    int? second,
-    double? lat,
-    double? lng,
-  }) : this.base(
-          timetableVaktijaMap: timetableVaktijaMap,
-          cityNo: cityNo,
-          year: year,
-          month: month,
-          day: day,
-          hijriOffset: hijriOffset,
-          jamaahOn: jamaahOn,
-          joinMaghrib: joinMaghrib,
-          joinDhuhr: joinDhuhr,
-          timezone: timezone,
-          useTz: useTz,
-          jamaahPerPrayer: jamaahPerPrayer,
-          jamaahMethods: jamaahMethods,
-          jamaahOffsets: jamaahOffsets,
-          hour: hour,
-          minute: minute,
-          second: second,
-          lat: lat,
-          lng: lng,
-        );
-
-  /// end PrayerTimetable.list
   ///
   PrayerTimetable.calc({
     required TimetableCalc timetableCalc,
