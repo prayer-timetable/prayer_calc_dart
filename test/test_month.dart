@@ -17,11 +17,15 @@ String timezone = timezoneI;
 double lat = latI;
 double lng = lngI;
 
-DateTime testTime = tz.TZDateTime(tz.getLocation(timezone), 2024, 10, 15, 13, 59, 55);
+DateTime now = tz.TZDateTime.now(tz.getLocation(timezone));
+// DateTime setTime = tz.TZDateTime.from(DateTime(2024, 3, 31, 14, 32, 45), tz.getLocation(timezone));
+DateTime setTime = DateTime(2024, 3, 31, 14, 32, 45);
+DateTime testTime = now;
 
 // params.madhab = Madhab.Hanafi;
 // params.adjustments.fajr = 2;
-int cityNo = 77; // Sarajevo
+// int cityNo = 77; // Sarajevo
+int cityNo = 2; // Bihać
 
 List timetableList = vaktija['vaktija']['months']
     .map((months) => months['days'])
