@@ -285,31 +285,95 @@ class PrayerTimetable<T> {
   /// end PrayerTimetable base
 /***************************************************** */
 
-  PrayerTimetable.month({
-    this.year,
-    this.month,
-    this.day,
-    this.hijriOffset,
-    required this.timezone,
-    this.useTz = true,
-  })  : //  && jamaahPerPrayer != null
-        this.testing = false,
-        utils = defaultUtils {
-    /// ********************************************
-    /// Define time
-    /// ********************************************
-    DateTime date = nowTZ(timezone,
-        year: year, month: month, day: day, hour: hour, minute: minute, second: second);
+  // static monthTable({
+  //   required String timezone,
+  //   required int year,
+  //   required int month,
+  //   int hijriOffset = 0,
+  //   Map? timetableMap,
+  //   List? timetableList,
+  //   List? differences,
+  //   TimetableCalc? timetableCalc,
+  //   List<String> jamaahMethods,
+  //   List<List<int>> jamaahOffsets,
+  //   bool jamaahOn = false,
+  //   List<bool> jamaahPerPrayer,
+  //   bool joinDhuhr = false,
+  //   bool joinMaghrib = false,
+  // }) =>
+  //     monthGen(
+  //       nowTZ(timezone, year: year, month: month, day: 15),
+  //       hijriOffset: hijriOffset,
+  //       timezone: timezone,
+  //       timetable: timetableMap,
+  //       list: timetableList,
+  //       differences: differences,
+  //       calc: timetableCalc,
+  //       jamaahMethods: jamaahMethods ?? defaultJamaahMethods,
+  //       jamaahOffsets: jamaahOffsets ?? defaultJamaahOffsets,
+  //       jamaahOn: jamaahOn,
+  //       jamaahPerPrayer: jamaahPerPrayer ?? defaultJamaahPerPrayerOff,
+  //       joinDhuhr: joinDhuhr ?? false,
+  //       joinMaghrib: joinMaghrib ?? false,
+  //     );
 
-    /// ********************************************
-    /// Month calendars
-    /// ********************************************
-    this.monthPrayerTimes = monthGen(date, hijriOffset: hijriOffset ?? 0, timezone: this.timezone);
-    this.monthHijriPrayerTimes =
-        monthHijriGen(date, hijriOffset: hijriOffset ?? 0, timezone: this.timezone);
+  // PrayerTimetable.month({
+  //   this.year,
+  //   this.month,
+  //   this.hijriOffset,
+  //   required this.timezone,
+  //   this.useTz = true,
+  // })  : //  && jamaahPerPrayer != null
+  //       this.testing = false,
+  //       utils = defaultUtils {
+  //   /// ********************************************
+  //   /// Define time
+  //   /// ********************************************
+  //   DateTime date = nowTZ(timezone, year: year, month: month, day: 15);
 
-    /// end
-  }
+  //   /// ********************************************
+  //   /// Month calendars
+  //   /// ********************************************
+
+  //   // this.monthPrayerTimes = monthGen(
+  //   //   date,
+  //   //   hijriOffset: hijriOffset ?? 0,
+  //   //   timezone: this.timezone,
+  //   //   timetable: timetableMap,
+  //   //   list: timetableList,
+  //   //   differences: differences,
+  //   //   calc: timetableCalc,
+  //   //   jamaahMethods: jamaahMethods ?? defaultJamaahMethods,
+  //   //   jamaahOffsets: jamaahOffsets ?? defaultJamaahOffsets,
+  //   //   jamaahOn: jamaahOn,
+  //   //   jamaahPerPrayer: jamaahPerPrayer ?? defaultJamaahPerPrayerOff,
+  //   //   joinDhuhr: joinDhuhr ?? false,
+  //   //   joinMaghrib: joinMaghrib ?? false,
+  //   // );
+  //   // this.monthHijriPrayerTimes = monthHijriGen(
+  //   //   date,
+  //   //   hijriOffset: hijriOffset ?? 0,
+  //   //   timezone: this.timezone,
+  //   //   timetable: timetableMap,
+  //   //   list: timetableList,
+  //   //   differences: differences,
+  //   //   calc: timetableCalc,
+  //   //   jamaahMethods: jamaahMethods ?? defaultJamaahMethods,
+  //   //   jamaahOffsets: jamaahOffsets ?? defaultJamaahOffsets,
+  //   //   jamaahOn: jamaahOn,
+  //   //   jamaahPerPrayer: jamaahPerPrayer ?? defaultJamaahPerPrayerOff,
+  //   //   joinDhuhr: joinDhuhr ?? false,
+  //   //   joinMaghrib: joinMaghrib ?? false,
+  //   // );
+
+  //   /// end
+  // }
+
+  /// ********************************************
+  /// Month calendars
+  /// ********************************************
+  static const monthTable = monthGen;
+  static const monthHijriTable = monthHijriGen;
 
   /// end PrayerTimetable month
 /***************************************************** */

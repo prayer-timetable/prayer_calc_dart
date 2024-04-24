@@ -5,7 +5,8 @@ import 'package:prayer_timetable/src/func/prayers.dart';
 import 'package:timezone/timezone.dart' as tz;
 
 List<List<Prayer>> monthGen(
-  DateTime time, {
+  int year,
+  int month, {
   Map<dynamic, dynamic>? timetable,
   List? list,
   List? differences,
@@ -22,7 +23,7 @@ List<List<Prayer>> monthGen(
 }) {
   /// Date
   DateTime date = tz.TZDateTime.from(
-      DateTime(time.year, time.month)
+      DateTime(year, month, 1)
           .add(Duration(hours: 3)), // making sure it is after 1 am for time change
       tz.getLocation(timezone));
 

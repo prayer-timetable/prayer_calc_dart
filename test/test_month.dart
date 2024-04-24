@@ -39,17 +39,17 @@ List differences = vaktija['differences']
     .map((vakat) => vakat['vakat'])
     .toList();
 
-TimetableCalc calc = TimetableCalc(
-  date: testTime,
-  timezone: timezone,
-  lat: lat,
-  lng: lng,
-  precision: true,
-  fajrAngle: 14.6,
-);
+// TimetableCalc calc = TimetableCalc(
+//   date: testTime,
+//   timezone: timezone,
+//   lat: lat,
+//   lng: lng,
+//   precision: true,
+//   fajrAngle: 14.6,
+// );
 
 List<List<Prayer>> list = monthGen(
-  testTime,
+  testTime.year, testTime.month,
   // calc: calc,
   list: timetableList,
   differences: differences,

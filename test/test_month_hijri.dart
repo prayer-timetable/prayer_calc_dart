@@ -29,9 +29,9 @@ TimetableCalc calc = TimetableCalc(
 );
 
 List<List<Prayer>> list = monthHijriGen(
-  testTime,
-  calc: calc,
-  // timetable: testTime.year % 4 == 0 ? dublinLeap : dublin,
+  1445, 9,
+  // calc: calc,
+  timetable: testTime.year % 4 == 0 ? dublinLeap : dublin,
   // list: base,
   hijriOffset: 0,
   timezone: timezone,

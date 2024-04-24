@@ -9,7 +9,8 @@ import 'package:timezone/timezone.dart' as tz;
 import 'package:hijri/hijri_calendar.dart';
 
 List<List<Prayer>> monthHijriGen(
-  DateTime time, {
+  int hYear,
+  int hMonth, {
   Map<dynamic, dynamic>? timetable,
   List? list,
   List? differences,
@@ -25,27 +26,30 @@ List<List<Prayer>> monthHijriGen(
   // bool useTz = false,
 }) {
   /// Date
-  DateTime date = tz.TZDateTime.from(
-      DateTime(time.year, time.month, time.day)
-          .add(Duration(hours: 3)), // making sure it is after 1 am for time change
-      tz.getLocation(timezone));
+  // DateTime date = tz.TZDateTime.from(
+  //     DateTime(year, month, time.day)
+  //         .add(Duration(hours: 3)), // making sure it is after 1 am for time change
+  //     tz.getLocation(timezone));
 
-  var hTimeBase = HijriCalendar.fromDate(date);
+  // var hTimeBase = HijriCalendar.fromDate(date);
 
   // First of the hijri month
-  var hTime = hTimeBase;
-  hTime.hDay = 1;
+  // var hTime = hTimeBase;
+  // hTime.hDay = 1;
 
-  int hYear = hTime.hYear;
-  int hMonth = hTime.hMonth;
-  int hDay = hTime.hDay;
+  int hDay = 1;
+
+  var hDate = HijriCalendar.now();
+
+  hDate.hYear = hYear;
+  hDate.hMonth = hMonth;
 
   // print('$hYear $hMonth $hDay');
 
-  int daysInHijriMonth = hTime.lengthOfMonth;
+  // int daysInHijriMonth = 30;
+  int daysInHijriMonth = hDate.lengthOfMonth;
 
-  var g_date = HijriCalendar();
-  DateTime startDate = g_date.hijriToGregorian(hYear, hMonth, hDay).add(Duration(hours: 3));
+  DateTime startDate = hDate.hijriToGregorian(hYear, hMonth, hDay).add(Duration(hours: 3));
 
   List<List<Prayer>> prayerList = List.generate(daysInHijriMonth, (index) {
     return prayersGen(
