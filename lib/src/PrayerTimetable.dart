@@ -395,6 +395,7 @@ class PrayerTimetable<T> {
     required bool jamaahOn,
     bool joinMaghrib = false,
     bool joinDhuhr = false,
+    int prayerLength = 10,
     required String timezone,
     bool useTz = true,
 
@@ -416,6 +417,7 @@ class PrayerTimetable<T> {
           jamaahOn: jamaahOn,
           joinMaghrib: joinMaghrib,
           joinDhuhr: joinDhuhr,
+          prayerLength: prayerLength,
           timezone: timezone,
           useTz: useTz,
           jamaahPerPrayer: jamaahPerPrayer,
@@ -455,6 +457,7 @@ class PrayerTimetable<T> {
     bool jamaahOn = false,
     bool joinMaghrib = false,
     bool joinDhuhr = false,
+    int prayerLength = 10,
     required String timezone,
     bool useTz = true,
 
@@ -477,6 +480,7 @@ class PrayerTimetable<T> {
           jamaahOn: jamaahOn,
           joinMaghrib: joinMaghrib,
           joinDhuhr: joinDhuhr,
+          prayerLength: prayerLength,
           timezone: timezone,
           useTz: useTz,
           jamaahPerPrayer: jamaahPerPrayer,
@@ -503,6 +507,7 @@ class PrayerTimetable<T> {
     bool jamaahOn = false,
     bool joinMaghrib = false,
     bool joinDhuhr = false,
+    int prayerLength = 10,
     required String timezone,
     bool useTz = true,
 
@@ -522,6 +527,7 @@ class PrayerTimetable<T> {
           jamaahOn: jamaahOn,
           joinMaghrib: joinMaghrib,
           joinDhuhr: joinDhuhr,
+          prayerLength: prayerLength,
           timezone: timezone,
           useTz: useTz,
           jamaahPerPrayer: jamaahPerPrayer,
