@@ -24,6 +24,7 @@ List<List<Prayer>> monthHijriGen(
   bool joinMaghrib = false,
   List<bool> jamaahPerPrayer = defaultJamaahPerPrayerOff,
   // bool useTz = false,
+  int prayerLength = 10,
 }) {
   /// Date
   // DateTime date = tz.TZDateTime.from(
@@ -68,6 +69,7 @@ List<List<Prayer>> monthHijriGen(
       joinMaghrib: joinMaghrib,
       jamaahPerPrayer: jamaahPerPrayer,
       // useTz: useTz,
+      prayerLength: prayerLength,
     );
   });
 

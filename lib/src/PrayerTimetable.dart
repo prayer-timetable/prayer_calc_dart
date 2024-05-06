@@ -106,6 +106,8 @@ class PrayerTimetable<T> {
   bool? joinMaghrib;
   bool? joinDhuhr;
 
+  int? prayerLength;
+
   double? lat;
   double? lng;
 
@@ -132,9 +134,10 @@ class PrayerTimetable<T> {
     // this.summerTimeCalc = true,
 
     /// Enables jamaah times globaly.
-    this.jamaahOn = false,
+    required this.jamaahOn,
     this.joinMaghrib = false,
     this.joinDhuhr = false,
+    this.prayerLength = 10,
     required this.timezone,
     this.useTz = true,
 
@@ -192,6 +195,7 @@ class PrayerTimetable<T> {
       jamaahMethods: this.jamaahMethods ?? defaultJamaahMethods,
       jamaahOffsets: this.jamaahOffsets ?? defaultJamaahOffsets,
       jamaahPerPrayer: _jamaahPerPrayer,
+      prayerLength: this.prayerLength,
     );
 
     this.next = prayersGen(
@@ -214,6 +218,7 @@ class PrayerTimetable<T> {
       jamaahMethods: this.jamaahMethods ?? defaultJamaahMethods,
       jamaahOffsets: this.jamaahOffsets ?? defaultJamaahOffsets,
       jamaahPerPrayer: _jamaahPerPrayer,
+      prayerLength: this.prayerLength,
     );
     this.previous = prayersGen(
       DateTime(this.year ?? date.year, this.month ?? date.month, (this.day ?? date.day) - 1,
@@ -235,6 +240,7 @@ class PrayerTimetable<T> {
       jamaahMethods: this.jamaahMethods ?? defaultJamaahMethods,
       jamaahOffsets: this.jamaahOffsets ?? defaultJamaahOffsets,
       jamaahPerPrayer: _jamaahPerPrayer,
+      prayerLength: this.prayerLength,
     );
 
     /// ********************************************
@@ -386,7 +392,7 @@ class PrayerTimetable<T> {
     int? hijriOffset,
 
     /// Enables jamaah times globaly.
-    bool jamaahOn = false,
+    required bool jamaahOn,
     bool joinMaghrib = false,
     bool joinDhuhr = false,
     required String timezone,

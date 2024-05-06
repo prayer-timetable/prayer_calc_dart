@@ -28,6 +28,9 @@ List<Prayer> prayersGen(
   // bool isAfterIsha = false,
   // DateTime? ishaTime,
   // useTz = true,
+
+  /// for adding time when prayers are joined
+  int? prayerLength = 10,
 }) {
   /* *********************** */
   /* TIMES                   */
@@ -218,14 +221,14 @@ List<Prayer> prayersGen(
     ///prayer joining
     if (joinMaghrib) {
       if (prayerId == 5) {
-        prayer.prayerTime = prayers[4].prayerTime;
-        prayer.jamaahTime = prayers[4].jamaahTime;
+        prayer.prayerTime = prayers[4].jamaahTime.add(Duration(minutes: prayerLength ?? 10));
+        prayer.jamaahTime = prayers[4].jamaahTime.add(Duration(minutes: prayerLength ?? 10));
       }
     }
     if (joinDhuhr) {
       if (prayerId == 3) {
-        prayer.prayerTime = prayers[2].prayerTime;
-        prayer.jamaahTime = prayers[2].jamaahTime;
+        prayer.prayerTime = prayers[2].jamaahTime.add(Duration(minutes: prayerLength ?? 10));
+        prayer.jamaahTime = prayers[2].jamaahTime.add(Duration(minutes: prayerLength ?? 10));
       }
     }
 

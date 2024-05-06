@@ -16,7 +16,7 @@ double lng = lngI;
 DateTime now = tz.TZDateTime.now(tz.getLocation(timezone));
 // DateTime setTime =
 //     tz.TZDateTime.from(DateTime(now.year, now.month, now.day, 22, 3, 57), tz.getLocation(timezone));
-DateTime setTime = tz.TZDateTime.from(DateTime(2024, 4, 13, 22, 13, 55), tz.getLocation(timezone));
+DateTime setTime = tz.TZDateTime.from(DateTime(2024, 4, 13, 20, 38, 55), tz.getLocation(timezone));
 DateTime testTime = setTime;
 
 PrayerTimetable map(DateTime testTime) => PrayerTimetable.map(
@@ -42,13 +42,13 @@ PrayerTimetable map(DateTime testTime) => PrayerTimetable.map(
         [0, 15]
       ],
       // joinDhuhr: true,
-      // joinMaghrib: true,
+      joinMaghrib: true,
 
       // jamaahPerPrayer: [false, false, true, true, false, true],
 
       timezone: timezone,
-      lat: lat,
-      lng: lng,
+      // lat: lat,
+      // lng: lng,
       // hijriOffset: 0,
     );
 
