@@ -2,7 +2,6 @@ import 'package:prayer_timetable/prayer_timetable.dart';
 import 'package:prayer_timetable/src/func/prayers.dart';
 // import 'timetable_map.dart';
 // import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
 
 // import 'package:hijri/digits_converter.dart';
 // import 'package:hijri/hijri_array.dart';

@@ -252,8 +252,8 @@ class PrayerTimetable<T> {
       prayersNext: this.next,
       prayersPrevious: this.previous,
       jamaahOn: this.jamaahOn,
-      lat: this.lat != null ? lat : 0,
-      lng: this.lng != null ? lng : 0,
+      lat: this.lat ?? lat ?? 0,
+      lng: this.lng ?? lng ?? 0,
       jamaahPerPrayer: this.jamaahPerPrayer,
     );
 

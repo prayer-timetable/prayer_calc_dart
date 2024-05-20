@@ -9,10 +9,24 @@ class TimetableCalc {
     required this.precision,
     required this.fajrAngle,
     this.ishaAngle,
+    this.highLatitudeRule,
+    this.madhab,
+    this.adjustments,
+    this.methodAdjustments,
   }) : this.prayerTimes = adhan.PrayerTimes(
-          adhan.Coordinates(lat, lng),
-          date,
-          adhan.CalculationParameters('MuslimWorldLeague', fajrAngle, ishaAngle ?? fajrAngle),
+          coordinates: adhan.Coordinates(lat, lng),
+          date: date,
+          calculationParameters: adhan.CalculationParameters(
+            method: 'MuslimWorldLeague',
+            fajrAngle: fajrAngle,
+            ishaAngle: ishaAngle ?? fajrAngle,
+            highLatitudeRule: highLatitudeRule ?? adhan.HighLatitudeRule.middleOfTheNight,
+            madhab: madhab ?? adhan.Madhab.shafi,
+            adjustments: adjustments ??
+                {'fajr': 0, 'sunrise': 0, 'dhuhr': 0, 'asr': 0, 'maghrib': 0, 'isha': 0},
+            methodAdjustments: methodAdjustments ??
+                {'fajr': 0, 'sunrise': 0, 'dhuhr': 0, 'asr': 0, 'maghrib': 0, 'isha': 0},
+          ),
           precision: precision,
         );
 
@@ -25,6 +39,11 @@ class TimetableCalc {
   double fajrAngle;
   double? ishaAngle;
 
+  String? highLatitudeRule;
+  String? madhab;
+  Map<dynamic, dynamic>? adjustments;
+  Map<dynamic, dynamic>? methodAdjustments;
+
   TimetableCalc copyWith({
     DateTime? date,
     String? timezone,
@@ -33,6 +52,10 @@ class TimetableCalc {
     bool? precision,
     double? fajrAngle,
     double? ishaAngle,
+    String? highLatitudeRule,
+    String? madhab,
+    Map<dynamic, dynamic>? adjustments,
+    Map<dynamic, dynamic>? methodAdjustments,
   }) =>
       TimetableCalc(
         date: date ?? this.date,
@@ -42,5 +65,9 @@ class TimetableCalc {
         precision: precision ?? this.precision,
         fajrAngle: fajrAngle ?? this.fajrAngle,
         ishaAngle: ishaAngle ?? this.ishaAngle ?? this.fajrAngle,
+        highLatitudeRule: highLatitudeRule ?? this.highLatitudeRule ?? this.highLatitudeRule,
+        madhab: madhab ?? this.madhab ?? this.madhab,
+        adjustments: adjustments ?? this.adjustments ?? this.adjustments,
+        methodAdjustments: methodAdjustments ?? this.methodAdjustments ?? this.methodAdjustments,
       );
 }

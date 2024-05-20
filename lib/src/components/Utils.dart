@@ -58,8 +58,8 @@ class Utils {
     required List<Prayer> prayersNext,
     required List<Prayer> prayersPrevious,
     bool? jamaahOn,
-    double? lat,
-    double? lng,
+    double lat = 0.0,
+    double lng = 0.0,
     List<bool>? jamaahPerPrayer,
     int? utcOffsetHours,
   }) {
