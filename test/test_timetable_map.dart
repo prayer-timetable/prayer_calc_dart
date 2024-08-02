@@ -6,9 +6,9 @@ import 'src/timetable_map_dublin_leap.dart';
 // ignore: unused_import
 import 'test.dart';
 
-// String timezone = 'Europe/Sarajevo';
+String timezone = 'Europe/Sarajevo';
 // String timezone = 'Europe/Amsterdam';
-String timezone = 'Europe/Dublin'; // glitch for dst detection
+// String timezone = 'Europe/Dublin'; // glitch for dst detection
 // String timezone = 'Europe/London';
 double lat = latI;
 double lng = lngI;
@@ -16,7 +16,8 @@ double lng = lngI;
 DateTime now = tz.TZDateTime.now(tz.getLocation(timezone));
 // DateTime setTime =
 //     tz.TZDateTime.from(DateTime(now.year, now.month, now.day, 22, 3, 57), tz.getLocation(timezone));
-DateTime setTime = tz.TZDateTime.from(DateTime(2024, 4, 13, 20, 38, 55), tz.getLocation(timezone));
+// DateTime setTime = tz.TZDateTime.from(DateTime(2024, 4, 13, 20, 38, 55), tz.getLocation(timezone));
+DateTime setTime = tz.TZDateTime.from(DateTime(2024, 7, 30, 20, 38, 55), tz.getLocation(timezone));
 DateTime testTime = setTime;
 
 PrayerTimetable map(DateTime testTime) => PrayerTimetable.map(
@@ -30,7 +31,7 @@ PrayerTimetable map(DateTime testTime) => PrayerTimetable.map(
       second: testTime.second,
 
       jamaahOn: true,
-      jamaahMethods: ['afterthis', '', 'afterthis', 'afterthis', 'afterthis', 'afterthis'],
+      jamaahMethods: ['afterthis', '', 'afterthis', 'afterthis', 'afterthis', 'fixed'],
       // jamaahMethods: ['fixed', '', 'afterthis', 'afterthis', 'afterthis', 'afterthis'],
       jamaahOffsets: [
         // [5, 0],
@@ -39,10 +40,10 @@ PrayerTimetable map(DateTime testTime) => PrayerTimetable.map(
         [0, 15],
         [0, 15],
         [0, 15],
-        [0, 15]
+        [23, 0]
       ],
       // joinDhuhr: true,
-      joinMaghrib: true,
+      joinMaghrib: false,
 
       // jamaahPerPrayer: [false, false, true, true, false, true],
 

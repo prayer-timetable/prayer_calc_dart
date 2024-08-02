@@ -22,8 +22,11 @@ double iangleS = 14.6; // iz = 17
 String timezoneS = 'Europe/Sarajevo';
 
 infoTest(time) {
+  List<String> timeSplit = time.toString().split(' ');
+
   print('${green}******************* Info *******************${noColor}');
-  print('time:\t${time.toIso8601String()}');
+  print('time:\t\t${timeSplit[1]}');
+  print('date:\t\t${timeSplit[0]}');
   print('timeZoneOffset:\t${time.timeZoneOffset}');
   print('isDst:\t\t${time.timeZone.isDst}');
   print('location:\t${time.location}');

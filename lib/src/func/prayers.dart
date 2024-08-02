@@ -42,15 +42,6 @@ List<Prayer> prayersGen(
   // tz.Location tzGet = useTz ? tz.getLocation(timezone) : tz.UTC;
   tz.Location tzGet = tz.getLocation(timezone);
 
-  // get offset without dst
-  // int utcOffsetHours = tz.TZDateTime.from(DateTime(date.year, 1, 1), tz.getLocation(timezone))
-  //     .timeZoneOffset
-  //     .inHours;
-
-  // print(utcOffsetHours);
-  // tz.Location tzGet = tz.getLocation(timezone);
-
-  // print('date: $date');
   tz.TZDateTime timestamp = tz.TZDateTime.from(date.add(Duration(days: hijriOffset)), tzGet);
   tz.TZDateTime timestampTZsafe = timestamp.add(Duration(hours: 3));
 
@@ -205,10 +196,8 @@ List<Prayer> prayersGen(
     }
     //if fixed
     else if (jamaahMethods[prayerId] == 'fixed') {
-      prayer.jamaahTime = tz.TZDateTime.from(
-          DateTime(prayerTime.year, prayerTime.month, prayerTime.day, jamaahOffsets[prayerId][0],
-              jamaahOffsets[prayerId][1]),
-          tzGet);
+      prayer.jamaahTime = tz.TZDateTime(tzGet, prayerTime.year, prayerTime.month, prayerTime.day,
+          jamaahOffsets[prayerId][0], jamaahOffsets[prayerId][1]);
     }
     //all else
     else {
