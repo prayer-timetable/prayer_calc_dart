@@ -2,8 +2,7 @@
 /* HELPER FUNCTIONS        */
 /* *********************** */
 
-bool isDSTCalc(DateTime d) =>
-    new DateTime(d.year, 6, 1).timeZoneOffset == d.timeZoneOffset;
+bool isDSTCalc(DateTime d) => new DateTime(d.year, 6, 1).timeZoneOffset == d.timeZoneOffset;
 
 double round2Decimals(value) => double.parse(value.toStringAsFixed(2));
 
@@ -53,3 +52,72 @@ DateTime hourFractionToDateTime(
   return DateTime(date.year, date.month, date.day, hour, minute, second)
       .add(Duration(hours: dstAdjust));
 }
+
+String appendZero(unit) {
+  if (unit < 10) {
+    return '0$unit';
+  }
+  return '$unit';
+}
+
+String toTwoDigitString(int value) {
+  return value.toString().padLeft(2, '0');
+}
+
+bool isDST(DateTime d) {
+  var jul = DateTime(d.year, 6, 1).timeZoneOffset;
+  return jul == d.timeZoneOffset;
+}
+
+String twoDigits(int n) {
+  if (n >= 10) return '$n';
+  return '0$n';
+}
+
+DateTime dayStart(DateTime time) {
+  return DateTime(time.year, time.month, time.day);
+}
+
+DateTime dayEnd(DateTime time) {
+  return DateTime(time.year, time.month, time.day)
+      .add(const Duration(days: 1))
+      .subtract(const Duration(microseconds: 1));
+}
+
+String printDuration(Duration duration, {adjust = 0, round = false}) {
+  String twoDigitMinutes =
+      twoDigits((duration + Duration(seconds: adjust)).inMinutes.remainder(60));
+  String twoDigitSeconds =
+      twoDigits((duration + Duration(seconds: adjust)).inSeconds.remainder(60));
+
+  if (round)
+    return '${twoDigits(duration.inHours)}:$twoDigitMinutes';
+  else
+    return '${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds';
+}
+
+String printDurationAlt(Duration duration, {adjust = 0, round = false}) {
+  String hrs = '${((duration + Duration(seconds: adjust)).inHours)}';
+  String mins = ((duration + Duration(seconds: adjust)).inMinutes.remainder(60)).toString();
+  String secs = ((duration + Duration(seconds: adjust)).inSeconds.remainder(60)).toString();
+  if (hrs == '0')
+    hrs = '0h';
+  else
+    hrs = '${hrs}h';
+
+  if (round)
+    return '$hrs ${mins}m';
+  else
+    return '$hrs ${mins}m ${secs}s';
+}
+
+String capitalise(String s) => s.isNotEmpty ? s[0].toUpperCase() + s.substring(1) : '';
+
+double roundDecimals(double value, int decimals) => double.parse(value.toStringAsFixed(decimals));
+
+String clear = '\x1B[2J\x1B[0;0H';
+String yellow = '\u001b[93m';
+String noColor = '\u001b[0m';
+String green = '\u001b[32m';
+String red = '\u001b[31m';
+String gray = '\u001b[90m';

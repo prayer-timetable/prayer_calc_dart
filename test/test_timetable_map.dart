@@ -1,78 +1,73 @@
+import 'package:prayer_timetable/src/PrayerTimetable.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-import 'package:prayer_timetable/src/PrayerTimetableMap.dart';
-import 'src/timetable_map.dart';
-import 'src/timetable_map_leap.dart';
+import 'src/timetable_map_dublin_leap.dart';
+// ignore: unused_import
 import 'test.dart';
 
-// DateTime testTime = tz.TZDateTime.from(
-//     DateTime(2024, 3, 11, 14, 32, 45), tz.getLocation('Europe/Dublin')); // asr jamaah pending
+String timezone = 'Europe/Sarajevo';
+// String timezone = 'Europe/Amsterdam';
+// String timezone = 'Europe/Dublin'; // glitch for dst detection
+// String timezone = 'Europe/London';
+double lat = latI;
+double lng = lngI;
 
-DateTime testTime = DateTime.now();
+DateTime now = tz.TZDateTime.now(tz.getLocation(timezone));
+// DateTime setTime =
+//     tz.TZDateTime.from(DateTime(now.year, now.month, now.day, 22, 3, 57), tz.getLocation(timezone));
+// DateTime setTime = tz.TZDateTime.from(DateTime(2024, 4, 13, 20, 38, 55), tz.getLocation(timezone));
+DateTime setTime = tz.TZDateTime.from(DateTime(2024, 7, 30, 20, 38, 55), tz.getLocation(timezone));
+DateTime testTime = setTime;
 
-// **************** Today *****************
-// dawn:		  2021-04-14 04:46:00.000
-// sunrise:	  2021-04-14 06:27:00.000
-// midday:		2021-04-14 13:27:00.000
-// afternoon:	2021-04-14 17:14:00.000
-// sunset:		2021-04-14 20:24:00.000
-// dusk:		  2021-04-14 21:59:00.000
-// *********** Today Jamaah *************
-// dawn:		  2021-04-14 06:00:00.000
-// sunrise:	  2021-04-14 06:27:00.000
-// midday:		2021-04-14 13:32:00.000
-// afternoon:	2021-04-14 17:19:00.000
-// sunset:		2021-04-14 20:29:00.000
-// dusk:		  2021-04-14 21:59:00.000
-
-PrayerTimetableMap dublinTimetableMap(newtime) => PrayerTimetableMap(
-      dublinLeap,
-      // dublin,
+PrayerTimetable map(DateTime testTime) => PrayerTimetable.map(
+      timetableMap: dublinLeap,
       // optional parameters:
       year: testTime.year,
       month: testTime.month,
       day: testTime.day,
+      hour: testTime.hour,
+      minute: testTime.minute,
+      second: testTime.second,
 
       jamaahOn: true,
-      jamaahMethods: ['fixed', '', 'afterthis', 'afterthis', 'afterthis', 'afterthis'],
+      jamaahMethods: ['afterthis', '', 'afterthis', 'afterthis', 'afterthis', 'fixed'],
+      // jamaahMethods: ['fixed', '', 'afterthis', 'afterthis', 'afterthis', 'afterthis'],
       jamaahOffsets: [
-        [6, 0],
-        [],
-        [0, 5],
-        [0, 5],
-        [0, 5],
-        [0, 0]
+        // [5, 0],
+        [0, 15],
+        [0, 0],
+        [0, 15],
+        [0, 15],
+        [0, 15],
+        [23, 0]
       ],
-      // jamaahPerPrayer: [false, false, false, true, false, false],
-      // testing options
-      testing: true,
-      hour: newtime.hour,
-      minute: newtime.minute,
-      second: newtime.second,
+      // joinDhuhr: true,
       joinMaghrib: false,
-      joinDhuhr: false,
-      hijriOffset: 0,
+
+      // jamaahPerPrayer: [false, false, true, true, false, true],
+
+      timezone: timezone,
+      // lat: lat,
+      // lng: lng,
+      // hijriOffset: 0,
     );
 
-PrayerTimetableMap location = dublinTimetableMap(testTime);
+PrayerTimetable location = map(testTime);
 
 main() {
   tz.initializeTimeZones();
+  print('\x1B[2J\x1B[0;0H'); // clear entire screen, move cursor to 0;0
+  bool live = true;
 
-  print(testTime);
+  // infoTest(testTime);
+  // print(location.day);
+  // ignore: dead_code
+  if (!live) {
+    jamaahTest(location, prayer: true, jamaah: false, utils: true, info: true);
 
-  jamaahTest(location);
-
-  // timetableTest(location);
-  // Timer.periodic(Duration(seconds: 1), (Timer t) {
-  //   testTime = testTime.add(Duration(seconds: 1));
-  //   location = dublin(testTime);
-  //   print("\x1B[2J\x1B[0;0H"); // clear entire screen, move cursor to 0;0
-  //   print("$testTime");
-  //   print("${location.calc!.percentage}");
-  //   print("${location.calc!.currentId}");
-  // });
+    // ignore: dead_code
+  } else {
+    liveTest(location, show: true, info: true);
+  }
 }
-
-// main() => timetableTest(location);
