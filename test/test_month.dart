@@ -1,7 +1,7 @@
 import 'package:date_format/date_format.dart';
 import 'package:prayer_timetable/prayer_timetable.dart';
 import 'package:prayer_timetable/src/func/helpers.dart';
-import 'package:prayer_timetable/src/func/monthGen.dart';
+// import 'package:prayer_timetable/src/func/monthGen.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 // ignore: unused_import
@@ -19,8 +19,8 @@ double lng = lngI;
 
 DateTime now = tz.TZDateTime.now(tz.getLocation(timezone));
 // DateTime setTime = tz.TZDateTime.from(DateTime(2024, 3, 31, 14, 32, 45), tz.getLocation(timezone));
-DateTime setTime = DateTime(2024, 3, 31, 14, 32, 45);
-DateTime testTime = now;
+DateTime setTime = DateTime(2025, 3, 1, 14, 32, 45);
+DateTime testTime = setTime;
 
 // params.madhab = Madhab.Hanafi;
 // params.adjustments.fajr = 2;
@@ -48,7 +48,7 @@ List differences = vaktija['differences']
 //   fajrAngle: 14.6,
 // );
 
-List<List<Prayer>> list = monthGen(
+List<List<Prayer>> list = PrayerTimetable.monthTable(
   testTime.year, testTime.month,
   // calc: calc,
   list: timetableList,
@@ -58,6 +58,17 @@ List<List<Prayer>> list = monthGen(
   hijriOffset: 0,
   timezone: timezone,
 );
+
+// List<List<Prayer>> list = monthGen(
+//   testTime.year, testTime.month,
+//   // calc: calc,
+//   list: timetableList,
+//   differences: differences,
+//   // timetable: testTime.year % 4 == 0 ? dublinLeap : dublin,
+//   // list: base,
+//   hijriOffset: 0,
+//   timezone: timezone,
+// );
 
 main() {
   tz.initializeTimeZones();

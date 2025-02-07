@@ -22,6 +22,6 @@ dependencies:
     #         url: https://github.com/prayer-timetable/hijri_date.git
 
 dev_dependencies:
-    timezone: ^0.9.3
-    flutter_lints: ^4.0.0
+    timezone: ^0.10.0
+    flutter_lints: ^5.0.0
     date_format: ^2.0.7
