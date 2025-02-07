@@ -72,10 +72,10 @@ class PrayerTimetable<T> {
   Utils utils;
 
   /// Prayer times for the current month
-  List<List<Prayer>>? monthPrayerTimes;
+  // List<List<Prayer>>? monthPrayerTimes;
 
   /// Prayer times for the current hijri month
-  List<List<Prayer>>? monthHijriPrayerTimes;
+  // List<List<Prayer>>? monthHijriPrayerTimes;
 
 // PrayerTimetableMap map;
 
