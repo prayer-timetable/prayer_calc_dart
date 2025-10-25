@@ -120,12 +120,12 @@ class Utils {
     List<bool>? jamaahPerPrayer,
     int? utcOffsetHours,
   }) {
-    DateTime _current = this.current;
-    DateTime _next = this.next;
-    DateTime _previous = this.previous;
-    int _currentId = this.currentId;
-    int _previousId = this.previousId;
-    int _nextId = this.nextId;
+    DateTime _current = current;
+    DateTime _next = next;
+    DateTime _previous = previous;
+    int _currentId = currentId;
+    int _previousId = previousId;
+    int _nextId = nextId;
     bool _isAfterIsha = false;
 
     // time is local for PrayerTimetable and PrayerTimetableAlt
@@ -296,44 +296,43 @@ class Utils {
     DateTime dawnToday = prayersCurrent[0].prayerTime;
     DateTime sunsetToday = prayersCurrent[4].prayerTime;
     DateTime sunsetYesterday = prayersPrevious[4].prayerTime;
-    this.midnight = time.isBefore(dawnToday)
+    midnight = time.isBefore(dawnToday)
         ? sunsetYesterday
             .add(Duration(minutes: (dawnToday.difference(sunsetYesterday).inMinutes / 2).floor()))
         : sunsetToday
             .add(Duration(minutes: (dawnTomorrow.difference(sunsetToday).inMinutes / 2).floor()));
 
-    this.lastThird = time.isBefore(dawnToday)
+    lastThird = time.isBefore(dawnToday)
         ? sunsetYesterday.add(
             Duration(minutes: (2 * dawnToday.difference(sunsetYesterday).inMinutes / 3).floor()))
         : sunsetToday.add(
             Duration(minutes: (2 * dawnTomorrow.difference(sunsetToday).inMinutes / 3).floor()));
 
     // components
-    this.time = _date;
-    this.current = _current;
-    this.next = _next;
-    this.previous = _previous;
+    time = _date;
+    current = _current;
+    next = _next;
+    previous = _previous;
 
-    this.currentId = _currentId;
-    this.nextId = _nextId;
-    this.previousId = _previousId;
-    this.isAfterIsha = _isAfterIsha;
-    this.isJamaahPending = _jamaahPending;
+    currentId = _currentId;
+    nextId = _nextId;
+    previousId = _previousId;
+    isAfterIsha = _isAfterIsha;
+    isJamaahPending = _jamaahPending;
 
-    this.countDown = _next.difference(_date);
-    this.countUp = _date.difference(_current);
+    countDown = _next.difference(_date);
+    countUp = _date.difference(_current);
 
-    percentage =
-        round2Decimals(100 * (this.countUp.inSeconds / (this.countDown + this.countUp).inSeconds));
+    percentage = round2Decimals(100 * (countUp.inSeconds / (countDown + countUp).inSeconds));
 
-    this.percentage = percentage.isNaN ? 0 : percentage;
+    percentage = percentage.isNaN ? 0 : percentage;
 
     // print(lat);
-    this.qibla = adhan.Qibla.qibla(new adhan.Coordinates(lat, lng));
+    qibla = adhan.Qibla.qibla(adhan.Coordinates(lat, lng));
 
     var hTime = HijriCalendar.fromDate(_date);
-    this.hijri = [hTime.hYear, hTime.hMonth, hTime.hDay];
-    this.isLeap = _date.year % 4 == 0;
+    hijri = [hTime.hYear, hTime.hMonth, hTime.hDay];
+    isLeap = _date.year % 4 == 0;
 
     //end
   }

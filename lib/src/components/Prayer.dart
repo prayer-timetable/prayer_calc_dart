@@ -44,22 +44,10 @@ class Prayer {
   bool isJamaahPending = false;
 
   /// Default constructor initializing all properties to their default values
-  Prayer() {
-    this.id;
-    this.name;
-    this.prayerTime;
-    this.jamaahTime;
-    this.endTime;
-
-    this.diff;
-
-    this.isCurrent;
-    this.isNext;
-    this.isJamaahPending;
-  }
+  Prayer();
 
   /// Static instance for default prayer object
-  static Prayer prayer = new Prayer();
+  static Prayer prayer = Prayer();
 
   /// Creates a string representation of the prayer for debugging
   @override

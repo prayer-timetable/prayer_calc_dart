@@ -11,7 +11,7 @@
 ///
 /// [d] - The date to check for DST
 /// Returns true if the date is during DST, false otherwise
-bool isDSTCalc(DateTime d) => new DateTime(d.year, 6, 1).timeZoneOffset == d.timeZoneOffset;
+bool isDSTCalc(DateTime d) => DateTime(d.year, 6, 1).timeZoneOffset == d.timeZoneOffset;
 
 /// Rounds a numeric value to 2 decimal places.
 ///
@@ -31,7 +31,7 @@ double round2Decimals(value) => double.parse(value.toStringAsFixed(2));
 DateTime secondsToDateTime(int seconds, DateTime date, {int offset = 0}) {
   int dstAdjust = isDSTCalc(date) ? 1 : 0;
 
-  return new DateTime(
+  return DateTime(
     date.add(Duration(days: offset)).year,
     date.add(Duration(days: offset)).month,
     date.add(Duration(days: offset)).day,

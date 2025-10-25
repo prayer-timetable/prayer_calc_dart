@@ -52,7 +52,7 @@ class TimetableCalc {
     this.madhab,
     this.adjustments,
     this.methodAdjustments,
-  }) : this.prayerTimes = adhan.PrayerTimes(
+  }) : prayerTimes = adhan.PrayerTimes(
           coordinates: adhan.Coordinates(lat, lng),
           date: date,
           calculationParameters: adhan.CalculationParameters(
@@ -147,10 +147,10 @@ class TimetableCalc {
         precision: precision ?? this.precision,
         fajrAngle: fajrAngle ?? this.fajrAngle,
         ishaAngle: ishaAngle ?? this.ishaAngle ?? this.fajrAngle,
-        highLatitudeRule: highLatitudeRule ?? this.highLatitudeRule ?? this.highLatitudeRule,
-        madhab: madhab ?? this.madhab ?? this.madhab,
-        adjustments: adjustments ?? this.adjustments ?? this.adjustments,
-        methodAdjustments: methodAdjustments ?? this.methodAdjustments ?? this.methodAdjustments,
+        highLatitudeRule: highLatitudeRule ?? this.highLatitudeRule,
+        madhab: madhab ?? this.madhab,
+        adjustments: adjustments ?? this.adjustments,
+        methodAdjustments: methodAdjustments ?? this.methodAdjustments,
       );
 
   /// Converts a string representation of high latitude rule to the corresponding enum.
