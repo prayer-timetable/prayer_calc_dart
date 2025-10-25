@@ -4,6 +4,7 @@
 /// using various data sources (maps, lists, or astronomical calculations).
 /// It handles timezone conversions, DST adjustments, jamaah times, and
 /// prayer joining functionality.
+library;
 
 import 'package:prayer_timetable/prayer_timetable.dart';
 import 'package:timezone/timezone.dart' as tz;
@@ -110,7 +111,7 @@ List<Prayer> prayersGen(
 
   List prayerCount = Iterable<int>.generate(6).toList();
 
-  prayerCount.forEach((prayerId) {
+  for (var prayerId in prayerCount) {
     Prayer prayer = Prayer();
     DateTime prayerTime = DateTime.now();
     DateTime prayerEndTime = DateTime.now();
@@ -304,7 +305,7 @@ List<Prayer> prayersGen(
       prayerId,
       prayer,
     );
-  });
+  }
 
   /// isNext
   for (Prayer prayer in prayers) {

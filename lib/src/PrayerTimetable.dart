@@ -2,6 +2,7 @@
 ///
 /// This file contains the core PrayerTimetable class and its various constructors
 /// for different prayer time calculation methods.
+library;
 
 import 'dart:core';
 
@@ -33,7 +34,7 @@ import 'package:prayer_timetable/src/func/tzTime.dart';
 // enum Mode { DIALOG, MODAL_BOTTOM_SHEET, MENU, BOTTOM_SHEET }
 /// Default jamaah time offsets in [hours, minutes] for each prayer.
 /// Index 0=Fajr, 1=Sunrise, 2=Dhuhr, 3=Asr, 4=Maghrib, 5=Isha
-const List<List<int>> defaultJamaahOffsets = const [
+const List<List<int>> defaultJamaahOffsets = [
   [0, 0], // Fajr: no offset
   [0, 0], // Sunrise: no jamaah typically
   [0, 0], // Dhuhr: no offset
@@ -45,7 +46,7 @@ const List<List<int>> defaultJamaahOffsets = const [
 /// Default jamaah calculation methods for each prayer.
 /// 'afterthis' means jamaah time is calculated as prayer time + offset
 /// Empty string means no jamaah for that prayer
-const List<String> defaultJamaahMethods = const [
+const List<String> defaultJamaahMethods = [
   'afterthis', // Fajr
   '', // Sunrise (no jamaah)
   'afterthis', // Dhuhr
@@ -55,10 +56,10 @@ const List<String> defaultJamaahMethods = const [
 ];
 
 /// Default setting to disable jamaah for all prayers
-const List<bool> defaultJamaahPerPrayerOff = const [false, false, false, false, false, false];
+const List<bool> defaultJamaahPerPrayerOff = [false, false, false, false, false, false];
 
 /// Default setting to enable jamaah for all prayers
-const List<bool> defaultJamaahPerPrayerOn = const [true, true, true, true, true, true];
+const List<bool> defaultJamaahPerPrayerOn = [true, true, true, true, true, true];
 
 /// Main class for Islamic prayer time management and calculations.
 ///
@@ -125,7 +126,7 @@ class PrayerTimetable<T> {
 
 // PrayerTimetableMap map;
 
-/***************************************************** */
+  /// ***************************************************
 
   int? year;
   int? month;
@@ -161,7 +162,7 @@ class PrayerTimetable<T> {
 
 /***************************************************** */
 
-/***************************************************** */
+  /// ***************************************************
   // factory PrayerTimetable(String name) {
   //   return PrayerTimetable.base();
   // }
@@ -214,9 +215,9 @@ class PrayerTimetable<T> {
     // print('${this.year}, ${this.month}, ${this.day}');
     // print(DateTime(this.year ?? date.year, this.month ?? date.month, (this.day ?? date.day) + 1,
     //     this.hour ?? 3, this.minute ?? 0, this.second ?? 0));
-    bool _jamaahOn = jamaahOn;
-    List<bool> _jamaahPerPrayer =
-        !_jamaahOn ? defaultJamaahPerPrayerOff : jamaahPerPrayer ?? defaultJamaahPerPrayerOn;
+    bool localJamaahOn = jamaahOn;
+    List<bool> localJamaahPerPrayer =
+        !localJamaahOn ? defaultJamaahPerPrayerOff : jamaahPerPrayer ?? defaultJamaahPerPrayerOn;
 
     /// ********************************************
     /// Define prayer times
@@ -227,11 +228,9 @@ class PrayerTimetable<T> {
       timetableMap: timetableMap,
       timetableList: timetableList,
       differences: differences,
-      timetableCalc: timetableCalc != null
-          ? timetableCalc!.copyWith(
-              date: DateTime(year ?? date.year, month ?? date.month, (day ?? date.day), hour ?? 3,
-                  minute ?? 0, second ?? 0))
-          : null,
+      timetableCalc: timetableCalc?.copyWith(
+          date: DateTime(year ?? date.year, month ?? date.month, (day ?? date.day), hour ?? 3,
+              minute ?? 0, second ?? 0)),
       timezone: timezone,
       // useTz: useTz,
       hijriOffset: hijriOffset ?? 0,
@@ -240,7 +239,7 @@ class PrayerTimetable<T> {
       jamaahOn: jamaahOn,
       jamaahMethods: jamaahMethods ?? defaultJamaahMethods,
       jamaahOffsets: jamaahOffsets ?? defaultJamaahOffsets,
-      jamaahPerPrayer: _jamaahPerPrayer,
+      jamaahPerPrayer: localJamaahPerPrayer,
       prayerLength: prayerLength,
     );
 
@@ -250,11 +249,9 @@ class PrayerTimetable<T> {
       timetableMap: timetableMap,
       timetableList: timetableList,
       differences: differences,
-      timetableCalc: timetableCalc != null
-          ? timetableCalc!.copyWith(
-              date: DateTime(year ?? date.year, month ?? date.month, (day ?? date.day) + 1,
-                  hour ?? 3, minute ?? 0, second ?? 0))
-          : null,
+      timetableCalc: timetableCalc?.copyWith(
+          date: DateTime(year ?? date.year, month ?? date.month, (day ?? date.day) + 1, hour ?? 3,
+              minute ?? 0, second ?? 0)),
       timezone: timezone,
       // useTz: useTz,
       hijriOffset: hijriOffset ?? 0,
@@ -263,7 +260,7 @@ class PrayerTimetable<T> {
       jamaahOn: jamaahOn,
       jamaahMethods: jamaahMethods ?? defaultJamaahMethods,
       jamaahOffsets: jamaahOffsets ?? defaultJamaahOffsets,
-      jamaahPerPrayer: _jamaahPerPrayer,
+      jamaahPerPrayer: localJamaahPerPrayer,
       prayerLength: prayerLength,
     );
     previous = prayersGen(
@@ -272,11 +269,9 @@ class PrayerTimetable<T> {
       timetableMap: timetableMap,
       timetableList: timetableList,
       differences: differences,
-      timetableCalc: timetableCalc != null
-          ? timetableCalc!.copyWith(
-              date: DateTime(year ?? date.year, month ?? date.month, (day ?? date.day) - 1,
-                  hour ?? 3, minute ?? 0, second ?? 0))
-          : null,
+      timetableCalc: timetableCalc?.copyWith(
+          date: DateTime(year ?? date.year, month ?? date.month, (day ?? date.day) - 1, hour ?? 3,
+              minute ?? 0, second ?? 0)),
       timezone: timezone,
       // useTz: useTz,
       hijriOffset: hijriOffset ?? 0,
@@ -285,7 +280,7 @@ class PrayerTimetable<T> {
       jamaahOn: jamaahOn,
       jamaahMethods: jamaahMethods ?? defaultJamaahMethods,
       jamaahOffsets: jamaahOffsets ?? defaultJamaahOffsets,
-      jamaahPerPrayer: _jamaahPerPrayer,
+      jamaahPerPrayer: localJamaahPerPrayer,
       prayerLength: prayerLength,
     );
 
@@ -428,7 +423,7 @@ class PrayerTimetable<T> {
   static const monthHijriTable = monthHijriGen;
 
   /// end PrayerTimetable month
-/***************************************************** */
+  /// ***************************************************
 
   PrayerTimetable.map({
     required Map timetableMap,

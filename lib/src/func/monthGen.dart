@@ -2,6 +2,7 @@
 ///
 /// This file contains functions for generating complete monthly prayer timetables
 /// using various calculation methods (map-based, list-based, or astronomical).
+library;
 
 import 'package:prayer_timetable/prayer_timetable.dart';
 import 'package:prayer_timetable/src/func/prayers.dart';
@@ -71,7 +72,7 @@ List<List<Prayer>> monthGen(
       timetableMap: timetable,
       timetableList: list,
       differences: differences,
-      timetableCalc: calc != null ? calc.copyWith(date: date.add(Duration(days: index))) : null,
+      timetableCalc: calc?.copyWith(date: date.add(Duration(days: index))),
       timezone: timezone,
       hijriOffset: hijriOffset,
       jamaahOn: jamaahOn,

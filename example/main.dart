@@ -19,12 +19,12 @@ void main() {
   // Example 1: Basic astronomical calculations
   basicExample();
 
-  print('\n' + '=' * 50 + '\n');
+  print('\n${'=' * 50}\n');
 
   // Example 2: Advanced features with jamaah times
   advancedExample();
 
-  print('\n' + '=' * 50 + '\n');
+  print('\n${'=' * 50}\n');
 
   // Example 3: Monthly prayer timetable
   monthlyExample();
@@ -117,7 +117,7 @@ void advancedExample() {
     if (prayer.jamaahTime != prayer.prayerTime && i != 1) {
       String jamaahTimeStr = '${prayer.jamaahTime.hour.toString().padLeft(2, '0')}:'
           '${prayer.jamaahTime.minute.toString().padLeft(2, '0')}';
-      output += ' (Jamaah: $jamaahTimeStr)';
+      output = '$output (Jamaah: $jamaahTimeStr)';
     }
 
     print(output);

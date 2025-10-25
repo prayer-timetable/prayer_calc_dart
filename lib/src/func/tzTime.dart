@@ -2,6 +2,7 @@
 ///
 /// This file provides functions for working with timezones and creating
 /// timezone-aware DateTime objects for accurate prayer time calculations.
+library;
 
 import 'package:timezone/timezone.dart' as tz;
 

@@ -70,7 +70,7 @@ List<List<Prayer>> list = PrayerTimetable.monthTable(
 //   timezone: timezone,
 // );
 
-main() {
+void main() {
   tz.initializeTimeZones();
 
   print('----------------------------------------------------------------------');

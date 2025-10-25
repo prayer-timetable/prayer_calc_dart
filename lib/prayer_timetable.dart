@@ -34,7 +34,7 @@
 /// print('Fajr: ${timetable.current[0].prayerTime}');
 /// print('Next prayer in: ${timetable.utils.countDown}');
 /// ```
-library prayer_timetable;
+library;
 
 export 'src/PrayerTimetable.dart';
 export 'src/components/Prayer.dart';

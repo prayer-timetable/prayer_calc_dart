@@ -57,8 +57,7 @@ List<List<Prayer>> monthHijriGen(
       timetableMap: timetable,
       timetableList: list,
       differences: differences,
-      timetableCalc:
-          calc != null ? calc.copyWith(date: startDate.add(Duration(days: index))) : null,
+      timetableCalc: calc?.copyWith(date: startDate.add(Duration(days: index))),
       timezone: timezone,
       hijriOffset: hijriOffset,
       jamaahOn: jamaahOn,

@@ -5,7 +5,7 @@ import 'package:prayer_timetable/prayer_timetable.dart';
 import 'package:prayer_timetable/src/func/helpers.dart';
 import 'package:prayer_timetable/src/func/prayers.dart';
 
-// ICCI
+// Dublin
 double latI = 53.3046593;
 double lngI = -6.2344076;
 double altitudeI = 85;
@@ -21,10 +21,10 @@ double angleS = 14.6; //iz =19
 double iangleS = 14.6; // iz = 17
 String timezoneS = 'Europe/Sarajevo';
 
-infoTest(time) {
+void infoTest(dynamic time) {
   List<String> timeSplit = time.toString().split(' ');
 
-  print('${green}******************* Info *******************${noColor}');
+  print('$green******************* Info *******************$noColor');
   print('time:\t\t${timeSplit[1]}');
   print('date:\t\t${timeSplit[0]}');
   print('timeZoneOffset:\t${time.timeZoneOffset}');
@@ -40,29 +40,29 @@ infoTest(time) {
 // lastMidnight.timeZone.offset in miliseconds
 }
 
-timetableTest(PrayerTimetable location) {
-  print('${yellow}***************** Current ******************${noColor}');
+void timetableTest(PrayerTimetable location) {
+  print('$yellow***************** Current ******************$noColor');
   print('fajr:\t\t${location.current[0].prayerTime}');
   print('sunrise:\t${location.current[1].prayerTime}');
   print('dhuhr:\t\t${location.current[2].prayerTime}');
   print('asr:\t${location.current[3].prayerTime}');
   print('maghrib:\t\t${location.current[4].prayerTime}');
   print('isha:\t\t${location.current[5].prayerTime}');
-  print('${yellow}****************** Next ********************${noColor}');
+  print('$yellow****************** Next ********************$noColor');
   print('fajr:\t\t${location.next[0].prayerTime}');
   print('sunrise:\t${location.next[1].prayerTime}');
   print('dhuhr:\t\t${location.next[2].prayerTime}');
   print('asr:\t${location.next[3].prayerTime}');
   print('maghrib:\t\t${location.next[4].prayerTime}');
   print('isha:\t\t${location.next[5].prayerTime}');
-  print('${yellow}************** Previous ******************${noColor}');
+  print('$yellow************** Previous ******************$noColor');
   print('fajr:\t\t${location.previous[0].prayerTime}');
   print('sunrise:\t${location.previous[1].prayerTime}');
   print('dhuhr:\t\t${location.previous[2].prayerTime}');
   print('asr:\t${location.previous[3].prayerTime}');
   print('maghrib:\t\t${location.previous[4].prayerTime}');
   print('isha:\t\t${location.previous[5].prayerTime}');
-  print('${yellow}************** Calc ******************${noColor}');
+  print('$yellow************** Calc ******************$noColor');
   print('time:\t${location.utils.time}');
   print('current:\t${location.utils.current}');
   print('next:\t\t${location.utils.next}');
@@ -77,7 +77,7 @@ timetableTest(PrayerTimetable location) {
   print('lastThird\t${location.utils.lastThird}');
 }
 
-jamaahTest(
+void jamaahTest(
   PrayerTimetable location, {
   bool prayer = true,
   bool jamaah = false,
@@ -89,7 +89,7 @@ jamaahTest(
 }) {
   if (info) infoTest(location.utils.time);
   if (prayer && today) {
-    print('${yellow}****************** Today *******************${noColor}');
+    print('$yellow****************** Today *******************$noColor');
     print('fajr:\t\t${location.current[0].prayerTime}');
     print('sunrise:\t${location.current[1].prayerTime}');
     print('dhuhr:\t\t${location.current[2].prayerTime}');
@@ -99,7 +99,7 @@ jamaahTest(
   }
 
   if (jamaah && today) {
-    print('${gray}************** Today Jamaah ****************${noColor}');
+    print('$gray************** Today Jamaah ****************$noColor');
     print('fajr:\t\t${location.current[0].jamaahTime}');
     print('sunrise:\t${location.current[1].jamaahTime}');
     print('dhuhr:\t\t${location.current[2].jamaahTime}');
@@ -109,7 +109,7 @@ jamaahTest(
   }
 
   if (prayer && tomorrow) {
-    print('${yellow}***************** Tomorrow *****************${noColor}');
+    print('$yellow***************** Tomorrow *****************$noColor');
     print('fajr:\t\t${location.next[0].prayerTime}');
     print('sunrise:\t${location.next[1].prayerTime}');
     print('dhuhr:\t\t${location.next[2].prayerTime}');
@@ -119,7 +119,7 @@ jamaahTest(
   }
 
   if (jamaah && tomorrow) {
-    print('${gray}************* Tomorrow Jamaah **************${noColor}');
+    print('$gray************* Tomorrow Jamaah **************$noColor');
     print('fajr:\t\t${location.next[0].jamaahTime}');
     print('sunrise:\t${location.next[1].jamaahTime}');
     print('dhuhr:\t\t${location.next[2].jamaahTime}');
@@ -129,7 +129,7 @@ jamaahTest(
   }
 
   if (prayer && yesterday) {
-    print('${yellow}***************** Yesterday ****************${noColor}');
+    print('$yellow***************** Yesterday ****************$noColor');
     print('fajr:\t\t${location.previous[0].prayerTime}');
     print('sunrise:\t${location.previous[1].prayerTime}');
     print('dhuhr:\t\t${location.previous[2].prayerTime}');
@@ -139,7 +139,7 @@ jamaahTest(
   }
 
   if (jamaah && yesterday) {
-    print('${gray}************* Yesterday Jamaah *************${noColor}');
+    print('$gray************* Yesterday Jamaah *************$noColor');
     print('fajr:\t\t${location.previous[0].jamaahTime}');
     print('sunrise:\t${location.previous[1].jamaahTime}');
     print('dhuhr:\t\t${location.previous[2].jamaahTime}');
@@ -149,7 +149,7 @@ jamaahTest(
   }
 
   if (utils) {
-    print('${yellow}****************** Utils *******************${noColor}');
+    print('$yellow****************** Utils *******************$noColor');
     print('time:\t\t${location.utils.time}');
     print('current:\t${location.utils.current}');
     print('next:\t\t${location.utils.next}');
@@ -171,7 +171,7 @@ jamaahTest(
   }
 }
 
-liveTest(PrayerTimetable location, {bool show = true, bool info = false}) {
+void liveTest(PrayerTimetable location, {bool show = true, bool info = false}) {
   DateTime time = location.utils.time;
   PrayerTimetable loc = location;
 
@@ -211,57 +211,55 @@ liveTest(PrayerTimetable location, {bool show = true, bool info = false}) {
       print('hijri:\t\t${loc.utils.hijri[0]}-${loc.utils.hijri[1]}-${loc.utils.hijri[2]}');
       print('time:\t\t${formatDate(time, [HH, ':', nn, ':', ss])}');
 
-      print('${gray}----------------------------------------${noColor}');
+      print('$gray----------------------------------------$noColor');
       print('Prayers for:\t${formatDate(prayers.first.prayerTime, [yyyy, '-', mm, '-', dd])}');
-      print('${gray}----------------------------------------${noColor}');
+      print('$gray----------------------------------------$noColor');
 
       for (var i = 0; i <= 5; i++) {
         print(
-            '${prayers[i].isNext ? green : ''}${prayerNames[i] + ':'.padRight(8)}\t${formatDate(prayers[i].prayerTime, [
+            '${prayers[i].isNext ? green : ''}${('${prayerNames[i]}:').padRight(8)}\t${formatDate(prayers[i].prayerTime, [
               HH,
               ':',
               nn,
               ':',
               ss
-            ])}\t${formatDate(prayers[i].jamaahTime, [HH, ':', nn, ':', ss])}${noColor}');
+            ])}\t${formatDate(prayers[i].jamaahTime, [HH, ':', nn, ':', ss])}$noColor');
       }
 
-      print('${gray}----------------------------------------${noColor}');
-      print('${green}${'-' * (loc.utils.percentage / 100 * 40).round()}${noColor}');
-      print('${gray}----------------------------------------${noColor}');
-      print('${yellow}countDown:\t${printDuration(loc.utils.countDown)}${noColor}');
-      print('${yellow}countUp:\t${printDuration(loc.utils.countUp)}${noColor}');
-      print('${yellow}percentage:\t${loc.utils.percentage}${noColor}');
+      print('$gray----------------------------------------$noColor');
+      print('$green${'-' * (loc.utils.percentage / 100 * 40).round()}$noColor');
+      print('$gray----------------------------------------$noColor');
+      print('${yellow}countDown:\t${printDuration(loc.utils.countDown)}$noColor');
+      print('${yellow}countUp:\t${printDuration(loc.utils.countUp)}$noColor');
+      print('${yellow}percentage:\t${loc.utils.percentage}$noColor');
       // print('${yellow}currentId:\t${loc.utils.currentId}${noColor}');
       // print('${yellow}nextId:\t\t${loc.utils.nextId}${noColor}');
       // print('${yellow}previousId:\t${loc.utils.previousId}${noColor}');
-      print('${yellow}isJamaahPend:\t${loc.utils.isJamaahPending}${noColor}');
-      print('${yellow}isAfterIsha:\t${loc.utils.isAfterIsha}${noColor}');
+      print('${yellow}isJamaahPend:\t${loc.utils.isJamaahPending}$noColor');
+      print('${yellow}isAfterIsha:\t${loc.utils.isAfterIsha}$noColor');
 
       String isNextString = '${yellow}isNext:\t\t';
       String isCurrentString = '${yellow}isCurrent:\t';
 
       for (var i = 0; i <= 5; i++) {
-        isNextString = isNextString + (prayers[i].isNext ? '${green}' : '${yellow}');
-        isNextString = isNextString + '${prayers[i].isNext}';
-        isNextString = i != 5 ? isNextString + '\t' : isNextString;
-        isCurrentString = isCurrentString + (prayers[i].isCurrent ? '${green}' : '${yellow}');
-        isCurrentString = isCurrentString + '${prayers[i].isCurrent}';
-        isCurrentString = i != 5 ? isCurrentString + '\t' : isCurrentString;
+        isNextString =
+            '$isNextString${prayers[i].isNext ? green : yellow}${prayers[i].isNext}${i != 5 ? '\t' : ''}';
+        isCurrentString =
+            '$isCurrentString${prayers[i].isCurrent ? green : yellow}${prayers[i].isCurrent}${i != 5 ? '\t' : ''}';
       }
-      isCurrentString = isCurrentString + '${noColor}';
+      isCurrentString = '$isCurrentString$noColor';
       print(isCurrentString);
-      isNextString = isNextString + '${noColor}';
+      isNextString = '$isNextString$noColor';
       print(isNextString);
 
       // print(
       // '${yellow}isNext:\t${prayers[0].isNext}\t${prayers[1].isNext}\t${prayers[2].isNext}\t${prayers[3].isNext}\t${prayers[4].isNext}\t${prayers[5].isNext}${noColor}');
     } else {
-      print('${clear}');
+      print(clear);
       print('isha adhan\t${prayers[5].prayerTime}');
       print('isha jamaah\t${prayers[5].jamaahTime}');
       print('-----');
-      print('time\t\t${time}');
+      print('time\t\t$time');
       print('-----');
       print('fajr adhan\t${prayers[0].prayerTime}');
       print('fajr jamaah\t${prayers[0].jamaahTime}');

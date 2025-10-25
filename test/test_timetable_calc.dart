@@ -71,7 +71,7 @@ final prayerTimes = adhan.PrayerTimes(
   precision: true,
 );
 
-main() {
+void main() {
   tz.initializeTimeZones();
   print('\x1B[2J\x1B[0;0H'); // clear entire screen, move cursor to 0;0
   bool live = false;

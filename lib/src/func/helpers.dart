@@ -2,6 +2,7 @@
 ///
 /// This file contains utility functions used throughout the prayer timetable
 /// library for time calculations, formatting, and various helper operations.
+library;
 
 /// Determines if a given date is during Daylight Saving Time (DST).
 ///
@@ -17,7 +18,7 @@ bool isDSTCalc(DateTime d) => DateTime(d.year, 6, 1).timeZoneOffset == d.timeZon
 ///
 /// [value] - The numeric value to round
 /// Returns the value rounded to 2 decimal places as a double
-double round2Decimals(value) => double.parse(value.toStringAsFixed(2));
+double round2Decimals(num value) => double.parse(value.toStringAsFixed(2));
 
 /// Converts seconds since midnight to a DateTime object.
 ///
@@ -74,7 +75,7 @@ DateTime hourFractionToDateTime(
 ///
 /// [unit] - The number to format
 /// Returns a string with leading zero if needed (e.g., "05" for 5)
-String appendZero(unit) {
+String appendZero(int unit) {
   if (unit < 10) {
     return '0$unit';
   }
@@ -131,7 +132,7 @@ DateTime dayEnd(DateTime time) {
 /// [adjust] - Optional seconds to add/subtract
 /// [round] - If true, excludes seconds from output
 /// Returns a formatted time string
-String printDuration(Duration duration, {adjust = 0, round = false}) {
+String printDuration(Duration duration, {int adjust = 0, bool round = false}) {
   String twoDigitMinutes =
       twoDigits((duration + Duration(seconds: adjust)).inMinutes.remainder(60));
   String twoDigitSeconds =
@@ -149,7 +150,7 @@ String printDuration(Duration duration, {adjust = 0, round = false}) {
 /// [adjust] - Optional seconds to add/subtract
 /// [round] - If true, excludes seconds from output
 /// Returns a formatted duration string with units
-String printDurationAlt(Duration duration, {adjust = 0, round = false}) {
+String printDurationAlt(Duration duration, {int adjust = 0, bool round = false}) {
   String hrs = '${((duration + Duration(seconds: adjust)).inHours)}';
   String mins = ((duration + Duration(seconds: adjust)).inMinutes.remainder(60)).toString();
   String secs = ((duration + Duration(seconds: adjust)).inSeconds.remainder(60)).toString();
@@ -168,7 +169,7 @@ String printDurationAlt(Duration duration, {adjust = 0, round = false}) {
 ///
 /// [s] - The string to capitalize
 /// Returns the string with the first letter capitalized, or empty string if input is empty
-String capitalise(String s) => s.isNotEmpty ? s[0].toUpperCase() + s.substring(1) : '';
+String capitalise(String s) => s.isNotEmpty ? '${s[0].toUpperCase()}${s.substring(1)}' : '';
 
 /// Rounds a double value to a specified number of decimal places.
 ///
