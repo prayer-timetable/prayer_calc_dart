@@ -1,8 +1,10 @@
-// library prayer_timetable;
+/// Main PrayerTimetable implementation providing comprehensive Islamic prayer time management.
+///
+/// This file contains the core PrayerTimetable class and its various constructors
+/// for different prayer time calculation methods.
 
 import 'dart:core';
 
-// import 'package:adhan_dart/adhan_dart.dart';
 import 'package:prayer_timetable/prayer_timetable.dart';
 import 'package:prayer_timetable/src/func/monthGen.dart';
 import 'package:prayer_timetable/src/func/monthHijriGen.dart';
@@ -29,46 +31,90 @@ import 'package:prayer_timetable/src/func/tzTime.dart';
 // typedef List<T> FavoriteItems<T>(List<T> items);
 
 // enum Mode { DIALOG, MODAL_BOTTOM_SHEET, MENU, BOTTOM_SHEET }
+/// Default jamaah time offsets in [hours, minutes] for each prayer.
+/// Index 0=Fajr, 1=Sunrise, 2=Dhuhr, 3=Asr, 4=Maghrib, 5=Isha
 const List<List<int>> defaultJamaahOffsets = const [
-  [0, 0],
-  [0, 0],
-  [0, 0],
-  [0, 0],
-  [0, 0],
-  [0, 0]
-];
-const List<String> defaultJamaahMethods = const [
-  'afterthis',
-  '',
-  'afterthis',
-  'afterthis',
-  'afterthis',
-  'afterthis'
+  [0, 0], // Fajr: no offset
+  [0, 0], // Sunrise: no jamaah typically
+  [0, 0], // Dhuhr: no offset
+  [0, 0], // Asr: no offset
+  [0, 0], // Maghrib: no offset
+  [0, 0] // Isha: no offset
 ];
 
+/// Default jamaah calculation methods for each prayer.
+/// 'afterthis' means jamaah time is calculated as prayer time + offset
+/// Empty string means no jamaah for that prayer
+const List<String> defaultJamaahMethods = const [
+  'afterthis', // Fajr
+  '', // Sunrise (no jamaah)
+  'afterthis', // Dhuhr
+  'afterthis', // Asr
+  'afterthis', // Maghrib
+  'afterthis' // Isha
+];
+
+/// Default setting to disable jamaah for all prayers
 const List<bool> defaultJamaahPerPrayerOff = const [false, false, false, false, false, false];
+
+/// Default setting to enable jamaah for all prayers
 const List<bool> defaultJamaahPerPrayerOn = const [true, true, true, true, true, true];
 
+/// Main class for Islamic prayer time management and calculations.
+///
+/// This class provides comprehensive prayer time functionality including:
+/// - Multiple calculation methods (map-based, list-based, astronomical)
+/// - Jamaah (congregation) time management
+/// - Prayer time analysis and utilities
+/// - Support for different timezones and locations
+/// - Monthly prayer time generation
+///
+/// The class maintains prayer times for three days (previous, current, next)
+/// and provides utilities for determining current prayer status, countdowns,
+/// and other Islamic time-related calculations.
+///
+/// Example usage:
+/// ```dart
+/// // Using astronomical calculations
+/// final timetable = PrayerTimetable.calc(
+///   timetableCalc: TimetableCalc(...),
+///   jamaahOn: true,
+///   timezone: 'America/New_York',
+/// );
+///
+/// // Access current prayer times
+/// Prayer fajr = timetable.current[0];
+/// print('Fajr: ${fajr.prayerTime}');
+/// print('Next prayer in: ${timetable.utils.countDown}');
+/// ```
 class PrayerTimetable<T> {
-  ///method
+  // Data sources (only one should be provided)
+  /// Pre-calculated prayer times in map format
   Map? timetableMap;
+
+  /// Pre-calculated prayer times in list format
   List? timetableList;
+
+  /// Monthly differences for list-based calculations
   List? differences;
+
+  /// Astronomical calculation parameters
   TimetableCalc? timetableCalc;
 
-  ///current prayers
+  // Prayer time arrays (6 prayers each: Fajr, Sunrise, Dhuhr, Asr, Maghrib, Isha)
+  /// Prayer times for the current day
   List<Prayer> current = List<Prayer>.filled(6, Prayer(), growable: false);
 
-  ///next prayers
+  /// Prayer times for the next day
   List<Prayer> next = List<Prayer>.filled(6, Prayer(), growable: false);
 
-  ///previous prayers
+  /// Prayer times for the previous day
   List<Prayer> previous = List<Prayer>.filled(6, Prayer(), growable: false);
 
-  ///prayers in focus
+  /// The prayers currently in focus (current day or next day if after Isha)
   List<Prayer> focus = List<Prayer>.filled(6, Prayer(), growable: false);
 
-  ///calculations based on set DateTime
+  /// Utility class providing prayer analysis and additional calculations
   Utils utils;
 
   /// Prayer times for the current month

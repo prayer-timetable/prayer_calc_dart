@@ -1,16 +1,39 @@
+/// Core prayer time generation and calculation functions.
+///
+/// This file contains the main logic for generating individual prayer times
+/// using various data sources (maps, lists, or astronomical calculations).
+/// It handles timezone conversions, DST adjustments, jamaah times, and
+/// prayer joining functionality.
+
 import 'package:prayer_timetable/prayer_timetable.dart';
-
-// ignore: unused_import
-import 'package:prayer_timetable/src/func/helpers.dart';
-
-// import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
+/// Names of the six prayer/time periods in order
 List<String> prayerNames = ['fajr', 'sunrise', 'dhuhr', 'asr', 'maghrib', 'isha'];
 
-/* *********************** */
-/* MAIN FUNCTION           */
-/* *********************** */
+/// Generates prayer times for a single day using the specified calculation method.
+///
+/// This is the core function that calculates prayer times for a given date using
+/// one of three possible data sources: timetableMap, timetableList, or timetableCalc.
+/// It handles timezone conversions, DST adjustments, jamaah times, and various
+/// Islamic prayer time rules.
+///
+/// [date] - The date to calculate prayer times for
+/// [timetableMap] - Optional pre-calculated prayer times in map format
+/// [timetableList] - Optional pre-calculated prayer times in list format
+/// [differences] - Optional monthly differences for list-based calculations
+/// [timetableCalc] - Optional astronomical calculation parameters
+/// [hijriOffset] - Days to offset for Hijri calendar alignment
+/// [timezone] - Timezone identifier for accurate time calculations
+/// [jamaahOn] - Whether to enable jamaah (congregation) times
+/// [jamaahMethods] - Methods for calculating jamaah times ('afterthis', 'fixed', etc.)
+/// [jamaahOffsets] - Time offsets for jamaah times in [hours, minutes] format
+/// [joinDhuhr] - Whether to join Dhuhr and Asr prayers
+/// [joinMaghrib] - Whether to join Maghrib and Isha prayers
+/// [jamaahPerPrayer] - Boolean array indicating which prayers have jamaah
+/// [prayerLength] - Duration in minutes between joined prayers
+///
+/// Returns a list of 6 Prayer objects representing the daily prayer times
 List<Prayer> prayersGen(
   DateTime date, {
   Map? timetableMap,

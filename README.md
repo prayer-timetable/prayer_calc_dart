@@ -1,122 +1,326 @@
-# Dart Prayer Calc Library
+# Prayer Timetable Dart
 
-Library for calculating muslim prayer times based on excellent [Adhan JavaScript](https://github.com/batoulapps/adhan-js). Ported to Dart, preserving the calculation logic. Adapted to use Dart's superior DateTime class for quick and convenient time calculations.
+A comprehensive Dart library for Islamic prayer time calculations and management, providing accurate prayer times using multiple calculation methods with full timezone support and jamaah (congregation) time management.
+
+## Features
+
+-   **Multiple Calculation Methods**:
+    -   Astronomical calculations using the [adhan_dart](https://pub.dev/packages/adhan_dart) library
+    -   Pre-calculated map-based timetables
+    -   List-based timetables with monthly differences
+-   **Comprehensive Prayer Management**: All five daily prayers (Fajr, Dhuhr, Asr, Maghrib, Isha) plus Sunrise
+-   **Jamaah Time Support**: Customizable congregation times with various calculation methods
+-   **Timezone Handling**: Full timezone support with automatic DST adjustments
+-   **Prayer Analysis**: Current prayer detection, countdown timers, and completion percentages
+-   **Islamic Calendar**: Hijri date integration and calendar utilities
+-   **Qibla Direction**: Accurate Qibla bearing calculations
+-   **Monthly Generation**: Complete monthly prayer timetables for both Gregorian and Hijri calendars
+-   **Sunnah Times**: Islamic midnight and last third of night calculations
 
 > All astronomical calculations are high precision equations directly from the book [“Astronomical Algorithms”](http://www.willbell.com/math/mc1.htm) by Jean Meeus. This book is recommended by the Astronomical Applications Department of the U.S. Naval Observatory and the Earth System Research Laboratory of the National Oceanic and Atmospheric Administration.
 
-# Dart Classes
+## Quick Start
 
-## PrayerTimetable
+```dart
+import 'package:prayer_timetable/prayer_timetable.dart';
 
-This class returns 5 daily prayers plus Sunrise. Takes the following input parameters:
+// Using astronomical calculations
+final timetable = PrayerTimetable.calc(
+  timetableCalc: TimetableCalc(
+    date: DateTime.now(),
+    timezone: 'America/New_York',
+    lat: 40.7128,
+    lng: -74.0060,
+    precision: true,
+    fajrAngle: 15.0,
+  ),
+  jamaahOn: true,
+  timezone: 'America/New_York',
+);
 
-- _int_ **timezone**,
-- _double_ **latitude**,
-- _double_ **longitude**,
-- _double_ **angle**
+// Access prayer times
+print('Fajr: ${timetable.current[0].prayerTime}');
+print('Dhuhr: ${timetable.current[2].prayerTime}');
+print('Next prayer in: ${timetable.utils.countDown}');
+print('Qibla direction: ${timetable.utils.qibla}°');
+```
 
-Optional parameters:
+## Core Classes
 
-- _int_ **year**,
-- _int_ **month**,
-- _int_ **day**,
-- _int_ **hour**,
-- _int_ **minute**,
-- _int_ **second**,
-- _int_ **asrMethod**: 1,
-- _double_ **ishaAngle**,
-- _bool_ **summerTimeCalc**: true,
-- _DateTime_ **time**,
-- _double_ **altitude**,
-- _bool_ **precision**: true,
+### PrayerTimetable
 
-**Some notes**:
+The main class providing comprehensive prayer time management with multiple constructors for different calculation methods:
 
-- if no date is used, the library uses current date and time
-- **asrMethod** defaults to 1 (_Shafi_), 2 would mean _Hanafi_
-- **ishaAngle** would default to _angle_, in other words if ishaAngle is not used, _angle_ value would be used for both dusk and dawn
-- **summerTimeCalc** is true by default, optionally it can be forced to false (no hour adjustments)
-- **time** is used for calculation of **now** as per below, otherwise current time is used
-- **altitude** currently not used
-- **precision** enables the display of seconds, otherwise if false, output times are rounded to nearest minute
+#### PrayerTimetable.calc()
 
-This class returns **_prayers_**, **_calc_**, **_sunnah_** and **_qibla_** classes.
+Uses astronomical calculations via the adhan_dart library:
 
-## Prayers
+```dart
+final timetable = PrayerTimetable.calc(
+  timetableCalc: TimetableCalc(
+    date: DateTime.now(),
+    timezone: 'America/New_York',
+    lat: 40.7128,
+    lng: -74.0060,
+    precision: true,
+    fajrAngle: 15.0,
+    highLatitudeRule: 'twilightAngle',
+    madhab: 'shafi',
+  ),
+  jamaahOn: true,
+  timezone: 'America/New_York',
+);
+```
 
-This class returns the following:
+#### PrayerTimetable.map()
 
-- _DateTime_ **now** - current time at the location
-- _DateTime_ **current** - current prayer time
-- _DateTime_ **next** - next prayer time
-- _DateTime_ **previous** - previous prayer time
-- _bool_ **isAfterIsha** - is the current time after isha and before the midnight
-- _int_ **currentId** - id of the current prayer/time (0 - 5)
+Uses pre-calculated prayer times from a map structure:
 
-Each of the **current**, **next** and **previous** returns 6 prayer times (ie. current.sunrise):
+```dart
+final timetable = PrayerTimetable.map(
+  timetableMap: yourPrayerTimeMap,
+  jamaahOn: true,
+  timezone: 'America/New_York',
+);
+```
 
-- _DateTime_ **dawn** - fajr prayer time
-- _DateTime_ **sunrise** - shurooq time
-- _DateTime_ **midday** - dhuhr prayer time
-- _DateTime_ **afternoon** - asr prayer time
-- _DateTime_ **sunset** - maghrib prayer time
-- _DateTime_ **dusk** - isha prayer time
+#### PrayerTimetable.list()
 
-## Calc
+Uses list-based prayer times with monthly differences:
 
-This class calculates calc to and from the prayers, taking into account next day Dawn for Isha prayer, as well as Previous day Isha when calculating Dawn for day after midnight. It also determines current, next and previous prayers based on current time. It returns the following:
+```dart
+final timetable = PrayerTimetable.list(
+  timetableList: yourPrayerTimeList,
+  differences: monthlyDifferences,
+  jamaahOn: true,
+  timezone: 'America/New_York',
+);
+```
 
-- _Duration_ **countDown** - time until the next prayer
-- _Duration_ **countUp** - time passed since the current prayer begun
-- _double_ **percentage**: percentage of time passed between current and next prayer
+### Key Properties
 
-## Sunnah
+-   **`current`**: List of 6 Prayer objects for the current day
+-   **`next`**: List of 6 Prayer objects for the next day
+-   **`previous`**: List of 6 Prayer objects for the previous day
+-   **`focus`**: The prayers currently in focus (current or next day if after Isha)
+-   **`utils`**: Utils object with prayer analysis and additional calculations
 
-This class calculates times that apply to certain sunnah-defined times. It provides the following:
+### Prayer
 
-- _DateTime_ **midnight** - mid-point between the Sunset-Maghrib and Dawn-Fajr
-- _DateTime_ **lastThird** - as above, time indicating the beginning of the last third of the night
+Represents a single Islamic prayer with timing information and status:
 
-## Qibla
+```dart
+Prayer fajr = timetable.current[0];
+print('Prayer: ${fajr.name}');
+print('Time: ${fajr.prayerTime}');
+print('Jamaah: ${fajr.jamaahTime}');
+print('Is Current: ${fajr.isCurrent}');
+print('Is Next: ${fajr.isNext}');
+```
 
-Class returning single value:
+**Prayer IDs:**
 
-- _double_ **qibla** - direction (bearing) to Qibla, in degrees
+-   0: Fajr (Dawn prayer)
+-   1: Sunrise (Shurooq - end of Fajr time)
+-   2: Dhuhr (Noon prayer)
+-   3: Asr (Afternoon prayer)
+-   4: Maghrib (Sunset prayer)
+-   5: Isha (Night prayer)
+
+**Key Properties:**
+
+-   **`prayerTime`**: The actual prayer start time
+-   **`jamaahTime`**: Congregation prayer time
+-   **`endTime`**: When the prayer period ends
+-   **`isCurrent`**: Whether this prayer is currently active
+-   **`isNext`**: Whether this is the next upcoming prayer
+-   **`isJamaahPending`**: Whether jamaah time is pending
+
+### Utils
+
+Provides prayer time analysis and additional Islamic calculations:
+
+```dart
+Utils utils = timetable.utils;
+print('Current prayer ID: ${utils.currentId}');
+print('Next prayer ID: ${utils.nextId}');
+print('Time until next prayer: ${utils.countDown}');
+print('Prayer completion: ${utils.percentage}%');
+print('Qibla direction: ${utils.qibla}°');
+print('Hijri date: ${utils.hijri}'); // [year, month, day]
+```
+
+**Key Properties:**
+
+-   **`countDown`**: Duration until the next prayer
+-   **`countUp`**: Duration since the current prayer began
+-   **`percentage`**: Percentage of current prayer period completed (0-100)
+-   **`currentId`**: ID of the currently active prayer (0-5)
+-   **`nextId`**: ID of the next prayer (0-5)
+-   **`isAfterIsha`**: Whether current time is after Isha prayer
+-   **`qibla`**: Qibla direction in degrees from North
+-   **`hijri`**: Hijri date as [year, month, day]
+-   **`midnight`**: Islamic midnight (halfway between sunset and dawn)
+-   **`lastThird`**: Last third of night (recommended for Tahajjud prayer)
+
+### TimetableCalc
+
+Calculator for astronomical prayer time calculations:
+
+```dart
+final calc = TimetableCalc(
+  date: DateTime.now(),
+  timezone: 'America/New_York',
+  lat: 40.7128,
+  lng: -74.0060,
+  precision: true,
+  fajrAngle: 15.0,
+  ishaAngle: 15.0,
+  highLatitudeRule: 'twilightAngle', // 'middleOfTheNight', 'seventhOfTheNight'
+  madhab: 'shafi', // 'hanafi'
+);
+```
+
+## Advanced Features
+
+### Jamaah (Congregation) Times
+
+Configure jamaah times with various methods:
+
+```dart
+final timetable = PrayerTimetable.calc(
+  timetableCalc: calc,
+  jamaahOn: true,
+  jamaahMethods: ['fixed', '', 'afterthis', 'afterthis', 'afterthis', 'afterthis'],
+  jamaahOffsets: [
+    [6, 0],    // Fajr at 6:00 AM fixed time
+    [0, 0],    // Sunrise (no jamaah)
+    [0, 15],   // Dhuhr + 15 minutes
+    [0, 15],   // Asr + 15 minutes
+    [0, 5],    // Maghrib + 5 minutes
+    [0, 20]    // Isha + 20 minutes
+  ],
+  jamaahPerPrayer: [true, false, true, true, true, true],
+  timezone: 'America/New_York',
+);
+```
+
+### Monthly Prayer Timetables
+
+Generate complete monthly timetables:
+
+```dart
+// Gregorian month
+List<List<Prayer>> monthlyPrayers = PrayerTimetable.monthTable(
+  2024, 3, // March 2024
+  calc: timetableCalc,
+  timezone: 'America/New_York',
+  jamaahOn: true,
+);
+
+// Hijri month
+List<List<Prayer>> hijriMonthlyPrayers = PrayerTimetable.monthHijriTable(
+  2024, 3,
+  calc: timetableCalc,
+  timezone: 'America/New_York',
+  jamaahOn: true,
+);
+```
+
+### High Latitude Rules
+
+For locations with extreme latitudes:
+
+-   **`twilightAngle`**: Use twilight angle throughout the year
+-   **`middleOfTheNight`**: Middle of the night method
+-   **`seventhOfTheNight`**: Seventh of the night method
 
 ## Installation
 
-Add to your pubspec.yaml file:
+Add to your `pubspec.yaml` file:
 
-```
-  prayer_timetable:
-    git:
-      url: git://github.com/prayer-timetable/prayer_timetable_dart.git
-```
-
-## Example
-
-```
-      int timezone = 1;
-      double lat = 43.8563;
-      double lng = 18.4131;
-      double angle = 14.6;
-
-      PrayerTimetable location = new PrayerTimetable(timezone, lat, lng, angle);
-
-      // current day fajr
-      print('${location.prayers.current.dawn');
-      // next day asr
-      print('${location.prayers.next.afternoon');
-      // previous day isha
-      print('${location.prayers.previous.dusk');
-      // last third of the night
-      print('${location.sunnah.lastThird}');
-      // countdown to next prayer
-      print('${location.calc.countDown}');
-      // Qibla direction
-      print('${location.qibla}');
-
-
+```yaml
+dependencies:
+    prayer_timetable:
+        git:
+            url: https://github.com/prayer-timetable/prayer_timetable_dart.git
 ```
 
-This document still under review and more updates coming insha'Allah soon.
+Then run:
+
+```bash
+dart pub get
+```
+
+## Complete Example
+
+```dart
+import 'package:prayer_timetable/prayer_timetable.dart';
+
+void main() {
+  // Initialize timezone data
+  tz.initializeTimeZones();
+
+  // Create timetable with astronomical calculations
+  final timetable = PrayerTimetable.calc(
+    timetableCalc: TimetableCalc(
+      date: DateTime.now(),
+      timezone: 'America/New_York',
+      lat: 40.7128,
+      lng: -74.0060,
+      precision: true,
+      fajrAngle: 15.0,
+      highLatitudeRule: 'twilightAngle',
+      madhab: 'shafi',
+    ),
+    jamaahOn: true,
+    jamaahMethods: ['afterthis', '', 'afterthis', 'afterthis', 'afterthis', 'afterthis'],
+    jamaahOffsets: [[0, 15], [0, 0], [0, 10], [0, 10], [0, 5], [0, 15]],
+    timezone: 'America/New_York',
+  );
+
+  // Access prayer times
+  print('=== Today\'s Prayer Times ===');
+  for (int i = 0; i < 6; i++) {
+    Prayer prayer = timetable.current[i];
+    print('${prayer.name}: ${prayer.prayerTime}');
+    if (prayer.jamaahTime != prayer.prayerTime) {
+      print('  Jamaah: ${prayer.jamaahTime}');
+    }
+  }
+
+  // Prayer analysis
+  print('\n=== Prayer Analysis ===');
+  print('Current prayer: ${timetable.utils.currentId}');
+  print('Next prayer: ${timetable.utils.nextId}');
+  print('Time until next prayer: ${timetable.utils.countDown}');
+  print('Prayer completion: ${timetable.utils.percentage.toStringAsFixed(1)}%');
+
+  // Islamic information
+  print('\n=== Islamic Information ===');
+  print('Qibla direction: ${timetable.utils.qibla.toStringAsFixed(1)}°');
+  print('Hijri date: ${timetable.utils.hijri[2]}/${timetable.utils.hijri[1]}/${timetable.utils.hijri[0]}');
+  print('Islamic midnight: ${timetable.utils.midnight}');
+  print('Last third of night: ${timetable.utils.lastThird}');
+}
+```
+
+## Documentation
+
+The library is fully documented with comprehensive inline documentation. All classes, methods, and properties include detailed descriptions, parameter explanations, and usage examples. Use your IDE's documentation features or generate documentation with:
+
+```bash
+dart doc
+```
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit issues, feature requests, or pull requests.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+---
+
+_May Allah accept our efforts in facilitating the observance of Islamic prayers. Ameen._

@@ -1,9 +1,35 @@
+/// Monthly prayer time generation for Gregorian calendar.
+///
+/// This file contains functions for generating complete monthly prayer timetables
+/// using various calculation methods (map-based, list-based, or astronomical).
+
 import 'package:prayer_timetable/prayer_timetable.dart';
 import 'package:prayer_timetable/src/func/prayers.dart';
-// import 'timetable_map.dart';
-// import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
+/// Generates prayer times for an entire Gregorian month.
+///
+/// This function creates a complete monthly prayer timetable by calculating
+/// prayer times for each day of the specified month using the provided
+/// calculation method and parameters.
+///
+/// [year] - The year (e.g., 2024)
+/// [month] - The month (1-12)
+/// [timetable] - Optional map-based timetable data
+/// [list] - Optional list-based timetable data
+/// [differences] - Optional monthly differences for list-based calculations
+/// [calc] - Optional astronomical calculation parameters
+/// [hijriOffset] - Days to offset for Hijri calendar alignment
+/// [timezone] - Timezone identifier (e.g., 'America/New_York')
+/// [jamaahOn] - Whether to enable jamaah times
+/// [jamaahMethods] - Methods for calculating jamaah times
+/// [jamaahOffsets] - Time offsets for jamaah times
+/// [joinDhuhr] - Whether to join Dhuhr and Asr prayers
+/// [joinMaghrib] - Whether to join Maghrib and Isha prayers
+/// [jamaahPerPrayer] - Which prayers have jamaah enabled
+/// [prayerLength] - Duration in minutes for joined prayers
+///
+/// Returns a list of daily prayer lists for the entire month
 List<List<Prayer>> monthGen(
   int year,
   int month, {

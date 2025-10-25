@@ -7,51 +7,108 @@ import 'package:timezone/timezone.dart' as tz;
 
 // import 'package:adhan_dart/adhan_dart.dart';
 
-/// time DateTime
-/// current DateTime
-/// next = DateTime
-/// previous = DateTime
-/// isAfterIsha = bool
-/// currentId = int
-/// nextId = int
-/// previousId = int
-/// countDown = Duration
-/// countUp = Duration
-/// percentage = double
-/// jamaahPending = bool
-/// qibla = Qibla.qibla(new Coordinates(double lat, double lng))
+/// Utility class providing prayer time analysis and additional Islamic calculations.
+///
+/// This class analyzes the current time in relation to prayer times and provides
+/// useful information such as:
+/// - Which prayer is currently active
+/// - Which prayer is next
+/// - Countdown to next prayer
+/// - Prayer completion percentage
+/// - Qibla direction
+/// - Hijri date information
+/// - Sunnah times (midnight, last third of night)
+///
+/// The class handles both regular prayer times and jamaah (congregation) times,
+/// providing accurate status information for mosque applications.
+///
+/// Example usage:
+/// ```dart
+/// final utils = Utils(
+///   DateTime.now(),
+///   prayersCurrent: currentPrayers,
+///   prayersNext: nextPrayers,
+///   prayersPrevious: previousPrayers,
+///   jamaahOn: true,
+///   lat: 40.7128,
+///   lng: -74.0060,
+/// );
+///
+/// print('Current prayer: ${utils.currentId}');
+/// print('Time until next prayer: ${utils.countDown}');
+/// print('Qibla direction: ${utils.qibla}°');
+/// ```
 class Utils {
+  /// The current time being analyzed
   DateTime time = DateTime.now();
 
-  /// Prayer times
+  /// Prayer times relative to the current time
+  /// The currently active prayer time
   DateTime current = DateTime.now();
+
+  /// The next upcoming prayer time
   DateTime next = DateTime.now();
+
+  /// The most recent past prayer time
   DateTime previous = DateTime.now();
 
-  /// Prayer details
+  /// Prayer identification and status
+  /// ID of the currently active prayer (0-5)
   int currentId = 1;
+
+  /// ID of the previous prayer (0-5)
   int previousId = 0;
+
+  /// ID of the next prayer (0-5)
   int nextId = 2;
+
+  /// Whether jamaah time is pending for current prayer
   bool isJamaahPending = false;
+
+  /// Whether current time is after Isha prayer (affects next day calculations)
   bool isAfterIsha = false;
 
-  /// Sunnah
+  /// Sunnah (recommended) prayer times
+  /// Islamic midnight (halfway between sunset and dawn)
   DateTime midnight = DateTime.now();
+
+  /// Last third of the night (recommended time for Tahajjud prayer)
   DateTime lastThird = DateTime.now();
 
-  /// Countdown
+  /// Time calculations
+  /// Duration until the next prayer
   Duration countDown = Duration.zero;
+
+  /// Duration since the current prayer started
   Duration countUp = Duration(seconds: 10);
+
+  /// Percentage of current prayer period completed (0-100)
   double percentage = 0.1;
 
-  /// Qibla direction
+  /// Qibla direction in degrees from North (0-360)
   double qibla = 0;
 
-  /// Years
+  /// Calendar information
+  /// Hijri date as [year, month, day]
   List<int> hijri = [];
+
+  /// Whether the current Gregorian year is a leap year
   bool isLeap = false;
+
+  /// UTC offset in hours for the current timezone
   int? utcOffsetHours;
 
+  /// Creates a Utils instance with comprehensive prayer time analysis.
+  ///
+  /// [_date] - The current date/time to analyze
+  /// [prayersCurrent] - List of 6 prayers for the current day
+  /// [prayersNext] - List of 6 prayers for the next day
+  /// [prayersPrevious] - List of 6 prayers for the previous day
+  /// [jamaahOn] - Whether jamaah times are enabled
+  /// [lat] - Latitude for Qibla calculation
+  /// [lng] - Longitude for Qibla calculation
+  /// [jamaahPerPrayer] - Which prayers have jamaah enabled (6 booleans)
+  /// [utcOffsetHours] - UTC offset in hours for timezone
   Utils(
     DateTime _date, {
     required List<Prayer> prayersCurrent,
@@ -282,6 +339,10 @@ class Utils {
   }
 }
 
+/// Default Utils instance used as a fallback when no specific utils are provided.
+///
+/// This instance uses current time with empty prayer lists and disabled jamaah.
+/// It's primarily used for initialization purposes.
 Utils defaultUtils = Utils(
   DateTime.now(),
   prayersCurrent: List<Prayer>.filled(6, Prayer(), growable: false),
