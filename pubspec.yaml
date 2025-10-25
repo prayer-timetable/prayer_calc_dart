@@ -1,5 +1,5 @@
 name: prayer_timetable
-version: 2.0.3
+version: 2.0.4
 description: >-
     Library to calculate prayer times for muslims.
     Based on precise astronomical formula.
@@ -8,7 +8,7 @@ documentation: https://ensar.me/docs
 environment:
     sdk: '>=3.3.0 <4.0.0'
 dependencies:
-    adhan_dart: ^1.1.2
+    adhan_dart: ^1.2.0
 
     # adhan_dart:
     #     git:
@@ -22,6 +22,6 @@ dependencies:
     #         url: https://github.com/prayer-timetable/hijri_date.git
 
 dev_dependencies:
-    timezone: ^0.10.0
-    flutter_lints: ^5.0.0
-    date_format: ^2.0.7
+    timezone: ^0.10.1
+    flutter_lints: ^6.0.0
+    date_format: ^2.0.9

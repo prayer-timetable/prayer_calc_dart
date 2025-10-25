@@ -21,7 +21,7 @@ TimetableCalc timetableCalc = TimetableCalc(
   lng: lngI,
   precision: true,
   fajrAngle: 14.6,
-  highLatitudeRule: adhan.HighLatitudeRule.twilightAngle,
+  highLatitudeRule: adhan.HighLatitudeRule.twilightAngle.name,
   // highLatitudeRule: HighLatitudeRule.middleOfTheNight,
   // highLatitudeRule: HighLatitudeRule.seventhOfTheNight,
 );
@@ -47,16 +47,17 @@ PrayerTimetable calc(DateTime testTime) => PrayerTimetable.calc(
 
 PrayerTimetable location = calc(testTime);
 
-adhan.CalculationParameters params = adhan.CalculationMethod.muslimWorldLeague();
+adhan.CalculationParameters params = adhan.CalculationParameters(
+  fajrAngle: 18.0,
+  ishaAngle: 17.0,
+  method: adhan.CalculationMethod.muslimWorldLeague,
+  highLatitudeRule: adhan.HighLatitudeRule.twilightAngle,
+);
 
 final prayerTimes = adhan.PrayerTimes(
   coordinates: adhan.Coordinates(latI, lngI),
   date: now,
-  calculationParameters: params.copyWith(
-    // highLatitudeRule: HighLatitudeRule.twilightAngle,
-    highLatitudeRule: adhan.HighLatitudeRule.twilightAngle,
-    // highLatitudeRule: HighLatitudeRule.seventhOfTheNight,
-  ),
+  calculationParameters: params,
 
   // CalculationParameters(
   //   'MuslimWorldLeague',
@@ -77,13 +78,13 @@ main() {
 
   infoTest(testTime);
 
-  timetableCalc.highLatitudeRule = adhan.HighLatitudeRule.middleOfTheNight;
+  timetableCalc.highLatitudeRule = adhan.HighLatitudeRule.middleOfTheNight.name;
   print(timetableCalc.prayerTimes.fajr);
 
-  timetableCalc.highLatitudeRule = adhan.HighLatitudeRule.seventhOfTheNight;
+  timetableCalc.highLatitudeRule = adhan.HighLatitudeRule.seventhOfTheNight.name;
   print(timetableCalc.prayerTimes.fajr);
 
-  timetableCalc.highLatitudeRule = adhan.HighLatitudeRule.twilightAngle;
+  timetableCalc.highLatitudeRule = adhan.HighLatitudeRule.twilightAngle.name;
   print(timetableCalc.prayerTimes.fajr);
 
   prayerTimes.calculationParameters.highLatitudeRule = adhan.HighLatitudeRule.twilightAngle;
@@ -96,5 +97,4 @@ main() {
   } else {
     liveTest(location);
   }
-  ;
 }

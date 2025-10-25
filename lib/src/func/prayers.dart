@@ -148,12 +148,12 @@ List<Prayer> prayersGen(
       // print(
       //     'timestamp ${timestamp} | dayEnd ${dayEnd} | adjDst ${adjDst} | isDst ${timestamp.timeZone.isDst}');
 
-      DateTime fajrTime = tz.TZDateTime.from(timetableCalc.prayerTimes.fajr!, tzGet);
-      DateTime sunriseTime = tz.TZDateTime.from(timetableCalc.prayerTimes.sunrise!, tzGet);
-      DateTime dhuhrTime = tz.TZDateTime.from(timetableCalc.prayerTimes.dhuhr!, tzGet);
-      DateTime asrTime = tz.TZDateTime.from(timetableCalc.prayerTimes.asr!, tzGet);
-      DateTime maghribTime = tz.TZDateTime.from(timetableCalc.prayerTimes.maghrib!, tzGet);
-      DateTime ishaTime = tz.TZDateTime.from(timetableCalc.prayerTimes.isha!, tzGet);
+      DateTime fajrTime = tz.TZDateTime.from(timetableCalc.prayerTimes.fajr, tzGet);
+      DateTime sunriseTime = tz.TZDateTime.from(timetableCalc.prayerTimes.sunrise, tzGet);
+      DateTime dhuhrTime = tz.TZDateTime.from(timetableCalc.prayerTimes.dhuhr, tzGet);
+      DateTime asrTime = tz.TZDateTime.from(timetableCalc.prayerTimes.asr, tzGet);
+      DateTime maghribTime = tz.TZDateTime.from(timetableCalc.prayerTimes.maghrib, tzGet);
+      DateTime ishaTime = tz.TZDateTime.from(timetableCalc.prayerTimes.isha, tzGet);
 
       if (prayerId == 0) {
         prayerTime = fajrTime;

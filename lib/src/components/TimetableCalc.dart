@@ -17,15 +17,30 @@ class TimetableCalc {
           coordinates: adhan.Coordinates(lat, lng),
           date: date,
           calculationParameters: adhan.CalculationParameters(
-            method: 'MuslimWorldLeague',
+            method: adhan.CalculationMethod.muslimWorldLeague,
             fajrAngle: fajrAngle,
             ishaAngle: ishaAngle ?? fajrAngle,
-            highLatitudeRule: highLatitudeRule ?? adhan.HighLatitudeRule.twilightAngle,
-            madhab: madhab ?? adhan.Madhab.shafi,
-            adjustments: adjustments ??
-                {'fajr': 0, 'sunrise': 0, 'dhuhr': 0, 'asr': 0, 'maghrib': 0, 'isha': 0},
-            methodAdjustments: methodAdjustments ??
-                {'fajr': 0, 'sunrise': 0, 'dhuhr': 0, 'asr': 0, 'maghrib': 0, 'isha': 0},
+            highLatitudeRule:
+                _parseHighLatitudeRule(highLatitudeRule) ?? adhan.HighLatitudeRule.twilightAngle,
+            madhab: _parseMadhab(madhab) ?? adhan.Madhab.shafi,
+            adjustments: _parseAdjustments(adjustments) ??
+                {
+                  adhan.Prayer.fajr: 0,
+                  adhan.Prayer.sunrise: 0,
+                  adhan.Prayer.dhuhr: 0,
+                  adhan.Prayer.asr: 0,
+                  adhan.Prayer.maghrib: 0,
+                  adhan.Prayer.isha: 0,
+                },
+            methodAdjustments: _parseAdjustments(methodAdjustments) ??
+                {
+                  adhan.Prayer.fajr: 0,
+                  adhan.Prayer.sunrise: 0,
+                  adhan.Prayer.dhuhr: 0,
+                  adhan.Prayer.asr: 0,
+                  adhan.Prayer.maghrib: 0,
+                  adhan.Prayer.isha: 0,
+                },
           ),
           precision: precision,
         );
@@ -70,4 +85,63 @@ class TimetableCalc {
         adjustments: adjustments ?? this.adjustments ?? this.adjustments,
         methodAdjustments: methodAdjustments ?? this.methodAdjustments ?? this.methodAdjustments,
       );
+
+  static adhan.HighLatitudeRule? _parseHighLatitudeRule(String? rule) {
+    if (rule == null) return null;
+    switch (rule.toLowerCase()) {
+      case 'middleofthenight':
+        return adhan.HighLatitudeRule.middleOfTheNight;
+      case 'seventhofthenight':
+        return adhan.HighLatitudeRule.seventhOfTheNight;
+      case 'twilightangle':
+        return adhan.HighLatitudeRule.twilightAngle;
+      default:
+        return null;
+    }
+  }
+
+  static adhan.Madhab? _parseMadhab(String? madhab) {
+    if (madhab == null) return null;
+    switch (madhab.toLowerCase()) {
+      case 'shafi':
+        return adhan.Madhab.shafi;
+      case 'hanafi':
+        return adhan.Madhab.hanafi;
+      default:
+        return null;
+    }
+  }
+
+  static Map<adhan.Prayer, int>? _parseAdjustments(Map<dynamic, dynamic>? adjustments) {
+    if (adjustments == null) return null;
+    Map<adhan.Prayer, int> result = {};
+
+    adjustments.forEach((key, value) {
+      adhan.Prayer? prayer = _parsePrayer(key.toString());
+      if (prayer != null && value is int) {
+        result[prayer] = value;
+      }
+    });
+
+    return result.isEmpty ? null : result;
+  }
+
+  static adhan.Prayer? _parsePrayer(String prayer) {
+    switch (prayer.toLowerCase()) {
+      case 'fajr':
+        return adhan.Prayer.fajr;
+      case 'sunrise':
+        return adhan.Prayer.sunrise;
+      case 'dhuhr':
+        return adhan.Prayer.dhuhr;
+      case 'asr':
+        return adhan.Prayer.asr;
+      case 'maghrib':
+        return adhan.Prayer.maghrib;
+      case 'isha':
+        return adhan.Prayer.isha;
+      default:
+        return null;
+    }
+  }
 }
