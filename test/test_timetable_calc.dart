@@ -1,4 +1,4 @@
-import 'package:adhan_dart/adhan_dart.dart';
+import 'package:adhan_dart/adhan_dart.dart' as adhan;
 import 'package:prayer_timetable/src/PrayerTimetable.dart';
 import 'package:prayer_timetable/src/components/TimetableCalc.dart';
 import 'package:timezone/data/latest.dart' as tz;
@@ -21,7 +21,7 @@ TimetableCalc timetableCalc = TimetableCalc(
   lng: lngI,
   precision: true,
   fajrAngle: 14.6,
-  highLatitudeRule: HighLatitudeRule.twilightAngle,
+  highLatitudeRule: adhan.HighLatitudeRule.twilightAngle,
   // highLatitudeRule: HighLatitudeRule.middleOfTheNight,
   // highLatitudeRule: HighLatitudeRule.seventhOfTheNight,
 );
@@ -47,15 +47,15 @@ PrayerTimetable calc(DateTime testTime) => PrayerTimetable.calc(
 
 PrayerTimetable location = calc(testTime);
 
-CalculationParameters params = CalculationMethod.muslimWorldLeague();
+adhan.CalculationParameters params = adhan.CalculationMethod.muslimWorldLeague();
 
-final prayerTimes = PrayerTimes(
-  coordinates: Coordinates(latI, lngI),
+final prayerTimes = adhan.PrayerTimes(
+  coordinates: adhan.Coordinates(latI, lngI),
   date: now,
   calculationParameters: params.copyWith(
     // highLatitudeRule: HighLatitudeRule.twilightAngle,
-    // highLatitudeRule: HighLatitudeRule.middleOfTheNight,
-    highLatitudeRule: HighLatitudeRule.seventhOfTheNight,
+    highLatitudeRule: adhan.HighLatitudeRule.twilightAngle,
+    // highLatitudeRule: HighLatitudeRule.seventhOfTheNight,
   ),
 
   // CalculationParameters(
@@ -77,10 +77,17 @@ main() {
 
   infoTest(testTime);
 
-  // prayerTimes.calculationParameters.highLatitudeRule = HighLatitudeRule.seventhOfTheNight;
-  // prayerTimes.calculationParameters.highLatitudeRule = HighLatitudeRule.twilightAngle;
-  // print(timetableCalc.prayerTimes.fajr);
-  // print(prayerTimes.fajr);
+  timetableCalc.highLatitudeRule = adhan.HighLatitudeRule.middleOfTheNight;
+  print(timetableCalc.prayerTimes.fajr);
+
+  timetableCalc.highLatitudeRule = adhan.HighLatitudeRule.seventhOfTheNight;
+  print(timetableCalc.prayerTimes.fajr);
+
+  timetableCalc.highLatitudeRule = adhan.HighLatitudeRule.twilightAngle;
+  print(timetableCalc.prayerTimes.fajr);
+
+  prayerTimes.calculationParameters.highLatitudeRule = adhan.HighLatitudeRule.twilightAngle;
+  print(prayerTimes.fajr);
 
   if (!live) {
     jamaahTest(location);

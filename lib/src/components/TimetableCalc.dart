@@ -20,7 +20,7 @@ class TimetableCalc {
             method: 'MuslimWorldLeague',
             fajrAngle: fajrAngle,
             ishaAngle: ishaAngle ?? fajrAngle,
-            highLatitudeRule: highLatitudeRule ?? adhan.HighLatitudeRule.middleOfTheNight,
+            highLatitudeRule: highLatitudeRule ?? adhan.HighLatitudeRule.twilightAngle,
             madhab: madhab ?? adhan.Madhab.shafi,
             adjustments: adjustments ??
                 {'fajr': 0, 'sunrise': 0, 'dhuhr': 0, 'asr': 0, 'maghrib': 0, 'isha': 0},
