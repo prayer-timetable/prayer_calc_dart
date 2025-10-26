@@ -339,6 +339,231 @@ class Utils {
 
     //end
   }
+
+  // HIJRI CALENDAR CONVERSION STATIC METHODS
+
+  /// Converts a specific Hijri date to Gregorian date.
+  ///
+  /// This function converts a complete Hijri date (year, month, day) to its
+  /// corresponding Gregorian date using the Islamic calendar system.
+  ///
+  /// [hijriYear] - The Hijri year (e.g., 1446)
+  /// [hijriMonth] - The Hijri month (1-12)
+  /// [hijriDay] - The Hijri day (1-30)
+  /// Returns a DateTime object representing the Gregorian date
+  ///
+  /// Example:
+  /// ```dart
+  /// DateTime gregorianDate = Utils.hijriToGregorian(1446, 9, 26);
+  /// // Returns: 2025-03-26
+  /// ```
+  static DateTime hijriToGregorian(int hijriYear, int hijriMonth, int hijriDay) {
+    var hDate = HijriCalendar.now();
+    return hDate.hijriToGregorian(hijriYear, hijriMonth, hijriDay);
+  }
+
+  /// Converts a Gregorian date to Hijri date.
+  ///
+  /// This function converts a Gregorian DateTime to its corresponding
+  /// Hijri date representation.
+  ///
+  /// [gregorianDate] - The Gregorian DateTime to convert
+  /// Returns a HijriCalendar object representing the Hijri date
+  ///
+  /// Example:
+  /// ```dart
+  /// HijriCalendar hijriDate = Utils.gregorianToHijri(DateTime(2025, 3, 26));
+  /// // Returns: 1446-09-26
+  /// ```
+  static HijriCalendar gregorianToHijri(DateTime gregorianDate) {
+    return HijriCalendar.fromDate(gregorianDate);
+  }
+
+  /// Gets the first day of a Hijri month in Gregorian calendar.
+  ///
+  /// This function returns the Gregorian date that corresponds to the
+  /// first day of the specified Hijri month and year.
+  ///
+  /// [hijriYear] - The Hijri year
+  /// [hijriMonth] - The Hijri month (1-12)
+  /// Returns a DateTime object for the first day of the Hijri month
+  ///
+  /// Example:
+  /// ```dart
+  /// DateTime firstDay = Utils.getHijriMonthStart(1446, 9);
+  /// // Returns the Gregorian date for 1446-09-01
+  /// ```
+  static DateTime getHijriMonthStart(int hijriYear, int hijriMonth) {
+    return hijriToGregorian(hijriYear, hijriMonth, 1);
+  }
+
+  /// Gets the last day of a Hijri month in Gregorian calendar.
+  ///
+  /// This function returns the Gregorian date that corresponds to the
+  /// last day of the specified Hijri month and year.
+  ///
+  /// [hijriYear] - The Hijri year
+  /// [hijriMonth] - The Hijri month (1-12)
+  /// Returns a DateTime object for the last day of the Hijri month
+  ///
+  /// Example:
+  /// ```dart
+  /// DateTime lastDay = Utils.getHijriMonthEnd(1446, 9);
+  /// // Returns the Gregorian date for the last day of Ramadan 1446
+  /// ```
+  static DateTime getHijriMonthEnd(int hijriYear, int hijriMonth) {
+    var hDate = HijriCalendar.now();
+    hDate.hYear = hijriYear;
+    hDate.hMonth = hijriMonth;
+    int daysInMonth = hDate.lengthOfMonth;
+    return hijriToGregorian(hijriYear, hijriMonth, daysInMonth);
+  }
+
+  /// Gets the number of days in a specific Hijri month.
+  ///
+  /// This function returns the total number of days in the specified
+  /// Hijri month and year (either 29 or 30 days).
+  ///
+  /// [hijriYear] - The Hijri year
+  /// [hijriMonth] - The Hijri month (1-12)
+  /// Returns the number of days in the month
+  ///
+  /// Example:
+  /// ```dart
+  /// int days = Utils.getHijriMonthLength(1446, 9);
+  /// // Returns: 30 (for Ramadan 1446)
+  /// ```
+  static int getHijriMonthLength(int hijriYear, int hijriMonth) {
+    var hDate = HijriCalendar.now();
+    hDate.hYear = hijriYear;
+    hDate.hMonth = hijriMonth;
+    return hDate.lengthOfMonth;
+  }
+
+  /// Gets the first day of a Hijri year in Gregorian calendar.
+  ///
+  /// This function returns the Gregorian date that corresponds to the
+  /// first day (1st of Muharram) of the specified Hijri year.
+  ///
+  /// [hijriYear] - The Hijri year
+  /// Returns a DateTime object for the first day of the Hijri year
+  ///
+  /// Example:
+  /// ```dart
+  /// DateTime newYear = Utils.getHijriYearStart(1446);
+  /// // Returns the Gregorian date for 1446-01-01 (1st Muharram)
+  /// ```
+  static DateTime getHijriYearStart(int hijriYear) {
+    return hijriToGregorian(hijriYear, 1, 1);
+  }
+
+  /// Gets the last day of a Hijri year in Gregorian calendar.
+  ///
+  /// This function returns the Gregorian date that corresponds to the
+  /// last day (29th or 30th of Dhul Hijjah) of the specified Hijri year.
+  ///
+  /// [hijriYear] - The Hijri year
+  /// Returns a DateTime object for the last day of the Hijri year
+  ///
+  /// Example:
+  /// ```dart
+  /// DateTime yearEnd = Utils.getHijriYearEnd(1446);
+  /// // Returns the Gregorian date for the last day of 1446
+  /// ```
+  static DateTime getHijriYearEnd(int hijriYear) {
+    var hDate = HijriCalendar.now();
+    hDate.hYear = hijriYear;
+    hDate.hMonth = 12; // Dhul Hijjah
+    int daysInMonth = hDate.lengthOfMonth;
+    return hijriToGregorian(hijriYear, 12, daysInMonth);
+  }
+
+  /// Formats a Hijri date as a string.
+  ///
+  /// This function takes Hijri date components and formats them as a
+  /// readable string in YYYY-MM-DD format.
+  ///
+  /// [hijriYear] - The Hijri year
+  /// [hijriMonth] - The Hijri month (1-12)
+  /// [hijriDay] - The Hijri day (1-30)
+  /// Returns a formatted string representation of the Hijri date
+  ///
+  /// Example:
+  /// ```dart
+  /// String formatted = Utils.formatHijriDate(1446, 9, 26);
+  /// // Returns: "1446-09-26"
+  /// ```
+  static String formatHijriDate(int hijriYear, int hijriMonth, int hijriDay) {
+    return '$hijriYear-${hijriMonth.toString().padLeft(2, '0')}-${hijriDay.toString().padLeft(2, '0')}';
+  }
+
+  /// Gets the name of a Hijri month in Arabic.
+  ///
+  /// This function returns the Arabic name of the specified Hijri month.
+  ///
+  /// [hijriMonth] - The Hijri month number (1-12)
+  /// Returns the Arabic name of the month
+  ///
+  /// Example:
+  /// ```dart
+  /// String monthName = Utils.getHijriMonthNameArabic(9);
+  /// // Returns: "رمضان" (Ramadan)
+  /// ```
+  static String getHijriMonthNameArabic(int hijriMonth) {
+    const List<String> monthNames = [
+      'محرم', // Muharram
+      'صفر', // Safar
+      'ربيع الأول', // Rabi' al-awwal
+      'ربيع الثاني', // Rabi' al-thani
+      'جمادى الأولى', // Jumada al-awwal
+      'جمادى الثانية', // Jumada al-thani
+      'رجب', // Rajab
+      'شعبان', // Sha'ban
+      'رمضان', // Ramadan
+      'شوال', // Shawwal
+      'ذو القعدة', // Dhu al-Qi'dah
+      'ذو الحجة' // Dhu al-Hijjah
+    ];
+
+    if (hijriMonth >= 1 && hijriMonth <= 12) {
+      return monthNames[hijriMonth - 1];
+    }
+    return '';
+  }
+
+  /// Gets the name of a Hijri month in English.
+  ///
+  /// This function returns the English name of the specified Hijri month.
+  ///
+  /// [hijriMonth] - The Hijri month number (1-12)
+  /// Returns the English name of the month
+  ///
+  /// Example:
+  /// ```dart
+  /// String monthName = Utils.getHijriMonthNameEnglish(9);
+  /// // Returns: "Ramadan"
+  /// ```
+  static String getHijriMonthNameEnglish(int hijriMonth) {
+    const List<String> monthNames = [
+      'Muharram',
+      'Safar',
+      'Rabi\' al-awwal',
+      'Rabi\' al-thani',
+      'Jumada al-awwal',
+      'Jumada al-thani',
+      'Rajab',
+      'Sha\'ban',
+      'Ramadan',
+      'Shawwal',
+      'Dhu al-Qi\'dah',
+      'Dhu al-Hijjah'
+    ];
+
+    if (hijriMonth >= 1 && hijriMonth <= 12) {
+      return monthNames[hijriMonth - 1];
+    }
+    return '';
+  }
 }
 
 /// Default Utils instance used as a fallback when no specific utils are provided.

@@ -1,6 +1,11 @@
 # Prayer Timetable Dart
 
+[![pub package](https://img.shields.io/pub/v/prayer_timetable.svg)](https://pub.dev/packages/prayer_timetable)
+[![GitHub](https://img.shields.io/github/license/prayer-timetable/prayer_timetable_dart)](https://github.com/prayer-timetable/prayer_timetable_dart)
+
 A comprehensive Dart library for Islamic prayer time calculations and management, providing accurate prayer times using multiple calculation methods with full timezone support and jamaah (congregation) time management.
+
+**📦 [View on pub.dev](https://pub.dev/packages/prayer_timetable) | 🔗 [GitHub Repository](https://github.com/prayer-timetable/prayer_timetable_dart)**
 
 ## Features
 
@@ -18,6 +23,23 @@ A comprehensive Dart library for Islamic prayer time calculations and management
 -   **Sunnah Times**: Islamic midnight and last third of night calculations
 
 > All astronomical calculations are high precision equations directly from the book [“Astronomical Algorithms”](http://www.willbell.com/math/mc1.htm) by Jean Meeus. This book is recommended by the Astronomical Applications Department of the U.S. Naval Observatory and the Earth System Research Laboratory of the National Oceanic and Atmospheric Administration.
+
+## Installation
+
+Add this package to your `pubspec.yaml`:
+
+```yaml
+dependencies:
+    prayer_timetable: ^2.2.0
+```
+
+Or install it from the command line:
+
+```bash
+dart pub add prayer_timetable
+```
+
+**📦 [View on pub.dev](https://pub.dev/packages/prayer_timetable)** for the latest version and detailed package information.
 
 ## Quick Start
 
@@ -163,6 +185,47 @@ print('Hijri date: ${utils.hijri}'); // [year, month, day]
 -   **`midnight`**: Islamic midnight (halfway between sunset and dawn)
 -   **`lastThird`**: Last third of night (recommended for Tahajjud prayer)
 
+**Hijri Calendar Conversion Methods:**
+
+The Utils class provides comprehensive static methods for Hijri calendar conversions:
+
+```dart
+// Convert specific Hijri date to Gregorian
+DateTime gregorianDate = Utils.hijriToGregorian(1446, 9, 26);
+print(gregorianDate); // 2025-03-26
+
+// Convert Gregorian date to Hijri
+var hijriDate = Utils.gregorianToHijri(DateTime(2025, 3, 26));
+print('${hijriDate.hYear}-${hijriDate.hMonth}-${hijriDate.hDay}'); // 1446-9-26
+
+// Month-level functions
+DateTime monthStart = Utils.getHijriMonthStart(1446, 9); // First day of Ramadan 1446
+DateTime monthEnd = Utils.getHijriMonthEnd(1446, 9);     // Last day of Ramadan 1446
+int monthLength = Utils.getHijriMonthLength(1446, 9);    // Number of days in Ramadan
+
+// Year-level functions
+DateTime yearStart = Utils.getHijriYearStart(1446);      // 1st Muharram 1446
+DateTime yearEnd = Utils.getHijriYearEnd(1446);          // Last day of Dhul Hijjah 1446
+
+// Formatting and names
+String formatted = Utils.formatHijriDate(1446, 9, 26);   // "1446-09-26"
+String monthName = Utils.getHijriMonthNameEnglish(9);    // "Ramadan"
+String arabicName = Utils.getHijriMonthNameArabic(9);    // "رمضان"
+```
+
+**Available Hijri Conversion Methods:**
+
+-   **`hijriToGregorian(year, month, day)`**: Convert Hijri date to Gregorian
+-   **`gregorianToHijri(DateTime)`**: Convert Gregorian date to Hijri
+-   **`getHijriMonthStart(year, month)`**: Get first day of Hijri month
+-   **`getHijriMonthEnd(year, month)`**: Get last day of Hijri month
+-   **`getHijriMonthLength(year, month)`**: Get number of days in Hijri month
+-   **`getHijriYearStart(year)`**: Get first day of Hijri year (1st Muharram)
+-   **`getHijriYearEnd(year)`**: Get last day of Hijri year (last day of Dhul Hijjah)
+-   **`formatHijriDate(year, month, day)`**: Format Hijri date as "YYYY-MM-DD"
+-   **`getHijriMonthNameEnglish(month)`**: Get English month name
+-   **`getHijriMonthNameArabic(month)`**: Get Arabic month name
+
 ### TimetableCalc
 
 Calculator for astronomical prayer time calculations:
@@ -235,9 +298,16 @@ For locations with extreme latitudes:
 -   **`middleOfTheNight`**: Middle of the night method
 -   **`seventhOfTheNight`**: Seventh of the night method
 
-## Installation
+## Alternative Installation
 
-Add to your `pubspec.yaml` file:
+### From pub.dev (Recommended)
+
+```yaml
+dependencies:
+    prayer_timetable: ^2.2.0
+```
+
+### From GitHub (Development Version)
 
 ```yaml
 dependencies:

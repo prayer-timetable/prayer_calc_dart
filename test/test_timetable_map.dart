@@ -3,7 +3,6 @@ import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 import 'src/timetable_map_dublin.dart';
-import 'src/timetable_map_dublin_leap.dart';
 // ignore: unused_import
 import 'test.dart';
 

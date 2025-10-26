@@ -9,10 +9,11 @@
 /// - Support for all five daily prayers (Fajr, Dhuhr, Asr, Maghrib, Isha) plus Sunrise
 /// - Jamaah (congregation) time management with customizable offsets
 /// - Timezone support with automatic DST handling
-/// - Hijri calendar integration
+/// - Hijri calendar integration with comprehensive conversion utilities
 /// - Qibla direction calculation
 /// - Prayer time utilities and countdown functionality
 /// - Monthly prayer time generation for both Gregorian and Hijri calendars
+/// - Static Hijri conversion methods in Utils class for date operations
 ///
 /// Example usage:
 /// ```dart

@@ -5,6 +5,43 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2025-10-26
+
+### Added
+
+-   **Hijri Calendar Conversion Functions**: Comprehensive static methods in Utils class for Hijri calendar operations
+    -   `Utils.hijriToGregorian(year, month, day)` - Convert specific Hijri dates to Gregorian
+    -   `Utils.gregorianToHijri(DateTime)` - Convert Gregorian dates to Hijri
+    -   `Utils.getHijriMonthStart(year, month)` - Get first day of Hijri month in Gregorian
+    -   `Utils.getHijriMonthEnd(year, month)` - Get last day of Hijri month in Gregorian
+    -   `Utils.getHijriMonthLength(year, month)` - Get number of days in Hijri month
+    -   `Utils.getHijriYearStart(year)` - Get first day of Hijri year (1st Muharram)
+    -   `Utils.getHijriYearEnd(year)` - Get last day of Hijri year (last day of Dhul Hijjah)
+    -   `Utils.formatHijriDate(year, month, day)` - Format Hijri dates as "YYYY-MM-DD" strings
+    -   `Utils.getHijriMonthNameEnglish(month)` - Get English month names (e.g., "Ramadan")
+    -   `Utils.getHijriMonthNameArabic(month)` - Get Arabic month names (e.g., "رمضان")
+-   Enhanced documentation with comprehensive Hijri conversion examples
+-   Full API documentation for all new Hijri calendar functions
+
+### Changed
+
+-   Moved Hijri conversion functions from helpers to Utils class as static methods for better organization
+-   Updated README with detailed Hijri calendar conversion section and examples
+-   Improved code organization by centralizing Islamic calendar utilities in Utils class
+
+### Fixed
+
+-   **DST Calculation Bug**: Corrected Daylight Saving Time logic for Dublin timezone that was incorrectly adding hours instead of subtracting during DST end transition
+-   Prayer time adjustments now properly handle DST transitions, ensuring accurate times during timezone changes
+-   Verified DST behavior for October 26, 2025 transition and other DST boundary dates
+
+### Technical Details
+
+-   All Hijri functions are now accessible via `Utils.functionName()` syntax
+-   Functions support both individual date conversions and bulk month/year operations
+-   Comprehensive error handling and input validation for all date parameters
+-   Full compatibility with existing hijri package for accurate calendar calculations
+
 ## [2.1.0] - 2024-12-19
 
 ### Added
