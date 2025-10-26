@@ -22,7 +22,7 @@ A comprehensive Dart library for Islamic prayer time calculations and management
 -   **Monthly Generation**: Complete monthly prayer timetables for both Gregorian and Hijri calendars
 -   **Sunnah Times**: Islamic midnight and last third of night calculations
 
-> All astronomical calculations are high precision equations directly from the book [“Astronomical Algorithms”](http://www.willbell.com/math/mc1.htm) by Jean Meeus. This book is recommended by the Astronomical Applications Department of the U.S. Naval Observatory and the Earth System Research Laboratory of the National Oceanic and Atmospheric Administration.
+> All astronomical calculations are high precision equations directly from the book [“Astronomical Algorithms”](https://shopatsky.com/products/astronomical-algorithms-2nd-edition) by Jean Meeus. This book is recommended by the Astronomical Applications Department of the U.S. Naval Observatory and the Earth System Research Laboratory of the National Oceanic and Atmospheric Administration.
 
 ## Installation
 
@@ -30,7 +30,7 @@ Add this package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-    prayer_timetable: ^2.2.0
+    prayer_timetable: ^2.2.2
 ```
 
 Or install it from the command line:
@@ -349,7 +349,7 @@ For locations with extreme latitudes:
 
 ```yaml
 dependencies:
-    prayer_timetable: ^2.2.0
+    prayer_timetable: ^2.2.2
 ```
 
 ### From GitHub (Development Version)

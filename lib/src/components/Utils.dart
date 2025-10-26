@@ -89,7 +89,7 @@ class Utils {
   double qibla = 0;
 
   /// Calendar information
-  /// Hijri date as [year, month, day]
+  /// Hijri date as a list containing year, month, and day
   List<int> hijri = [];
 
   /// Whether the current Gregorian year is a leap year
@@ -344,7 +344,7 @@ class Utils {
 
   /// Converts a specific Hijri date to Gregorian date.
   ///
-  /// This function converts a complete Hijri date (year, month, day) to its
+  /// This function converts a complete Hijri date with year, month, and day to its
   /// corresponding Gregorian date using the Islamic calendar system.
   ///
   /// [hijriYear] - The Hijri year (e.g., 1446)

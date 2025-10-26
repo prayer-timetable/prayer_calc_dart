@@ -32,7 +32,7 @@ import 'package:prayer_timetable/src/func/tzTime.dart';
 // typedef List<T> FavoriteItems<T>(List<T> items);
 
 // enum Mode { DIALOG, MODAL_BOTTOM_SHEET, MENU, BOTTOM_SHEET }
-/// Default jamaah time offsets in [hours, minutes] for each prayer.
+/// Default jamaah time offsets in hours and minutes for each prayer.
 /// Index 0=Fajr, 1=Sunrise, 2=Dhuhr, 3=Asr, 4=Maghrib, 5=Isha
 const List<List<int>> defaultJamaahOffsets = [
   [0, 0], // Fajr: no offset
