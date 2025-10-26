@@ -31,8 +31,13 @@ TimetableCalc calc = TimetableCalc(
   fajrAngle: 14.6,
 );
 
+// Get the Gregorian dates for Hijri month 1447-05 (Jumada al-awwal 1447)
+DateTime hijriMonthStart = Utils.getHijriMonthStart(1447, 5);
+int hijriMonthLength = Utils.getHijriMonthLength(1447, 5);
+
+// Generate list for the Gregorian month that corresponds to this Hijri month
 List<List<Prayer>> list = PrayerTimetable.monthTable(
-  1446, 9,
+  hijriMonthStart.year, hijriMonthStart.month,
   // calc: calc,
   timetable: testTime.year % 4 == 0 ? dublinLeap : dublin,
   // list: base,
@@ -62,14 +67,23 @@ void main() {
   print('--------------------------------------------------------------------------------------');
 
   for (List<Prayer> item in list) {
+    // Get the Gregorian date for this prayer day
+    DateTime gregorianDate = item[0].prayerTime;
+
+    // Convert Gregorian date to Hijri for the first column
+    String hijriDateStr;
+    try {
+      var hijriDate = Utils.gregorianToHijri(gregorianDate);
+      hijriDateStr = Utils.formatHijriDate(hijriDate.hYear, hijriDate.hMonth, hijriDate.hDay);
+    } catch (e) {
+      // Fallback if date is outside valid Hijri range - use a calculated approximation
+      // Since we know this is Hijri month 5 (Jumada al-awwal) 1447, calculate the day
+      int dayOfMonth = list.indexOf(item) + 1;
+      hijriDateStr = Utils.formatHijriDate(1447, 5, dayOfMonth);
+    }
+
     print(
-        '''${testTime.day == item[0].prayerTime.day ? green : noColor}${formatDate(item[0].prayerTime, [
-          yyyy,
-          '-',
-          mm,
-          '-',
-          dd,
-          '  ',
+        '''${testTime.day == item[0].prayerTime.day ? green : noColor}$hijriDateStr  ${formatDate(item[0].prayerTime, [
           HH,
           ':',
           nn,
@@ -99,7 +113,13 @@ void main() {
           nn,
           ':',
           ss
-        ])}  ${formatDate(item[5].prayerTime, [HH, ':', nn, ':', ss])}''');
+        ])}  ${formatDate(item[5].prayerTime, [
+          HH,
+          ':',
+          nn,
+          ':',
+          ss
+        ])}  ${gregorianDate.year}-${gregorianDate.month.toString().padLeft(2, '0')}-${gregorianDate.day.toString().padLeft(2, '0')}$noColor''');
   }
   print('----------------------------------------------------------------------');
 }

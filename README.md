@@ -270,10 +270,12 @@ final timetable = PrayerTimetable.calc(
 
 ### Monthly Prayer Timetables
 
-Generate complete monthly timetables:
+Generate complete monthly timetables for both Gregorian and Hijri calendars:
+
+#### Gregorian Monthly Tables
 
 ```dart
-// Gregorian month
+// Generate prayers for March 2024 (Gregorian)
 List<List<Prayer>> monthlyPrayers = PrayerTimetable.monthTable(
   2024, 3, // March 2024
   calc: timetableCalc,
@@ -281,14 +283,57 @@ List<List<Prayer>> monthlyPrayers = PrayerTimetable.monthTable(
   jamaahOn: true,
 );
 
-// Hijri month
+// Each inner list contains 6 prayers: [Fajr, Sunrise, Dhuhr, Asr, Maghrib, Isha]
+for (List<Prayer> dayPrayers in monthlyPrayers) {
+  print('${dayPrayers[0].prayerTime.day}: Fajr ${dayPrayers[0].prayerTime}');
+}
+```
+
+#### Hijri Monthly Tables
+
+```dart
+// Generate prayers for Ramadan 1446 (Hijri month 9, year 1446)
 List<List<Prayer>> hijriMonthlyPrayers = PrayerTimetable.monthHijriTable(
-  2024, 3,
+  1446, 9, // Ramadan 1446 AH
   calc: timetableCalc,
   timezone: 'America/New_York',
   jamaahOn: true,
 );
+
+// Display with both Hijri and Gregorian dates
+for (int i = 0; i < hijriMonthlyPrayers.length; i++) {
+  List<Prayer> dayPrayers = hijriMonthlyPrayers[i];
+  DateTime gregorianDate = dayPrayers[0].prayerTime;
+  var hijriDate = Utils.gregorianToHijri(gregorianDate);
+
+  print('Hijri: ${Utils.formatHijriDate(hijriDate.hYear, hijriDate.hMonth, hijriDate.hDay)} | '
+        'Gregorian: ${gregorianDate.year}-${gregorianDate.month.toString().padLeft(2, '0')}-${gregorianDate.day.toString().padLeft(2, '0')} | '
+        'Fajr: ${dayPrayers[0].prayerTime}');
+}
 ```
+
+#### Using Pre-calculated Timetables
+
+For better performance, you can use pre-calculated timetables instead of real-time calculations:
+
+```dart
+// Using map-based timetable
+List<List<Prayer>> monthlyPrayers = PrayerTimetable.monthTable(
+  2024, 3,
+  timetable: yourTimetableMap, // Pre-calculated prayer times
+  timezone: 'America/New_York',
+);
+
+// Using list-based timetable with differences
+List<List<Prayer>> monthlyPrayers = PrayerTimetable.monthTable(
+  2024, 3,
+  list: yourTimetableList,
+  differences: yourDifferencesList,
+  timezone: 'America/New_York',
+);
+```
+
+**Note**: When working with Hijri monthly tables, you can use the Utils class Hijri conversion methods to easily convert between calendar systems and format dates appropriately. See the [Hijri Calendar Conversion Methods](#hijri-calendar-conversion-methods) section for more details.
 
 ### High Latitude Rules
 

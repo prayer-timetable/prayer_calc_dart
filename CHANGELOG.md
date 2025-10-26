@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.1] - 2025-10-26
+
+### Added
+
+-   **Comprehensive Monthly Table Documentation**: Detailed examples and usage for both Gregorian and Hijri monthly prayer table generation
+    -   Clear separation between `PrayerTimetable.monthTable()` and `PrayerTimetable.monthHijriTable()` methods
+    -   Integration examples showing how to use Utils Hijri conversion methods with monthly tables
+    -   Dual calendar display examples (showing both Hijri and Gregorian dates)
+    -   Performance optimization documentation for pre-calculated timetables
+
+### Fixed
+
+-   Minor code quality improvements in test files
+-   Removed unused variables and unnecessary string interpolation braces
+
 ## [2.2.0] - 2025-10-26
 
 ### Added
