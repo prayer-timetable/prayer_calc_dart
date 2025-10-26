@@ -30,7 +30,7 @@ Add this package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-    prayer_timetable: ^2.2.2
+    prayer_timetable: ^2.2.3
 ```
 
 Or install it from the command line:
@@ -349,7 +349,7 @@ For locations with extreme latitudes:
 
 ```yaml
 dependencies:
-    prayer_timetable: ^2.2.2
+    prayer_timetable: ^2.2.3
 ```
 
 ### From GitHub (Development Version)

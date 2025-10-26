@@ -171,12 +171,12 @@ void jamaahTest(
   }
 }
 
-void liveTest(PrayerTimetable location, {bool show = true, bool info = false}) {
+void liveTest(PrayerTimetable location,
+    {bool show = true, bool info = false, bool realtime = false}) {
   DateTime time = location.utils.time;
   PrayerTimetable loc = location;
 
-  Timer.periodic(Duration(milliseconds: 1000), (Timer t) {
-    time = time.add(Duration(seconds: 1));
+  void runable() {
     loc = PrayerTimetable.base(
       timezone: loc.timezone,
       timetableMap: loc.timetableMap,
@@ -269,7 +269,15 @@ void liveTest(PrayerTimetable location, {bool show = true, bool info = false}) {
       print('fajr next?\t${prayers[0].isNext}');
       print('isha next?\t${prayers[5].isNext}');
     }
-  });
+  }
+
+  if (realtime)
+    Timer.periodic(Duration(milliseconds: 1000), (Timer t) {
+      time = time.add(Duration(seconds: 1));
+      runable();
+    });
+  else
+    runable();
 }
 
 

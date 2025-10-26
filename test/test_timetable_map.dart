@@ -17,8 +17,8 @@ DateTime now = tz.TZDateTime.now(tz.getLocation(timezone));
 // DateTime setTime =
 //     tz.TZDateTime.from(DateTime(now.year, now.month, now.day, 22, 3, 57), tz.getLocation(timezone));
 // DateTime setTime = tz.TZDateTime.from(DateTime(2024, 4, 13, 20, 38, 55), tz.getLocation(timezone));
-DateTime setTime = tz.TZDateTime.from(DateTime(2024, 7, 30, 20, 38, 55), tz.getLocation(timezone));
-DateTime testTime = now;
+DateTime setTime = tz.TZDateTime(tz.getLocation(timezone), 2025, 10, 26, 18, 47, 55);
+DateTime testTime = setTime;
 
 PrayerTimetable map(DateTime testTime) => PrayerTimetable.map(
       timetableMap: dublin,

@@ -50,10 +50,8 @@ List<List<Prayer>> monthGen(
   int prayerLength = 10,
 }) {
   /// Date
-  DateTime date = tz.TZDateTime.from(
-      DateTime(year, month, 1)
-          .add(Duration(hours: 3)), // making sure it is after 1 am for time change
-      tz.getLocation(timezone));
+  DateTime date = tz.TZDateTime(tz.getLocation(timezone), year, month, 1, 3, 0,
+      0); // making sure it is after 1 am for time change
 
   // int daysInYear = date.year % 4 == 0 ? 366 : 365;
   int daysInMonth = DateTime(date.year, date.month + 1, 0).day;

@@ -12,15 +12,15 @@ String timezone = timezoneS;
 
 DateTime now = tz.TZDateTime.now(tz.getLocation(timezone));
 // DateTime setTime = tz.TZDateTime.from(DateTime(2024, 3, 31, 14, 32, 45), tz.getLocation(timezone));
-DateTime setTime = DateTime(2024, 3, 31, 14, 32, 45);
-DateTime testTime = now;
+DateTime setTime = tz.TZDateTime(tz.getLocation(timezone), 2025, 10, 26, 17, 59, 55);
+DateTime testTime = setTime;
 
 // print(vaktija['vaktija']['months'][0]['days'][0]['vakat']);
 // print(vaktija['differences'][77]['months'][0]['vakat'][0]); // 0
 
 // List timetableList = base;
-// int cityNo = 77; // Sarajevo
-int cityNo = 2; // Bihać
+int cityNo = 77; // Sarajevo
+// int cityNo = 2; // Bihać
 
 List timetableList = vaktija['vaktija']['months']
     .map((months) => months['days'])
@@ -65,7 +65,7 @@ PrayerTimetable location = list(testTime);
 void main() {
   tz.initializeTimeZones();
   print('\x1B[2J\x1B[0;0H'); // clear entire screen, move cursor to 0;0
-  bool live = false;
+  bool live = true;
 
   // infoTest(testTime);
   // print(timetableList.length);

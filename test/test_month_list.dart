@@ -19,8 +19,8 @@ double lng = lngS;
 
 DateTime now = tz.TZDateTime.now(tz.getLocation(timezone));
 // DateTime setTime = tz.TZDateTime.from(DateTime(2024, 3, 31, 14, 32, 45), tz.getLocation(timezone));
-DateTime setTime = DateTime(2025, 3, 1, 14, 32, 45);
-DateTime testTime = now;
+DateTime setTime = DateTime(2025, 10, 26, 17, 59, 55);
+DateTime testTime = setTime;
 
 // params.madhab = Madhab.Hanafi;
 // params.adjustments.fajr = 2;

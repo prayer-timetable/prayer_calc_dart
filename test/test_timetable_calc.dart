@@ -10,7 +10,7 @@ import 'test.dart';
 String timezone = timezoneI;
 
 DateTime now = tz.TZDateTime.now(tz.getLocation(timezone));
-DateTime setTime = tz.TZDateTime.from(DateTime(2024, 3, 31, 14, 32, 45), tz.getLocation(timezone));
+DateTime setTime = tz.TZDateTime(tz.getLocation(timezone), 2024, 3, 31, 14, 32, 45);
 DateTime testTime = now;
 
 TimetableCalc timetableCalc = TimetableCalc(

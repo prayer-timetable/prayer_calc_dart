@@ -66,7 +66,9 @@ List<Prayer> prayersGen(
   // tz.Location tzGet = useTz ? tz.getLocation(timezone) : tz.UTC;
   tz.Location tzGet = tz.getLocation(timezone);
 
-  tz.TZDateTime timestamp = tz.TZDateTime.from(date.add(Duration(days: hijriOffset)), tzGet);
+  DateTime adjustedDate = date.add(Duration(days: hijriOffset));
+  tz.TZDateTime timestamp = tz.TZDateTime(tzGet, adjustedDate.year, adjustedDate.month,
+      adjustedDate.day, adjustedDate.hour, adjustedDate.minute, adjustedDate.second);
   tz.TZDateTime timestampTZsafe = timestamp.add(Duration(hours: 3));
 
   /// For list
@@ -172,12 +174,54 @@ List<Prayer> prayersGen(
       // print(
       //     'timestamp ${timestamp} | dayEnd ${dayEnd} | adjDst ${adjDst} | isDst ${timestamp.timeZone.isDst}');
 
-      DateTime fajrTime = tz.TZDateTime.from(timetableCalc.prayerTimes.fajr, tzGet);
-      DateTime sunriseTime = tz.TZDateTime.from(timetableCalc.prayerTimes.sunrise, tzGet);
-      DateTime dhuhrTime = tz.TZDateTime.from(timetableCalc.prayerTimes.dhuhr, tzGet);
-      DateTime asrTime = tz.TZDateTime.from(timetableCalc.prayerTimes.asr, tzGet);
-      DateTime maghribTime = tz.TZDateTime.from(timetableCalc.prayerTimes.maghrib, tzGet);
-      DateTime ishaTime = tz.TZDateTime.from(timetableCalc.prayerTimes.isha, tzGet);
+      DateTime fajrTime = tz.TZDateTime(
+          tzGet,
+          timetableCalc.prayerTimes.fajr.year,
+          timetableCalc.prayerTimes.fajr.month,
+          timetableCalc.prayerTimes.fajr.day,
+          timetableCalc.prayerTimes.fajr.hour,
+          timetableCalc.prayerTimes.fajr.minute,
+          timetableCalc.prayerTimes.fajr.second);
+      DateTime sunriseTime = tz.TZDateTime(
+          tzGet,
+          timetableCalc.prayerTimes.sunrise.year,
+          timetableCalc.prayerTimes.sunrise.month,
+          timetableCalc.prayerTimes.sunrise.day,
+          timetableCalc.prayerTimes.sunrise.hour,
+          timetableCalc.prayerTimes.sunrise.minute,
+          timetableCalc.prayerTimes.sunrise.second);
+      DateTime dhuhrTime = tz.TZDateTime(
+          tzGet,
+          timetableCalc.prayerTimes.dhuhr.year,
+          timetableCalc.prayerTimes.dhuhr.month,
+          timetableCalc.prayerTimes.dhuhr.day,
+          timetableCalc.prayerTimes.dhuhr.hour,
+          timetableCalc.prayerTimes.dhuhr.minute,
+          timetableCalc.prayerTimes.dhuhr.second);
+      DateTime asrTime = tz.TZDateTime(
+          tzGet,
+          timetableCalc.prayerTimes.asr.year,
+          timetableCalc.prayerTimes.asr.month,
+          timetableCalc.prayerTimes.asr.day,
+          timetableCalc.prayerTimes.asr.hour,
+          timetableCalc.prayerTimes.asr.minute,
+          timetableCalc.prayerTimes.asr.second);
+      DateTime maghribTime = tz.TZDateTime(
+          tzGet,
+          timetableCalc.prayerTimes.maghrib.year,
+          timetableCalc.prayerTimes.maghrib.month,
+          timetableCalc.prayerTimes.maghrib.day,
+          timetableCalc.prayerTimes.maghrib.hour,
+          timetableCalc.prayerTimes.maghrib.minute,
+          timetableCalc.prayerTimes.maghrib.second);
+      DateTime ishaTime = tz.TZDateTime(
+          tzGet,
+          timetableCalc.prayerTimes.isha.year,
+          timetableCalc.prayerTimes.isha.month,
+          timetableCalc.prayerTimes.isha.day,
+          timetableCalc.prayerTimes.isha.hour,
+          timetableCalc.prayerTimes.isha.minute,
+          timetableCalc.prayerTimes.isha.second);
 
       if (prayerId == 0) {
         prayerTime = fajrTime;

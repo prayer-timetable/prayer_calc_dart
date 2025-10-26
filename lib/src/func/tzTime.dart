@@ -25,16 +25,15 @@ DateTime nowTZ(String timezone,
   tz.setLocalLocation(tz.getLocation(timezone));
   DateTime now = tz.TZDateTime.now(tz.getLocation(timezone));
 
-  DateTime newTime = tz.TZDateTime.from(
-      DateTime(
-        year ?? now.year,
-        month ?? now.month,
-        day ?? now.day,
-        hour ?? now.hour,
-        minute ?? now.minute,
-        second ?? now.second,
-      ),
-      tz.getLocation(timezone));
+  DateTime newTime = tz.TZDateTime(
+    tz.getLocation(timezone),
+    year ?? now.year,
+    month ?? now.month,
+    day ?? now.day,
+    hour ?? now.hour,
+    minute ?? now.minute,
+    second ?? now.second,
+  );
 
   return newTime;
 }
@@ -53,9 +52,7 @@ int offsetHr(
   DateTime date,
   String timezone,
 ) {
-  int offset = tz.TZDateTime.from(DateTime(date.year, 1, 1), tz.getLocation(timezone))
-      .timeZoneOffset
-      .inHours;
+  int offset = tz.TZDateTime(tz.getLocation(timezone), date.year, 1, 1).timeZoneOffset.inHours;
 
   return offset;
 }

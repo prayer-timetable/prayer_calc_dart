@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.3] - 2025-10-26
+
+### Fixed
+
+-   **Critical Timezone Issues**: Resolved fundamental timezone conversion problems affecting all European timezones
+    -   Fixed `nowTZ` function that was incorrectly treating local DateTime as UTC time
+    -   Fixed `tz.TZDateTime.from()` usage in multiple functions that caused unwanted timezone conversions
+    -   Corrected timezone handling in `prayers.dart`, `monthGen.dart`, `tzTime.dart`, and test files
+    -   Fixed prayer time calculations showing incorrect times (e.g., 18:59:55 instead of 17:59:55)
+-   **DST Transition Accuracy**: Ensured proper Daylight Saving Time transitions for all supported timezones
+    -   Dublin: IST (+1) → GMT (+0) transition working correctly
+    -   Sarajevo: CEST (+2) → CET (+1) transition working correctly
+    -   London: BST (+1) → GMT (+0) transition working correctly
+-   **Test Suite Consistency**: Updated all test files to use correct timezone-aware DateTime creation
+-   **Cross-timezone Compatibility**: Verified accurate prayer time calculations across multiple European timezones
+
+### Technical Details
+
+-   Replaced `tz.TZDateTime.from(DateTime(...), location)` with `tz.TZDateTime(location, year, month, day, hour, minute, second)`
+-   Fixed timezone conversion logic in 6 different files affecting core prayer time calculations
+-   Enhanced timezone handling for both map-based and calculation-based prayer time methods
+
 ## [2.2.2] - 2025-10-26
 
 ### Fixed

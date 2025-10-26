@@ -19,25 +19,8 @@ double lng = lngI;
 
 DateTime now = tz.TZDateTime.now(tz.getLocation(timezone));
 // DateTime setTime = tz.TZDateTime.from(DateTime(2024, 3, 31, 14, 32, 45), tz.getLocation(timezone));
-DateTime setTime = DateTime(2025, 3, 1, 14, 32, 45);
-DateTime testTime = now;
-
-// params.madhab = Madhab.Hanafi;
-// params.adjustments.fajr = 2;
-// int cityNo = 77; // Sarajevo
-int cityNo = 2; // Bihać
-
-List timetableList = vaktija['vaktija']['months']
-    .map((months) => months['days'])
-    .toList()
-    .map((days) => days.map((vakat) => vakat['vakat']).toList())
-    .toList();
-
-List differences = vaktija['differences']
-    .map((months) => months['months'])
-    .toList()[cityNo]
-    .map((vakat) => vakat['vakat'])
-    .toList();
+DateTime setTime = DateTime(2025, 10, 26, 18, 41, 55);
+DateTime testTime = setTime;
 
 // TimetableCalc calc = TimetableCalc(
 //   date: testTime,
@@ -53,7 +36,6 @@ List<List<Prayer>> list = PrayerTimetable.monthTable(
   // calc: calc,
   // list: timetableList,
   timetable: dublin,
-  differences: differences,
   // timetable: testTime.year % 4 == 0 ? dublinLeap : dublin,
   // list: base,
   hijriOffset: 0,
