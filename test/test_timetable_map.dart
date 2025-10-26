@@ -2,11 +2,12 @@ import 'package:prayer_timetable/src/PrayerTimetable.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
+import 'src/timetable_map_dublin.dart';
 import 'src/timetable_map_dublin_leap.dart';
 // ignore: unused_import
 import 'test.dart';
 
-String timezone = 'Europe/Sarajevo';
+String timezone = 'Europe/Dublin';
 // String timezone = 'Europe/Amsterdam';
 // String timezone = 'Europe/Dublin'; // glitch for dst detection
 // String timezone = 'Europe/London';
@@ -18,10 +19,10 @@ DateTime now = tz.TZDateTime.now(tz.getLocation(timezone));
 //     tz.TZDateTime.from(DateTime(now.year, now.month, now.day, 22, 3, 57), tz.getLocation(timezone));
 // DateTime setTime = tz.TZDateTime.from(DateTime(2024, 4, 13, 20, 38, 55), tz.getLocation(timezone));
 DateTime setTime = tz.TZDateTime.from(DateTime(2024, 7, 30, 20, 38, 55), tz.getLocation(timezone));
-DateTime testTime = setTime;
+DateTime testTime = now;
 
 PrayerTimetable map(DateTime testTime) => PrayerTimetable.map(
-      timetableMap: dublinLeap,
+      timetableMap: dublin,
       // optional parameters:
       year: testTime.year,
       month: testTime.month,

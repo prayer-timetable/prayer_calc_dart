@@ -83,7 +83,7 @@ List<Prayer> prayersGen(
 
   // TODO: glitch in tz package
   // if (timezone == 'Europe/Dublin') adjDst = isDSTCalc(timestamp) ? 1 : 0;
-  if (timezone == 'Europe/Dublin') adjDst = timestampTZsafe.timeZone.isDst ? 0 : 1; // reverse
+  if (timezone == 'Europe/Dublin') adjDst = timestampTZsafe.timeZone.isDst ? 1 : 0; // fixed
 
   // print('kk ${timetableCalc!.timezone}');
 
