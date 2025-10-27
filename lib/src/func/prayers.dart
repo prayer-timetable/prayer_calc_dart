@@ -43,86 +43,43 @@ List<Prayer> prayersGen(
   TimetableCalc? timetableCalc,
   required int hijriOffset,
   required String timezone,
-  required bool jamaahOn, // = false,
-  required List<String> jamaahMethods, // = 'afterthis',
-  required List<List<int>> jamaahOffsets, // = const [0, 0],
-  required bool joinDhuhr, // = false,
-  required bool joinMaghrib, // = false,
-  required List<bool> jamaahPerPrayer, // = defaultJamaahPerPrayerOff,
-  // bool isAfterIsha = false,
-  // DateTime? ishaTime,
-  // useTz = true,
-
-  /// for adding time when prayers are joined
+  required bool jamaahOn,
+  required List<String> jamaahMethods,
+  required List<List<int>> jamaahOffsets,
+  required bool joinDhuhr,
+  required bool joinMaghrib,
+  required List<bool> jamaahPerPrayer,
   int? prayerLength = 10,
 }) {
-  /* *********************** */
-  /* TIMES                   */
-  /* *********************** */
-  // print(timetableMap);
-  // print('###');
-  // print(date);
-
-  // tz.Location tzGet = useTz ? tz.getLocation(timezone) : tz.UTC;
+  // Get timezone location for accurate time calculations
   tz.Location tzGet = tz.getLocation(timezone);
 
+  // Adjust date by Hijri offset for calendar alignment
   DateTime adjustedDate = date.add(Duration(days: hijriOffset));
   tz.TZDateTime timestamp = tz.TZDateTime(tzGet, adjustedDate.year, adjustedDate.month,
       adjustedDate.day, adjustedDate.hour, adjustedDate.minute, adjustedDate.second);
-  tz.TZDateTime timestampTZsafe = timestamp.add(Duration(hours: 3));
 
-  /// For list
+  // Calculate day boundaries for prayer time calculations
   DateTime dayBegin = tz.TZDateTime(tzGet, timestamp.year, timestamp.month, timestamp.day)
       .add(Duration(days: hijriOffset));
   DateTime dayEnd = tz.TZDateTime(tzGet, timestamp.year, timestamp.month, timestamp.day + 1)
       .add(Duration(days: hijriOffset));
 
-  // DateTime timestamp = date ?? DateTime.now();
-  // TODO:
-  // int adjDst = isDSTCalc(timestamp) && useTz ? 1 : 0;
-  // int adjDst = isDSTCalc(timestamp) ? 1 : 0;
-  int adjDst = timestampTZsafe.timeZone.isDst ? 1 : 0;
-
-  // TODO: glitch in tz package
-  // if (timezone == 'Europe/Dublin') adjDst = isDSTCalc(timestamp) ? 1 : 0;
-  if (timezone == 'Europe/Dublin') adjDst = timestampTZsafe.timeZone.isDst ? 1 : 0; // fixed
-
-  // print('kk ${timetableCalc!.timezone}');
-
-  /// timestamp.timeZone.offset : int, miliseconds
-  /// timestamp.timeZoneOffset: Duration
-
-  // if (!useTz) {
-  //   // tz.TZDateTime newTime =
-  //   //     tz.TZDateTime.from(date.add(Duration(days: hijriOffset)), tz.getLocation(timezone));
-  //   // print('${newTime.timeZoneOffset.inHours} ${newTime.toLocal()} ');
-
-  //   adjDst = -utcOffsetHours;
-  // }
-
-  // int adjDst = tzGet.currentTimeZone.isDst ? 1 : 0;
-  // print(tzGet.currentTimeZone.isDst);
-
-  // print('adjDst: $adjDst');
-
-  /* *********************** */
-  /* PRAYER LISTS            */
-  /* *********************** */
+  // DST adjustment: add 1 hour if daylight saving time is active
+  int adjDst = timestamp.timeZone.isDst ? 1 : 0;
 
   List<Prayer> prayers = [];
-
   List prayerCount = Iterable<int>.generate(6).toList();
 
+  // Generate prayer times for each of the 6 prayers/periods
   for (var prayerId in prayerCount) {
     Prayer prayer = Prayer();
     DateTime prayerTime = DateTime.now();
     DateTime prayerEndTime = DateTime.now();
 
-    ///map
+    // Calculate prayer times based on data source: map, list, or calculation
     if (timetableMap != null) {
-      // print(
-      //     'timestamp ${timestamp} | dayEnd ${dayEnd} | adjDst ${adjDst} | isDst ${timestamp.timeZone.isDst}');
-
+      // Use pre-calculated map data with DST adjustment
       prayerTime = tz.TZDateTime(
         tzGet,
         timestamp.year,
@@ -142,15 +99,8 @@ List<Prayer> prayersGen(
               timetableMap[timestamp.month.toString()][timestamp.day.toString()][prayerId + 1][0],
               timetableMap[timestamp.month.toString()][timestamp.day.toString()][prayerId + 1][1],
             ).add(Duration(hours: adjDst));
-    }
-
-    ///list
-    else if (timetableList != null) {
-      // print(
-      // 'dayBegin ${dayBegin} | dayEnd ${dayEnd} | utcOffsetHours ${utcOffsetHours} | adjDst ${adjDst}');
-      // print(
-      //     'dayBegin ${dayBegin} | sec ${timetableList[timestamp.month - 1][timestamp.day - 1][0]} | dur ${Duration(seconds: timetableList[timestamp.month - 1][timestamp.day - 1][0])} | time ${dayEnd.add(Duration(hours: -24 + adjDst, seconds: timetableList[timestamp.month - 1][timestamp.day - 1][0]))}');
-
+    } else if (timetableList != null) {
+      // Use list-based data with seconds from midnight
       prayerTime = dayEnd
           .add(Duration(
               hours: -24 + adjDst,
@@ -167,13 +117,8 @@ List<Prayer> prayersGen(
               .add(Duration(
                   seconds:
                       differences != null ? differences[timestamp.month - 1][prayerId + 1] : 0));
-    }
-
-    ///calc
-    else if (timetableCalc != null) {
-      // print(
-      //     'timestamp ${timestamp} | dayEnd ${dayEnd} | adjDst ${adjDst} | isDst ${timestamp.timeZone.isDst}');
-
+    } else if (timetableCalc != null) {
+      // Use astronomical calculations for prayer times
       DateTime fajrTime = tz.TZDateTime(
           tzGet,
           timetableCalc.prayerTimes.fajr.year,
@@ -244,86 +189,56 @@ List<Prayer> prayersGen(
       }
     }
 
-    /// define
+    // Set basic prayer properties
     prayer.id = prayerId;
     prayer.name = prayerNames[prayerId];
     prayer.prayerTime = prayerTime;
     prayer.endTime = prayerEndTime;
 
-    ///jamaah
-    int jamaahOffsetMin = 0;
-    prayer.jamaahTime = prayerTime;
-    jamaahOffsetMin = jamaahOffsets[prayerId][0] * 60 + jamaahOffsets[prayerId][1];
-    //if jamaah not enabled for the prayer
+    // Calculate jamaah (congregation) times based on method and offsets
+    int jamaahOffsetMin = jamaahOffsets[prayerId][0] * 60 + jamaahOffsets[prayerId][1];
+
     if (!jamaahPerPrayer[prayerId]) {
+      // No jamaah for this prayer
       prayer.jamaahTime = prayerTime;
-    }
-    //if afterthis
-    else if (jamaahMethods[prayerId] == 'afterthis') {
+    } else if (jamaahMethods[prayerId] == 'afterthis') {
+      // Jamaah time is offset from prayer time
       prayer.jamaahTime = prayerTime.add(Duration(minutes: jamaahOffsetMin));
-    }
-    //if fixed
-    else if (jamaahMethods[prayerId] == 'fixed') {
+    } else if (jamaahMethods[prayerId] == 'fixed') {
+      // Fixed jamaah time regardless of prayer time
       prayer.jamaahTime = tz.TZDateTime(tzGet, prayerTime.year, prayerTime.month, prayerTime.day,
           jamaahOffsets[prayerId][0], jamaahOffsets[prayerId][1]);
-    }
-    //all else
-    else {
+    } else {
       prayer.jamaahTime = prayerTime;
     }
 
-    ///validate if jammah time is before prayer time
+    // Ensure jamaah time is not before prayer time
     if (prayer.jamaahTime.isBefore(prayer.prayerTime)) prayer.prayerTime = prayer.jamaahTime;
-
-    ///prayer joining
-    if (joinMaghrib) {
-      if (prayerId == 5) {
-        prayer.prayerTime = prayers[4].jamaahTime.add(Duration(minutes: prayerLength ?? 10));
-        prayer.jamaahTime = prayers[4].jamaahTime.add(Duration(minutes: prayerLength ?? 10));
-      }
+    // Handle prayer joining (combining prayers)
+    if (joinMaghrib && prayerId == 5) {
+      // Join Isha with Maghrib
+      prayer.prayerTime = prayers[4].jamaahTime.add(Duration(minutes: prayerLength ?? 10));
+      prayer.jamaahTime = prayers[4].jamaahTime.add(Duration(minutes: prayerLength ?? 10));
     }
-    if (joinDhuhr) {
-      if (prayerId == 3) {
-        prayer.prayerTime = prayers[2].jamaahTime.add(Duration(minutes: prayerLength ?? 10));
-        prayer.jamaahTime = prayers[2].jamaahTime.add(Duration(minutes: prayerLength ?? 10));
-      }
+    if (joinDhuhr && prayerId == 3) {
+      // Join Asr with Dhuhr
+      prayer.prayerTime = prayers[2].jamaahTime.add(Duration(minutes: prayerLength ?? 10));
+      prayer.jamaahTime = prayers[2].jamaahTime.add(Duration(minutes: prayerLength ?? 10));
     }
 
-    /// define
-    if (jamaahOn)
+    // Set jamaah pending status
+    if (jamaahOn) {
       prayer.isJamaahPending =
           timestamp.isAfter(prayer.prayerTime) && timestamp.isBefore(prayer.jamaahTime);
+    }
 
-    /// is next
     prayer.isNext = false;
-    // int previousId = prayerId - 1;
-    // if (previousId < 0) previousId = 5;
-    // if (prayerId == 5) {
-    //   prayer.isNext = prayer.isJamaahPending;
-    // } else if (prayerId == 0) {
-    //   // prayer.isNext = prayer.isJamaahPending || prayer.prayerTime.isAfter(timestamp);
-    //   prayer.isNext = timestamp.isAfter(ishaJamaahTime) ||
-    //       timestamp.isAfter(dayBegin) ||
-    //       prayer.isJamaahPending;
-
-    //   // print('${clear}$mode');
-    //   // print('${yellow}ishaPrayerTime\t${noColor}$ishaPrayerTime');
-    //   // print('${yellow}ishaJamaahTime\t${noColor}$ishaJamaahTime');
-    //   // print('${yellow}timestamp\t${noColor}$timestamp');
-    //   // print(
-    //   //     '${yellow}id${noColor} ${prayerId} ${yellow}isNext${noColor} ${prayer.isNext} ${yellow}jamaah${noColor} ${prayer.jamaahTime} ${yellow}isha jamaah${noColor} ${ishaJamaahTime} ${yellow}time${noColor} ${timestamp}');
-    // } else {
-    //   prayer.isNext = prayer.isJamaahPending ||
-    //       (prayer.jamaahTime.isAfter(timestamp) &&
-    //           prayers[previousId].jamaahTime.isBefore(timestamp));
-    // }
-
-    /// isCurrent
+    // Determine if this prayer is currently active
     if (prayerId == 5 &&
         timestamp.isAfter(dayBegin) &&
         (timestamp.isBefore(prayers[0].prayerTime) ||
             timestamp.isAtSameMomentAs(prayers[0].prayerTime))) {
-      prayer.isCurrent = true;
+      prayer.isCurrent = true; // Isha is current if before Fajr
     }
     if ((timestamp.isAfter(prayerTime) && timestamp.isBefore(prayerEndTime)) ||
         prayer.isJamaahPending ||
@@ -331,47 +246,16 @@ List<Prayer> prayersGen(
       prayer.isCurrent = true;
     }
 
-    /// isNext
-    // if (prayerId == 0 && timestamp.isAfter(dayBegin) && timestamp.isBefore(prayer.prayerTime)) {
-    //   prayer.isNext = true;
-    // }
-    // if (prayerId == 5) prayers[0].isNext = timestamp.isAfter(prayerTime) && !prayer.isJamaahPending;
-    // if (prayerId != 0)
-    //   prayer.isNext =
-    //       timestamp.isBefore(prayerTime) && timestamp.isAfter(prayers[prayerId - 1].jamaahTime);
-
-    //  else if (prayerId == 5) prayers[5].isCurrent = true;
-
-    // prayer.isNext = timestamp.isAfter(prayerTime) && timestamp.isBefore(prayerEndTime);
-
-    // prayerTimes = [...prayerTimes, prayerTime];
-    prayers.insert(
-      prayerId,
-      prayer,
-    );
+    prayers.insert(prayerId, prayer);
   }
 
-  /// isNext
+  // Determine which prayer is next based on current prayer status
   for (Prayer prayer in prayers) {
     int nextId = prayer.id != 5 ? prayer.id + 1 : 0;
-
-    if ((prayer.isCurrent && !prayer.isJamaahPending) || prayers[nextId].isJamaahPending)
+    if ((prayer.isCurrent && !prayer.isJamaahPending) || prayers[nextId].isJamaahPending) {
       prayers[nextId].isNext = true;
+    }
   }
-
-  /// Determine current, next, previous
-  // for (final (int index, Prayer prayer) in prayers.indexed) {
-  //   if (prayer.prayerTime.isBefore(timestamp))
-
-  // }
-
-  // PrayerTimes prayers = new PrayerTimes();
-  // prayers.dawn = prayerTimes[0];
-  // prayers.sunrise = prayerTimes[1];
-  // prayers.midday = prayerTimes[2];
-  // prayers.afternoon = prayerTimes[3];
-  // prayers.sunset = prayerTimes[4];
-  // prayers.dusk = prayerTimes[5];
 
   return prayers;
 }

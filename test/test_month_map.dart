@@ -10,7 +10,6 @@ import 'src/timetable_list_sarajevo.dart';
 import 'src/timetable_map_dublin.dart';
 // ignore: unused_import
 import 'src/timetable_map_dublin_leap.dart';
-import 'src/timetable_vaktija_bh.dart';
 import 'test.dart';
 
 String timezone = timezoneI;
@@ -19,7 +18,9 @@ double lng = lngI;
 
 DateTime now = tz.TZDateTime.now(tz.getLocation(timezone));
 // DateTime setTime = tz.TZDateTime.from(DateTime(2024, 3, 31, 14, 32, 45), tz.getLocation(timezone));
-DateTime setTime = DateTime(2025, 10, 26, 18, 41, 55);
+// day before saturday of october dst change
+DateTime setTime = DateTime(2025, 10, 24, 23, 41, 55);
+// DateTime setTime = DateTime(2025, 10, 26, 18, 41, 55);
 DateTime testTime = setTime;
 
 // TimetableCalc calc = TimetableCalc(

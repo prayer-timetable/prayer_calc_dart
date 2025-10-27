@@ -1,3 +1,5 @@
+// ignore_for_file: dead_code
+
 import 'package:prayer_timetable/src/PrayerTimetable.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -77,8 +79,6 @@ void main() {
   if (!live) {
     jamaahTest(location,
         utils: false, jamaah: false, prayer: true, tomorrow: true, yesterday: true);
-
-    // ignore: dead_code
   } else {
     liveTest(location);
   }

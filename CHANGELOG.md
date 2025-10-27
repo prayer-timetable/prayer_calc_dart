@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.4] - 2025-10-27
+
+### Fixed
+
+-   **DST Prayer Time Adjustment**: Fixed `adjDst` calculation in prayers.dart to properly add one hour to all prayer times during daylight saving time periods
+    -   Replaced hardcoded `adjDst = 0` with dynamic DST detection using `timestamp.timeZone.isDst`
+    -   Prayer times from timetable maps now correctly adjust for DST transitions
+    -   Ensures accurate prayer time display during DST periods across all supported timezones
+
+### Improved
+
+-   **Code Quality**: Cleaned up prayers.dart file by removing unnecessary comments, debug prints, and commented-out test code
+-   **Documentation**: Enhanced inline documentation throughout prayers.dart with detailed explanations of:
+    -   DST adjustment logic and timezone handling
+    -   Prayer time calculation methods (map, list, astronomical)
+    -   Jamaah time calculation with different methods ('afterthis', 'fixed')
+    -   Prayer joining functionality for combined prayers
+    -   Current/next prayer determination algorithms
+
+### Technical Details
+
+-   Removed unused `timestampTZsafe` variable and associated commented code
+-   Added comprehensive inline comments explaining complex prayer time logic
+-   Improved code readability while maintaining all existing functionality
+-   All prayer time calculations now properly respect DST status of target date
+
 ## [2.2.3] - 2025-10-26
 
 ### Fixed
@@ -18,6 +44,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     -   Dublin: IST (+1) → GMT (+0) transition working correctly
     -   Sarajevo: CEST (+2) → CET (+1) transition working correctly
     -   London: BST (+1) → GMT (+0) transition working correctly
+-   **DST Prayer Time Calculation**: Fixed critical issue where prayer times were calculated one hour early during DST periods
+    -   Fixed DST adjustment logic to use target date's DST status instead of current timestamp
+    -   Resolved issue where Friday evening prayers for Saturday were showing incorrect times (e.g., 05:24 instead of 06:24)
+    -   Ensured prayer times are correctly adjusted for DST throughout transition periods
 -   **Test Suite Consistency**: Updated all test files to use correct timezone-aware DateTime creation
 -   **Cross-timezone Compatibility**: Verified accurate prayer time calculations across multiple European timezones
 

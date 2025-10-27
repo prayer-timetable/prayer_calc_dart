@@ -17,7 +17,9 @@ DateTime now = tz.TZDateTime.now(tz.getLocation(timezone));
 // DateTime setTime =
 //     tz.TZDateTime.from(DateTime(now.year, now.month, now.day, 22, 3, 57), tz.getLocation(timezone));
 // DateTime setTime = tz.TZDateTime.from(DateTime(2024, 4, 13, 20, 38, 55), tz.getLocation(timezone));
-DateTime setTime = tz.TZDateTime(tz.getLocation(timezone), 2025, 10, 26, 18, 47, 55);
+// Friday night before DST ends on Sunday - should still be in DST (IST +1)
+DateTime setTime = tz.TZDateTime(tz.getLocation(timezone), 2025, 10, 25, 23, 41, 55);
+// DateTime setTime = tz.TZDateTime(tz.getLocation(timezone), 2025, 10, 26, 18, 47, 55);
 DateTime testTime = setTime;
 
 PrayerTimetable map(DateTime testTime) => PrayerTimetable.map(
